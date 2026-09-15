@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_tree_payment_date" model="ir.ui.view">
+        <field name="name">sale.order.list.payment.date</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+            <!-- Most recently paid orders first; never-paid ones fall to the bottom. -->
+            <list position="attributes">
+                <attribute name="default_order">order_payment_date desc nulls last, id desc</attribute>
+            </list>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="order_payment_date" string="Order Payment" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_form_payment_date" model="ir.ui.view">
+        <field name="name">sale.order.form.payment.date</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="order_payment_date" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
