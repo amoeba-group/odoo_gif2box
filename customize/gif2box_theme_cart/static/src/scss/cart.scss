@@ -1,0 +1,377 @@
+///
+/// Shopping cart restyle for gif2box.
+///
+/// Everything is scoped under `.o_website_sale_checkout` so the rest of the
+/// shop is untouched. Neutral tones follow the active theme Bootstrap
+/// variables; the accent is taken from the logo, whose palette the site
+/// `o-color-1` (a plain grey) does not carry.
+///
+
+// Sampled from the site logo: the coral of "gif2" and the blue of "box".
+$gif2box-coral: #FD7352;
+$gif2box-blue: #0B88FD;
+
+$gif2box-cart-radius: .75rem;
+$gif2box-cart-gutter: 1rem;
+$gif2box-thumb: 88px;
+$gif2box-thumb-sm: 68px;
+$gif2box-combo-thumb: 36px;
+
+.o_website_sale_checkout {
+
+    h3 {
+        font-weight: 700;
+        letter-spacing: -.01em;
+    }
+
+    // ------------------------------------------------------------------
+    // Cart lines
+    //
+    // The stock markup is a three-column flex row (thumb | name | qty+price).
+    // A grid is laid over it so the qty and price column drops underneath the
+    // product name instead of being pinned to the far right, without having to
+    // move any node in the template.
+    // ------------------------------------------------------------------
+    #cart_products {
+
+        .o_cart_product {
+            position: relative;
+            display: grid !important;
+            grid-template-columns: $gif2box-thumb minmax(0, 1fr);
+            grid-template-areas:
+                "thumb info"
+                "thumb meta";
+            align-items: start;
+            column-gap: $gif2box-cart-gutter;
+            row-gap: .5rem;
+            padding: $gif2box-cart-gutter;
+            padding-right: 3rem; // keeps text clear of the remove button
+            margin-bottom: .75rem;
+            background-color: $white;
+            border: 1px solid $border-color;
+            border-radius: $gif2box-cart-radius;
+            transition: border-color .18s ease, box-shadow .18s ease;
+
+            // Neutralise the stock divider utilities.
+            &.border-bottom {
+                border-bottom: 1px solid $border-color !important;
+            }
+
+            &.pt-4,
+            &.pb-4 {
+                padding-top: $gif2box-cart-gutter !important;
+                padding-bottom: $gif2box-cart-gutter !important;
+            }
+
+            &:hover {
+                border-color: rgba($gif2box-coral, .45);
+                box-shadow: 0 .25rem .85rem rgba($black, .07);
+            }
+
+            &.optional_product {
+                margin-left: 1.5rem;
+                background-color: $gray-100;
+            }
+
+            // --- Thumbnail --------------------------------------------------
+            // Scoped to the first column on purpose: a combo line also renders
+            // an `.o_image_64_max` per combo item further down, and those must
+            // stay small.
+            > div:nth-child(1) {
+                grid-area: thumb;
+                width: $gif2box-thumb !important;
+
+                img,
+                .o_image_64_max {
+                    width: $gif2box-thumb !important;
+                    max-width: $gif2box-thumb !important;
+                    height: $gif2box-thumb;
+                    object-fit: cover;
+                    background-color: $gray-100;
+                    border-radius: .5rem;
+                }
+            }
+
+            > div:nth-child(2) {
+                grid-area: info;
+
+                // Each combo item sits in its own wrapper div, which carries a
+                // `pb-2` on every item but the last. That padding would break
+                // the continuity of the items' left rule, so it is dropped and
+                // the spacing is handled on the item itself.
+                > div[class*="pb-2"] {
+                    padding-bottom: 0 !important;
+                }
+
+                // No divider under the last item: it would float against the
+                // bottom of the card.
+                > div:last-child .o_gif2box_combo_item {
+                    border-bottom: 0;
+                }
+            }
+
+            // qty + price: side by side on one line under the name. The price
+            // is `nowrap`, so on very narrow screens the row is allowed to wrap
+            // rather than push the card past the viewport.
+            > div:nth-child(3) {
+                grid-area: meta;
+                flex-flow: row wrap !important;
+                align-items: center !important;
+                justify-content: space-between;
+                width: 100%;
+                row-gap: .4rem;
+                column-gap: .5rem;
+            }
+
+            // --- Name ------------------------------------------------------
+            h6 {
+                margin-bottom: 0;
+                font-size: 1rem;
+                line-height: 1.35;
+            }
+
+            // --- Combo items -----------------------------------------------
+            // Rendered as a compact sub-list hanging off the parent product,
+            // so a combo of five items no longer reads like five cart lines.
+            .o_gif2box_combo_item {
+                gap: .5rem;
+                // Left rule ties the items to the product above; the bottom one
+                // separates them from each other.
+                padding: .45rem 0 .45rem .65rem;
+                border-bottom: 1px solid $gray-200;
+                border-left: 2px solid $gray-200;
+
+                img,
+                .o_image_64_max {
+                    width: $gif2box-combo-thumb !important;
+                    max-width: $gif2box-combo-thumb !important;
+                    height: $gif2box-combo-thumb;
+                    object-fit: cover;
+                    background-color: $gray-100;
+                    border-radius: .35rem;
+                }
+
+                // The template hardcodes `ms-3`, too wide at this scale.
+                .ms-3 {
+                    margin-left: 0 !important;
+                }
+
+                h6 {
+                    font-size: .85rem;
+                    font-weight: 500 !important;
+                    color: $gray-700;
+                }
+
+                a {
+                    text-decoration: none;
+                }
+            }
+
+            // --- Remove button, pinned top-right ---------------------------
+            [name="o_wsale_cart_line_button_container"] {
+                position: absolute;
+                top: .6rem;
+                right: .6rem;
+                z-index: 2;
+                display: flex;
+                gap: .25rem;
+                margin-top: 0;
+            }
+
+            .o_gif2box_remove {
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                padding: 0;
+                color: $gif2box-coral;
+                background-color: rgba($gif2box-coral, .1);
+                border: 0;
+                border-radius: 50%;
+                transition: background-color .15s ease, color .15s ease;
+
+                &:hover,
+                &:focus {
+                    color: $white;
+                    background-color: $gif2box-coral;
+                    box-shadow: none;
+                }
+
+                .fa {
+                    font-size: .9rem;
+                    line-height: 1;
+                }
+            }
+
+            // The mobile wishlist heart sits next to it, same shape, muted.
+            .o_add_wishlist {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                padding: 0;
+                color: $gray-600;
+                background-color: $gray-100;
+                border: 0;
+                border-radius: 50%;
+
+                &:hover {
+                    color: $gif2box-blue;
+                }
+            }
+
+            // --- Quantity stepper ------------------------------------------
+            // Two round buttons with the count between them. The previous
+            // single-pill version inherited Bootstrap's `.input-group` sizing
+            // and read as a wide, washed-out search field rather than a
+            // stepper, so the group wrapper is flattened entirely here.
+            .css_quantity {
+                display: inline-flex !important;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: .3rem;
+                width: auto;
+                margin-bottom: 0 !important;
+                background: none;
+                border: 0;
+
+                .btn {
+                    display: inline-flex;
+                    flex: 0 0 auto;
+                    align-items: center;
+                    justify-content: center;
+                    width: 1.9rem;
+                    height: 1.9rem;
+                    padding: 0;
+                    color: $gray-700;
+                    background-color: $white;
+                    // `!important` because the markup carries `border-start-0`
+                    // / `border-end-0` utilities, which are themselves
+                    // `!important` and would knock out two sides of the circle.
+                    border: 1px solid $border-color !important;
+                    border-radius: 50% !important;
+                    box-shadow: none;
+                    transition: color .15s ease, background-color .15s ease,
+                                border-color .15s ease;
+
+                    .fa {
+                        font-size: .7rem;
+                        line-height: 1;
+                    }
+
+                    &:hover,
+                    &:focus {
+                        color: $white;
+                        background-color: $gif2box-coral;
+                        border-color: $gif2box-coral !important;
+                    }
+                }
+
+                .js_quantity {
+                    flex: 0 0 auto;
+                    width: 2.1rem;
+                    height: auto;
+                    padding: 0;
+                    font-size: .95rem;
+                    font-weight: 700;
+                    line-height: 1.9rem;
+                    color: $body-color;
+                    text-align: center;
+                    background-color: transparent;
+                    border: 0 !important;
+                    border-radius: 0;
+                    box-shadow: none !important;
+
+                    &:focus {
+                        background-color: $gray-100;
+                        border-radius: .35rem;
+                    }
+                }
+            }
+
+            // --- Price -----------------------------------------------------
+            [name="website_sale_cart_line_price"] {
+                margin-bottom: 0 !important;
+                font-size: 1.05rem;
+                color: $gif2box-coral;
+                white-space: nowrap;
+
+                del {
+                    font-size: .9rem;
+                    color: $gray-500 !important;
+                }
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Order summary
+    // ------------------------------------------------------------------
+    #o_cart_summary {
+
+        .o_total_card {
+            border: 1px solid $border-color;
+            border-radius: $gif2box-cart-radius;
+            box-shadow: 0 .25rem 1.1rem rgba($black, .06);
+        }
+
+        .btn-primary {
+            padding-block: .7rem;
+            font-weight: 600;
+            color: $white;
+            background-color: $gif2box-coral;
+            border-color: $gif2box-coral;
+            border-radius: 2rem;
+
+            &:hover,
+            &:focus {
+                background-color: darken($gif2box-coral, 8%);
+                border-color: darken($gif2box-coral, 8%);
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Empty cart
+    // ------------------------------------------------------------------
+    .js_cart_lines.alert-info {
+        padding: 2.5rem 1rem;
+        text-align: center;
+        background-color: $gray-100;
+        border: 1px dashed $border-color;
+        border-radius: $gif2box-cart-radius;
+    }
+
+    // ------------------------------------------------------------------
+    // Small screens
+    // ------------------------------------------------------------------
+    @include media-breakpoint-down(md) {
+        #cart_products .o_cart_product {
+            grid-template-columns: $gif2box-thumb-sm minmax(0, 1fr);
+            column-gap: .75rem;
+            padding: .85rem;
+            padding-right: 2.75rem;
+
+            > div:nth-child(1) {
+                width: $gif2box-thumb-sm !important;
+
+                img,
+                .o_image_64_max {
+                    width: $gif2box-thumb-sm !important;
+                    max-width: $gif2box-thumb-sm !important;
+                    height: $gif2box-thumb-sm;
+                }
+            }
+
+            > div:nth-child(2) > h6,
+            > div:nth-child(2) > a > h6 {
+                font-size: .95rem;
+            }
+
+            [name="website_sale_cart_line_price"] {
+                font-size: 1rem;
+            }
+        }
+    }
+}

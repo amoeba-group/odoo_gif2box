@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Hide the product description on the cart lines: description_sale is often
+        several lines long and makes every row tall enough to push the checkout
+        button below the fold.
+
+        The node is kept rather than removed because `website_event_sale` xpaths
+        into it, and its `t-if` is narrowed instead of set to False so that event
+        lines keep their description, which is where the event name is rendered.
+    -->
+    <template id="cart_lines_hide_description" inherit_id="website_sale.cart_lines">
+        <xpath expr="//t[@t-call='website_sale.cart_line_description_following_lines']"
+               position="attributes">
+            <attribute name="t-if">line.event_id</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Same for the items inside a combo. They don't go through
+        `cart_line_description_following_lines`: this template builds its own
+        `description_lines` inline, so the list is emptied instead. The markup is
+        left in place, it simply renders nothing.
+
+        A class is also added to the row so the combo items can be styled as a
+        compact sub-list rather than inheriting the main product line sizing.
+    -->
+    <template id="cart_combo_item_line_compact" inherit_id="website_sale.cart_combo_item_line">
+        <xpath expr="//t[@t-set='description_lines']" position="attributes">
+            <attribute name="t-value">[]</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('d-flex')][hasclass('align-items-center')]"
+               position="attributes">
+            <attribute name="class" add="o_gif2box_combo_item" separator=" "/>
+        </xpath>
+    </template>
+
+    <!--
+        Swap the textual "Remove" link for the icon button, which then shows at
+        every breakpoint instead of only on mobile.
+
+        Both the remove controls and the wishlist ones carry `js_delete_product`
+        and sit as direct children of the same container. They are told apart by
+        `data-action`, which only the wishlist ones have: @title would read
+        better but Odoo rejects translatable attributes as inheritance selectors.
+    -->
+    <template id="cart_lines_remove_icon" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@name='o_wsale_cart_line_button_container']/a[not(@data-action)]"
+               position="attributes">
+            <attribute name="class">js_delete_product d-none</attribute>
+        </xpath>
+        <xpath expr="//div[@name='o_wsale_cart_line_button_container']/button[not(@data-action)]"
+               position="attributes">
+            <attribute name="class">js_delete_product o_gif2box_remove btn d-inline-flex</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Drop the "Save for Later" wishlist link. Inheriting the wishlist view
+        itself (rather than website_sale.cart_lines) means this is skipped
+        automatically when the wishlist view is turned off in the website editor,
+        instead of raising on a missing xpath target.
+
+        Only the desktop text link goes; the mobile heart button is left alone.
+    -->
+    <template id="cart_lines_hide_save_for_later"
+              inherit_id="website_sale_wishlist.product_cart_lines">
+        <xpath expr="//a[@data-action='o_wishlist']/parent::span" position="replace"/>
+    </template>
+
+</odoo>
