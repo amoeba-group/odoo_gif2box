@@ -92,6 +92,20 @@ footer#bottom.o_footer {
         }
     }
 
+    // The editor wrapped the pasted labels in `<font class="text-black">`.
+    // That utility forces #000 with `!important`, which made the policy
+    // column darker than the rest of the footer and swallowed the link hover
+    // colour. Handing the colour back to the parent fixes both at once.
+    font {
+        color: inherit !important;
+    }
+
+    // Some of those tags also carry `bg-black` around a zero-width space,
+    // left behind by an edit. It paints a black sliver mid-sentence.
+    font.bg-black {
+        background-color: transparent !important;
+    }
+
     // --- Link lists -----------------------------------------------------
     // Bullets read as a document, not navigation. Replaced with a chevron
     // that slides in on hover.
