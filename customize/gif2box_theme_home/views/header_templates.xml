@@ -26,6 +26,16 @@
     </template>
 
     <!--
+        The footer rendered the languages as a flat inline list of links, which
+        looked broken once each one carried a flag. Deactivating this view makes
+        `portal.footer_language_selector` fall back to its default: the same
+        dropdown the header uses, opening upwards.
+    -->
+    <record id="website.footer_language_selector_inline" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!--
         Show a flag next to each language, both on the toggle button and in the
         dropdown. `res.lang.flag_image_url` falls back to the country flag
         shipped in `base` (vn.png / us.png / jp.png / kr.png here), so nothing

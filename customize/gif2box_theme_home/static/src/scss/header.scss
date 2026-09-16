@@ -13,6 +13,66 @@ $g-logo-h: 70px;
 $g-logo-h-sm: 46px;
 
 // =====================================================================
+// LANGUAGE FLAGS
+//
+// Not scoped to the header: the same template renders the selector in the
+// footer too, and an unsized flag there fell back to the source PNG size.
+// The image is appended by the template, so `order` puts it in front.
+// =====================================================================
+.o_gif2box_flag {
+    flex: 0 0 auto;
+    order: -1;
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba($black, .08);
+}
+
+// Footer selector, switched from an inline list to a dropdown in XML so it
+// matches the header.
+#footer,
+.o_footer_copyright {
+
+    .js_language_selector {
+        display: inline-flex;
+        align-items: center;
+        margin-left: .5rem;
+
+        .dropdown-toggle {
+            display: inline-flex !important;
+            gap: .4rem;
+            align-items: center;
+            padding: .25rem .6rem;
+            font-size: .85rem;
+            border: 1px solid rgba($black, .15);
+            border-radius: 2rem;
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .15);
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: .55rem;
+            align-items: center;
+            padding: .45rem .6rem;
+            font-size: .85rem;
+            border-radius: .4rem;
+
+            &.active {
+                font-weight: 600;
+                color: $g-coral;
+                background-color: rgba($g-coral, .12);
+            }
+        }
+    }
+}
+
+// =====================================================================
 // HEADER
 // =====================================================================
 header#top {
@@ -45,11 +105,36 @@ header#top {
 
     // Let the search bar take the free space in the middle, Shopify-style,
     // instead of everything being crammed against the right edge.
+    // Centred in the bar on wide screens; it falls back into the flow when
+    // there is no longer room for it between the logo and the icons.
+    [aria-label="Middle"] {
+        position: relative;
+    }
+
     .o_searchbar_form {
-        flex: 1 1 auto;
+        flex: 0 1 450px;
+        width: 450px;
+        max-width: 450px;
         min-width: 0;
-        max-width: 420px;
         margin-right: .5rem;
+
+        // Pulled out of the flow and centred on the header. The threshold is
+        // 1400px rather than the `xl` container: at 1140px a centred 450px box
+        // reaches further right than the action group starts -- more so once a
+        // signed-in account name widens it -- and the two overlapped. Below
+        // that the search stays in the flow, where it cannot collide.
+        @media (min-width: 1400px) {
+            position: absolute;
+            left: 50%;
+            margin-right: 0;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 1399.98px) {
+            flex: 0 1 320px;
+            width: 320px;
+            max-width: 320px;
+        }
 
         .oe_search_box {
             height: 2.6rem;
@@ -119,16 +204,33 @@ header#top {
             font-size: 1.05rem;
         }
 
-        // The stock markup wraps the user icon in a bordered circle of its own,
-        // which would sit inside ours.
-        .fa-stack,
-        [class*="rounded-circle"] {
-            width: auto !important;
-            height: auto !important;
+        // The stock markup nests the icon in its own bordered circle. It is
+        // kept as the visual disc -- flattening it left no room between the
+        // glyph and the counter, so the badge covered the icon -- but stripped
+        // of its border and fill so ours shows through.
+        > div[class*="rounded-circle"] {
+            position: relative;
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
             padding: 0 !important;
             margin: 0 !important;
             background: none !important;
             border: 0 !important;
+        }
+
+        .fa-stack {
+            width: auto !important;
+            height: auto !important;
+            line-height: 1;
+        }
+
+        // Icon-only links: the text label would spill out of the circle.
+        &:not(.dropdown-toggle) > span {
+            display: none;
         }
 
         &:hover,
@@ -137,14 +239,25 @@ header#top {
             background-color: rgba($g-coral, .12);
         }
 
-        // Cart / wishlist counters
-        .badge,
-        sup {
-            top: .1rem;
-            right: .1rem;
+        // Cart / wishlist counters. The markup offsets them with `mt-n1 me-n1`,
+        // which is dropped so the badge hangs on the corner of the disc rather
+        // than over the glyph.
+        sup.badge,
+        .badge {
+            top: 0 !important;
+            right: 0 !important;
+            bottom: auto;
+            left: auto;
+            min-width: 1.05rem;
+            height: 1.05rem;
+            padding: 0 .22rem !important;
+            margin: 0 !important;
             font-size: .62rem;
+            line-height: 1.05rem;
             color: $white;
             background-color: $g-coral !important;
+            border: 2px solid $white;
+            border-radius: 1rem;
         }
     }
 
@@ -210,17 +323,6 @@ header#top {
                 background-color: rgba($g-coral, .12);
             }
         }
-    }
-
-    // Flags are appended by the template; `order` puts them back in front.
-    .o_gif2box_flag {
-        flex: 0 0 auto;
-        order: -1;
-        width: 20px;
-        height: 14px;
-        object-fit: cover;
-        border-radius: 2px;
-        box-shadow: 0 0 0 1px rgba($black, .08);
     }
 
     // --- Menu bar ------------------------------------------------------
@@ -418,12 +520,19 @@ header#top {
     // without cropping banners that carry text.
     height: auto !important;
 
-    .carousel,
+    // Only the carousel itself is demargined, to undo the snippet's inline
+    // `margin: 0 12px`. `.carousel-item` is deliberately left alone: Bootstrap
+    // stacks the slides with `margin-right: -100%` on it, and zeroing that lays
+    // them out side by side, which breaks the prev/next transition.
+    .carousel {
+        height: auto !important;
+        margin: 0 !important;
+    }
+
     .carousel-inner,
     .carousel-item {
         height: auto !important;
         padding-bottom: 0 !important;
-        margin: 0 !important;
     }
 
     .carousel-item img {
