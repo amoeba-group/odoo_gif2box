@@ -882,6 +882,11 @@ header#top {
     // blue -- and each half sweeps within its own family, so the mark still
     // reads as the logo at any frame instead of turning wholly one colour.
     .o_gif2box_loader_word {
+        // Deliberately not the body font. That one is Roboto, pulled from
+        // Google Fonts, so the wordmark was painted in the fallback first and
+        // jumped when the webfont swapped in -- the flicker at the start of
+        // every page load. A system stack is resolved before first paint.
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
         font-size: clamp(2.4rem, 8vw, 3.8rem);
         font-weight: 800;
         line-height: 1;
@@ -897,20 +902,33 @@ header#top {
         }
     }
 
+    // Each half keeps its logo tone and carries a bright band through the
+    // middle of the gradient; as the background travels, that band reads as a
+    // shine flowing across the letters.
     .o_gif2box_word_a {
-        // Coral through to the pale peach of the logo's "2".
         background-image: linear-gradient(
-            90deg, #F4633A 0%, #FFB08A 45%, #F4633A 100%
+            100deg,
+            #F4633A 0%,
+            #F4633A 32%,
+            #FFE2D3 47%,
+            #FF9A6C 56%,
+            #F4633A 72%,
+            #F4633A 100%
         );
     }
 
     .o_gif2box_word_b {
-        // Deep to bright blue, as in "box".
         background-image: linear-gradient(
-            90deg, #0B4DA2 0%, #43A9FF 45%, #0B4DA2 100%
+            100deg,
+            #0B4DA2 0%,
+            #0B4DA2 32%,
+            #BFE4FF 47%,
+            #43A9FF 56%,
+            #0B4DA2 72%,
+            #0B4DA2 100%
         );
-        // Offset so the highlight crosses the two halves in sequence rather
-        // than lighting both at once.
+        // Offset so the shine crosses the two halves in sequence rather than
+        // lighting both at once.
         animation-delay: -.55s;
     }
 
