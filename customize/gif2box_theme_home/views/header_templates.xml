@@ -55,19 +55,10 @@
     <template id="page_loader" inherit_id="website.layout">
         <xpath expr="//div[@id='wrapwrap']" position="inside">
             <div id="gif2box_loader" aria-hidden="true">
-                <div class="o_gif2box_loader_art">
-                    <svg class="o_gif2box_spoon" viewBox="0 0 34 62" fill="currentColor">
-                        <ellipse cx="17" cy="15" rx="16" ry="15"/>
-                        <rect x="13.5" y="27" width="7" height="35" rx="3.5"/>
-                    </svg>
-                    <svg class="o_gif2box_bowl" viewBox="0 0 92 30" fill="currentColor">
-                        <path d="M0 0h92a46 46 0 0 1-92 0z"/>
-                    </svg>
-                </div>
-                <div class="o_gif2box_dots">
-                    <span/><span/><span/>
-                </div>
-                <div class="o_gif2box_loader_text">Đang tải...</div>
+                <div class="o_gif2box_loader_word"><span
+                    class="o_gif2box_word_a">gif2</span><span
+                    class="o_gif2box_word_b">box</span></div>
+                <div class="o_gif2box_loader_bar"><span/></div>
             </div>
         </xpath>
     </template>
