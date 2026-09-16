@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Wishlist page.
+
+        The stock page is a bordered, striped, centred comparison table with
+        the product's sales description under every name. On this catalogue
+        that description is a wall of returns policy, so three saved products
+        filled several screens.
+
+        The markup stays a table on purpose: `website_sale_wishlist.js` reads
+        `data-wish-id` and `data-product-id` off `$(...).parents('tr')` for
+        both the remove and the add-to-cart actions, and hides a removed row
+        with `$(tr).hide()`. Restyling the rows into cards is done in
+        `wishlist.scss` over that same structure, so none of that breaks.
+    -->
+    <template id="wishlist_page" inherit_id="website_sale_wishlist.product_wishlist">
+
+        <!-- The sales description: not what someone scanning saved items needs. -->
+        <xpath expr="//small[p[@t-field='wish.product_id.description_sale']]"
+               position="replace"/>
+
+        <!--
+            The thumbnail was desktop-only. A wishlist is scanned by picture
+            before anything else, and a phone is where it is scanned most.
+        -->
+        <xpath expr="//td[hasclass('td-img')]" position="attributes">
+            <attribute name="class">td-img align-middle</attribute>
+        </xpath>
+
+        <!--
+            Shown by `wishlist.scss` once every row has been removed. The
+            controller redirects to /shop when the list is empty on arrival,
+            so this only covers emptying it on the spot, which until now left
+            a blank page.
+        -->
+        <xpath expr="//table[@id='o_comparelist_table']" position="after">
+            <div class="o_g2b_wish_empty text-center">
+                <i class="fa fa-heart-o" role="img" aria-hidden="true"/>
+                <p>Your wishlist is empty</p>
+                <a href="/shop" class="btn o_g2b_wish_shop">Continue shopping</a>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

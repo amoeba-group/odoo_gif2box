@@ -9,6 +9,7 @@
     'data': [
         'views/header_templates.xml',
         'views/product_templates.xml',
+        'views/wishlist_templates.xml',
     ],
     'assets': {
         'web.assets_frontend': [
@@ -18,6 +19,7 @@
             'gif2box_theme_home/static/src/scss/combo_dialog.scss',
             'gif2box_theme_home/static/src/scss/product_dialog.scss',
             'gif2box_theme_home/static/src/scss/product_page.scss',
+            'gif2box_theme_home/static/src/scss/wishlist.scss',
             'gif2box_theme_home/static/src/js/loader.js',
             'gif2box_theme_home/static/src/js/product_page.js',
             'gif2box_theme_home/static/src/js/product_configurator_title.js',

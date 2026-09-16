@@ -34,3 +34,13 @@ msgstr "더 보기"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
 msgid "Show less"
 msgstr "접기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Continue shopping"
+msgstr "쇼핑 계속하기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Your wishlist is empty"
+msgstr "위시리스트가 비어 있습니다"

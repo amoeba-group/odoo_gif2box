@@ -34,3 +34,13 @@ msgstr "もっと見る"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
 msgid "Show less"
 msgstr "閉じる"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Continue shopping"
+msgstr "買い物を続ける"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Your wishlist is empty"
+msgstr "お気に入りは空です"

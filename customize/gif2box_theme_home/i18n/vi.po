@@ -34,3 +34,13 @@ msgstr "Xem thêm"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
 msgid "Show less"
 msgstr "Thu gọn"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Continue shopping"
+msgstr "Tiếp tục mua sắm"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
+msgid "Your wishlist is empty"
+msgstr "Danh sách yêu thích đang trống"
