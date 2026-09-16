@@ -107,15 +107,8 @@ $g-logo-h-sm: 46px;
         position: relative;
     }
 
-    .o_g2b_topbar_bg {
-        position: absolute;
-        // Bleeding past the edges keeps the blur's own soft border out of
-        // view, which would otherwise read as a vignette.
-        inset: -24px;
-        background-position: center;
-        background-size: cover;
-        filter: blur(18px);
-        transform: scale(1.08);
+    .o_g2b_topbar_link {
+        display: block;
     }
 
     .container {
@@ -173,7 +166,15 @@ $g-logo-h-sm: 46px;
 // HEADER
 // =====================================================================
 header#top {
-    position: relative;
+
+    // Deliberately no `position` on the header itself. Setting one here beats
+    // Odoo's `.o_header_affixed { position: fixed }` on specificity -- an id
+    // plus an element against a single class -- and the bar stops sticking.
+    // While affixed the header is already a containing block; the scrolled
+    // state on its own is the only case that needs one.
+    &.o_header_is_scrolled:not(.o_header_affixed) {
+        position: relative;
+    }
 
     // Once the header detaches and floats over the page it needs an edge to
     // sit on. Drawn as a pseudo-element rather than a border so it can carry

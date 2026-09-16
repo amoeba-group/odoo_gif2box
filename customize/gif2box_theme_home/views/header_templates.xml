@@ -67,18 +67,17 @@
         Announcement strip above the header.
 
         To add or remove a banner, edit the list below; everything else
-        follows. Each slide paints a blurred, over-scaled copy of its own
-        image across the full viewport and lays the crisp one on top inside
-        the container, so the artwork keeps its own width while the band
-        around it blends into the banner's background instead of sitting on a
-        hard edge.
+        follows. Each entry carries its own image and the page it links to.
 
         Controls only render from the second image onwards.
     -->
     <template id="top_banner" inherit_id="website.layout">
         <xpath expr="//div[@id='wrapwrap']/header" position="before">
             <t t-set="g2b_banners" t-value="[
-                '/gif2box_theme_home/static/src/img/topbar/banner-1.webp',
+                {
+                    'src': '/gif2box_theme_home/static/src/img/topbar/banner-1.webp',
+                    'url': '/shop/category/gift-38',
+                },
             ]"/>
             <div t-if="g2b_banners" class="o_g2b_topbar">
                 <div id="o_g2b_topbar_carousel"
@@ -89,13 +88,14 @@
                         <div t-foreach="g2b_banners" t-as="banner"
                              t-attf-class="carousel-item #{banner_first and 'active' or ''}">
                             <div class="o_g2b_topbar_slide">
-                                <span class="o_g2b_topbar_bg"
-                                      t-attf-style="background-image: url('#{banner}')"/>
                                 <div class="container">
-                                    <img class="o_g2b_topbar_img"
-                                         t-att-src="banner"
-                                         alt=""
-                                         loading="eager"/>
+                                    <a class="o_g2b_topbar_link"
+                                       t-att-href="banner['url']">
+                                        <img class="o_g2b_topbar_img"
+                                             t-att-src="banner['src']"
+                                             alt=""
+                                             loading="eager"/>
+                                    </a>
                                 </div>
                             </div>
                         </div>
