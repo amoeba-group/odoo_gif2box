@@ -15,6 +15,18 @@ $g-coral-dark: #E85A38;
 $g-blue: #0B88FD;
 // Section headings; the site's own dark teal rather than a logo colour.
 $g-title: #004444;
+
+// The hairline shared by the header and the footer, so the two edges match.
+// Weighted towards the coral: it holds most of the width and the blue only
+// closes the run.
+$g-rule: linear-gradient(
+    90deg,
+    #F4633A 0%,
+    #FD7352 42%,
+    #FF9A6C 66%,
+    #2E9BFF 90%,
+    #0B4DA2 100%
+);
 $g-logo-h: 70px;
 $g-logo-h-sm: 46px;
 
@@ -77,9 +89,111 @@ $g-logo-h-sm: 46px;
 }
 
 // =====================================================================
+// TOP ANNOUNCEMENT STRIP
+//
+// The artwork keeps its own width inside the container. The band either
+// side of it is an over-scaled, blurred copy of the same image, so the
+// full-width background follows whatever colours that banner uses instead
+// of needing one hardcoded per image.
+// =====================================================================
+.o_g2b_topbar {
+    position: relative;
+    overflow: hidden;
+    // Shows for the instant before the image decodes, and behind anything
+    // the blur cannot reach.
+    background-color: #EFFBFE;
+
+    .o_g2b_topbar_slide {
+        position: relative;
+    }
+
+    .o_g2b_topbar_link {
+        display: block;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+        padding-inline: 0;
+    }
+
+    .o_g2b_topbar_img {
+        display: block;
+        width: 100%;
+        // Never upscaled past its natural size, or a thin strip turns mushy
+        // on a wide screen.
+        max-width: 1200px;
+        height: auto;
+        margin-inline: auto;
+        // Without this the crisp image meets the blurred band on a hard
+        // vertical line. Fading its outer edges lets the two run together.
+        -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0,
+            #000 64px,
+            #000 calc(100% - 64px),
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0,
+            #000 64px,
+            #000 calc(100% - 64px),
+            transparent 100%
+        );
+    }
+
+    .carousel-indicators {
+        margin-bottom: .25rem;
+
+        button {
+            width: 7px !important;
+            height: 7px !important;
+            border: 0 !important;
+            border-radius: 50%;
+            opacity: .55;
+
+            &.active {
+                width: 18px !important;
+                border-radius: 4px;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// =====================================================================
 // HEADER
 // =====================================================================
 header#top {
+
+    // Deliberately no `position` on the header itself. Setting one here beats
+    // Odoo's `.o_header_affixed { position: fixed }` on specificity -- an id
+    // plus an element against a single class -- and the bar stops sticking.
+    // While affixed the header is already a containing block; the scrolled
+    // state on its own is the only case that needs one.
+    &.o_header_is_scrolled:not(.o_header_affixed) {
+        position: relative;
+    }
+
+    // Once the header detaches and floats over the page it needs an edge to
+    // sit on. Drawn as a pseudo-element rather than a border so it can carry
+    // the gradient, and matched to the footer's.
+    //
+    // Both classes: Odoo sets `o_header_affixed` when the bar goes fixed and
+    // `o_header_is_scrolled` once the page has moved, and which one lands
+    // first depends on the header style in use.
+    &.o_header_affixed::after,
+    &.o_header_is_scrolled::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        height: 1px;
+        content: "";
+        background-image: $g-rule;
+    }
 
     // The thin top strip only ever held the language selector, which now lives
     // in the action row. Hiding it drops the header from three bands to two.

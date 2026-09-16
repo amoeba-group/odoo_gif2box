@@ -15,18 +15,17 @@ footer#bottom.o_footer {
     // straight on from the page.
     background-color: #FBF7F5 !important;
 
-    // Brand hairline across the very top edge.
+    // Brand hairline across the very top edge. Same ramp and same weight as
+    // the one under the affixed header, so the two edges of the page match.
     &::before {
         position: absolute;
         top: 0;
         right: 0;
         left: 0;
         z-index: 1;
-        height: 3px;
+        height: 1px;
         content: "";
-        background-image: linear-gradient(
-            90deg, $g-coral 0%, #FFB08A 45%, $g-blue 100%
-        );
+        background-image: $g-rule;
     }
 
     // The editor block carries a `border` utility that drew a hard line right

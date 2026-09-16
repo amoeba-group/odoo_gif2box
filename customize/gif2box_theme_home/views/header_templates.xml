@@ -64,6 +64,56 @@
     </template>
 
     <!--
+        Announcement strip above the header.
+
+        To add or remove a banner, edit the list below; everything else
+        follows. Each entry carries its own image and the page it links to.
+
+        Controls only render from the second image onwards.
+    -->
+    <template id="top_banner" inherit_id="website.layout">
+        <xpath expr="//div[@id='wrapwrap']/header" position="before">
+            <t t-set="g2b_banners" t-value="[
+                {
+                    'src': '/gif2box_theme_home/static/src/img/topbar/banner-1.webp',
+                    'url': '/shop/category/gift-38',
+                },
+            ]"/>
+            <div t-if="g2b_banners" class="o_g2b_topbar">
+                <div id="o_g2b_topbar_carousel"
+                     class="carousel slide"
+                     data-bs-ride="carousel"
+                     data-bs-interval="5000">
+                    <div class="carousel-inner">
+                        <div t-foreach="g2b_banners" t-as="banner"
+                             t-attf-class="carousel-item #{banner_first and 'active' or ''}">
+                            <div class="o_g2b_topbar_slide">
+                                <div class="container">
+                                    <a class="o_g2b_topbar_link"
+                                       t-att-href="banner['url']">
+                                        <img class="o_g2b_topbar_img"
+                                             t-att-src="banner['src']"
+                                             alt=""
+                                             loading="eager"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="len(g2b_banners) &gt; 1" class="carousel-indicators">
+                        <button t-foreach="g2b_banners" t-as="banner"
+                                type="button"
+                                data-bs-target="#o_g2b_topbar_carousel"
+                                t-att-data-bs-slide-to="str(banner_index)"
+                                t-attf-class="#{banner_first and 'active' or ''}"
+                                t-attf-aria-label="Banner #{banner_index + 1}"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--
         Copyright bar.
 
         The brand name was carried in page content, where the English arch
