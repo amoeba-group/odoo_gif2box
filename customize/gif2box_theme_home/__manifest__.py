@@ -12,6 +12,7 @@
     'assets': {
         'web.assets_frontend': [
             'gif2box_theme_home/static/src/scss/header.scss',
+            'gif2box_theme_home/static/src/js/loader.js',
         ],
     },
     'installable': True,

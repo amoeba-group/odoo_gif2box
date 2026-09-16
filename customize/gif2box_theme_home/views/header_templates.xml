@@ -26,6 +26,53 @@
     </template>
 
     <!--
+        Shorten the header call to action and give it an icon.
+
+        The label lives inside an `oe_structure`, so it is page content the
+        editor owns rather than code. Replacing the anchor here takes that
+        button back under version control: it is no longer editable from the
+        website editor, which is the trade for having it defined in the module.
+    -->
+    <template id="header_cta_label" inherit_id="website.header_call_to_action">
+        <xpath expr="//a[hasclass('btn_cta')]" position="replace">
+            <a href="/contactus"
+               class="oe_unremovable btn btn-primary btn_cta d-flex align-items-center">
+                <i class="fa fa-phone" role="img" aria-hidden="true"/>
+                <span>Liên hệ</span>
+            </a>
+        </xpath>
+    </template>
+
+    <!--
+        Page loader. Rendered first thing inside the page wrapper so it covers
+        everything from the first paint.
+
+        It is not gated on `editable`: that flag is true for anyone who merely
+        holds edit rights, not just while the editor is open, so gating on it
+        meant staff never saw the loader at all. `loader.js` clears the overlay
+        on `load` and again on a timeout, which covers the editor too.
+    -->
+    <template id="page_loader" inherit_id="website.layout">
+        <xpath expr="//div[@id='wrapwrap']" position="inside">
+            <div id="gif2box_loader" aria-hidden="true">
+                <div class="o_gif2box_loader_art">
+                    <svg class="o_gif2box_spoon" viewBox="0 0 34 62" fill="currentColor">
+                        <ellipse cx="17" cy="15" rx="16" ry="15"/>
+                        <rect x="13.5" y="27" width="7" height="35" rx="3.5"/>
+                    </svg>
+                    <svg class="o_gif2box_bowl" viewBox="0 0 92 30" fill="currentColor">
+                        <path d="M0 0h92a46 46 0 0 1-92 0z"/>
+                    </svg>
+                </div>
+                <div class="o_gif2box_dots">
+                    <span/><span/><span/>
+                </div>
+                <div class="o_gif2box_loader_text">Đang tải...</div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--
         The footer rendered the languages as a flat inline list of links, which
         looked broken once each one carried a flag. Deactivating this view makes
         `portal.footer_language_selector` fall back to its default: the same
