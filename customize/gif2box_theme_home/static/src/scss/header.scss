@@ -675,6 +675,25 @@ header#top {
 // =====================================================================
 #wrap {
 
+    // The snippet nests the cards in a `.carousel-inner`, which Bootstrap
+    // clips, so the hover shadow and lift were cut off at its edges.
+    //
+    // Vertical padding buys room inside the clip without touching the
+    // horizontal geometry the slide transform depends on.
+    .s_dynamic_snippet_products .carousel-inner {
+        padding-top: .9rem;
+        padding-bottom: .9rem;
+    }
+
+    // Where a snippet holds a single slide it never actually carousels -- it
+    // just reuses the markup -- so the clip serves no purpose and is dropped,
+    // which frees the shadow sideways too. Snippets that really do slide keep
+    // it, or the neighbouring slide would show through.
+    .s_dynamic_snippet_products:not(:has(.carousel-item + .carousel-item))
+        .carousel-inner {
+        overflow: visible !important;
+    }
+
     .o_carousel_product_card {
         overflow: hidden;
         background-color: $white;
@@ -688,7 +707,10 @@ header#top {
         &:focus-within {
             transform: translateY(-4px);
             border-color: rgba($g-coral, .45);
-            box-shadow: 0 .8rem 1.6rem rgba($black, .1);
+            // Negative spread keeps the sideways overhang small, so the shadow
+            // still reads well on the sliding snippet, where the left and right
+            // edges stay clipped.
+            box-shadow: 0 .7rem 1.4rem -.35rem rgba($black, .22);
 
             .card-img-top {
                 transform: scale(1.06);
