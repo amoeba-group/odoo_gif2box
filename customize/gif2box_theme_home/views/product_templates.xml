@@ -69,6 +69,23 @@
     </template>
 
     <!--
+        Drop the "Terms and Conditions" block from the product information
+        strip, leaving the share buttons on their own.
+
+        It is Odoo's boilerplate ("30-day money-back guarantee", "Shipping:
+        2-3 Business Days") and it contradicts this shop's own policies, which
+        are linked from the footer. Deactivating rather than removing the
+        markup keeps it a toggle in the editor's Customize panel, so it can be
+        switched back on without a code change.
+
+        There is no website-specific copy of this view, so the generic record
+        is the one that matters.
+    -->
+    <record id="website_sale.product_custom_text" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!--
         Put the product's own sales description in the "More Information"
         accordion.
 
