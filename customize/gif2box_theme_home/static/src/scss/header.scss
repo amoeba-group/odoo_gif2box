@@ -893,6 +893,71 @@ header#top {
 }
 
 // =====================================================================
+// SECTION TITLES
+//
+// Two snippets produce them: `s_title` for a standalone heading, and
+// `s_dynamic_snippet_title` for the one bundled with a product row. They
+// were styled differently from each other -- one carried a theme colour
+// utility, the other nothing -- so both are normalised here.
+// =====================================================================
+#wrap {
+
+    .s_title h3,
+    .s_dynamic_snippet_title h3 {
+        margin-bottom: 0;
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -.02em;
+
+        // The rule hangs off the heading so it centres under the word.
+        // `:has()` keeps it off the empty spacer headings the editor leaves
+        // between sections.
+        &:has(strong)::after {
+            display: block;
+            width: 58px;
+            height: 4px;
+            margin: .8rem auto 0;
+            content: "";
+            background-image: linear-gradient(90deg, $g-coral, $g-blue);
+            border-radius: 4px;
+        }
+
+        // The gradient rides on `strong`, which is inline and so only as wide
+        // as the word itself. On the block-level heading the background would
+        // span the whole column and the text would show a washed-out slice
+        // from the middle of the ramp.
+        strong {
+            font-weight: inherit;
+            color: transparent;
+            // A narrow crossover rather than an even ramp. Coral and blue are
+            // near-complementary, so blending them across the whole word runs
+            // the middle letters through grey. The logo itself switches tone
+            // abruptly, and keeping the blend to a sliver matches it.
+            background-image: linear-gradient(
+                95deg,
+                #F4633A 0%,
+                #FF8F63 44%,
+                #2E9BFF 56%,
+                #0B4DA2 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            // One of the two is wrapped in `<font class="text-o-color-5">`, a
+            // theme colour utility set with `!important`.
+            font,
+            span {
+                color: inherit !important;
+                background: none !important;
+                -webkit-text-fill-color: inherit;
+            }
+        }
+    }
+}
+
+// =====================================================================
 // PAGE LOADER
 //
 // A spoon tipping over a bowl, for a baby-goods shop. Hidden by the
