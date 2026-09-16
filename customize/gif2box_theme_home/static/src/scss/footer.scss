@@ -190,8 +190,47 @@ footer#bottom.o_footer {
 
     // --- Copyright bar ---------------------------------------------------
     .o_footer_copyright {
-        background-color: transparent !important;
-        border-top: 1px solid rgba($black, .07);
+        background-color: $g-coral !important;
+        // The divider was there to separate the bar from the panel above it;
+        // the colour change does that on its own now.
+        border-top: 0;
+
+        // Everything in the bar has to clear the coral, including the theme's
+        // muted greys and Bootstrap's link colour.
+        color: $white;
+
+        .text-muted,
+        span,
+        strong,
+        a {
+            color: $white !important;
+        }
+
+        a:hover,
+        a:focus {
+            color: $white !important;
+            text-decoration: underline;
+        }
+
+        .js_language_selector .dropdown-toggle {
+            color: $white;
+            border-color: rgba($white, .55);
+
+            &:hover {
+                background-color: rgba($white, .15);
+            }
+        }
+
+        // The dropdown itself opens on white, so its contents stay dark.
+        .dropdown-menu {
+            .dropdown-item {
+                color: $gray-700 !important;
+
+                &.active {
+                    color: $g-coral !important;
+                }
+            }
+        }
 
         .container {
             padding-top: 1rem !important;
