@@ -82,17 +82,37 @@ header#top {
     }
 
     // --- Icon buttons -------------------------------------------------
+    //
+    // The user menu carries the account name when someone is signed in, so it
+    // must keep an auto width. Only the icon-only links (cart, wishlist, the
+    // signed-out user link) are squared off into circles.
     .o_navlink_background_hover {
         position: relative;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 2.6rem;
         height: 2.6rem;
-        padding: 0 !important;
         color: $g-coral !important;
-        border-radius: 50%;
+        border-radius: 2rem;
         transition: background-color .15s ease, color .15s ease;
+
+        &:not(.dropdown-toggle) {
+            width: 2.6rem;
+            padding: 0 !important;
+            border-radius: 50%;
+        }
+
+        &.dropdown-toggle {
+            width: auto;
+            gap: .4rem;
+            max-width: 12rem;
+            padding: 0 .7rem !important;
+            overflow: hidden;
+            font-size: .85rem;
+            color: $body-color !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         .fa,
         i {
