@@ -38,11 +38,18 @@
         letter-spacing: .02em;
     }
 
-    // Tighter columns fit more options per row, so a combo of six no longer
-    // needs a horizontal scroll to compare.
+    // The markup is a flex row with `w-50` cards below `md`, scrolling
+    // sideways. Horizontal cards do not fit that, so it is a grid at every
+    // width: one column on a phone, filling out from there.
     .combo-item-grid {
-        grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)) !important;
-        gap: .65rem !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: .6rem !important;
+        overflow-x: visible !important;
+
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+        }
     }
 
     // ----------------------------------------------------------------
@@ -51,6 +58,15 @@
     .product-card {
         position: relative;
         overflow: hidden;
+        // Bootstrap's `.card` is a flex column; laying it on its side puts the
+        // thumbnail beside the name instead of above it, which leaves the
+        // width for the name to be shown in full.
+        flex-direction: row !important;
+        align-items: stretch;
+        // Overrides the `w-50` the markup carries for its mobile flex row.
+        width: auto !important;
+        // Keeps a short name from collapsing the card below its thumbnail.
+        min-height: 88px;
         border: 1px solid $border-color;
         border-radius: .75rem;
         transition: border-color .15s ease, box-shadow .15s ease,
@@ -90,23 +106,34 @@
         }
 
         .card-header {
-            background: none;
+            flex: 0 0 88px;
+            width: 88px;
+            background-color: $gray-100;
             border: 0;
+
+            img {
+                // The stock rule pins a square aspect ratio, which would leave
+                // a gap beside a name that runs to several lines.
+                aspect-ratio: auto !important;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
         }
 
         .card-body {
-            padding: .55rem .6rem .7rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: .6rem .7rem;
         }
 
+        // Shown in full: no clamp, no ellipsis.
         .card-title {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            font-size: .82rem;
+            font-size: .85rem;
             font-weight: 600;
-            line-height: 1.3;
-            text-overflow: ellipsis;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
         }
 
         .card-subtitle {
@@ -140,7 +167,7 @@
         // Room for the band below, which would otherwise sit over the last
         // line of the product name.
         .card-body {
-            padding-bottom: 2.2rem;
+            padding-bottom: 1.9rem;
         }
 
         .overlay-container.text-danger {
