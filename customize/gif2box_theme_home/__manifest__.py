@@ -21,6 +21,7 @@
             'gif2box_theme_home/static/src/scss/product_page.scss',
             'gif2box_theme_home/static/src/scss/wishlist.scss',
             'gif2box_theme_home/static/src/js/loader.js',
+            'gif2box_theme_home/static/src/js/extension_error_filter.js',
             'gif2box_theme_home/static/src/js/product_page.js',
             'gif2box_theme_home/static/src/js/product_configurator_title.js',
         ],

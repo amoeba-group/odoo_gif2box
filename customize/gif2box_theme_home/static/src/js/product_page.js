@@ -1,15 +1,20 @@
 /**
- * Folds a long product description behind a "Read more" button.
+ * Folds long blocks on the product page behind a "Read more" button.
  *
- * `views/product_templates.xml` moves the description below the image and the
- * buy panel. That fixes the buy button being thousands of pixels down the
- * page, but the description itself is still a dozen full-width images, so the
- * page stays very long and everything under it -- the footer, the recommended
- * products -- is effectively out of reach. Folding it gives the shopper the
- * first screenful and a way to ask for the rest.
+ * Two of them:
  *
- * Height cannot be measured on DOMContentLoaded: the images carry no width or
- * height attributes and are lazily loaded, so the block measures near zero
+ * - the description moved below the buy panel by `views/product_templates.xml`,
+ *   which is a dozen full-width marketing images;
+ * - the sales description inside the "More Information" accordion, which on
+ *   this catalogue runs to twenty lines of specifications and policy.
+ *
+ * Any element with `.o_g2b_fold` holding a `.o_g2b_pd_body` and a
+ * `.o_g2b_pd_more_wrap` is picked up. `data-fold-at` sets the height, in
+ * pixels, above which folding is worth doing; it should match the
+ * `max-height` the matching CSS rule applies.
+ *
+ * Height cannot be measured on DOMContentLoaded: images carry no width or
+ * height attributes and are lazily loaded, so a block measures near zero
  * until they arrive. The fold is therefore applied up front on a cheap proxy
  * (how much content there is), and corrected once the real height is known.
  */
@@ -17,14 +22,11 @@
 (function () {
     "use strict";
 
-    // Roughly one screenful. Matches the `max-height` in `product_page.scss`;
-    // the check runs a little over it so a description that only just exceeds
-    // the fold is left alone rather than folded to save 40 pixels.
-    const FOLD_AT = 780;
+    const DEFAULT_FOLD_AT = 780;
 
-    function setup() {
-        const body = document.querySelector(".o_g2b_pd_body");
-        const wrap = document.querySelector(".o_g2b_pd_more_wrap");
+    function setupFold(root) {
+        const body = root.querySelector(".o_g2b_pd_body");
+        const wrap = root.querySelector(".o_g2b_pd_more_wrap");
         if (!body || !wrap) {
             return;
         }
@@ -33,6 +35,7 @@
             return;
         }
 
+        const foldAt = parseInt(root.dataset.foldAt, 10) || DEFAULT_FOLD_AT;
         let expanded = false;
 
         const fold = () => {
@@ -46,10 +49,10 @@
         };
 
         // Before the images have loaded, the amount of markup is the only
-        // signal available. A description of several images or a few hundred
-        // characters is always taller than the fold once it renders.
+        // signal available. A block of several images, or of a few hundred
+        // characters, is always taller than the fold once it renders.
         if (body.querySelectorAll("img").length > 1
-                || body.textContent.trim().length > 600) {
+                || body.textContent.trim().length > foldAt) {
             fold();
         }
 
@@ -61,7 +64,7 @@
             const height = body.classList.contains("o_g2b_pd_clamped")
                 ? body.scrollHeight
                 : body.getBoundingClientRect().height;
-            if (height > FOLD_AT) {
+            if (height > foldAt) {
                 fold();
             } else {
                 unfold();
@@ -75,8 +78,8 @@
                 body.classList.remove("o_g2b_pd_clamped");
             } else {
                 body.classList.add("o_g2b_pd_clamped");
-                // Folding from halfway down the description would otherwise
-                // drop the reader somewhere below the whole section.
+                // Folding from halfway down would otherwise drop the reader
+                // somewhere below the whole block.
                 const top = body.getBoundingClientRect().top + window.scrollY;
                 window.scrollTo({ top: top - 120, behavior: "smooth" });
             }
@@ -87,6 +90,10 @@
             // Images arrive one by one; the observer catches each reflow.
             new ResizeObserver(recheck).observe(body);
         }
+    }
+
+    function setup() {
+        document.querySelectorAll(".o_g2b_fold").forEach(setupFold);
     }
 
     if (document.readyState === "loading") {

@@ -26,11 +26,13 @@ msgid "Product details"
 msgstr "Chi tiết sản phẩm"
 
 #. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
 msgid "Read more"
 msgstr "Xem thêm"
 
 #. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
 msgid "Show less"
 msgstr "Thu gọn"

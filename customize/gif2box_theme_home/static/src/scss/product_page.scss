@@ -375,6 +375,30 @@
         }
     }
 
+    // --- Folded blocks, small variant --------------------------------------
+    // The accordion is a much smaller frame than the description section, so
+    // the fold, its fade and the button's overlap are all scaled down. The
+    // height here has to match `data-fold-at` on the same element.
+    .o_g2b_fold_sm {
+        .o_g2b_pd_body.o_g2b_pd_clamped {
+            max-height: 220px;
+
+            &::after {
+                height: 70px;
+            }
+        }
+
+        .o_g2b_pd_more_wrap {
+            margin-top: -.6rem;
+            text-align: left;
+        }
+
+        .o_g2b_pd_more {
+            padding: .3rem 1rem;
+            font-size: .8rem;
+        }
+    }
+
     // --- Terms and share ---------------------------------------------------
     #o_product_terms_and_share {
         padding: .9rem 1rem;

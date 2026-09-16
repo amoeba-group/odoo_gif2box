@@ -25,7 +25,7 @@
     -->
     <template id="product_description_below" inherit_id="website_sale.product">
         <xpath expr="//div[@id='product_full_description']" position="before">
-            <div id="o_g2b_product_desc" class="container">
+            <div id="o_g2b_product_desc" class="container o_g2b_fold" data-fold-at="700">
                 <h2 t-if="product.description_ecommerce" class="o_g2b_pd_heading">Product details</h2>
                 <div id="o_g2b_pd_body" class="o_g2b_pd_body"/>
                 <!--
@@ -100,7 +100,23 @@
     -->
     <template id="product_accordion_description" inherit_id="website_sale.accordion_more_information">
         <xpath expr="//div[@id='customizable_item']//p" position="replace">
-            <div t-field="product.description_sale" class="o_g2b_short_desc"/>
+            <!--
+                Folded the same way as the description below the buy panel, and
+                with the same control: these run to twenty lines of
+                specifications followed by the returns policy, which is more
+                than an accordion should drop on someone at once.
+            -->
+            <div class="o_g2b_fold o_g2b_fold_sm" data-fold-at="220">
+                <div class="o_g2b_pd_body">
+                    <div t-field="product.description_sale" class="o_g2b_short_desc"/>
+                </div>
+                <div class="o_g2b_pd_more_wrap d-none">
+                    <button type="button" class="btn o_g2b_pd_more">
+                        <div class="o_g2b_pd_label_more">Read more</div>
+                        <div class="o_g2b_pd_label_less">Show less</div>
+                    </button>
+                </div>
+            </div>
         </xpath>
     </template>
 
