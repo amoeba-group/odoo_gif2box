@@ -1,0 +1,210 @@
+///
+/// Footer restyle for gif2box.
+///
+/// Loaded after `header.scss` in the same bundle, so the brand variables
+/// declared there are in scope.
+///
+/// Everything here is CSS only: the footer body is `oe_structure` content the
+/// client owns in the website editor, so restyling rather than rewriting it
+/// leaves them free to change the wording and the links.
+///
+
+footer#bottom.o_footer {
+    position: relative;
+    // A tinted panel so the footer reads as a separate band instead of running
+    // straight on from the page.
+    background-color: #FBF7F5 !important;
+
+    // Brand hairline across the very top edge.
+    &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        height: 3px;
+        content: "";
+        background-image: linear-gradient(
+            90deg, $g-coral 0%, #FFB08A 45%, $g-blue 100%
+        );
+    }
+
+    // The editor block carries a `border` utility that drew a hard line right
+    // under the hairline.
+    > .oe_structure {
+        border: 0 !important;
+    }
+
+    // `pt80` left a large empty band above the columns.
+    > .oe_structure > section {
+        padding-top: 3.25rem !important;
+        padding-bottom: 2.25rem !important;
+    }
+
+    // --- Column headings ----------------------------------------------
+    h2 {
+        position: relative;
+        padding-bottom: .7rem;
+        margin-bottom: 1.3rem;
+        font-size: 1.05rem !important;
+        font-weight: 700;
+        letter-spacing: .02em;
+        color: $body-color;
+
+        span {
+            font-size: inherit !important;
+        }
+
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 38px;
+            height: 3px;
+            content: "";
+            background-color: $g-coral;
+            border-radius: 3px;
+        }
+    }
+
+    // --- Body text ------------------------------------------------------
+    p {
+        margin-bottom: .55rem;
+        font-size: .9rem;
+        line-height: 1.75;
+        color: $gray-700;
+    }
+
+    strong,
+    b {
+        font-weight: 600;
+        color: $body-color;
+    }
+
+    a {
+        color: $gray-700;
+        text-decoration: none;
+        transition: color .15s ease;
+
+        &:hover,
+        &:focus {
+            color: $g-coral;
+        }
+    }
+
+    // --- Link lists -----------------------------------------------------
+    // Bullets read as a document, not navigation. Replaced with a chevron
+    // that slides in on hover.
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    li > a {
+        position: relative;
+        display: inline-block;
+        padding: .28rem 0;
+        font-size: .9rem;
+        transition: color .15s ease, transform .15s ease;
+
+        // Absolute, so the hidden chevron does not indent the labels away from
+        // the column heading; the text slides across to make room instead.
+        &::before {
+            position: absolute;
+            top: .28rem;
+            left: -.9rem;
+            font-family: FontAwesome;
+            font-size: .85em;
+            color: $g-coral;
+            content: "\f105"; // angle-right
+            opacity: 0;
+            transition: opacity .15s ease;
+        }
+
+        &:hover,
+        &:focus {
+            transform: translateX(.9rem);
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    // --- Social links ---------------------------------------------------
+    .s_social_media {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        margin-top: .1rem;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.35rem;
+            height: 2.35rem;
+            color: $g-coral;
+            background-color: rgba($g-coral, .1);
+            border-radius: 50%;
+            transition: color .15s ease, background-color .15s ease,
+                        transform .15s ease;
+
+            &:hover,
+            &:focus {
+                color: $white;
+                background-color: $g-coral;
+                transform: translateY(-2px);
+            }
+        }
+
+        // `fa-stack` sizes the glyph to 2em square, which overflowed the disc.
+        .fa-stack {
+            width: auto !important;
+            height: auto !important;
+            font-size: 1rem;
+            line-height: 1;
+        }
+    }
+
+    // --- Certification badge --------------------------------------------
+    img.o_we_custom_image {
+        max-width: 170px;
+        height: auto;
+        margin-top: 1.1rem;
+    }
+
+    // --- Copyright bar ---------------------------------------------------
+    .o_footer_copyright {
+        background-color: transparent !important;
+        border-top: 1px solid rgba($black, .07);
+
+        .container {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        .row {
+            align-items: center;
+            row-gap: .5rem;
+        }
+
+        .text-muted,
+        span,
+        a {
+            font-size: .85rem;
+        }
+    }
+
+    // --- Narrow screens ---------------------------------------------------
+    @include media-breakpoint-down(lg) {
+        > .oe_structure > section {
+            padding-top: 2.5rem !important;
+        }
+
+        .row > [class*="col-"] + [class*="col-"] {
+            margin-top: 2rem;
+        }
+    }
+}
