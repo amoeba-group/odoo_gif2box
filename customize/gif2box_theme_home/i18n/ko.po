@@ -19,3 +19,18 @@ msgstr ""
 #: code:addons/gif2box_theme_home/static/src/js/product_configurator_title.js:0
 msgid "Choose your options"
 msgstr "옵션 선택"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+msgid "Product details"
+msgstr "상품 상세 정보"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+msgid "Read more"
+msgstr "더 보기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+msgid "Show less"
+msgstr "접기"

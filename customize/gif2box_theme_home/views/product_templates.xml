@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Move the product description below the two columns.
+
+        Odoo renders `description_ecommerce` inside `#product_details`, between
+        the title and the price. On this catalogue a description is a stack of
+        a dozen full-width marketing images, so the price, the variants and the
+        add-to-cart button were pushed several thousand pixels down the page:
+        the shopper had to scroll to the very bottom to buy anything.
+
+        The node is moved, not copied, so it stays the same `oe_structure` the
+        client edits in the website editor.
+
+        This takes two steps. `position="move"` is only honoured on a direct
+        child of the spec element (`tools/template_inheritance.py`), so the
+        wrapper is built first and the description is moved into it after,
+        rather than nesting the move inside the wrapper markup, which emits the
+        `<xpath>` tag itself into the page.
+
+        The wrapper renders whether or not there is a description, so the drop
+        zone is still there in the editor for a product that has none; only the
+        heading and the read-more control are conditional.
+    -->
+    <template id="product_description_below" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='product_full_description']" position="before">
+            <div id="o_g2b_product_desc" class="container">
+                <h2 t-if="product.description_ecommerce" class="o_g2b_pd_heading">Product details</h2>
+                <div id="o_g2b_pd_body" class="o_g2b_pd_body"/>
+                <!--
+                    Shown by `product_page.js` only when the description is
+                    actually long enough to be worth folding away.
+
+                    The two labels are block elements and the chevron is drawn
+                    in CSS on purpose: Odoo extracts a node that holds inline
+                    children as one term including its markup, so a
+                    `<span>`/`<i>` button would have given translators a single
+                    msgid full of HTML instead of two plain strings.
+                -->
+                <div t-if="product.description_ecommerce" class="o_g2b_pd_more_wrap d-none">
+                    <button type="button" class="btn o_g2b_pd_more">
+                        <div class="o_g2b_pd_label_more">Read more</div>
+                        <div class="o_g2b_pd_label_less">Show less</div>
+                    </button>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@id='o_g2b_pd_body']" position="inside">
+            <xpath expr="//div[@id='product_details']/div[@t-field='product.description_ecommerce']"
+                   position="move"/>
+        </xpath>
+    </template>
+
+</odoo>

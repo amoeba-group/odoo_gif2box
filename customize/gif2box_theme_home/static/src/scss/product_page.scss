@@ -1,0 +1,531 @@
+///
+/// Product detail page.
+///
+/// Loaded after `header.scss` in the same bundle, so the brand variables
+/// declared there are in scope.
+///
+/// The description is moved out of the info column by
+/// `views/product_templates.xml`; everything else here is styling over
+/// `website_sale.product` and the views that inject into it.
+///
+
+.o_wsale_product_page {
+
+    // ------------------------------------------------------------------
+    // Breadcrumb
+    // ------------------------------------------------------------------
+    .o_wsale_breadcrumb {
+        font-size: .85rem;
+
+        a {
+            color: $gray-600;
+            text-decoration: none;
+
+            &:hover {
+                color: $g-coral;
+            }
+        }
+
+        .active span {
+            color: $gray-700;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Info column
+    // ------------------------------------------------------------------
+    #product_details {
+        h1 {
+            margin-bottom: .75rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: $g-title;
+        }
+
+        @include media-breakpoint-down(lg) {
+            h1 {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    // --- Price ----------------------------------------------------------
+    .product_price {
+        margin-top: 0 !important;
+        margin-bottom: 1.1rem !important;
+
+        h3 {
+            margin-bottom: 0;
+        }
+
+        .oe_price {
+            font-size: 1.85rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: $g-coral;
+        }
+
+        // The struck-through list price and the "compare at" price.
+        .oe_default_price,
+        .oe_compare_list_price {
+            font-size: 1rem !important;
+            font-weight: 500;
+            color: $gray-500 !important;
+        }
+    }
+
+    // --- Variant choices --------------------------------------------------
+    // Odoo renders radio attributes as a bare radio beside a label, which on a
+    // shop reads as a form rather than as something to pick. Same values,
+    // drawn as pills.
+    .js_add_cart_variants {
+        padding: 1rem 0 .25rem;
+        margin-bottom: .75rem !important;
+        border-top: 1px solid $border-color;
+    }
+
+    .variant_attribute {
+        + .variant_attribute {
+            margin-top: .9rem;
+        }
+
+        .attribute_name {
+            display: block;
+            margin-bottom: .5rem;
+            font-size: .8rem;
+            font-weight: 700;
+            color: $gray-700;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+        }
+    }
+
+    .o_wsale_product_attribute {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .45rem;
+
+        // The template carries `mb-3` and an inline `margin: 0` on each item;
+        // the gap above does the spacing now.
+        .js_attribute_value {
+            margin: 0 !important;
+        }
+
+        // `col-form-label` adds form padding that throws the pill off centre.
+        label.col-form-label {
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .form-check {
+            padding: 0;
+            margin: 0;
+            min-height: 0;
+        }
+
+        // The radio itself is the state, but the pill is what is drawn, so the
+        // control is taken out of the flow rather than hidden -- hiding it
+        // would take it out of the tab order and off screen readers.
+        .form-check-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .radio_input_value {
+            display: block;
+            padding: .42rem .85rem;
+            margin: 0;
+            font-size: .875rem;
+            font-weight: 500;
+            line-height: 1.35;
+            color: $gray-800;
+            cursor: pointer;
+            background-color: $white;
+            border: 1px solid $border-color;
+            border-radius: 2rem;
+            transition: color .15s ease, border-color .15s ease,
+                        background-color .15s ease;
+        }
+
+        label:hover .radio_input_value {
+            border-color: rgba($g-coral, .7);
+        }
+
+        .form-check:has(.form-check-input:checked) .radio_input_value {
+            color: $g-coral-dark;
+            background-color: rgba($g-coral, .08);
+            border-color: $g-coral;
+            box-shadow: inset 0 0 0 1px $g-coral;
+        }
+
+        // Keyboard focus has to stay visible now that the radio is invisible.
+        .form-check-input:focus-visible + .radio_input_value {
+            outline: 2px solid rgba($g-coral, .5);
+            outline-offset: 2px;
+        }
+
+        // Combinations Odoo has marked as unavailable.
+        .css_not_available .radio_input_value,
+        .css_not_available_msg + .radio_input_value {
+            color: $gray-500;
+            text-decoration: line-through;
+            background-color: $gray-100;
+            border-style: dashed;
+        }
+    }
+
+    // Colour swatches keep their swatch, but pick up the brand ring.
+    .o_wsale_product_attribute .css_attribute_color.active {
+        border-color: $g-coral !important;
+        box-shadow: 0 0 0 .15rem rgba($g-coral, .25);
+    }
+
+    // --- Quantity + add to cart -------------------------------------------
+    #o_wsale_cta_wrapper {
+        gap: .6rem;
+        align-items: stretch !important;
+        padding-top: .5rem;
+    }
+
+    .css_quantity {
+        width: auto;
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+        overflow: hidden;
+        border: 1px solid $border-color;
+        border-radius: 2rem;
+
+        .btn {
+            width: 2.6rem;
+            padding: 0;
+            font-size: .85rem;
+            color: $g-coral;
+            text-decoration: none;
+            border: 0;
+            border-radius: 0;
+
+            &:hover {
+                color: $white;
+                background-color: $g-coral;
+            }
+        }
+
+        input.quantity {
+            width: 2.9rem;
+            padding: 0;
+            font-weight: 600;
+            background-color: $white;
+            border: 0;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    #add_to_cart_wrap {
+        margin-bottom: 0 !important;
+    }
+
+    #add_to_cart {
+        padding: .7rem 2rem;
+        font-size: 1rem;
+        font-weight: 700;
+        color: $white;
+        background-color: $g-coral;
+        border-color: $g-coral;
+        border-radius: 2rem;
+        box-shadow: 0 .35rem .9rem rgba($g-coral, .3);
+        transition: background-color .15s ease, box-shadow .15s ease,
+                    transform .15s ease;
+
+        &:hover,
+        &:focus {
+            background-color: $g-coral-dark;
+            border-color: $g-coral-dark;
+            box-shadow: 0 .5rem 1.1rem rgba($g-coral, .4);
+            transform: translateY(-1px);
+        }
+    }
+
+    // Wishlist / compare. They were plain links crowding the main action.
+    #product_option_block {
+        gap: .5rem;
+        margin-top: .35rem;
+
+        .btn {
+            padding: .35rem .8rem !important;
+            font-size: .85rem;
+            color: $gray-700;
+            text-decoration: none;
+            border: 1px solid $border-color;
+            border-radius: 2rem;
+
+            &:hover {
+                color: $g-coral-dark;
+                border-color: rgba($g-coral, .7);
+            }
+        }
+    }
+
+    .availability_messages {
+        &:not(:empty) {
+            margin-top: .6rem;
+        }
+
+        .text-danger,
+        .text-warning {
+            font-weight: 600;
+        }
+    }
+
+    // --- Accordion ("More Information", specifications) --------------------
+    #product_accordion {
+        margin-top: 1.5rem !important;
+        border: 1px solid $border-color;
+        border-radius: .85rem;
+
+        .accordion-item {
+            background-color: transparent;
+            border: 0;
+
+            + .accordion-item {
+                border-top: 1px solid $border-color;
+            }
+        }
+
+        .accordion-button {
+            padding: .85rem 1rem;
+            font-size: .9rem;
+            font-weight: 700;
+            color: $g-title;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+            background-color: transparent;
+            box-shadow: none;
+
+            &::after {
+                width: 1rem;
+                height: 1rem;
+                background-size: 1rem;
+            }
+        }
+
+        .accordion-body {
+            padding: 0 1rem 1rem;
+            font-size: .9rem;
+            color: $gray-700;
+        }
+    }
+
+    // --- Terms and share ---------------------------------------------------
+    #o_product_terms_and_share {
+        padding: .9rem 1rem;
+        margin-top: 1.25rem;
+        background-color: $gray-100;
+        border-radius: .85rem;
+
+        p {
+            font-size: .85rem;
+            line-height: 1.7;
+        }
+
+        .s_share_title {
+            margin-bottom: .35rem;
+            font-size: .8rem !important;
+            font-weight: 700;
+            color: $gray-700;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+        }
+
+        .s_share a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.1rem;
+            height: 2.1rem;
+            margin-right: .3rem;
+            color: $g-coral;
+            background-color: $white;
+            border-radius: 50%;
+            transition: color .15s ease, background-color .15s ease;
+
+            &:hover {
+                color: $white;
+                background-color: $g-coral;
+            }
+
+            // The glyph carries its own rounded box and shadow, which drew a
+            // second square inside the disc.
+            .fa {
+                background: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Description, now below both columns
+    // ------------------------------------------------------------------
+    // The container is 1280px wide, which is far too long a line to read and
+    // blows the marketing images up past the size they were drawn at. The
+    // whole block is narrowed together, so the heading, the images and the
+    // read-more button all share one left edge.
+    #o_g2b_product_desc {
+        max-width: 900px;
+        margin-bottom: 2.5rem;
+    }
+
+    .o_g2b_pd_heading {
+        position: relative;
+        padding-bottom: .65rem;
+        margin-bottom: 1.25rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: $g-title;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 48px;
+            height: 3px;
+            content: "";
+            background-color: $g-coral;
+            border-radius: 3px;
+        }
+    }
+
+    .o_g2b_pd_body {
+        position: relative;
+
+        // The descriptions are a stack of full-width images, one per
+        // paragraph. Left alone, each paragraph's bottom margin cuts a white
+        // seam through what is meant to read as one continuous banner.
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        p:has(> img:only-child) {
+            margin: 0;
+        }
+
+        p {
+            margin-bottom: .6rem;
+            line-height: 1.75;
+            color: $gray-800;
+        }
+
+    }
+
+    // Folded state, applied by `product_page.js` only when the description is
+    // long enough to be worth folding.
+    .o_g2b_pd_body.o_g2b_pd_clamped {
+        max-height: 700px;
+        overflow: hidden;
+
+        &::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 140px;
+            pointer-events: none;
+            content: "";
+            background-image: linear-gradient(to bottom,
+                rgba($white, 0), rgba($white, .9) 55%, $white);
+        }
+    }
+
+    .o_g2b_pd_more_wrap {
+        margin-top: -1.5rem;
+        text-align: center;
+    }
+
+    .o_g2b_pd_more {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        gap: .5rem;
+        align-items: center;
+        padding: .45rem 1.4rem;
+        font-size: .875rem;
+        font-weight: 600;
+        color: $g-coral-dark;
+        background-color: $white;
+        border: 1px solid rgba($g-coral, .55);
+        border-radius: 2rem;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background-color: $g-coral;
+            border-color: $g-coral;
+        }
+
+        // The chevron is drawn here rather than marked up, so the button's
+        // two labels stay plain translatable strings.
+        &::after {
+            font-family: FontAwesome;
+            font-size: .9em;
+            line-height: 1;
+            content: "\f107"; // angle-down
+            transition: transform .2s ease;
+        }
+    }
+
+    // One label is shown at a time; which one depends on the fold state.
+    .o_g2b_pd_label_less {
+        display: none;
+    }
+
+    .o_g2b_pd_expanded {
+        .o_g2b_pd_label_more {
+            display: none;
+        }
+
+        .o_g2b_pd_label_less {
+            display: block;
+        }
+
+        &::after {
+            transform: rotate(180deg);
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Narrow screens
+    // ------------------------------------------------------------------
+    @include media-breakpoint-down(lg) {
+        // The carousel is sticky on desktop, where the description used to run
+        // alongside it. With the description moved below there is nothing to
+        // stick to, and on a phone it only ate the screen.
+        #o-carousel-product {
+            position: static !important;
+        }
+
+        #o_wsale_cta_wrapper {
+            padding-top: .25rem;
+        }
+
+        // The main action gets the full width of the row; the stepper keeps
+        // its own.
+        #add_to_cart_wrap {
+            flex: 1 1 auto;
+        }
+
+        .o_g2b_pd_body.o_g2b_pd_clamped {
+            max-height: 460px;
+        }
+    }
+}
