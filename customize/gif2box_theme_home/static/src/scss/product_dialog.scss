@@ -1,0 +1,240 @@
+///
+/// Product configurator dialog -- the popup for a product that has variants.
+///
+/// Loaded after `header.scss` in the same bundle, so the brand variables
+/// declared there are in scope.
+///
+/// The markup is the `sale.Product` / `sale.ProductList` OWL templates, so
+/// everything here is styling over templates we do not own. `contentClass`
+/// puts `o_sale_product_configurator_dialog` on `.modal-content`, which makes
+/// the header, body and footer all descendants of it.
+///
+
+.modal-dialog:has(.o_sale_product_configurator_dialog) {
+    max-width: 720px;
+}
+
+.o_sale_product_configurator_dialog {
+
+    .modal-body {
+        padding-top: .75rem;
+    }
+
+    // --- Product row ------------------------------------------------------
+    // The stock table draws a rule under every cell, which chopped the row
+    // into four boxes. One rule between products is enough.
+    .o_sale_product_configurator_table {
+        > tbody > tr > td {
+            border-bottom: 0;
+        }
+
+        > tbody > tr + tr > td {
+            border-top: 1px solid $border-color;
+        }
+
+        // Column headings ("Product" / "Quantity" / "Price") repeat what the
+        // row already shows, on a dialog this small.
+        > thead {
+            display: none;
+        }
+    }
+
+    .o_sale_product_configurator_img {
+        width: 96px;
+        vertical-align: top;
+
+        img {
+            border: 1px solid $border-color;
+            border-radius: .6rem;
+        }
+    }
+
+    // The table shares its width out evenly, which left the attribute choices
+    // in a column too narrow to hold "Số 2: 24.5x157x14mm" on one line while
+    // the quantity and price columns sat half empty. Shrinking those two to
+    // their contents hands the rest to the product.
+    .o_sale_product_configurator_qty,
+    .o_sale_product_configurator_price {
+        width: 1%;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+
+    .o_sale_product_configurator_price {
+        padding-left: 1rem !important;
+    }
+
+    [name="o_sale_product_configurator_name"] {
+        // The stock `mb-4` left a gap the size of the name itself between the
+        // product and the options that belong to it.
+        margin-bottom: .85rem !important;
+
+        .h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: $g-title;
+        }
+
+        // The sales description. It is written for quotations, runs long, and
+        // pushes the actual choices below the fold.
+        > .text-muted.small {
+            display: none;
+        }
+    }
+
+    // --- Variant selectors -------------------------------------------------
+    // Only the attribute *name* ("Màu sắc", "Kích thước"), which the template
+    // marks with `fw-bold`. The value labels are also `<label>`s, so a bare
+    // element selector would uppercase the options themselves.
+    [name="ptal"] label.fw-bold {
+        font-size: .8rem;
+        color: $gray-700;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+    }
+
+    // Consecutive attributes ran together with nothing between them.
+    [name="ptal"] + [name="ptal"] {
+        padding-top: .6rem;
+        margin-top: .1rem;
+        border-top: 1px dashed $border-color;
+    }
+
+    // Radio / pill style attribute values.
+    .form-check .form-check-input:checked {
+        background-color: $g-coral;
+        border-color: $g-coral;
+    }
+
+    .form-check-label {
+        cursor: pointer;
+    }
+
+    // --- Quantity stepper ---------------------------------------------------
+    // `btn-secondary` on this site is a tinted fill that read as the loudest
+    // control in the dialog. An outline keeps the emphasis on the price and
+    // the checkout button.
+    [name="quantity_buttons_wrapper"] {
+        .btn {
+            color: $g-coral;
+            background-color: $white;
+            border: 1px solid $border-color;
+
+            &:hover:not(:disabled) {
+                color: $white;
+                background-color: $g-coral;
+                border-color: $g-coral;
+            }
+
+            &:disabled {
+                color: $gray-500;
+                opacity: 1;
+            }
+        }
+
+        // Bootstrap gives the field `flex: 1 1 auto; width: 1%`, which in a
+        // shrink-to-fit cell collapsed it to nothing. A fixed basis pins it.
+        .form-control {
+            flex: 0 0 3.25rem;
+            width: 3.25rem;
+            padding-right: .25rem;
+            padding-left: .25rem;
+            font-weight: 600;
+            border-color: $border-color;
+
+            &:focus {
+                border-color: rgba($g-coral, .55);
+                box-shadow: none;
+            }
+        }
+    }
+
+    // --- Narrow screens ----------------------------------------------------
+    // Four columns and a nowrap price do not fit a phone: the price ran off
+    // the edge and squeezed the product name into a two-word column. The
+    // fixed columns give ground so the name keeps the room.
+    @include media-breakpoint-down(md) {
+        .o_sale_product_configurator_img {
+            width: 64px;
+        }
+
+        .o_sale_product_configurator_price {
+            padding-left: .5rem !important;
+        }
+
+        [name="sale_product_configurator_formatted_price"] {
+            font-size: .95rem !important;
+        }
+
+        [name="sale_product_configurator_list_total"] {
+            font-size: 1.05rem !important;
+        }
+
+        [name="quantity_buttons_wrapper"] .form-control {
+            flex: 0 0 2.75rem;
+            width: 2.75rem;
+        }
+
+        // The attribute name stacks above its values here, so the uppercase
+        // treatment is doing the separating on its own.
+        [name="ptal"] label.fw-bold {
+            margin-bottom: .1rem;
+        }
+    }
+
+    .btn-check:checked + .btn,
+    .css_attribute_color.active {
+        border-color: $g-coral !important;
+        box-shadow: 0 0 0 .15rem rgba($g-coral, .18);
+    }
+
+    select.form-select:focus,
+    .form-control:focus {
+        border-color: rgba($g-coral, .55);
+        box-shadow: 0 0 0 .18rem rgba($g-coral, .14);
+    }
+
+    // --- Prices ------------------------------------------------------------
+    [name="sale_product_configurator_formatted_price"],
+    [name="sale_product_configurator_list_total"] {
+        color: $g-coral;
+    }
+
+    // --- Optional products -------------------------------------------------
+    [name="sale_product_configurator_list_title"] {
+        margin-top: 1.5rem !important;
+        font-size: 1rem !important;
+        font-weight: 700;
+        color: $g-title;
+    }
+}
+
+// --- Footer buttons -------------------------------------------------------
+// Shared with the combo dialog. "Continue Shopping" and "Proceed to Checkout"
+// are long labels rendered at the modal's inherited 1rem, which made them the
+// loudest thing on the dialog and wrapped them on a phone.
+.o_sale_product_configurator_dialog,
+.sale-combo-configurator-dialog {
+    .modal-footer {
+        gap: .5rem;
+
+        .btn {
+            padding: .45rem 1.1rem;
+            font-size: .85rem;
+            font-weight: 600;
+            border-radius: 2rem;
+        }
+
+        .btn-primary {
+            color: $white;
+            background-color: $g-coral;
+            border-color: $g-coral;
+
+            &:hover,
+            &:focus {
+                background-color: $g-coral-dark;
+                border-color: $g-coral-dark;
+            }
+        }
+    }
+}

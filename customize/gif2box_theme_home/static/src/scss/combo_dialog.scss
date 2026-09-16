@@ -216,29 +216,10 @@
     // ----------------------------------------------------------------
     // Footer
     // ----------------------------------------------------------------
-    .modal-footer {
-        gap: .5rem;
-
-        .btn {
-            font-weight: 600;
-            border-radius: 2rem;
-        }
-
-        .btn-primary {
-            color: $white;
-            background-color: $g-coral;
-            border-color: $g-coral;
-
-            &:hover,
-            &:focus {
-                background-color: $g-coral-dark;
-                border-color: $g-coral-dark;
-            }
-        }
-
-        [name="sale_combo_configurator_total"] {
-            color: $g-coral;
-        }
+    // The buttons themselves are styled in `product_dialog.scss`, shared with
+    // the variant configurator so the two dialogs match.
+    .modal-footer [name="sale_combo_configurator_total"] {
+        color: $g-coral;
     }
 }
 
