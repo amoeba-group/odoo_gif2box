@@ -13,6 +13,8 @@
 $g-coral: #FD7352;
 $g-coral-dark: #E85A38;
 $g-blue: #0B88FD;
+// Section headings; the site's own dark teal rather than a logo colour.
+$g-title: #004444;
 $g-logo-h: 70px;
 $g-logo-h-sm: 46px;
 
@@ -923,10 +925,10 @@ header#top {
             border-radius: 4px;
         }
 
-        // Flat, in the logo's blue. The accent rule below keeps the gradient.
+        // Flat, in the site's dark teal. The accent rule keeps the gradient.
         strong {
             font-weight: inherit;
-            color: $g-blue;
+            color: $g-title;
 
             // One of the two is wrapped in `<font class="text-o-color-5">`, a
             // theme colour utility set with `!important`.
