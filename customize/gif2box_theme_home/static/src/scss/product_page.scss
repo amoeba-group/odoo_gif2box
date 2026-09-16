@@ -199,9 +199,18 @@
         border-radius: 2rem;
 
         .btn {
+            // `.input-group` stretches its children to the row height, but a
+            // `.btn` is `inline-block`, so with the padding removed its line
+            // box stayed at the top of the stretched box and the glyphs sat
+            // well above the quantity beside them. Flex centres them in
+            // whatever height the row ends up being.
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 2.6rem;
             padding: 0;
             font-size: .85rem;
+            line-height: 1;
             color: $g-coral;
             text-decoration: none;
             border: 0;
