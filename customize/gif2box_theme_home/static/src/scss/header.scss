@@ -34,19 +34,24 @@ $g-logo-h-sm: 40px;
 // PAGE WIDTH
 //
 // Bootstrap steps the container up to 1140px at `xl` and 1320px at `xxl`;
-// the site is laid out for 1200px, so both are pinned there. Every
-// `.container-*` variant is listed because Odoo's snippets use them
-// interchangeably. `.container-fluid` is untouched, and the full-width
-// slider overrides this with a more specific rule of its own.
+// the site is laid out for 1280px. Every `.container-*` variant is listed
+// because Odoo's snippets use them interchangeably. `.container-fluid` is
+// untouched, and the full-width slider overrides this with a more specific
+// rule of its own.
+//
+// The threshold is 1320px rather than the `xl` breakpoint: applied from
+// 1200px, a 1280px container would exceed the viewport between those two
+// widths and the page would run edge to edge with no gutter at all. Below
+// 1320px Bootstrap's own steps stand.
 // =====================================================================
-@media (min-width: 1200px) {
+@media (min-width: 1320px) {
     .container,
     .container-sm,
     .container-md,
     .container-lg,
     .container-xl,
     .container-xxl {
-        max-width: 1200px;
+        max-width: 1280px;
     }
 }
 
@@ -257,13 +262,22 @@ header#top {
         margin-right: .5rem;
 
         // Centred on the action band, both axes. The threshold is 1400px
-        // rather than the `xl` container: at 1140px a centred 450px box reaches
-        // further right than the action group starts -- more so once a
-        // signed-in account name widens it -- and the two overlapped.
+        // rather than the `xl` container: at 1140px a centred box reaches
+        // further right than the action group starts and the two overlapped.
+        //
+        // Width note. The box is centred on the viewport while the action
+        // group is right-aligned in the container, so the clearance between
+        // them works out at `626 - group - width/2` and does not vary with
+        // the viewport. At 450px it came to zero -- they met exactly, and any
+        // longer account name would have pushed the group underneath. 420px,
+        // with the account name capped above, keeps that gap positive in the
+        // worst case.
         @media (min-width: 1400px) {
             position: absolute;
             top: 50%;
             left: 50%;
+            width: 420px;
+            max-width: 420px;
             margin-right: 0;
             transform: translate(-50%, -50%);
         }
@@ -334,7 +348,10 @@ header#top {
 
         &.dropdown-toggle {
             width: auto;
-            max-width: 12rem;
+            // Bounds how far the account name can push the action group
+            // leftwards, towards the centred search box. See the clearance
+            // note on `.o_searchbar_form`.
+            max-width: 11rem;
             gap: .4rem;
             padding: 0 .7rem !important;
             overflow: hidden;
