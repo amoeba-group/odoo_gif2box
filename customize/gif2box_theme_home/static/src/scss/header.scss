@@ -737,12 +737,21 @@ header#top {
         }
 
         // --- Price and add to cart --------------------------------------
-        .product_price,
-        .oe_currency_value,
-        [class*="product_price"] {
+        //
+        // Selected on the `name` attribute, not a class: the markup is
+        // `<span name="product_price">`, and the currency symbol is a bare
+        // text node inside it, next to the `.oe_currency_value` span holding
+        // the amount. Colouring only the inner span left the "₫" in the body
+        // colour while the digits were coral.
+        [name="product_price"],
+        .product_price {
             font-size: 1.1rem;
             font-weight: 700;
             color: $g-coral;
+
+            .oe_currency_value {
+                color: inherit;
+            }
         }
 
         del,
