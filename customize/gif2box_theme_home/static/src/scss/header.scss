@@ -1,0 +1,536 @@
+///
+/// Header, main menu and homepage restyle for gif2box.
+///
+/// The accent colours are sampled from the site logo. The palette configured in
+/// the website editor (`o-color-1`) is a plain grey and does not match the
+/// brand, so the values are set here rather than read from the theme.
+///
+
+$g-coral: #FD7352;
+$g-coral-dark: #E85A38;
+$g-blue: #0B88FD;
+$g-logo-h: 70px;
+$g-logo-h-sm: 46px;
+
+// =====================================================================
+// HEADER
+// =====================================================================
+header#top {
+
+    // The thin top strip only ever held the language selector, which now lives
+    // in the action row. Hiding it drops the header from three bands to two.
+    .o_header_sales_two_top {
+        display: none !important;
+    }
+
+    // --- Logo ---------------------------------------------------------
+    .navbar-brand.logo {
+        padding: 0;
+        margin-right: 1.5rem !important;
+
+        img {
+            width: auto !important;
+            height: $g-logo-h !important;
+            max-height: $g-logo-h !important;
+            object-fit: contain;
+        }
+    }
+
+    // --- Action row: search, cart, wishlist, user, language -----------
+    [aria-label="Middle"] {
+        gap: 1rem;
+        padding-top: .6rem !important;
+        padding-bottom: .6rem !important;
+    }
+
+    // Let the search bar take the free space in the middle, Shopify-style,
+    // instead of everything being crammed against the right edge.
+    .o_searchbar_form {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 420px;
+        margin-right: .5rem;
+
+        .oe_search_box {
+            height: 2.6rem;
+            background-color: $gray-100 !important;
+            border: 1px solid transparent !important;
+            transition: border-color .15s ease, background-color .15s ease;
+
+            &:focus {
+                background-color: $white !important;
+                border-color: rgba($g-coral, .55) !important;
+                box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
+            }
+        }
+
+        .oe_search_button {
+            padding: 0 1rem !important;
+            color: $white;
+            background-color: $g-coral !important;
+
+            &:hover {
+                background-color: $g-coral-dark !important;
+            }
+        }
+    }
+
+    > nav .navbar-nav.gap-1 {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        gap: .25rem !important;
+    }
+
+    // --- Icon buttons -------------------------------------------------
+    .o_navlink_background_hover {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.6rem;
+        height: 2.6rem;
+        padding: 0 !important;
+        color: $g-coral !important;
+        border-radius: 50%;
+        transition: background-color .15s ease, color .15s ease;
+
+        .fa,
+        i {
+            font-size: 1.05rem;
+        }
+
+        // The stock markup wraps the user icon in a bordered circle of its own,
+        // which would sit inside ours.
+        .fa-stack,
+        [class*="rounded-circle"] {
+            width: auto !important;
+            height: auto !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: none !important;
+            border: 0 !important;
+        }
+
+        &:hover,
+        &:focus {
+            color: $g-coral-dark !important;
+            background-color: rgba($g-coral, .12);
+        }
+
+        // Cart / wishlist counters
+        .badge,
+        sup {
+            top: .1rem;
+            right: .1rem;
+            font-size: .62rem;
+            color: $white;
+            background-color: $g-coral !important;
+        }
+    }
+
+    // --- Language selector --------------------------------------------
+    .o_gif2box_lang {
+        margin-left: .25rem;
+    }
+
+    .o_gif2box_lang_btn {
+        gap: .45rem;
+        height: 2.6rem;
+        padding: 0 .7rem;
+        font-size: .85rem;
+        font-weight: 600;
+        color: $body-color;
+        border-radius: 2rem;
+        transition: background-color .15s ease;
+
+        &::after {
+            margin-left: .1rem;
+            opacity: .5;
+        }
+
+        &:hover {
+            background-color: $gray-100;
+        }
+    }
+
+    .js_language_selector {
+
+        // Both the desktop and the mobile navbar render their own selector, and
+        // only the desktop one gets `o_gif2box_lang_btn`. Making the toggle a
+        // flex box here is what lets `order` pull the flag in front of the
+        // label on every breakpoint.
+        .dropdown-toggle {
+            display: inline-flex !important;
+            gap: .4rem;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            border: 1px solid $border-color;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .1);
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: .55rem;
+            align-items: center;
+            padding: .45rem .6rem;
+            font-size: .85rem;
+            border-radius: .4rem;
+
+            &:hover {
+                background-color: rgba($g-coral, .1);
+            }
+
+            &.active {
+                font-weight: 600;
+                color: $g-coral;
+                background-color: rgba($g-coral, .12);
+            }
+        }
+    }
+
+    // Flags are appended by the template; `order` puts them back in front.
+    .o_gif2box_flag {
+        flex: 0 0 auto;
+        order: -1;
+        width: 20px;
+        height: 14px;
+        object-fit: cover;
+        border-radius: 2px;
+        box-shadow: 0 0 0 1px rgba($black, .08);
+    }
+
+    // --- Menu bar ------------------------------------------------------
+    [aria-label="Bottom"] {
+        background-color: $white;
+        border-top: 1px solid $border-color;
+    }
+
+    #top_menu {
+        flex-wrap: wrap;
+
+        > .nav-item > .nav-link {
+            position: relative;
+            padding: .8rem .85rem !important;
+            font-size: .875rem;
+            font-weight: 600;
+            color: $body-color;
+            text-transform: uppercase;
+            letter-spacing: .01em;
+            transition: color .15s ease;
+
+            // Sliding underline in the brand colour.
+            &::after {
+                position: absolute;
+                right: .85rem;
+                bottom: .35rem;
+                left: .85rem;
+                height: 2px;
+                content: "";
+                background-color: $g-coral;
+                border-radius: 2px;
+                transform: scaleX(0);
+                transform-origin: left center;
+                transition: transform .2s ease;
+            }
+
+            &:hover,
+            &:focus,
+            &.active {
+                color: $g-coral;
+
+                &::after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            margin-top: .25rem;
+            border: 1px solid $border-color;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .1);
+
+            .dropdown-item {
+                padding: .5rem .75rem;
+                font-size: .875rem;
+                border-radius: .4rem;
+
+                &:hover,
+                &:focus {
+                    color: $g-coral;
+                    background-color: rgba($g-coral, .1);
+                }
+            }
+        }
+    }
+
+    // --- Call to action -------------------------------------------------
+    .btn_cta {
+        padding-inline: 1.4rem !important;
+        font-weight: 600;
+        color: $white !important;
+        background-color: $g-coral !important;
+        border-color: $g-coral !important;
+        border-radius: 0 !important;
+
+        &:hover,
+        &:focus {
+            background-color: $g-coral-dark !important;
+            border-color: $g-coral-dark !important;
+        }
+    }
+
+    // =================================================================
+    // Tablet and below: the desktop navbar is swapped for `o_header_mobile`
+    // by Odoo at the `lg` breakpoint, so this styles that one.
+    // =================================================================
+    .o_header_mobile {
+
+        // The stock bar is `flex-wrap`, so the burger, logo and icons spill
+        // onto a second line. One row, burger first, logo next to it, actions
+        // pushed right.
+        .o_main_nav {
+            flex-wrap: nowrap !important;
+            gap: .35rem;
+            align-items: center;
+            padding-block: .4rem;
+        }
+
+        .navbar-brand.logo {
+            order: 2;
+            margin-right: auto !important;
+
+            img {
+                height: $g-logo-h-sm !important;
+                max-height: $g-logo-h-sm !important;
+            }
+        }
+
+        // Cart, wishlist, language and the burger are all `<li>` inside this
+        // list, not siblings of the logo, so the ordering has to happen here.
+        .o_header_mobile_buttons_wrap {
+            order: 3;
+            flex-wrap: nowrap;
+            gap: .1rem !important;
+
+            .o_wsale_my_cart { order: 1; }
+            .o_wsale_my_wish { order: 2; }
+            .o_header_language_selector_mobile { order: 3; }
+
+            // The burger is the only other `o_not_editable` item; pushed last
+            // so the menu trigger sits at the edge of the bar.
+            li.o_not_editable:not(.o_header_language_selector_mobile) {
+                order: 4;
+            }
+
+            [data-bs-toggle="offcanvas"] {
+                margin-right: 0 !important;
+                color: $body-color;
+            }
+        }
+
+        .o_navlink_background_hover {
+            width: 2.3rem;
+            height: 2.3rem;
+        }
+
+        .dropdown-toggle {
+            height: 2.3rem;
+            padding: 0 .4rem;
+            font-size: .78rem;
+            font-weight: 600;
+            color: $body-color;
+        }
+
+        // On phones the label does not fit next to five controls, so only the
+        // flag is shown. Tablets, which also use this bar, keep the label.
+        @include media-breakpoint-down(md) {
+            .js_language_selector .dropdown-toggle {
+                padding-inline: .25rem;
+
+                > span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(xl) {
+        #top_menu > .nav-item > .nav-link {
+            padding: .8rem .6rem !important;
+            font-size: .8rem;
+        }
+
+        .o_searchbar_form {
+            max-width: 300px;
+        }
+    }
+}
+
+// =====================================================================
+// HOMEPAGE SLIDER
+//
+// The snippet wraps the carousel in a `.container-fluid` with gutters and
+// adds an inline `margin: 0 12px` on the carousel itself, so it never
+// reached the viewport edges. Both are removed here.
+// =====================================================================
+#wrap .s_image_gallery.o_slideshow {
+    padding-inline: 0 !important;
+
+    > .container,
+    > .container-fluid,
+    > .o_container_small {
+        max-width: 100% !important;
+        padding-inline: 0 !important;
+        margin-inline: 0 !important;
+    }
+
+    // The section carries an inline `height` set in the website editor back
+    // when the slider was boxed. Now that it spans the viewport the banners are
+    // shorter than that, which left a band of empty space above and below the
+    // image -- and the indicators, anchored to the carousel, landed in it.
+    // Letting the carousel hug its image puts the dots back over the artwork
+    // without cropping banners that carry text.
+    height: auto !important;
+
+    .carousel,
+    .carousel-inner,
+    .carousel-item {
+        height: auto !important;
+        padding-bottom: 0 !important;
+        margin: 0 !important;
+    }
+
+    .carousel-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    // Dots over the image rather than in a strip underneath it.
+    .o_carousel_controllers {
+        display: contents;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        right: 0;
+        bottom: 1.1rem;
+        left: 0;
+        z-index: 3;
+        gap: .4rem;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        padding: 0;
+        margin: 0;
+
+        button,
+        li {
+            flex: 0 0 auto;
+            width: 9px !important;
+            height: 9px !important;
+            padding: 0 !important;
+            text-indent: 0;
+            background-color: rgba($white, .65) !important;
+            background-image: none !important;
+            border: 0 !important;
+            border-radius: 50% !important;
+            opacity: 1;
+            box-shadow: 0 1px 3px rgba($black, .35);
+            transition: width .2s ease, background-color .2s ease;
+
+            &.active {
+                width: 26px !important;
+                background-color: $g-coral !important;
+                border-radius: 5px !important;
+            }
+        }
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+        width: auto;
+        padding: 0 1rem;
+        opacity: .85;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            padding: .9rem;
+            background-color: rgba($white, .9);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba($black, .18);
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .carousel-indicators {
+            bottom: .55rem;
+
+            button,
+            li {
+                width: 7px !important;
+                height: 7px !important;
+
+                &.active {
+                    width: 20px !important;
+                }
+            }
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            padding: 0 .35rem;
+        }
+    }
+}
+
+// =====================================================================
+// HOMEPAGE BUTTONS
+//
+// The theme renders every call to action in `o-color-1`, a grey that has
+// nothing to do with the logo.
+// =====================================================================
+#wrap {
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-fill-primary,
+    .btn-fill-secondary,
+    .o_wsale_product_btn .btn,
+    .js_add_cart_json.btn-primary,
+    a.btn.btn-primary {
+        color: $white !important;
+        background-color: $g-coral !important;
+        border-color: $g-coral !important;
+
+        &:hover,
+        &:focus {
+            color: $white !important;
+            background-color: $g-coral-dark !important;
+            border-color: $g-coral-dark !important;
+        }
+    }
+
+    .btn-outline-primary,
+    .btn-outline-secondary {
+        color: $g-coral !important;
+        border-color: $g-coral !important;
+
+        &:hover,
+        &:focus {
+            color: $white !important;
+            background-color: $g-coral !important;
+        }
+    }
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Move the language selector out of the thin top strip and into the action
+        row that already holds the search box, cart, wishlist and user menu.
+
+        The strip carried nothing else (the text-element and social-links views
+        are inactive on this site, so it rendered as an empty grey band), and it
+        is hidden in SCSS once emptied.
+    -->
+    <template id="header_language_selector_in_actions"
+              inherit_id="website.template_header_sales_two">
+        <xpath expr="//ul[hasclass('navbar-nav')][hasclass('gap-1')]" position="inside">
+            <xpath expr="//t[@t-call='website.placeholder_header_language_selector']"
+                   position="move"/>
+        </xpath>
+        <xpath expr="//t[@t-call='website.placeholder_header_language_selector']/t[@t-set='_div_classes']"
+               position="attributes">
+            <attribute name="t-valuef">d-flex align-items-center o_gif2box_lang</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website.placeholder_header_language_selector']/t[@t-set='_btn_class']"
+               position="attributes">
+            <attribute name="t-valuef">btn o_gif2box_lang_btn d-flex align-items-center border-0</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Show a flag next to each language, both on the toggle button and in the
+        dropdown. `res.lang.flag_image_url` falls back to the country flag
+        shipped in `base` (vn.png / us.png / jp.png / kr.png here), so nothing
+        has to be uploaded.
+
+        The image is appended rather than inserted before the label: the label
+        is one of two mutually exclusive spans (`no_text` / `codes`), so there
+        is no single stable node to anchor `position="before"` on. The flag is
+        pulled back in front with `order: -1` in SCSS instead.
+    -->
+    <template id="language_selector_flags" inherit_id="portal.language_selector">
+        <!--
+            Selected on `data-bs-toggle` / the static `dropdown-item` class:
+            the template builds the rest of its classes with `t-attf-class`,
+            which `hasclass()` cannot see.
+        -->
+        <xpath expr="//button[@data-bs-toggle='dropdown']" position="inside">
+            <img class="o_gif2box_flag"
+                 t-att-src="active_lang.flag_image_url"
+                 t-att-alt="active_lang.name"
+                 loading="lazy"/>
+        </xpath>
+        <xpath expr="//a[hasclass('dropdown-item')]" position="inside">
+            <img class="o_gif2box_flag"
+                 t-att-src="lg.flag_image_url"
+                 t-att-alt="lg.name"
+                 loading="lazy"/>
+        </xpath>
+    </template>
+
+</odoo>
