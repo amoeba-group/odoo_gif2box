@@ -1089,6 +1089,10 @@ header#top {
             }
         }
 
+        // Outlined at rest, filled on hover. The buttons carry `btn-light`,
+        // whose colours come through Bootstrap's `--bs-btn-*` variables; these
+        // properties are set directly on the element and win on specificity,
+        // so the variables need no overriding.
         .o_wsale_product_btn .btn {
             display: inline-flex;
             align-items: center;
@@ -1096,9 +1100,9 @@ header#top {
             width: 2.4rem;
             height: 2.4rem;
             padding: 0;
-            color: $g-coral;
-            background-color: rgba($g-coral, .1);
-            border: 0;
+            color: $g-coral-dark;
+            background-color: $white;
+            border: 1px solid $g-coral-dark;
             border-radius: 50%;
             transition: color .15s ease, background-color .15s ease,
                         transform .15s ease;
@@ -1106,7 +1110,8 @@ header#top {
             &:hover,
             &:focus {
                 color: $white;
-                background-color: $g-coral;
+                background-color: $g-coral-dark;
+                border-color: $g-coral-dark;
                 transform: scale(1.08);
             }
         }
@@ -1125,7 +1130,9 @@ header#top {
     .btn-secondary,
     .btn-fill-primary,
     .btn-fill-secondary,
-    .o_wsale_product_btn .btn,
+    // `.o_wsale_product_btn .btn` is deliberately absent: the grid's cart and
+    // wishlist buttons are outlined, and this blanket fill carried
+    // `!important`, so it was overriding them.
     .js_add_cart_json.btn-primary,
     a.btn.btn-primary {
         color: $white !important;
