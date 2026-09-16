@@ -1,0 +1,1064 @@
+///
+/// Header, main menu and homepage restyle for gif2box.
+///
+/// The accent colours are sampled from the site logo. The palette configured in
+/// the website editor (`o-color-1`) is a plain grey and does not match the
+/// brand, so the values are set here rather than read from the theme.
+///
+/// Note on selectors: the header bands carry `aria-label` attributes, but Odoo
+/// translates them ("Giữa", "Dưới" on this site), so they are useless as
+/// hooks. Everything below keys off structure or stable classes instead.
+///
+
+$g-coral: #FD7352;
+$g-coral-dark: #E85A38;
+$g-blue: #0B88FD;
+// Section headings; the site's own dark teal rather than a logo colour.
+$g-title: #004444;
+$g-logo-h: 70px;
+$g-logo-h-sm: 46px;
+
+// =====================================================================
+// LANGUAGE FLAGS
+//
+// Not scoped to the header: the same template renders the selector in the
+// footer too, and an unsized flag there fell back to the source PNG size.
+// The image is appended by the template, so `order` puts it in front.
+// =====================================================================
+.o_gif2box_flag {
+    flex: 0 0 auto;
+    order: -1;
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba($black, .08);
+}
+
+#footer,
+.o_footer_copyright {
+
+    .js_language_selector {
+        display: inline-flex;
+        align-items: center;
+        margin-left: .5rem;
+
+        .dropdown-toggle {
+            display: inline-flex !important;
+            gap: .4rem;
+            align-items: center;
+            padding: .25rem .6rem;
+            font-size: .85rem;
+            border: 1px solid rgba($black, .15);
+            border-radius: 2rem;
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .15);
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: .55rem;
+            align-items: center;
+            padding: .45rem .6rem;
+            font-size: .85rem;
+            border-radius: .4rem;
+
+            &.active {
+                font-weight: 600;
+                color: $g-coral;
+                background-color: rgba($g-coral, .12);
+            }
+        }
+    }
+}
+
+// =====================================================================
+// HEADER
+// =====================================================================
+header#top {
+
+    // The thin top strip only ever held the language selector, which now lives
+    // in the action row. Hiding it drops the header from three bands to two.
+    .o_header_sales_two_top {
+        display: none !important;
+    }
+
+    // --- Logo ---------------------------------------------------------
+    .navbar-brand.logo {
+        padding: 0;
+        margin-right: 1.5rem !important;
+
+        img {
+            width: auto !important;
+            height: $g-logo-h !important;
+            max-height: $g-logo-h !important;
+            object-fit: contain;
+        }
+    }
+
+    // --- Action row ----------------------------------------------------
+    //
+    // `.o_header_hide_on_scroll` wraps the logo/search/icons band only -- the
+    // menu lives outside it. It is the positioning context for the search box
+    // so that centring the box cannot push it down over the menu.
+    .o_header_hide_on_scroll {
+        position: relative;
+
+        > .container {
+            gap: 1rem;
+            padding-top: .6rem !important;
+            padding-bottom: .6rem !important;
+        }
+    }
+
+    .o_searchbar_form {
+        flex: 0 1 450px;
+        width: 450px;
+        max-width: 450px;
+        min-width: 0;
+        margin-right: .5rem;
+
+        // Centred on the action band, both axes. The threshold is 1400px
+        // rather than the `xl` container: at 1140px a centred 450px box reaches
+        // further right than the action group starts -- more so once a
+        // signed-in account name widens it -- and the two overlapped.
+        @media (min-width: 1400px) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        @media (max-width: 1399.98px) {
+            flex: 0 1 320px;
+            width: 320px;
+            max-width: 320px;
+        }
+
+        // White field with a coral outline at rest; the glow is the hover and
+        // focus cue. `!important` on both because the markup carries Bootstrap
+        // `bg-light` / `border-0` utilities, which are themselves `!important`.
+        .oe_search_box {
+            height: 2.6rem;
+            background-color: #FFF !important;
+            border: 1px solid rgba(253, 115, 82, .55) !important;
+            transition: box-shadow .15s ease, border-color .15s ease;
+
+            &:focus {
+                border-color: rgba(253, 115, 82, .85) !important;
+                box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
+            }
+        }
+
+        // Driven from the form so the glow also answers a hover on the button.
+        &:hover .oe_search_box {
+            box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
+        }
+
+        .oe_search_button {
+            padding: 0 1rem !important;
+            color: $white;
+            background-color: $g-coral !important;
+
+            &:hover {
+                background-color: $g-coral-dark !important;
+            }
+        }
+    }
+
+    > nav .navbar-nav.gap-1 {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        gap: .25rem !important;
+    }
+
+    // --- Icon buttons -------------------------------------------------
+    //
+    // The user menu carries the account name when someone is signed in, so it
+    // must keep an auto width. Only the icon-only links (cart, wishlist, the
+    // signed-out user link) are squared off into circles.
+    .o_navlink_background_hover {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.6rem;
+        color: $body-color !important;
+        border-radius: 2rem;
+        transition: background-color .15s ease, color .15s ease;
+
+        &:not(.dropdown-toggle) {
+            width: 2.6rem;
+            padding: 0 !important;
+            border-radius: 50%;
+        }
+
+        &.dropdown-toggle {
+            width: auto;
+            max-width: 12rem;
+            gap: .4rem;
+            padding: 0 .7rem !important;
+            overflow: hidden;
+            font-size: .85rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .fa,
+        i {
+            font-size: 1.05rem;
+            transition: color .15s ease;
+        }
+
+        // The stock markup nests the icon in its own bordered circle. It is
+        // kept as the visual disc -- flattening it left no room between the
+        // glyph and the counter, so the badge covered the icon -- but stripped
+        // of its border and fill so ours shows through. `bg-o-color-3` sets a
+        // text colour too, hence `color: inherit`.
+        > div[class*="rounded-circle"] {
+            position: relative;
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            padding: 0 !important;
+            margin: 0 !important;
+            color: inherit !important;
+            background: none !important;
+            border: 0 !important;
+        }
+
+        .fa-stack {
+            width: auto !important;
+            height: auto !important;
+            line-height: 1;
+        }
+
+        // Icon-only links: the text label would spill out of the circle.
+        &:not(.dropdown-toggle) > span {
+            display: none;
+        }
+
+        // Resting state is the body colour; the brand colour is the hover cue.
+        &:hover,
+        &:focus {
+            color: $g-coral !important;
+            background-color: rgba($g-coral, .12);
+
+            .fa,
+            i {
+                color: $g-coral !important;
+            }
+        }
+
+        // Cart / wishlist counters. The markup offsets them with `mt-n1 me-n1`,
+        // which is dropped so the badge hangs on the corner of the disc rather
+        // than over the glyph. `border` needs `!important` because the markup
+        // also carries Bootstrap's `border-0` utility.
+        sup.badge,
+        .badge {
+            top: 0 !important;
+            right: 0 !important;
+            bottom: auto;
+            left: auto;
+            width: 1.2rem;
+            min-width: 1.2rem;
+            height: 1.2rem;
+            padding: 0 !important;
+            margin: 0 !important;
+            font-size: .62rem;
+            line-height: 1.05rem;
+            color: $white;
+            background-color: $g-coral !important;
+            border: 2px solid $white !important;
+            border-radius: 1rem;
+        }
+    }
+
+    // --- Language selector --------------------------------------------
+    .o_gif2box_lang {
+        margin-left: .25rem;
+    }
+
+    .o_gif2box_lang_btn {
+        gap: .45rem;
+        height: 2.6rem;
+        padding: 0 .7rem;
+        font-size: .85rem;
+        font-weight: 600;
+        color: $body-color;
+        border-radius: 2rem;
+        transition: background-color .15s ease;
+
+        &::after {
+            margin-left: .1rem;
+            opacity: .5;
+        }
+
+        &:hover {
+            background-color: $gray-100;
+        }
+    }
+
+    .js_language_selector {
+
+        // Both the desktop and the mobile navbar render their own selector, and
+        // only the desktop one gets `o_gif2box_lang_btn`. Making the toggle a
+        // flex box here is what lets `order` pull the flag in front of the
+        // label on every breakpoint.
+        .dropdown-toggle {
+            display: inline-flex !important;
+            gap: .4rem;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            border: 1px solid $border-color;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .1);
+        }
+
+        .dropdown-item {
+            display: flex;
+            gap: .55rem;
+            align-items: center;
+            padding: .45rem .6rem;
+            font-size: .85rem;
+            border-radius: .4rem;
+
+            &:hover {
+                background-color: rgba($g-coral, .1);
+            }
+
+            &.active {
+                font-weight: 600;
+                color: $g-coral;
+                background-color: rgba($g-coral, .12);
+            }
+        }
+    }
+
+    // --- Menu bar ------------------------------------------------------
+    #o_main_nav > div.border-top {
+        background-color: $white;
+        border-top: 1px solid $border-color;
+    }
+
+    #top_menu {
+        flex-wrap: wrap;
+        padding: 0 !important;
+        margin-right: 1rem !important;
+
+        > .nav-item > .nav-link {
+            position: relative;
+            padding: 1.2rem .85rem !important;
+            font-size: .875rem;
+            font-weight: 500;
+            color: $body-color;
+            text-transform: uppercase;
+            letter-spacing: .01em;
+            transition: color .15s ease, font-weight .15s ease;
+
+            // Sliding underline in the brand colour.
+            &::after {
+                position: absolute;
+                right: .85rem;
+                bottom: .35rem;
+                left: .85rem;
+                height: 2px;
+                content: "";
+                background-color: $g-coral;
+                border-radius: 2px;
+                transform: scaleX(0);
+                transform-origin: left center;
+                transition: transform .2s ease;
+            }
+
+            &:hover,
+            &:focus,
+            &.active {
+                color: $g-coral;
+                // Faux bold. Raising `font-weight` re-measures the label, which
+                // widens the item and nudges every one after it -- the jitter
+                // you get when moving along the bar. A double text-shadow
+                // thickens the glyphs without touching their metrics.
+                text-shadow: 0 0 .7px currentColor, 0 0 .7px currentColor;
+
+                &::after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+
+        .dropdown-menu {
+            padding: .35rem;
+            margin-top: .25rem;
+            border: 1px solid $border-color;
+            border-radius: .65rem;
+            box-shadow: 0 .5rem 1.5rem rgba($black, .1);
+
+            .dropdown-item {
+                padding: .5rem .75rem;
+                font-size: .875rem;
+                font-weight: 500;
+                border-radius: .4rem;
+
+                &:hover,
+                &:focus {
+                    color: $g-coral;
+                    text-shadow: 0 0 .7px currentColor, 0 0 .7px currentColor;
+                    background-color: rgba($g-coral, .1);
+                }
+            }
+        }
+    }
+
+    // --- Call to action -------------------------------------------------
+    .btn_cta {
+        gap: .45rem;
+        padding-inline: 1.4rem !important;
+        font-weight: 600;
+        color: $white !important;
+        background-color: $g-coral !important;
+        border-color: $g-coral !important;
+        border-radius: 0 !important;
+
+        &:hover,
+        &:focus {
+            background-color: $g-coral-dark !important;
+            border-color: $g-coral-dark !important;
+        }
+    }
+
+    // =================================================================
+    // Tablet and below: Odoo swaps the desktop navbar for `o_header_mobile`
+    // at the `lg` breakpoint, so this styles that one.
+    // =================================================================
+    .o_header_mobile {
+
+        // The stock bar is `flex-wrap`, so the burger, logo and icons spill
+        // onto a second line.
+        .o_main_nav {
+            flex-wrap: nowrap !important;
+            gap: .35rem;
+            align-items: center;
+            padding-block: .4rem;
+        }
+
+        .navbar-brand.logo {
+            order: 2;
+            margin-right: auto !important;
+
+            img {
+                height: $g-logo-h-sm !important;
+                max-height: $g-logo-h-sm !important;
+            }
+        }
+
+        // Cart, wishlist, language and the burger are all `<li>` inside this
+        // list, not siblings of the logo, so the ordering has to happen here.
+        .o_header_mobile_buttons_wrap {
+            order: 3;
+            flex-wrap: nowrap;
+            gap: .1rem !important;
+
+            .o_wsale_my_cart { order: 1; }
+            .o_wsale_my_wish { order: 2; }
+            .o_header_language_selector_mobile { order: 3; }
+
+            // The burger is the only other `o_not_editable` item; pushed last
+            // so the menu trigger sits at the edge of the bar.
+            li.o_not_editable:not(.o_header_language_selector_mobile) {
+                order: 4;
+            }
+
+            [data-bs-toggle="offcanvas"] {
+                margin-right: 0 !important;
+                color: $body-color;
+            }
+        }
+
+        .o_navlink_background_hover {
+            width: 2.3rem;
+            height: 2.3rem;
+        }
+
+        .dropdown-toggle {
+            height: 2.3rem;
+            padding: 0 .4rem;
+            font-size: .78rem;
+            font-weight: 600;
+            color: $body-color;
+        }
+
+        // On phones the label does not fit next to five controls, so only the
+        // flag is shown. Tablets, which also use this bar, keep the label.
+        @include media-breakpoint-down(md) {
+            .js_language_selector .dropdown-toggle {
+                padding-inline: .25rem;
+
+                > span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(xl) {
+        #top_menu > .nav-item > .nav-link {
+            padding: .8rem .6rem !important;
+            font-size: .8rem;
+        }
+    }
+}
+
+// =====================================================================
+// HOMEPAGE SLIDER
+//
+// The snippet wraps the carousel in a `.container-fluid` with gutters and
+// adds an inline `margin: 0 12px` on the carousel itself, so it never
+// reached the viewport edges. Both are removed here.
+// =====================================================================
+#wrap .s_image_gallery.o_slideshow {
+    padding-inline: 0 !important;
+
+    // The section carries an inline `height` set in the website editor back
+    // when the slider was boxed. Now that it spans the viewport the banners are
+    // shorter than that, which left a band of empty space above and below the
+    // image -- and the indicators, anchored to the carousel, landed in it.
+    height: auto !important;
+
+    > .container,
+    > .container-fluid,
+    > .o_container_small {
+        max-width: 100% !important;
+        padding-inline: 0 !important;
+        margin-inline: 0 !important;
+    }
+
+    // Only the carousel itself is demargined, to undo the snippet's inline
+    // `margin: 0 12px`. `.carousel-item` is deliberately left alone: Bootstrap
+    // stacks the slides with `margin-right: -100%` on it, and zeroing that lays
+    // them out side by side, which breaks the prev/next transition.
+    .carousel {
+        height: auto !important;
+        margin: 0 !important;
+    }
+
+    .carousel-inner,
+    .carousel-item {
+        height: auto !important;
+        padding-bottom: 0 !important;
+    }
+
+    .carousel-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .o_carousel_controllers {
+        display: contents;
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        right: 0;
+        bottom: 1.1rem;
+        left: 0;
+        z-index: 3;
+        gap: .4rem;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        padding: 0;
+        margin: 0;
+
+        button,
+        li {
+            flex: 0 0 auto;
+            width: 9px !important;
+            height: 9px !important;
+            padding: 0 !important;
+            text-indent: 0;
+            background-color: rgba($white, .65) !important;
+            background-image: none !important;
+            border: 0 !important;
+            border-radius: 50% !important;
+            opacity: 1;
+            box-shadow: 0 1px 3px rgba($black, .35);
+            transition: width .2s ease, background-color .2s ease;
+
+            &.active {
+                width: 26px !important;
+                background-color: $g-coral !important;
+                border-radius: 5px !important;
+            }
+        }
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+        width: auto;
+        padding: 0 1rem;
+        opacity: .85;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        // Bootstrap draws these as a background SVG, and the `carousel-dark`
+        // class on the snippet paints them black with
+        // `filter: invert(1) grayscale(100)`. The filter is switched off and
+        // the SVG replaced with a coral one on a frosted disc.
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            background-color: rgba($white, .82);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 38% 38%;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba($black, .16);
+            filter: none !important;
+            transition: background-color .15s ease;
+        }
+
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FD7352'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+        }
+
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FD7352'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        &:hover {
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                background-color: $white;
+            }
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .carousel-indicators {
+            bottom: .55rem;
+
+            button,
+            li {
+                width: 7px !important;
+                height: 7px !important;
+
+                &.active {
+                    width: 20px !important;
+                }
+            }
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            padding: 0 .35rem;
+        }
+    }
+}
+
+// =====================================================================
+// PRODUCT CARDS
+// =====================================================================
+#wrap {
+
+    // The snippet nests the cards in a `.carousel-inner`, which Bootstrap
+    // clips, so the hover shadow and lift were cut off at its edges.
+    //
+    // Vertical padding buys room inside the clip without touching the
+    // horizontal geometry the slide transform depends on.
+    .s_dynamic_snippet_products .carousel-inner {
+        padding-top: .9rem;
+        padding-bottom: .9rem;
+    }
+
+    // Where a snippet holds a single slide it never actually carousels -- it
+    // just reuses the markup -- so the clip serves no purpose and is dropped,
+    // which frees the shadow sideways too. Snippets that really do slide keep
+    // it, or the neighbouring slide would show through.
+    .s_dynamic_snippet_products:not(:has(.carousel-item + .carousel-item))
+        .carousel-inner {
+        overflow: visible !important;
+    }
+
+    .o_carousel_product_card {
+        overflow: hidden;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: 1rem;
+        box-shadow: 0 .1rem .4rem rgba($black, .04);
+        transition: transform .2s ease, box-shadow .2s ease,
+                    border-color .2s ease;
+
+        &:hover,
+        &:focus-within {
+            transform: translateY(-4px);
+            border-color: rgba($g-coral, .45);
+            // Negative spread keeps the sideways overhang small, so the shadow
+            // still reads well on the sliding snippet, where the left and right
+            // edges stay clipped.
+            box-shadow: 0 .7rem 1.4rem -.35rem rgba($black, .22);
+
+            .card-img-top {
+                transform: scale(1.06);
+            }
+        }
+
+        // --- Image ------------------------------------------------------
+        .o_carousel_product_img_link {
+            display: block;
+            overflow: hidden;
+            background-color: $gray-100;
+        }
+
+        .card-img-top {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            transition: transform .35s ease;
+        }
+
+        // --- Body -------------------------------------------------------
+        .o_carousel_product_card_body {
+            padding: .9rem 1rem 1rem;
+        }
+
+        // Names run to three or four lines on the narrower cards, which pushes
+        // the price out of line between neighbours. Capped at two, and the
+        // space for both is reserved so one-line and two-line cards still line
+        // their prices up.
+        .card-title {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            min-height: 2.8em;
+            overflow: hidden;
+            font-size: .95rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: $body-color;
+            text-overflow: ellipsis;
+            transition: color .15s ease;
+        }
+
+        a:hover .card-title {
+            color: $g-coral;
+        }
+
+        // The rating block is empty when reviews are off; it would otherwise
+        // add dead space above the price.
+        .o_carousel_product_card_body > .mt-2:empty {
+            display: none;
+        }
+
+        // --- Price and add to cart --------------------------------------
+        //
+        // Selected on the `name` attribute, not a class: the markup is
+        // `<span name="product_price">`, and the currency symbol is a bare
+        // text node inside it, next to the `.oe_currency_value` span holding
+        // the amount. Colouring only the inner span left the "₫" in the body
+        // colour while the digits were coral.
+        [name="product_price"],
+        .product_price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: $g-coral;
+
+            .oe_currency_value {
+                color: inherit;
+            }
+        }
+
+        del,
+        .text-decoration-line-through {
+            font-size: .85rem;
+            font-weight: 500;
+            color: $gray-500 !important;
+        }
+
+        .o_dynamic_snippet_btn_wrapper .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.6rem;
+            height: 2.6rem;
+            padding: 0;
+            border-radius: 50%;
+            box-shadow: 0 .25rem .6rem rgba($g-coral, .35);
+            transition: transform .15s ease, box-shadow .15s ease,
+                        background-color .15s ease;
+
+            &:hover,
+            &:focus {
+                transform: scale(1.08);
+                box-shadow: 0 .4rem .9rem rgba($g-coral, .45);
+            }
+        }
+    }
+
+    // Shop listing pages use a different title element.
+    .o_wsale_products_item_title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+// =====================================================================
+// HOMEPAGE BUTTONS
+//
+// The theme renders every call to action in `o-color-1`, a grey that has
+// nothing to do with the logo.
+// =====================================================================
+#wrap {
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-fill-primary,
+    .btn-fill-secondary,
+    .o_wsale_product_btn .btn,
+    .js_add_cart_json.btn-primary,
+    a.btn.btn-primary {
+        color: $white !important;
+        background-color: $g-coral !important;
+        border-color: $g-coral !important;
+
+        &:hover,
+        &:focus {
+            color: $white !important;
+            background-color: $g-coral-dark !important;
+            border-color: $g-coral-dark !important;
+        }
+    }
+
+    .btn-outline-primary,
+    .btn-outline-secondary {
+        color: $g-coral !important;
+        border-color: $g-coral !important;
+
+        &:hover,
+        &:focus {
+            color: $white !important;
+            background-color: $g-coral !important;
+        }
+    }
+
+    // "See more" style links inside a centred text block: given an arrow that
+    // slides on hover. The glyph is added in CSS because the label lives in
+    // editable page content.
+    .s_title a.btn {
+        display: inline-flex;
+        gap: .55rem;
+        align-items: center;
+        padding: .7rem 1.8rem;
+        font-weight: 600;
+        border-radius: 2rem;
+        box-shadow: 0 .35rem .9rem rgba($g-coral, .35);
+        transition: transform .18s ease, box-shadow .18s ease,
+                    background-color .18s ease;
+
+        &::after {
+            font-family: FontAwesome;
+            font-size: .85em;
+            content: "\f061"; // arrow-right
+            transition: transform .18s ease;
+        }
+
+        &:hover,
+        &:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 .6rem 1.2rem rgba($g-coral, .45);
+
+            &::after {
+                transform: translateX(.25rem);
+            }
+        }
+    }
+}
+
+// =====================================================================
+// SECTION TITLES
+//
+// Two snippets produce them: `s_title` for a standalone heading, and
+// `s_dynamic_snippet_title` for the one bundled with a product row. They
+// were styled differently from each other -- one carried a theme colour
+// utility, the other nothing -- so both are normalised here.
+// =====================================================================
+#wrap {
+
+    .s_title h3,
+    .s_dynamic_snippet_title h3 {
+        margin-bottom: 0;
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -.02em;
+
+        // The rule hangs off the heading so it centres under the word.
+        // `:has()` keeps it off the empty spacer headings the editor leaves
+        // between sections.
+        &:has(strong)::after {
+            display: block;
+            width: 58px;
+            height: 4px;
+            margin: .8rem auto 0;
+            content: "";
+            background-image: linear-gradient(90deg, $g-coral, $g-blue);
+            border-radius: 4px;
+        }
+
+        // Flat, in the site's dark teal. The accent rule keeps the gradient.
+        strong {
+            font-weight: inherit;
+            color: $g-title;
+
+            // One of the two is wrapped in `<font class="text-o-color-5">`, a
+            // theme colour utility set with `!important`.
+            font,
+            span {
+                color: inherit !important;
+                background: none !important;
+            }
+        }
+    }
+}
+
+// =====================================================================
+// PAGE LOADER
+//
+// A spoon tipping over a bowl, for a baby-goods shop. Hidden by the
+// script in `loader.js` once the page has loaded, with a timeout as a
+// safety net so a stalled asset can never leave it up.
+// =====================================================================
+#gif2box_loader {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    transition: opacity .35s ease, visibility .35s ease;
+
+    &.o_gif2box_loader_done {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    // The wordmark. It is split the way the logo is -- "gif2" warm, "box"
+    // blue -- and each half sweeps within its own family, so the mark still
+    // reads as the logo at any frame instead of turning wholly one colour.
+    .o_gif2box_loader_word {
+        // Deliberately not the body font. That one is Roboto, pulled from
+        // Google Fonts, so the wordmark was painted in the fallback first and
+        // jumped when the webfont swapped in -- the flicker at the start of
+        // every page load. A system stack is resolved before first paint.
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        font-size: clamp(2.4rem, 8vw, 3.8rem);
+        // 700 rather than 800: Segoe UI, what `system-ui` resolves to on
+        // Windows, has no Extra Bold cut, so 800 was being synthesised on top
+        // of Bold and came out heavier than intended.
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -.02em;
+
+        span {
+            color: transparent;
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gif2box-sweep 2.2s linear infinite;
+        }
+    }
+
+    // Each half keeps its logo tone and carries a bright band through the
+    // middle of the gradient; as the background travels, that band reads as a
+    // shine flowing across the letters.
+    .o_gif2box_word_a {
+        background-image: linear-gradient(
+            100deg,
+            #F4633A 0%,
+            #F4633A 32%,
+            #FFE2D3 47%,
+            #FF9A6C 56%,
+            #F4633A 72%,
+            #F4633A 100%
+        );
+    }
+
+    .o_gif2box_word_b {
+        background-image: linear-gradient(
+            100deg,
+            #0B4DA2 0%,
+            #0B4DA2 32%,
+            #BFE4FF 47%,
+            #43A9FF 56%,
+            #0B4DA2 72%,
+            #0B4DA2 100%
+        );
+        // Offset so the shine crosses the two halves in sequence rather than
+        // lighting both at once.
+        animation-delay: -.55s;
+    }
+
+    .o_gif2box_loader_bar {
+        width: 140px;
+        height: 4px;
+        overflow: hidden;
+        background-color: $gray-200;
+        border-radius: 2px;
+
+        span {
+            display: block;
+            width: 45%;
+            height: 100%;
+            background-image: linear-gradient(90deg, $g-coral, $g-blue);
+            border-radius: 2px;
+            animation: gif2box-slide 1.3s ease-in-out infinite;
+        }
+    }
+}
+
+// Background-position 100% aligns the image's right edge with the box, i.e.
+// the image sits furthest left; animating towards 0% walks it rightwards, so
+// the colours read as travelling left to right.
+@keyframes gif2box-sweep {
+    from { background-position: 100% 0; }
+    to   { background-position: 0 0; }
+}
+
+@keyframes gif2box-slide {
+    0%   { transform: translateX(-110%); }
+    100% { transform: translateX(240%); }
+}
+
+// Respect a reduced-motion preference: keep the overlay, drop the movement.
+@media (prefers-reduced-motion: reduce) {
+    #gif2box_loader {
+        .o_gif2box_loader_word span,
+        .o_gif2box_loader_bar span {
+            animation: none;
+        }
+    }
+}

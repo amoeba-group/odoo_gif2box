@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Move the language selector out of the thin top strip and into the action
+        row that already holds the search box, cart, wishlist and user menu.
+
+        The strip carried nothing else (the text-element and social-links views
+        are inactive on this site, so it rendered as an empty grey band), and it
+        is hidden in SCSS once emptied.
+    -->
+    <template id="header_language_selector_in_actions"
+              inherit_id="website.template_header_sales_two">
+        <xpath expr="//ul[hasclass('navbar-nav')][hasclass('gap-1')]" position="inside">
+            <xpath expr="//t[@t-call='website.placeholder_header_language_selector']"
+                   position="move"/>
+        </xpath>
+        <xpath expr="//t[@t-call='website.placeholder_header_language_selector']/t[@t-set='_div_classes']"
+               position="attributes">
+            <attribute name="t-valuef">d-flex align-items-center o_gif2box_lang</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website.placeholder_header_language_selector']/t[@t-set='_btn_class']"
+               position="attributes">
+            <attribute name="t-valuef">btn o_gif2box_lang_btn d-flex align-items-center border-0</attribute>
+        </xpath>
+    </template>
+
+    <!--
+        Shorten the header call to action and give it an icon.
+
+        The label lives inside an `oe_structure`, so it is page content the
+        editor owns rather than code. Replacing the anchor here takes that
+        button back under version control: it is no longer editable from the
+        website editor, which is the trade for having it defined in the module.
+    -->
+    <template id="header_cta_label" inherit_id="website.header_call_to_action">
+        <xpath expr="//a[hasclass('btn_cta')]" position="replace">
+            <a href="/contactus"
+               class="oe_unremovable btn btn-primary btn_cta d-flex align-items-center">
+                <i class="fa fa-phone" role="img" aria-hidden="true"/>
+                <span>Liên hệ</span>
+            </a>
+        </xpath>
+    </template>
+
+    <!--
+        Page loader. Rendered first thing inside the page wrapper so it covers
+        everything from the first paint.
+
+        It is not gated on `editable`: that flag is true for anyone who merely
+        holds edit rights, not just while the editor is open, so gating on it
+        meant staff never saw the loader at all. `loader.js` clears the overlay
+        on `load` and again on a timeout, which covers the editor too.
+    -->
+    <template id="page_loader" inherit_id="website.layout">
+        <xpath expr="//div[@id='wrapwrap']" position="inside">
+            <div id="gif2box_loader" aria-hidden="true">
+                <div class="o_gif2box_loader_word"><span
+                    class="o_gif2box_word_a">gif2</span><span
+                    class="o_gif2box_word_b">box</span></div>
+                <div class="o_gif2box_loader_bar"><span/></div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--
+        Copyright bar.
+
+        The brand name was carried in page content, where the English arch
+        still read "SMD2BOX" and only the Vietnamese translation had been
+        updated, so the English site showed the wrong company. Defining it
+        here keeps one name across every language, at the cost of it no
+        longer being editable from the website editor.
+
+        The Odoo credit is dropped. Only the `t-call` is removed, not the
+        column around it: `website.layout` has its own xpath onto that
+        column, and taking the node away would break it.
+    -->
+    <template id="footer_copyright_bar" inherit_id="website.layout">
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]"
+               position="replace">
+            <span class="o_footer_copyright_name me-2">
+                Copyright © <strong>gif2box</strong> All rights reserved.
+            </span>
+        </xpath>
+        <xpath expr="//t[@t-call='web.brand_promotion']" position="replace"/>
+    </template>
+
+    <!--
+        The footer rendered the languages as a flat inline list of links, which
+        looked broken once each one carried a flag. Deactivating this view makes
+        `portal.footer_language_selector` fall back to its default: the same
+        dropdown the header uses, opening upwards.
+    -->
+    <record id="website.footer_language_selector_inline" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!--
+        Show a flag next to each language, both on the toggle button and in the
+        dropdown. `res.lang.flag_image_url` falls back to the country flag
+        shipped in `base` (vn.png / us.png / jp.png / kr.png here), so nothing
+        has to be uploaded.
+
+        The image is appended rather than inserted before the label: the label
+        is one of two mutually exclusive spans (`no_text` / `codes`), so there
+        is no single stable node to anchor `position="before"` on. The flag is
+        pulled back in front with `order: -1` in SCSS instead.
+    -->
+    <template id="language_selector_flags" inherit_id="portal.language_selector">
+        <!--
+            Selected on `data-bs-toggle` / the static `dropdown-item` class:
+            the template builds the rest of its classes with `t-attf-class`,
+            which `hasclass()` cannot see.
+        -->
+        <xpath expr="//button[@data-bs-toggle='dropdown']" position="inside">
+            <img class="o_gif2box_flag"
+                 t-att-src="active_lang.flag_image_url"
+                 t-att-alt="active_lang.name"
+                 loading="lazy"/>
+        </xpath>
+        <xpath expr="//a[hasclass('dropdown-item')]" position="inside">
+            <img class="o_gif2box_flag"
+                 t-att-src="lg.flag_image_url"
+                 t-att-alt="lg.name"
+                 loading="lazy"/>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,22 @@
+{
+    'name': 'Gif2box: Homepage & Header Theme',
+    'version': '18.0.1.0.0',
+    'category': 'Website/Website',
+    'summary': 'Restructured header, flag language switcher, full-width slider',
+    'author': 'Amoeba',
+    'license': 'LGPL-3',
+    'depends': ['website_sale', 'website_sale_wishlist'],
+    'data': [
+        'views/header_templates.xml',
+    ],
+    'assets': {
+        'web.assets_frontend': [
+            # header.scss first: it declares the brand variables the others use.
+            'gif2box_theme_home/static/src/scss/header.scss',
+            'gif2box_theme_home/static/src/scss/footer.scss',
+            'gif2box_theme_home/static/src/js/loader.js',
+        ],
+    },
+    'installable': True,
+    'auto_install': False,
+}
