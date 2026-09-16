@@ -1,0 +1,206 @@
+///
+/// Combo configurator dialog.
+///
+/// Loaded after `header.scss` in the same bundle, so the brand variables
+/// declared there are in scope.
+///
+/// The markup comes from OWL components in `sale`, `website_sale` and
+/// `website_sale_stock`, so everything here is styling over templates we do
+/// not own.
+///
+
+// --------------------------------------------------------------------
+// Dialog shell
+// --------------------------------------------------------------------
+// The dialog defaults to Bootstrap's large modal, which leaves a very wide
+// row of oversized cards. Narrowing it puts the choices within one glance.
+.modal-dialog:has(.sale-combo-configurator-dialog) {
+    max-width: 760px;
+}
+
+// `contentClass` lands on `.modal-content`, so this is the whole dialog and
+// the header, body and footer are all descendants of it.
+.sale-combo-configurator-dialog {
+
+    .modal-body {
+        padding-top: .5rem;
+        padding-bottom: .75rem;
+    }
+
+    // Group heading: "Choose your bowl", and so on.
+    [name="sale_combo_configurator_title"] {
+        margin-top: 1.1rem !important;
+        margin-bottom: .6rem !important;
+        font-size: .95rem !important;
+        font-weight: 700;
+        color: $g-title;
+        text-transform: uppercase;
+        letter-spacing: .02em;
+    }
+
+    // Tighter columns fit more options per row, so a combo of six no longer
+    // needs a horizontal scroll to compare.
+    .combo-item-grid {
+        grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)) !important;
+        gap: .65rem !important;
+    }
+
+    // ----------------------------------------------------------------
+    // Option cards
+    // ----------------------------------------------------------------
+    .product-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid $border-color;
+        border-radius: .75rem;
+        transition: border-color .15s ease, box-shadow .15s ease,
+                    transform .15s ease;
+
+        &:hover {
+            border-color: rgba($g-coral, .55) !important;
+            box-shadow: 0 .35rem .8rem rgba($black, .08);
+            transform: translateY(-2px);
+        }
+
+        // Selected state was drawn in `$primary`, which on this site is a
+        // plain grey and read as barely different from the resting border.
+        &.selected {
+            border: 2px solid $g-coral !important;
+            box-shadow: 0 0 0 .18rem rgba($g-coral, .14);
+        }
+
+        // A tick in the corner, so the choice is legible at a glance rather
+        // than resting on a 1px border difference alone.
+        &.selected::after {
+            position: absolute;
+            top: .4rem;
+            right: .4rem;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            font-family: FontAwesome;
+            font-size: .7rem;
+            color: $white;
+            content: "\f00c";
+            background-color: $g-coral;
+            border-radius: 50%;
+        }
+
+        .card-header {
+            background: none;
+            border: 0;
+        }
+
+        .card-body {
+            padding: .55rem .6rem .7rem;
+        }
+
+        .card-title {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            font-size: .82rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+        }
+
+        .card-subtitle {
+            font-size: .72rem !important;
+        }
+    }
+
+    // ----------------------------------------------------------------
+    // Unavailable options
+    // ----------------------------------------------------------------
+    // Odoo drops the whole card to 15% opacity and washes a full-height red
+    // panel over it, which leaves the shopper unable to tell which product is
+    // the unavailable one. The card stays readable here -- dimmed and
+    // desaturated -- and the reason is stated on a band along the bottom.
+    .product-card.unselectable-card {
+        cursor: not-allowed;
+        background-color: $gray-100;
+
+        &:hover {
+            border-color: $border-color !important;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .card-header,
+        .card-body {
+            opacity: .5 !important;
+            filter: grayscale(1);
+        }
+
+        // Room for the band below, which would otherwise sit over the last
+        // line of the product name.
+        .card-body {
+            padding-bottom: 2.2rem;
+        }
+
+        .overlay-container.text-danger {
+            top: auto;
+            bottom: 0;
+            height: auto;
+            padding: .3rem .4rem !important;
+            background-color: rgba($white, .94);
+            border-top: 1px solid rgba($danger, .3);
+
+            // The 2x cross swamps a card this size.
+            .fa {
+                display: none;
+            }
+
+            span {
+                font-size: .68rem;
+                font-weight: 600;
+                line-height: 1.25;
+            }
+        }
+    }
+
+    // "Everything in stock is already in your cart" marker on a selected card.
+    .overlay-container.text-warning .fa {
+        font-size: 1rem !important;
+        text-shadow: 0 0 3px rgba($white, .9);
+    }
+
+    // ----------------------------------------------------------------
+    // Footer
+    // ----------------------------------------------------------------
+    .modal-footer {
+        gap: .5rem;
+
+        .btn {
+            font-weight: 600;
+            border-radius: 2rem;
+        }
+
+        .btn-primary {
+            color: $white;
+            background-color: $g-coral;
+            border-color: $g-coral;
+
+            &:hover,
+            &:focus {
+                background-color: $g-coral-dark;
+                border-color: $g-coral-dark;
+            }
+        }
+
+        [name="sale_combo_configurator_total"] {
+            color: $g-coral;
+        }
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .sale-combo-configurator-dialog .combo-item-grid {
+        gap: .5rem !important;
+    }
+}
