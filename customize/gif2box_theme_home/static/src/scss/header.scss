@@ -512,6 +512,16 @@ header#top {
             }
         }
 
+        // The first item sits flush with the container edge, so the menu
+        // lines up with the logo above it. Its underline follows.
+        > .nav-item:first-child > .nav-link {
+            padding-left: 0 !important;
+
+            &::after {
+                left: 0;
+            }
+        }
+
         .dropdown-menu {
             padding: .35rem;
             margin-top: .25rem;
@@ -946,6 +956,47 @@ header#top {
     }
 
     // ------------------------------------------------------------------
+    // Pagination
+    // ------------------------------------------------------------------
+    .pagination {
+        gap: .3rem;
+
+        .page-link {
+            min-width: 2.35rem;
+            padding: .4rem .6rem;
+            font-size: .9rem;
+            font-weight: 600;
+            color: $body-color;
+            text-align: center;
+            background-color: $white;
+            border: 1px solid $border-color;
+            border-radius: .5rem !important;
+            transition: color .15s ease, background-color .15s ease,
+                        border-color .15s ease;
+
+            &:hover,
+            &:focus {
+                color: $g-coral;
+                background-color: rgba($g-coral, .1);
+                border-color: rgba($g-coral, .45);
+                box-shadow: none;
+            }
+        }
+
+        .page-item.active .page-link {
+            color: $white;
+            background-color: $g-coral;
+            border-color: $g-coral;
+        }
+
+        .page-item.disabled .page-link {
+            color: $gray-500;
+            background-color: $gray-100;
+            border-color: $border-color;
+        }
+    }
+
+    // ------------------------------------------------------------------
     // Shop, category and search grids
     //
     // Same look as the homepage, built from the same mixins, over Odoo's
@@ -1018,6 +1069,26 @@ header#top {
         }
 
         // --- Wishlist and cart buttons ----------------------------------
+        //
+        // The markup puts the buttons before the price; reordering rather
+        // than moving the node keeps us off the core template.
+        .o_wsale_product_sub {
+            align-items: center;
+
+            .product_price { order: 1; }
+
+            .o_wsale_product_btn {
+                // Odoo floats the wrapper over the bottom of the image and
+                // keeps it at `opacity: 0` until the card is hovered, which
+                // leaves it invisible on touch screens. Returning it to the
+                // flow is what lets `order` put it after the price.
+                position: static !important;
+                inset: auto !important;
+                order: 2;
+                opacity: 1 !important;
+            }
+        }
+
         .o_wsale_product_btn .btn {
             display: inline-flex;
             align-items: center;

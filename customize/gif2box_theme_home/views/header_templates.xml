@@ -64,6 +64,19 @@
     </template>
 
     <!--
+        Odoo already ships the add-to-cart control for the product grids,
+        switched off. Enabling it is better than adding our own: it brings the
+        `product_id` and `product_template_id` inputs the `/shop/cart/update`
+        form needs, and it respects `_website_show_quick_add()`, so products
+        that cannot be quick-added keep no button.
+
+        It renders before the price in the markup; CSS moves it after.
+    -->
+    <record id="website_sale.products_add_to_cart" model="ir.ui.view">
+        <field name="active" eval="True"/>
+    </record>
+
+    <!--
         Announcement strip above the header.
 
         To add or remove a banner, edit the list below; everything else
