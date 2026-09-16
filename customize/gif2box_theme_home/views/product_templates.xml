@@ -53,4 +53,19 @@
         </xpath>
     </template>
 
+    <!--
+        Drop the search box from the breadcrumb row.
+
+        The page already sits behind the header search, so a second field
+        beside the breadcrumb is a duplicate that steals a third of the row.
+
+        Only the `t-call` goes: deactivating `website_sale.search` would take
+        the search off the shop listing too, where it is the only one, and the
+        pricelist selector shares this column and has to stay.
+    -->
+    <template id="product_no_breadcrumb_search" inherit_id="website_sale.product">
+        <xpath expr="//section[@id='product_detail']//t[@t-call='website_sale.search']"
+               position="replace"/>
+    </template>
+
 </odoo>

@@ -16,6 +16,7 @@
     // ------------------------------------------------------------------
     .o_wsale_breadcrumb {
         font-size: .85rem;
+        font-weight: 600;
 
         a {
             color: $gray-600;
@@ -27,7 +28,8 @@
         }
 
         .active span {
-            color: $gray-700;
+            font-weight: 700;
+            color: $g-title;
         }
     }
 
@@ -237,6 +239,10 @@
 
     #add_to_cart_wrap {
         margin-bottom: 0 !important;
+        // `me-auto` was there to push the wishlist row's contents away; with
+        // the wishlist now a disc beside the button, it would only have
+        // stranded it against the far edge of the column.
+        margin-right: 0 !important;
     }
 
     #add_to_cart {
@@ -260,22 +266,46 @@
         }
     }
 
-    // Wishlist / compare. They were plain links crowding the main action.
+    // Wishlist (and compare, if it is ever switched on). The markup carries
+    // `w-100`, which broke the buttons onto their own line under the main
+    // action; they belong beside it.
     #product_option_block {
         gap: .5rem;
-        margin-top: .35rem;
+        width: auto !important;
+        margin-top: 0;
 
+        // Icon-only discs, matching the pair on the product grid. The label is
+        // a bare text node next to the `<i>`, so there is no element to hide:
+        // collapsing the button's font size and restoring it on the glyph is
+        // what takes the words away. `title` on the button and `aria-label` on
+        // the glyph are already in the markup, so the button keeps its name.
         .btn {
-            padding: .35rem .8rem !important;
-            font-size: .85rem;
-            color: $gray-700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.6rem;
+            height: 2.6rem;
+            padding: 0 !important;
+            font-size: 0;
+            color: $g-coral-dark;
             text-decoration: none;
-            border: 1px solid $border-color;
-            border-radius: 2rem;
+            background-color: $white;
+            border: 1px solid $g-coral-dark;
+            border-radius: 50%;
+            transition: color .15s ease, background-color .15s ease,
+                        transform .15s ease;
 
-            &:hover {
-                color: $g-coral-dark;
-                border-color: rgba($g-coral, .7);
+            .fa {
+                margin: 0 !important;
+                font-size: 1rem;
+            }
+
+            &:hover,
+            &:focus {
+                color: $white;
+                background-color: $g-coral-dark;
+                border-color: $g-coral-dark;
+                transform: scale(1.08);
             }
         }
     }
@@ -523,14 +553,28 @@
             padding-top: .25rem;
         }
 
-        // The main action gets the full width of the row; the stepper keeps
-        // its own.
-        #add_to_cart_wrap {
-            flex: 1 1 auto;
-        }
-
         .o_g2b_pd_body.o_g2b_pd_clamped {
             max-height: 460px;
+        }
+    }
+
+    // On a phone the three controls cannot share a row: "Thêm vào giỏ hàng"
+    // alone needs more width than what is left beside the stepper and the
+    // wishlist, and flex-wrap would strand the wishlist disc on a line of its
+    // own. The two small controls pair up instead and the main action takes
+    // the full width below them.
+    @include media-breakpoint-down(sm) {
+        .css_quantity {
+            order: 1;
+        }
+
+        #product_option_block {
+            order: 2;
+        }
+
+        #add_to_cart_wrap {
+            flex: 1 1 100%;
+            order: 3;
         }
     }
 }
