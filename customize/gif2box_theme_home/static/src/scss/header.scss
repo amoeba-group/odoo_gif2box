@@ -788,7 +788,50 @@ header#top {
 
 // =====================================================================
 // PRODUCT CARDS
+//
+// Two entirely different markups render products: the homepage snippets
+// build `.o_carousel_product_card`, while the shop, the categories and the
+// search results build `.oe_product` grids. The shared look lives in these
+// mixins so the two cannot drift apart.
 // =====================================================================
+@mixin g2b-card {
+    overflow: hidden;
+    background-color: $white;
+    border: 1px solid $border-color;
+    border-radius: 1rem;
+    box-shadow: 0 .1rem .4rem rgba($black, .04);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+@mixin g2b-card-hover {
+    transform: translateY(-4px);
+    border-color: rgba($g-coral, .45);
+    // Negative spread keeps the sideways overhang small, so the shadow still
+    // reads well inside the sliding snippet, whose left and right edges stay
+    // clipped by the carousel.
+    box-shadow: 0 .7rem 1.4rem -.35rem rgba($black, .22);
+}
+
+@mixin g2b-card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    // Reserving both lines keeps prices level across neighbours whatever the
+    // name length.
+    min-height: 2.8em;
+    overflow: hidden;
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+}
+
+@mixin g2b-card-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $g-coral;
+}
+
 #wrap {
 
     // The snippet nests the cards in a `.carousel-inner`, which Bootstrap
@@ -811,22 +854,11 @@ header#top {
     }
 
     .o_carousel_product_card {
-        overflow: hidden;
-        background-color: $white;
-        border: 1px solid $border-color;
-        border-radius: 1rem;
-        box-shadow: 0 .1rem .4rem rgba($black, .04);
-        transition: transform .2s ease, box-shadow .2s ease,
-                    border-color .2s ease;
+        @include g2b-card;
 
         &:hover,
         &:focus-within {
-            transform: translateY(-4px);
-            border-color: rgba($g-coral, .45);
-            // Negative spread keeps the sideways overhang small, so the shadow
-            // still reads well on the sliding snippet, where the left and right
-            // edges stay clipped.
-            box-shadow: 0 .7rem 1.4rem -.35rem rgba($black, .22);
+            @include g2b-card-hover;
 
             .card-img-top {
                 transform: scale(1.06);
@@ -853,21 +885,10 @@ header#top {
             padding: .9rem 1rem 1rem;
         }
 
-        // Names run to three or four lines on the narrower cards, which pushes
-        // the price out of line between neighbours. Capped at two, and the
-        // space for both is reserved so one-line and two-line cards still line
-        // their prices up.
         .card-title {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            min-height: 2.8em;
-            overflow: hidden;
-            font-size: .95rem;
-            font-weight: 600;
-            line-height: 1.4;
+            @include g2b-card-title;
+
             color: $body-color;
-            text-overflow: ellipsis;
             transition: color .15s ease;
         }
 
@@ -890,9 +911,7 @@ header#top {
         // colour while the digits were coral.
         [name="product_price"],
         .product_price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: $g-coral;
+            @include g2b-card-price;
 
             .oe_currency_value {
                 color: inherit;
@@ -926,13 +945,100 @@ header#top {
         }
     }
 
-    // Shop listing pages use a different title element.
-    .o_wsale_products_item_title {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    // ------------------------------------------------------------------
+    // Shop, category and search grids
+    //
+    // Same look as the homepage, built from the same mixins, over Odoo's
+    // `.oe_product` markup.
+    // ------------------------------------------------------------------
+    .oe_product {
+
+        .o_wsale_product_grid_wrapper {
+            @include g2b-card;
+        }
+
+        &:hover .o_wsale_product_grid_wrapper,
+        .o_wsale_product_grid_wrapper:focus-within {
+            @include g2b-card-hover;
+        }
+
+        &:hover .oe_product_image img {
+            transform: scale(1.06);
+        }
+
+        // --- Image ------------------------------------------------------
+        .oe_product_image {
+            background-color: $gray-100;
+
+            img {
+                transition: transform .35s ease;
+            }
+        }
+
+        // --- Body -------------------------------------------------------
+        .o_wsale_product_information {
+            padding: .9rem 1rem 1rem;
+        }
+
+        .o_wsale_products_item_title {
+            @include g2b-card-title;
+
+            margin-bottom: .5rem !important;
+
+            // The anchor carries `text-primary` and `text-primary-emphasis`,
+            // Bootstrap utilities that would otherwise win.
+            a {
+                color: $body-color !important;
+                transition: color .15s ease;
+            }
+
+            &:hover a {
+                color: $g-coral !important;
+            }
+        }
+
+        // --- Price ------------------------------------------------------
+        .product_price {
+            @include g2b-card-price;
+
+            .oe_currency_value,
+            .h6,
+            span {
+                font-size: inherit;
+                font-weight: inherit;
+                color: inherit;
+            }
+
+            del,
+            .text-decoration-line-through {
+                font-size: .85rem;
+                font-weight: 500;
+                color: $gray-500 !important;
+            }
+        }
+
+        // --- Wishlist and cart buttons ----------------------------------
+        .o_wsale_product_btn .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            padding: 0;
+            color: $g-coral;
+            background-color: rgba($g-coral, .1);
+            border: 0;
+            border-radius: 50%;
+            transition: color .15s ease, background-color .15s ease,
+                        transform .15s ease;
+
+            &:hover,
+            &:focus {
+                color: $white;
+                background-color: $g-coral;
+                transform: scale(1.08);
+            }
+        }
     }
 }
 
