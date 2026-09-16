@@ -77,6 +77,87 @@ $g-logo-h-sm: 46px;
 }
 
 // =====================================================================
+// TOP ANNOUNCEMENT STRIP
+//
+// The artwork keeps its own width inside the container. The band either
+// side of it is an over-scaled, blurred copy of the same image, so the
+// full-width background follows whatever colours that banner uses instead
+// of needing one hardcoded per image.
+// =====================================================================
+.o_g2b_topbar {
+    position: relative;
+    overflow: hidden;
+    // Shows for the instant before the image decodes, and behind anything
+    // the blur cannot reach.
+    background-color: #EFFBFE;
+
+    .o_g2b_topbar_slide {
+        position: relative;
+    }
+
+    .o_g2b_topbar_bg {
+        position: absolute;
+        // Bleeding past the edges keeps the blur's own soft border out of
+        // view, which would otherwise read as a vignette.
+        inset: -24px;
+        background-position: center;
+        background-size: cover;
+        filter: blur(18px);
+        transform: scale(1.08);
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+        padding-inline: 0;
+    }
+
+    .o_g2b_topbar_img {
+        display: block;
+        width: 100%;
+        // Never upscaled past its natural size, or a thin strip turns mushy
+        // on a wide screen.
+        max-width: 1200px;
+        height: auto;
+        margin-inline: auto;
+        // Without this the crisp image meets the blurred band on a hard
+        // vertical line. Fading its outer edges lets the two run together.
+        -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0,
+            #000 64px,
+            #000 calc(100% - 64px),
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0,
+            #000 64px,
+            #000 calc(100% - 64px),
+            transparent 100%
+        );
+    }
+
+    .carousel-indicators {
+        margin-bottom: .25rem;
+
+        button {
+            width: 7px !important;
+            height: 7px !important;
+            border: 0 !important;
+            border-radius: 50%;
+            opacity: .55;
+
+            &.active {
+                width: 18px !important;
+                border-radius: 4px;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+// =====================================================================
 // HEADER
 // =====================================================================
 header#top {
