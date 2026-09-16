@@ -204,6 +204,28 @@ footer#bottom.o_footer {
             row-gap: .5rem;
         }
 
+        // The copyright text and the language switcher share the first
+        // column. Spreading them across its full width puts the switcher
+        // where the Odoo credit used to sit, on the right.
+        > .container > .row > .col-sm:first-child {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem 1rem;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        // That credit's column is empty now.
+        > .container > .row > .col-sm.text-sm-end {
+            display: none;
+        }
+
+        // The switcher no longer needs to clear the text beside it.
+        .js_language_selector {
+            margin-left: 0;
+        }
+
         .text-muted,
         span,
         a {

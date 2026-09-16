@@ -64,6 +64,29 @@
     </template>
 
     <!--
+        Copyright bar.
+
+        The brand name was carried in page content, where the English arch
+        still read "SMD2BOX" and only the Vietnamese translation had been
+        updated, so the English site showed the wrong company. Defining it
+        here keeps one name across every language, at the cost of it no
+        longer being editable from the website editor.
+
+        The Odoo credit is dropped. Only the `t-call` is removed, not the
+        column around it: `website.layout` has its own xpath onto that
+        column, and taking the node away would break it.
+    -->
+    <template id="footer_copyright_bar" inherit_id="website.layout">
+        <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]"
+               position="replace">
+            <span class="o_footer_copyright_name me-2">
+                Copyright © <strong>gif2box</strong> All rights reserved.
+            </span>
+        </xpath>
+        <xpath expr="//t[@t-call='web.brand_promotion']" position="replace"/>
+    </template>
+
+    <!--
         The footer rendered the languages as a flat inline list of links, which
         looked broken once each one carried a flag. Deactivating this view makes
         `portal.footer_language_selector` fall back to its default: the same

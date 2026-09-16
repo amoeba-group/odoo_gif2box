@@ -357,7 +357,7 @@ header#top {
 
         > .nav-item > .nav-link {
             position: relative;
-            padding: .8rem .85rem !important;
+            padding: 1.2rem .85rem !important;
             font-size: .875rem;
             font-weight: 500;
             color: $body-color;
@@ -923,27 +923,10 @@ header#top {
             border-radius: 4px;
         }
 
-        // The gradient rides on `strong`, which is inline and so only as wide
-        // as the word itself. On the block-level heading the background would
-        // span the whole column and the text would show a washed-out slice
-        // from the middle of the ramp.
+        // Flat, in the logo's blue. The accent rule below keeps the gradient.
         strong {
             font-weight: inherit;
-            color: transparent;
-            // A narrow crossover rather than an even ramp. Coral and blue are
-            // near-complementary, so blending them across the whole word runs
-            // the middle letters through grey. The logo itself switches tone
-            // abruptly, and keeping the blend to a sliver matches it.
-            background-image: linear-gradient(
-                95deg,
-                #F4633A 0%,
-                #FF8F63 44%,
-                #2E9BFF 56%,
-                #0B4DA2 100%
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: $g-blue;
 
             // One of the two is wrapped in `<font class="text-o-color-5">`, a
             // theme colour utility set with `!important`.
@@ -951,7 +934,6 @@ header#top {
             span {
                 color: inherit !important;
                 background: none !important;
-                -webkit-text-fill-color: inherit;
             }
         }
     }
