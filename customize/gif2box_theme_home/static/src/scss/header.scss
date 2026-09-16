@@ -138,17 +138,24 @@ header#top {
             max-width: 320px;
         }
 
+        // White field with a coral outline at rest; the glow is the hover and
+        // focus cue. `!important` on both because the markup carries Bootstrap
+        // `bg-light` / `border-0` utilities, which are themselves `!important`.
         .oe_search_box {
             height: 2.6rem;
-            background-color: $gray-100 !important;
-            border: 1px solid transparent !important;
-            transition: border-color .15s ease, background-color .15s ease;
+            background-color: #FFF !important;
+            border: 1px solid rgba(253, 115, 82, .55) !important;
+            transition: box-shadow .15s ease, border-color .15s ease;
 
             &:focus {
-                background-color: $white !important;
-                border-color: rgba($g-coral, .55) !important;
+                border-color: rgba(253, 115, 82, .85) !important;
                 box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
             }
+        }
+
+        // Driven from the form so the glow also answers a hover on the button.
+        &:hover .oe_search_box {
+            box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
         }
 
         .oe_search_button {
