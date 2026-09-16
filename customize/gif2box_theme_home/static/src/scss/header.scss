@@ -904,9 +904,12 @@ header#top {
         // every page load. A system stack is resolved before first paint.
         font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
         font-size: clamp(2.4rem, 8vw, 3.8rem);
-        font-weight: 800;
+        // 700 rather than 800: Segoe UI, what `system-ui` resolves to on
+        // Windows, has no Extra Bold cut, so 800 was being synthesised on top
+        // of Bold and came out heavier than intended.
+        font-weight: 700;
         line-height: 1;
-        letter-spacing: -.025em;
+        letter-spacing: -.02em;
 
         span {
             color: transparent;
