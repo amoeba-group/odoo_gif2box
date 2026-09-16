@@ -322,6 +322,13 @@
     }
 
     // --- Accordion ("More Information", specifications) --------------------
+    // The container's own `t-if` only asks whether the optional views are
+    // active, so it still renders for a product whose description is empty and
+    // whose item was therefore dropped. Nothing inside means nothing to show.
+    #product_accordion:not(:has(.accordion-item)) {
+        display: none;
+    }
+
     #product_accordion {
         margin-top: 1.5rem !important;
         border: 1px solid $border-color;
@@ -357,6 +364,14 @@
             padding: 0 1rem 1rem;
             font-size: .9rem;
             color: $gray-700;
+        }
+
+        // `description_sale` is a plain text field: the converter turns its
+        // newlines into `<br>`, and these are spec sheets ("Kích thước: ...",
+        // one fact per line), so they want a looser line height than prose.
+        .o_g2b_short_desc {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
         }
     }
 

@@ -68,4 +68,40 @@
                position="replace"/>
     </template>
 
+    <!--
+        Put the product's own sales description in the "More Information"
+        accordion.
+
+        The block is a real Odoo feature: its body is edited once in the
+        website editor and the edit is shared by every product page. It had
+        never been edited here, so all it showed was Odoo's shipped
+        placeholder, "This content will be shared across all product pages."
+
+        The trade is that the body is no longer editable from the website
+        editor. It now comes from the product form (Sales tab, "Sales
+        Description"), which is the only place per-product text can live.
+    -->
+    <template id="product_accordion_description" inherit_id="website_sale.accordion_more_information">
+        <xpath expr="//div[@id='customizable_item']//p" position="replace">
+            <div t-field="product.description_sale" class="o_g2b_short_desc"/>
+        </xpath>
+    </template>
+
+    <!--
+        Only show the item when the product actually has a description worth
+        showing. Most of the catalogue has none, and an accordion that opens
+        onto nothing is worse than no accordion. The empty container left
+        behind is hidden in `product_page.scss`.
+
+        Six products carried over from the old Cafe24 site have raw HTML in
+        this field. It is a Text field, so the converter escapes it and the
+        page would show the tags as visible text; those are skipped until the
+        data is cleaned up.
+    -->
+    <template id="product_accordion_hide_when_empty" inherit_id="website_sale.product_accordion">
+        <xpath expr="//div[@id='more_information_accordion_item']" position="attributes">
+            <attribute name="t-if">is_view_active('website_sale.accordion_more_information') and product.description_sale and not product.description_sale.lstrip().startswith('&lt;')</attribute>
+        </xpath>
+    </template>
+
 </odoo>
