@@ -372,12 +372,8 @@
     // ------------------------------------------------------------------
     // Description, now below both columns
     // ------------------------------------------------------------------
-    // The container is 1280px wide, which is far too long a line to read and
-    // blows the marketing images up past the size they were drawn at. The
-    // whole block is narrowed together, so the heading, the images and the
-    // read-more button all share one left edge.
+    // Full container width, so the section lines up with the columns above it.
     #o_g2b_product_desc {
-        max-width: 900px;
         margin-bottom: 2.5rem;
     }
 
