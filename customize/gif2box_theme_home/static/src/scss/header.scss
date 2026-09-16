@@ -31,6 +31,26 @@ $g-logo-h: 70px;
 $g-logo-h-sm: 40px;
 
 // =====================================================================
+// PAGE WIDTH
+//
+// Bootstrap steps the container up to 1140px at `xl` and 1320px at `xxl`;
+// the site is laid out for 1200px, so both are pinned there. Every
+// `.container-*` variant is listed because Odoo's snippets use them
+// interchangeably. `.container-fluid` is untouched, and the full-width
+// slider overrides this with a more specific rule of its own.
+// =====================================================================
+@media (min-width: 1200px) {
+    .container,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-xxl {
+        max-width: 1200px;
+    }
+}
+
+// =====================================================================
 // LANGUAGE FLAGS
 //
 // Not scoped to the header: the same template renders the selector in the
