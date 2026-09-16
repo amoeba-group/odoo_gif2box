@@ -15,6 +15,18 @@ $g-coral-dark: #E85A38;
 $g-blue: #0B88FD;
 // Section headings; the site's own dark teal rather than a logo colour.
 $g-title: #004444;
+
+// The hairline shared by the header and the footer, so the two edges match.
+// Weighted towards the coral: it holds most of the width and the blue only
+// closes the run.
+$g-rule: linear-gradient(
+    90deg,
+    #F4633A 0%,
+    #FD7352 42%,
+    #FF9A6C 66%,
+    #2E9BFF 90%,
+    #0B4DA2 100%
+);
 $g-logo-h: 70px;
 $g-logo-h-sm: 46px;
 
@@ -161,6 +173,26 @@ $g-logo-h-sm: 46px;
 // HEADER
 // =====================================================================
 header#top {
+    position: relative;
+
+    // Once the header detaches and floats over the page it needs an edge to
+    // sit on. Drawn as a pseudo-element rather than a border so it can carry
+    // the gradient, and matched to the footer's.
+    //
+    // Both classes: Odoo sets `o_header_affixed` when the bar goes fixed and
+    // `o_header_is_scrolled` once the page has moved, and which one lands
+    // first depends on the header style in use.
+    &.o_header_affixed::after,
+    &.o_header_is_scrolled::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        height: 1px;
+        content: "";
+        background-image: $g-rule;
+    }
 
     // The thin top strip only ever held the language selector, which now lives
     // in the action row. Hiding it drops the header from three bands to two.
