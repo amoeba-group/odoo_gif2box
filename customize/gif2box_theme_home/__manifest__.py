@@ -9,6 +9,7 @@
     # `models/product_template.py` overrides.
     'depends': ['website_sale', 'website_sale_wishlist', 'website_sale_stock'],
     'data': [
+        'views/ir_actions.xml',
         'views/header_templates.xml',
         'views/product_templates.xml',
         'views/product_card_templates.xml',

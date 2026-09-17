@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Open Apps with "Gif2box" already in the search box.
+
+        The stock action defaults to the "Apps" filter, which restricts the
+        list to `application = True`. None of the gif2box modules declare
+        themselves as applications, so that filter hides every one of them and
+        has to go, not just be added to.
+
+        The search view's `name` field searches `summary`, `shortdesc` and
+        `name` together, so one term catches both the technical names
+        (`gif2box_*`) and the titles ("Gif2box: ...").
+
+        This is a back-office convenience rather than anything to do with the
+        theme; it lives here because this is the module every gif2box database
+        already has installed, and a module of its own to hold one record
+        would be more machinery than the problem is worth.
+    -->
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+        <field name="context">{'search_default_name': 'Gif2box'}</field>
+    </record>
+
+</odoo>
