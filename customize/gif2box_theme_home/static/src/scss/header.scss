@@ -922,9 +922,11 @@ header#top {
     }
 }
 
-// The snippet cards run their buttons a notch larger.
+// Deliberately shorter than the 2.6rem cart button it stands in for: on the
+// snippet cards the chip is wider than that button, and matching its height
+// too made it the heaviest thing in the card.
 .o_carousel_product_card .o_g2b_oos_label {
-    height: 2.6rem;
+    height: 2rem;
 }
 
 // Desaturating the picture says "unavailable" from across the page, before any
