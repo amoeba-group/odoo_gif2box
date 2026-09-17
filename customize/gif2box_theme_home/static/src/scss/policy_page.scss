@@ -1,0 +1,217 @@
+///
+/// Policy pages.
+///
+/// Loaded after `header.scss` in the same bundle, so the brand variables
+/// declared there are in scope.
+///
+/// All eight of them are built the same way -- a title block, then Odoo's
+/// "Table of Content" snippet with a sticky sidebar and one `s_text_block`
+/// per numbered section -- so the styling keys off that snippet rather than
+/// off any page. A ninth policy page built the same way picks it up for free.
+///
+/// The text itself is legal copy the client owns; nothing here rewrites it,
+/// it only makes it readable: the body is a run of `<p>` elements, one per
+/// bullet, which the stock spacing pushed a full line apart.
+///
+
+#wrap:has(.s_table_of_content) {
+
+    // ------------------------------------------------------------------
+    // Page title
+    // ------------------------------------------------------------------
+    h1 {
+        position: relative;
+        // Hugs its own text so the accent below centres on the words rather
+        // than on the column: some of these pages centre the title and some
+        // leave it left, and CSS cannot read which.
+        display: inline-block;
+        padding-bottom: 1rem;
+        margin-bottom: 0;
+        font-size: 1.9rem;
+        font-weight: 700;
+        line-height: 1.35;
+        color: $g-title;
+        letter-spacing: .01em;
+
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 64px;
+            height: 3px;
+            content: "";
+            background-color: $g-coral;
+            border-radius: 3px;
+            transform: translateX(-50%);
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Sidebar
+    // ------------------------------------------------------------------
+    .s_table_of_content_navbar_wrap {
+        // Clears the fixed header when the sidebar sticks.
+        top: 7rem !important;
+    }
+
+    .s_table_of_content_navbar {
+        padding: .45rem;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: .85rem;
+        box-shadow: 0 .25rem .9rem rgba($black, .05);
+    }
+
+    .table_of_content_link {
+        padding: .5rem .7rem !important;
+        font-size: .85rem;
+        font-weight: 500;
+        line-height: 1.45;
+        color: $gray-700 !important;
+        background-color: transparent !important;
+        // The stock link marks the current section with a border on one edge,
+        // which reads as a rendering slip next to a boxed list.
+        border: 0 !important;
+        border-radius: .5rem !important;
+        transition: color .15s ease, background-color .15s ease;
+
+        &:hover,
+        &:focus {
+            color: $g-coral !important;
+            background-color: rgba($g-coral, .07) !important;
+        }
+
+        &.active {
+            font-weight: 600;
+            color: $g-coral-dark !important;
+            background-color: rgba($g-coral, .1) !important;
+        }
+
+        // The table of contents lists every heading it finds, and some of
+        // them are empty in the page content, which leaves a blank row.
+        &:empty,
+        &.o_g2b_blank_p {
+            display: none;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Body
+    // ------------------------------------------------------------------
+    .s_table_of_content_main {
+
+        // Each numbered section is its own `s_text_block` carrying `pb64`,
+        // which left a chasm between one section and the next.
+        > section {
+            padding-top: 0 !important;
+            padding-bottom: 1.25rem !important;
+        }
+
+        h2,
+        h3 {
+            margin-top: 2.25rem;
+            margin-bottom: .9rem;
+            font-size: 1.25rem !important;
+            font-weight: 700;
+            line-height: 1.45;
+            color: $g-title;
+            // Jumping from the sidebar otherwise lands the heading under the
+            // fixed header.
+            scroll-margin-top: 8rem;
+
+            // Empty headings sit between the sections as a stray blank line.
+            &:empty,
+            &.o_g2b_blank_p {
+                display: none;
+            }
+        }
+
+        > section:first-child h2 {
+            margin-top: 0;
+        }
+
+        p {
+            // The copy is one paragraph per bullet, so the stock paragraph
+            // spacing read as a gap between unrelated thoughts. Tightened,
+            // with the line height opened up instead.
+            margin-bottom: .55rem;
+            // Around 70 characters. The column is 9 of 12, which on a wide
+            // screen is well past the width an eye tracks comfortably.
+            max-width: 70ch;
+            font-size: .95rem;
+            line-height: 1.85;
+            color: $gray-800;
+
+            // Blank paragraphs left behind when the copy was pasted in: each
+            // one is a full empty line between two that belong together.
+            // `<p><br></p>` is reachable from here; the ones holding a
+            // non-breaking space are not, and `policy_page.js` marks those.
+            &:empty,
+            &:has(> br:only-child),
+            &.o_g2b_blank_p {
+                display: none;
+            }
+        }
+
+        // The copy carries the odd divider snippet. Softened so it separates
+        // rather than interrupts.
+        .s_hr hr {
+            margin: 1.25rem 0;
+            border-top-color: $border-color;
+            opacity: 1;
+        }
+
+        ul,
+        ol {
+            max-width: 70ch;
+            margin-bottom: .9rem;
+
+            li {
+                margin-bottom: .35rem;
+                font-size: .95rem;
+                line-height: 1.85;
+                color: $gray-800;
+            }
+        }
+
+        strong,
+        b {
+            color: $g-title;
+        }
+
+        a {
+            color: $g-coral-dark;
+            text-decoration: underline;
+            text-underline-offset: .15em;
+
+            &:hover {
+                color: $g-coral;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Narrow screens
+    // ------------------------------------------------------------------
+    // The sidebar is `d-none d-lg-block`, so below `lg` the body has the page
+    // to itself and the measure cap is the column width instead.
+    @include media-breakpoint-down(lg) {
+        h1 {
+            font-size: 1.45rem;
+        }
+
+        .s_table_of_content_main {
+            h2,
+            h3 {
+                margin-top: 1.75rem;
+                font-size: 1.1rem !important;
+            }
+
+            p,
+            ul,
+            ol {
+                max-width: none;
+            }
+        }
+    }
+}
