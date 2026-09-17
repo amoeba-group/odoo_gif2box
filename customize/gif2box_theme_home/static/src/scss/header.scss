@@ -895,19 +895,31 @@ header#top {
 // keeps its height whether a product is orderable or not.
 .o_g2b_oos_label {
     display: inline-flex;
+    gap: .45rem;
     align-items: center;
     height: 2.4rem;
-    padding: 0 .8rem;
-    font-size: .72rem;
-    font-weight: 700;
+    padding: 0 .95rem;
+    font-size: .8rem;
+    font-weight: 600;
     line-height: 1;
-    color: $gray-600;
-    text-transform: uppercase;
-    letter-spacing: .03em;
+    // Drawn in the brand's dark teal rather than grey, and with no border:
+    // grey-on-grey inside a rounded outline read as a disabled button, which
+    // is the one thing it must not look like. A tinted surface and a status
+    // dot say "state", and the teal keeps it out of the coral reserved for
+    // things that can be clicked.
+    color: rgba($g-title, .82);
     white-space: nowrap;
-    background-color: $gray-200;
-    border: 1px solid $border-color;
+    background-color: rgba($g-title, .07);
     border-radius: 2rem;
+
+    &::before {
+        flex: 0 0 auto;
+        width: .45rem;
+        height: .45rem;
+        content: "";
+        background-color: rgba($g-title, .4);
+        border-radius: 50%;
+    }
 }
 
 // The snippet cards run their buttons a notch larger.
