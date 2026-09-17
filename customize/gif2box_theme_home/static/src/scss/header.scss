@@ -559,25 +559,116 @@ header#top {
             }
         }
 
+        // --- Submenu toggle ---------------------------------------------
+        //
+        // The caret goes on the label's own `<span>`, not on the link:
+        // `.nav-link::after` is already the sliding underline above, and
+        // Bootstrap's own `.dropdown-toggle::after` triangle loses to it on
+        // specificity, which is why the item had no arrow at all.
+        > .nav-item.dropdown > .nav-link.dropdown-toggle {
+            > span::after {
+                display: inline-block;
+                margin-left: .35rem;
+                font-family: FontAwesome;
+                font-size: .78em;
+                font-weight: 400;
+                line-height: 1;
+                content: "\f107"; // angle-down
+                transition: transform .2s ease;
+            }
+        }
+
+        > .nav-item.dropdown:hover > .nav-link.dropdown-toggle > span::after,
+        > .nav-item.dropdown > .nav-link.dropdown-toggle.show > span::after {
+            transform: rotate(180deg);
+        }
+
+        // --- Submenu panel ----------------------------------------------
         .dropdown-menu {
-            padding: .35rem;
-            margin-top: .25rem;
+            // Wide enough that the short policy names sit on one line, capped
+            // so the two long ones wrap instead of running off the header.
+            min-width: 16rem;
+            max-width: 21rem;
+            padding: .4rem;
+            margin-top: 0;
             border: 1px solid $border-color;
-            border-radius: .65rem;
-            box-shadow: 0 .5rem 1.5rem rgba($black, .1);
+            border-radius: .8rem;
+            box-shadow: 0 .75rem 1.9rem rgba($black, .13);
 
             .dropdown-item {
-                padding: .5rem .75rem;
-                font-size: .875rem;
+                // Anchors the chevron below; the panel itself is the nearest
+                // positioned ancestor otherwise, which would park every one of
+                // them at its top left corner.
+                position: relative;
+                padding: .55rem .8rem;
+                font-size: .85rem;
                 font-weight: 500;
-                border-radius: .4rem;
+                line-height: 1.45;
+                // The bar above is uppercase and inherits down to here, which
+                // on names this long costs a line each and reads as shouting.
+                // Sentence case also sets the submenu apart from its parent.
+                text-transform: none;
+                // Two of the policy pages have very long names; left to
+                // Bootstrap's `nowrap` they stretched the panel off screen.
+                white-space: normal;
+                border-radius: .5rem;
+                transition: color .15s ease, background-color .15s ease,
+                            padding-left .15s ease;
+
+                // The chevron slides out of the padding on hover, so the
+                // label shifts across rather than the row growing.
+                &::before {
+                    position: absolute;
+                    left: .8rem;
+                    font-family: FontAwesome;
+                    font-size: .75em;
+                    line-height: 1.9;
+                    color: $g-coral;
+                    content: "\f105"; // angle-right
+                    opacity: 0;
+                    transition: opacity .15s ease;
+                }
 
                 &:hover,
                 &:focus {
+                    padding-left: 1.5rem;
                     color: $g-coral;
                     text-shadow: 0 0 .7px currentColor, 0 0 .7px currentColor;
                     background-color: rgba($g-coral, .1);
+
+                    &::before {
+                        opacity: 1;
+                    }
                 }
+            }
+        }
+
+        // --- Open on hover ------------------------------------------------
+        // Only where there is a pointer to hover with: below `lg` the header
+        // swaps to the mobile offcanvas, where the submenu is a tap target.
+        //
+        // The panel is kept in the layout and faded instead of switched with
+        // `display`, which is what makes the transition possible at all, and
+        // `pointer-events` is what stops the invisible panel swallowing
+        // clicks meant for the page behind it.
+        @include media-breakpoint-up(lg) {
+            > .nav-item.dropdown > .dropdown-menu {
+                display: block;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity .18s ease, transform .18s ease,
+                            visibility .18s;
+                transform: translateY(.4rem);
+                pointer-events: none;
+            }
+
+            > .nav-item.dropdown:hover > .dropdown-menu,
+            > .nav-item.dropdown:focus-within > .dropdown-menu,
+            > .nav-item.dropdown > .dropdown-menu.show {
+                visibility: visible;
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
             }
         }
     }
