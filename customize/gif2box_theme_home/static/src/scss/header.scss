@@ -914,11 +914,14 @@ header#top {
 
     &::before {
         flex: 0 0 auto;
-        width: .45rem;
-        height: .45rem;
-        content: "";
-        background-color: rgba($g-title, .4);
-        border-radius: 50%;
+        // `font-weight` is reset because the chip's own 600 would have the
+        // browser synthesise a bold of the icon font and thicken the glyph.
+        font-family: FontAwesome;
+        font-size: .9em;
+        font-weight: 400;
+        line-height: 1;
+        color: $g-coral-dark;
+        content: "\f00d"; // times
     }
 }
 
