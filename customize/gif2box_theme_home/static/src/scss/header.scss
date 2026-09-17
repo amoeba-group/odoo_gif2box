@@ -1059,6 +1059,36 @@ header#top {
                 box-shadow: 0 .4rem .9rem rgba($g-coral, .45);
             }
         }
+
+        // --- Phones and tablets -----------------------------------------
+        // Same treatment as the shop grid: the action moves onto the picture
+        // so the price keeps a line to itself on a narrow card. The button
+        // and the chip are mutually exclusive -- the template renders one or
+        // the other -- so they can share a position.
+        @include media-breakpoint-down(lg) {
+
+            // The card body starts where the image ends, so a full height
+            // above it is the foot of the picture.
+            .o_carousel_product_card_body {
+                position: relative;
+            }
+
+            .o_dynamic_snippet_btn_wrapper,
+            .o_g2b_oos_label {
+                position: absolute;
+                right: .6rem;
+                bottom: calc(100% + .6rem);
+                z-index: 2;
+            }
+
+            .o_g2b_oos_label {
+                gap: .3rem;
+                padding: 0 .6rem;
+                font-size: .7rem;
+                background-color: rgba($white, .96);
+                box-shadow: 0 .15rem .5rem rgba($black, .2);
+            }
+        }
     }
 
     // ------------------------------------------------------------------
@@ -1219,6 +1249,57 @@ header#top {
                 background-color: $g-coral-dark;
                 border-color: $g-coral-dark;
                 transform: scale(1.08);
+            }
+        }
+
+        // --- Phones and tablets -----------------------------------------
+        //
+        // Measured on the shop grid: below `lg` a card is 217-245px wide, and
+        // the price plus the buttons need more than that. On an iPhone SE the
+        // pair wrapped under the price or pressed right against it, and an
+        // out-of-stock card wrapped at every width up to 1400px because its
+        // chip is twice as wide as the cart button.
+        //
+        // The action group moves onto the picture, bottom right, which is
+        // where a phone shopper's thumb already is and leaves the price a line
+        // of its own.
+        @include media-breakpoint-down(lg) {
+
+            // Nested under `.o_wsale_product_sub` to match the specificity of
+            // the rule above that pins the group back into the flow; both
+            // carry `!important`, so the more specific selector is what
+            // decides between them.
+            .o_wsale_product_sub .o_wsale_product_btn {
+                position: absolute !important;
+                right: .5rem !important;
+                // `.o_wsale_product_information` is already `position-relative`
+                // and starts where the image ends, so pushing the group a full
+                // height above it lands on the foot of the picture whatever
+                // height that picture happens to be.
+                bottom: calc(100% + .5rem) !important;
+                left: auto !important;
+                top: auto !important;
+                z-index: 2;
+                gap: .4rem;
+            }
+
+            // Both the buttons and the chip now sit on a photograph, so each
+            // gets an opaque backing and a shadow to lift it off whatever is
+            // behind it.
+            .o_wsale_product_btn .btn {
+                width: 2.2rem;
+                height: 2.2rem;
+                background-color: rgba($white, .96);
+                box-shadow: 0 .15rem .5rem rgba($black, .2);
+            }
+
+            .o_g2b_oos_label {
+                height: 2.2rem;
+                gap: .3rem;
+                padding: 0 .6rem;
+                font-size: .7rem;
+                background-color: rgba($white, .96);
+                box-shadow: 0 .15rem .5rem rgba($black, .2);
             }
         }
     }
