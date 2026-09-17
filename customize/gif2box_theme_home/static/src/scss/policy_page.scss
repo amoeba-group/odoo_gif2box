@@ -135,9 +135,6 @@
             // spacing read as a gap between unrelated thoughts. Tightened,
             // with the line height opened up instead.
             margin-bottom: .55rem;
-            // Around 70 characters. The column is 9 of 12, which on a wide
-            // screen is well past the width an eye tracks comfortably.
-            max-width: 70ch;
             font-size: .95rem;
             line-height: 1.85;
             color: $gray-800;
@@ -163,7 +160,6 @@
 
         ul,
         ol {
-            max-width: 70ch;
             margin-bottom: .9rem;
 
             li {
@@ -194,7 +190,7 @@
     // Narrow screens
     // ------------------------------------------------------------------
     // The sidebar is `d-none d-lg-block`, so below `lg` the body has the page
-    // to itself and the measure cap is the column width instead.
+    // to itself.
     @include media-breakpoint-down(lg) {
         h1 {
             font-size: 1.45rem;
@@ -205,12 +201,6 @@
             h3 {
                 margin-top: 1.75rem;
                 font-size: 1.1rem !important;
-            }
-
-            p,
-            ul,
-            ol {
-                max-width: none;
             }
         }
     }
