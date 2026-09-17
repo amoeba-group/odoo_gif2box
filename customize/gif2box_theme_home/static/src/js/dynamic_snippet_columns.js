@@ -15,6 +15,12 @@
  *
  * Only the default is changed. A snippet with "Products per slide" set
  * explicitly in the website editor keeps whatever the client chose.
+ *
+ * `.amb-custom` sections are skipped. Site CSS carried over from the old
+ * theme turns those carousels into a wrapping grid -- every slide forced to
+ * `display: block` and the arrows hidden -- so the slides are laid out side by
+ * side rather than one at a time. Two cards per slide there means four across
+ * on a phone, which is what it was doing before this exclusion.
  */
 
 import { utils as uiUtils } from "@web/core/ui/ui_service";
@@ -28,7 +34,9 @@ DynamicSnippet.include({
      */
     _getQWebRenderOptions() {
         const options = this._super(...arguments);
-        if (uiUtils.isSmall() && !this.el.dataset.numberOfElementsSmallDevices) {
+        if (uiUtils.isSmall()
+                && !this.el.dataset.numberOfElementsSmallDevices
+                && !this.el.querySelector(".amb-custom")) {
             const records = parseInt(this.el.dataset.numberOfRecords, 10);
             // A carousel holding a single record must stay one across, or the
             // lone card would be laid out half-width.

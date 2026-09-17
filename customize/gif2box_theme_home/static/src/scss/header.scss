@@ -964,6 +964,79 @@ header#top {
         overflow: visible !important;
     }
 
+    // --- Slide arrows on phones and tablets -----------------------------
+    //
+    // The snippet markup carries `position-md-absolute`, so below `md` the
+    // arrows fall back into the flow and land under the cards, a full swipe
+    // away from where the eye is. They move to the top right corner instead,
+    // in the gap the section's own top padding already provides, so they sit
+    // above the cards rather than on top of a product photograph.
+    //
+    // Only the product snippets are touched. The hero slideshow draws its
+    // controls from `.carousel-control-*-icon` background images and is styled
+    // further up; these use an `.oi` icon font instead.
+    @include media-breakpoint-down(lg) {
+        .s_dynamic_snippet_products {
+
+            .carousel {
+                position: relative;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                position: absolute;
+                top: -2.3rem;
+                bottom: auto;
+                z-index: 3;
+                width: auto;
+                padding: 0;
+                opacity: 1;
+            }
+
+            .carousel-control-next {
+                right: 0;
+                left: auto;
+            }
+
+            // Sits immediately left of the next arrow: its own width plus the
+            // gap between them.
+            .carousel-control-prev {
+                right: 2.35rem;
+                left: auto;
+            }
+
+            // The markup styles the glyph as a dark pill with `p-3`; squared
+            // off, softened and shrunk, it reads as a control rather than as a
+            // blob, and at this size it clears the section's top padding.
+            .carousel-control-prev .oi,
+            .carousel-control-next .oi {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.95rem;
+                height: 1.95rem;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: .78rem;
+                color: $g-coral-dark !important;
+                background-color: $white !important;
+                border: 1px solid rgba($g-coral, .45);
+                border-radius: .55rem !important;
+                box-shadow: 0 .1rem .35rem rgba($black, .1);
+                transition: color .15s ease, background-color .15s ease;
+            }
+
+            .carousel-control-prev:hover .oi,
+            .carousel-control-next:hover .oi,
+            .carousel-control-prev:focus .oi,
+            .carousel-control-next:focus .oi {
+                color: $white !important;
+                background-color: $g-coral !important;
+                border-color: $g-coral;
+            }
+        }
+    }
+
     .o_carousel_product_card {
         @include g2b-card;
 
