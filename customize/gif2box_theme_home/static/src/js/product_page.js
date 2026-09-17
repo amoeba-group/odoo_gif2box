@@ -73,7 +73,9 @@
 
         button.addEventListener("click", () => {
             expanded = !expanded;
-            button.classList.toggle("o_g2b_pd_expanded", expanded);
+            // On the root, not the button: the open state has to reach the
+            // button's wrapper as well, which sits above it in the tree.
+            root.classList.toggle("o_g2b_fold_open", expanded);
             if (expanded) {
                 body.classList.remove("o_g2b_pd_clamped");
             } else {

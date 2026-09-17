@@ -146,6 +146,19 @@ footer#bottom.o_footer {
     }
 
     // --- Social links ---------------------------------------------------
+    // Only Facebook is in use. The other three icons were left over from the
+    // snippet's defaults and pointed at `/website/social/<name>` routes with
+    // no URL behind them, so they led nowhere.
+    //
+    // Hidden rather than deleted: the block is `oe_structure` content the
+    // client owns in the website editor, and taking the nodes out from code
+    // would fight them the next time they edit the footer. Filling in the
+    // matching field under Settings is all it takes to bring one back --
+    // along with deleting its line here.
+    .s_social_media > a:not(.s_social_media_facebook) {
+        display: none;
+    }
+
     .s_social_media {
         display: flex;
         flex-wrap: wrap;

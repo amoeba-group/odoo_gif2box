@@ -563,7 +563,14 @@
         display: none;
     }
 
-    .o_g2b_pd_expanded {
+    .o_g2b_fold_open {
+        // The pull-up exists so the button sits inside the fade at the foot of
+        // a folded block. Expanded there is no fade, and it was landing on top
+        // of the last line of the text.
+        .o_g2b_pd_more_wrap {
+            margin-top: .75rem;
+        }
+
         .o_g2b_pd_label_more {
             display: none;
         }
@@ -572,9 +579,13 @@
             display: block;
         }
 
-        &::after {
+        .o_g2b_pd_more::after {
             transform: rotate(180deg);
         }
+    }
+
+    .o_g2b_fold_sm.o_g2b_fold_open .o_g2b_pd_more_wrap {
+        margin-top: .35rem;
     }
 
     // ------------------------------------------------------------------
