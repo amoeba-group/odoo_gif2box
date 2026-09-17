@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Lay out the top menu from code.
+
+        Run on every install and update of this module rather than once, so a
+        deploy is all it takes for production to match: the method is matched
+        on page URLs and finds its own work already done on a second pass.
+
+        The structure itself lives in `models/website.py`, next to the names
+        and URLs it needs.
+    -->
+    <function model="website" name="_gif2box_setup_menu"/>
+
+</odoo>
