@@ -234,13 +234,28 @@ footer#bottom.o_footer {
             }
         }
 
-        // The dropdown itself opens on white, so its contents stay dark.
+        // The dropdown opens on white, so its contents cannot take the bar's
+        // white text with them.
+        //
+        // The label sits in a `<span>` inside each item, and the blanket
+        // `span { color: white }` above reaches it: colouring the anchor
+        // alone left white on white, because the span carries the text and
+        // wins by being the element the colour lands on. Both are named here.
         .dropdown-menu {
             .dropdown-item {
-                color: $gray-700 !important;
+                color: $g-coral !important;
+                // Beats the underline the copyright links take on hover.
+                text-decoration: none !important;
 
+                span {
+                    color: inherit !important;
+                }
+
+                &:hover,
+                &:focus,
                 &.active {
-                    color: $g-coral !important;
+                    color: $g-coral-dark !important;
+                    background-color: rgba($g-coral, .1);
                 }
             }
         }
