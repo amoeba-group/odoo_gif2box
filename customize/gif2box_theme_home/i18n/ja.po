@@ -46,3 +46,8 @@ msgstr "買い物を続ける"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
 msgid "Your wishlist is empty"
 msgstr "お気に入りは空です"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.header_cta_label
+msgid "Contact us"
+msgstr "お問い合わせ"

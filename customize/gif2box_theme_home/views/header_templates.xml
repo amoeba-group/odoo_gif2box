@@ -35,11 +35,16 @@
     -->
     <template id="header_cta_label" inherit_id="website.header_call_to_action">
         <xpath expr="//a[hasclass('btn_cta')]" position="replace">
+            <!--
+                The label is the anchor's only content and the phone icon is
+                drawn in CSS, on purpose. Odoo extracts a node holding inline
+                children as one term including its markup, so an `<i>` beside a
+                `<span>` here produced a single msgid full of HTML that nobody
+                translated; the button read "Liên hệ" on the Japanese and
+                Korean sites too.
+            -->
             <a href="/contactus"
-               class="oe_unremovable btn btn-primary btn_cta d-flex align-items-center">
-                <i class="fa fa-phone" role="img" aria-hidden="true"/>
-                <span>Liên hệ</span>
-            </a>
+               class="oe_unremovable btn btn-primary btn_cta d-flex align-items-center">Contact us</a>
         </xpath>
     </template>
 

@@ -46,3 +46,8 @@ msgstr "Tiếp tục mua sắm"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.wishlist_page
 msgid "Your wishlist is empty"
 msgstr "Danh sách yêu thích đang trống"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.header_cta_label
+msgid "Contact us"
+msgstr "Liên hệ"

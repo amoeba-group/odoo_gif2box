@@ -592,6 +592,17 @@ header#top {
         border-color: $g-coral !important;
         border-radius: 0 !important;
 
+        // Drawn here rather than marked up, so the anchor's only content is
+        // its label and translators get a plain string instead of a msgid
+        // carrying the icon's HTML.
+        &::before {
+            font-family: FontAwesome;
+            font-size: .95em;
+            font-weight: 400;
+            line-height: 1;
+            content: "\f095"; // phone
+        }
+
         &:hover,
         &:focus {
             background-color: $g-coral-dark !important;
