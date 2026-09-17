@@ -510,20 +510,22 @@ header#top {
 
         > .nav-item > .nav-link {
             position: relative;
-            padding: 1.2rem .85rem !important;
-            font-size: .875rem;
+            padding: 1.2rem 1rem !important;
+            font-size: .9rem;
             font-weight: 500;
             color: $body-color;
             text-transform: uppercase;
             letter-spacing: .01em;
             transition: color .15s ease, font-weight .15s ease;
 
-            // Sliding underline in the brand colour.
+            // Sliding underline in the brand colour. The insets track the
+            // horizontal padding above, so the rule sits under the label and
+            // not under the gap beside it.
             &::after {
                 position: absolute;
-                right: .85rem;
+                right: 1rem;
                 bottom: .35rem;
-                left: .85rem;
+                left: 1rem;
                 height: 2px;
                 content: "";
                 background-color: $g-coral;
