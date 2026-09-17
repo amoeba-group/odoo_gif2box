@@ -5,10 +5,13 @@
     'summary': 'Restructured header, flag language switcher, full-width slider',
     'author': 'Amoeba',
     'license': 'LGPL-3',
-    'depends': ['website_sale', 'website_sale_wishlist'],
+    # `website_sale_stock` is where `_is_sold_out` lives, which
+    # `models/product_template.py` overrides.
+    'depends': ['website_sale', 'website_sale_wishlist', 'website_sale_stock'],
     'data': [
         'views/header_templates.xml',
         'views/product_templates.xml',
+        'views/product_card_templates.xml',
         'views/wishlist_templates.xml',
     ],
     'assets': {

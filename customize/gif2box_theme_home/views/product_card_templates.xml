@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        "Out of stock" badge for product cards.
+
+        Nothing marked a sold-out product anywhere it was listed: the card
+        looked exactly like an orderable one, and the only hint was the missing
+        add-to-cart button, which reads as a glitch rather than as information.
+
+        The condition matches the one Odoo uses to drop that button
+        (`_website_show_quick_add`), so the two always agree. `allow_out_of_
+        stock_order` products are never marked: they can be ordered whatever
+        the stock says.
+
+        The caller passes the record as `g2b_product`; it works for both a
+        `product.template` and a `product.product`, which is what the dynamic
+        snippets hand over.
+    -->
+    <template id="out_of_stock_badge">
+        <span t-if="not g2b_product.allow_out_of_stock_order and g2b_product._is_sold_out()"
+              class="o_g2b_oos_badge">Out of stock</span>
+    </template>
+
+    <!--
+        The /shop, category and search grid.
+        `.oe_product_image` already carries `position-relative`.
+    -->
+    <template id="products_item_out_of_stock" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('oe_product_image')]" position="inside">
+            <t t-call="gif2box_theme_home.out_of_stock_badge">
+                <t t-set="g2b_product" t-value="product"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!--
+        The two dynamic snippet cards this site uses: the homepage carousel
+        ("Classic Card") and "Borderless Product n°1". Bootstrap's `.card` is
+        already `position: relative`, so the badge anchors to the card.
+    -->
+    <template id="dynamic_card_out_of_stock"
+              inherit_id="website_sale.dynamic_filter_template_product_product_add_to_cart">
+        <xpath expr="//a[hasclass('o_carousel_product_img_link')]" position="before">
+            <t t-call="gif2box_theme_home.out_of_stock_badge">
+                <t t-set="g2b_product" t-value="record"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="dynamic_card_borderless_out_of_stock"
+              inherit_id="website_sale.dynamic_filter_template_product_product_borderless_1">
+        <xpath expr="//a[hasclass('o_carousel_product_img_link')]" position="before">
+            <t t-call="gif2box_theme_home.out_of_stock_badge">
+                <t t-set="g2b_product" t-value="record"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
