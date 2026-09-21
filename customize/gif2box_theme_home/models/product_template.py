@@ -1,8 +1,52 @@
-from odoo import models
+import logging
+
+from odoo import api, fields, models
+
+_logger = logging.getLogger(__name__)
+
+# The label, in every language the site runs in.
+#
+# Not in the `.po` files, where it belongs, because it cannot work there:
+# Odoo ships its own translations of "Compare to Price", and a module update
+# leaves an existing translation alone unless the server is started with
+# `--i18n-overwrite`. That flag is all-or-nothing across every module, which
+# is too blunt a tool for one label, so the values are written here instead.
+ORIGINAL_PRICE_LABEL = {
+    'en_US': 'Original Price',
+    # "Giá gốc" is the common phrase but reads as cost price in an ERP, and
+    # Cost sits directly under this field on the form.
+    'vi_VN': 'Giá trước giảm',
+    'ja_JP': '割引前価格',
+    'ko_KR': '할인 전 가격',
+}
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
+
+    # "Compare to Price" describes the mechanism, not the number. Sitting
+    # directly under "Sales Price" and directly above "Cost", what it needs to
+    # say is which price it is: the one the item used to go for.
+    #
+    # Only the label is changed. Odoo's help text still describes the field
+    # accurately and is already translated, so it is left alone.
+    compare_list_price = fields.Monetary(string=ORIGINAL_PRICE_LABEL['en_US'])
+
+    @api.model
+    def _gif2box_label_original_price(self):
+        """Translate the relabelled field. Called from `data/settings_data.xml`."""
+        field = self.env['ir.model.fields'].sudo().search([
+            ('model', 'in', ('product.template', 'product.product')),
+            ('name', '=', 'compare_list_price'),
+        ])
+        if not field:
+            return
+
+        installed = self.env['res.lang'].search([]).mapped('code')
+        for code, label in ORIGINAL_PRICE_LABEL.items():
+            if code in installed:
+                field.with_context(lang=code).write({'field_description': label})
+        _logger.info('gif2box: relabelled compare_list_price on %s field(s)', len(field))
 
     def _is_sold_out(self):
         """A template is sold out only when every one of its variants is.

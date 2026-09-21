@@ -12,4 +12,12 @@
     -->
     <function model="res.config.settings" name="_gif2box_enable_price_comparison"/>
 
+    <!--
+        Translate the relabelled "Original Price" field. In code rather than in
+        the `.po` files because Odoo already ships translations of the old
+        label and a module update will not replace an existing one without the
+        `i18n-overwrite` flag, which applies to every module at once.
+    -->
+    <function model="product.template" name="_gif2box_label_original_price"/>
+
 </odoo>
