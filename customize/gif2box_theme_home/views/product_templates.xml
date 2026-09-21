@@ -99,6 +99,26 @@
         Description"), which is the only place per-product text can live.
     -->
     <template id="product_accordion_description" inherit_id="website_sale.accordion_more_information">
+
+        <!--
+            "More Information" was Odoo's label for a block meant to hold text
+            shared by every product. It holds this product's own description
+            now, so the "More" no longer says anything.
+
+            The whole button is restated because its label is a bare text node
+            and view inheritance has no way to reach one. The attributes are
+            copied from what this site already renders, which means the
+            accordion stays open on arrival exactly as it does today.
+        -->
+        <xpath expr="//div[@id='more_information_accordion_item']//button" position="replace">
+            <button class="accordion-button fw-medium"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#customizable_item"
+                    aria-expanded="true"
+                    aria-controls="customizable_item">Information</button>
+        </xpath>
+
         <xpath expr="//div[@id='customizable_item']//p" position="replace">
             <!--
                 Folded the same way as the description below the buy panel, and

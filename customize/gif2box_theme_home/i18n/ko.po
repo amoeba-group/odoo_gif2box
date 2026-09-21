@@ -56,3 +56,8 @@ msgstr "문의하기"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
 msgid "Out of stock"
 msgstr "품절"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
+msgid "Information"
+msgstr "정보"
