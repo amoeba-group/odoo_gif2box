@@ -989,7 +989,15 @@ header#top {
 
 @mixin g2b-card-price {
     font-size: 1.1rem;
-    font-weight: 700;
+    // 600, not 700, because that is what the homepage cards were already
+    // showing: their price span carries `fw-bold`, and the theme defines its
+    // bold as 600. The utility is `!important`, so it won over the 700 here
+    // and the same price came out heavier on the shop grid, where the span
+    // carries `h6` instead and nothing overrode it.
+    font-weight: 600;
+    // The grid's span carries `h6`, which brings a heading's 1.2 with it and
+    // set the price on a shorter line than the same price on the homepage.
+    line-height: 1.5;
     color: $g-coral;
 }
 
@@ -1482,6 +1490,10 @@ header#top {
             span:not(.o_g2b_discount) {
                 font-size: inherit;
                 font-weight: inherit;
+                // `h6` on the span is a heading class and carries a heading's
+                // line-height too, which no amount of styling on the block
+                // around it reaches.
+                line-height: inherit;
                 color: inherit;
             }
 
