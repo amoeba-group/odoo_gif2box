@@ -1255,6 +1255,32 @@ header#top {
             padding: .9rem 1rem 1rem;
         }
 
+        // The body is a wrapping flex row whose three children are each
+        // `w-100`, so every one is its own flex line. Cards are stretched to
+        // the tallest in the row, and a multi-line flex container hands the
+        // leftover height to the gaps *between* its lines -- which is where
+        // the 24px between a short product name and its price came from.
+        //
+        // As a column the children behave identically and the leftover falls
+        // below the last one instead. Prices still line up across a row: the
+        // title reserves two lines whatever it holds.
+        .o_carousel_product_card_body.card-body {
+            flex-direction: column;
+            // The body is a flex item of the card, so once the row stretches
+            // it its height is definite -- and a wrapping column splits into a
+            // second column the moment its content passes that height. The
+            // `!important` is answering Bootstrap's own `.flex-wrap` on the
+            // div; specificity alone does not reach it.
+            flex-wrap: nowrap !important;
+
+            // `align-self-end` was aiming at the bottom of a flex line. On a
+            // column the cross axis is horizontal, so left alone it would pull
+            // the price row over to the right-hand edge.
+            > .justify-content-between {
+                align-self: stretch;
+            }
+        }
+
         .card-title {
             @include g2b-card-title;
 
