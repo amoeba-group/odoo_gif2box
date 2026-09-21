@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        "-25%" badge beside a struck-through price.
+
+        Odoo renders the old price on its own; the saving is left for the
+        shopper to work out. The caller sets `g2b_old` and `g2b_new` and this
+        does the arithmetic, so the three places a price appears cannot drift.
+
+        Nothing is shown below 1%: a rounding artefact reading "-0%" says less
+        than no badge at all.
+    -->
+    <template id="discount_badge">
+        <t t-if="g2b_old and g2b_new is not None and g2b_old &gt; g2b_new">
+            <t t-set="g2b_pct" t-value="int(round((g2b_old - g2b_new) * 100.0 / g2b_old))"/>
+            <span t-if="g2b_pct &gt;= 1" class="o_g2b_discount">-<t t-out="g2b_pct"/>%</span>
+        </t>
+    </template>
+
+    <!--
+        Product detail page. `compare_list_price` is what the client types into
+        "Compare to Price"; `price` is what is being charged.
+    -->
+    <template id="product_price_discount" inherit_id="website_sale.product_price">
+        <xpath expr="//del[hasclass('oe_compare_list_price')]" position="after">
+            <t t-call="gif2box_theme_home.discount_badge">
+                <t t-set="g2b_old" t-value="combination_info['compare_list_price']"/>
+                <t t-set="g2b_new" t-value="combination_info['price']"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!--
+        The /shop, category and search grid. `_get_sales_prices` puts the
+        comparison price in `base_price`, which is also where a pricelist
+        discount lands, so one badge covers both.
+    -->
+    <template id="products_item_discount" inherit_id="website_sale.products_item">
+        <xpath expr="//div[hasclass('product_price')]//del" position="after">
+            <t t-call="gif2box_theme_home.discount_badge">
+                <t t-set="g2b_old" t-value="template_price_vals.get('base_price')"/>
+                <t t-set="g2b_new" t-value="template_price_vals['price_reduce']"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!--
+        The dynamic snippet cards on the homepage.
+
+        Their price block only knows about pricelist discounts, so the
+        comparison price is read off the record itself and struck through here
+        as well, to match what the grid and the product page show.
+    -->
+    <template id="snippet_price_discount"
+              inherit_id="website_sale.price_dynamic_filter_template_product_product">
+        <xpath expr="//del" position="after">
+            <t t-set="g2b_cmp" t-value="data.get('compare_list_price') or 0"/>
+            <t t-if="g2b_cmp and g2b_cmp &gt; data['price']">
+                <del class="o_g2b_compare_price ms-1"
+                     t-out="g2b_cmp"
+                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+            </t>
+            <t t-call="gif2box_theme_home.discount_badge">
+                <t t-set="g2b_old" t-value="g2b_cmp or (data.get('has_discounted_price') and data['list_price'])"/>
+                <t t-set="g2b_new" t-value="data['price']"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

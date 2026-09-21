@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Put "Compare to Price" directly under "Sales Price".
+
+        `website_sale` drops it in just before the product category, which
+        leaves the cost and the taxes sitting between the two prices. They are
+        entered together and read together, so they belong together.
+
+        Priority 30 puts this after `website_sale.product_template_only_
+        website_form_view` (the default 16), which is the view that adds the
+        field: the nodes have to exist before they can be moved.
+
+        Both `position="move"` elements are direct children of the `after`
+        spec on purpose: that is the only place Odoo honours them
+        (`tools/template_inheritance.py`). Nested any deeper and the xpath tag
+        is emitted into the view instead.
+    -->
+    <record id="product_template_form_compare_price" model="ir.ui.view">
+        <field name="name">product.template.form.gif2box.compare.price</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='list_price_uom']" position="after">
+                <xpath expr="//label[@for='compare_list_price']" position="move"/>
+                <xpath expr="//div[hasclass('o_row')][field[@name='compare_list_price']]"
+                       position="move"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

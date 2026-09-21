@@ -993,6 +993,37 @@ header#top {
     color: $g-coral;
 }
 
+// --- Price before the sale ------------------------------------------------
+//
+// Fed by "Compare to Price" on the product form. Odoo renders it struck
+// through but in its own colours -- `text-danger` on the snippet cards, the
+// theme grey elsewhere -- so it is pinned to one muted grey everywhere, well
+// behind the price being charged.
+.oe_compare_list_price,
+.o_g2b_compare_price,
+.oe_default_price {
+    font-size: .85rem !important;
+    font-weight: 500;
+    color: $gray-500 !important;
+    text-decoration: line-through;
+    white-space: nowrap;
+}
+
+// The saving, worked out from the two prices rather than left to the shopper.
+.o_g2b_discount {
+    display: inline-block;
+    padding: .1rem .4rem;
+    margin-left: .35rem;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: $white;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: $g-coral;
+    border-radius: .35rem;
+}
+
 // Out-of-stock marker. It stands in the action row where the add-to-cart
 // button would have been, so it is sized to the buttons around it and the row
 // keeps its height whether a product is orderable or not.
@@ -1364,9 +1395,12 @@ header#top {
         .product_price {
             @include g2b-card-price;
 
-            .oe_currency_value,
-            .h6,
-            span {
+            // `:not()` keeps the discount badge out: it is a span inside the
+            // price block, and this rule is what made it coral-on-coral and
+            // 1.1rem -- an invisible label in a solid blob.
+            .oe_currency_value:not(.o_g2b_discount),
+            .h6:not(.o_g2b_discount),
+            span:not(.o_g2b_discount) {
                 font-size: inherit;
                 font-weight: inherit;
                 color: inherit;

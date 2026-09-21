@@ -13,9 +13,12 @@
         'views/header_templates.xml',
         'views/product_templates.xml',
         'views/product_card_templates.xml',
+        'views/price_templates.xml',
+        'views/product_form_views.xml',
         'views/wishlist_templates.xml',
-        # Last: it reads the policy pages, so everything else is in place by
-        # the time it runs.
+        # Last: these read existing records, so everything else is in place by
+        # the time they run.
+        'data/settings_data.xml',
         'data/menu_data.xml',
     ],
     'assets': {

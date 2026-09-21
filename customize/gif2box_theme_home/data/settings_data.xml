@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Turn on Odoo's "Comparison Price" setting, which is what reveals the
+        "Compare to Price" field beside the sales price on the product form and
+        feeds the strikethrough on the shop.
+
+        A `<record>` on `base.group_user` would be the obvious way and does not
+        work: that group's `ir_model_data` row is flagged `noupdate`, so the
+        record is skipped without a word. See the method for the rest.
+    -->
+    <function model="res.config.settings" name="_gif2box_enable_price_comparison"/>
+
+</odoo>
