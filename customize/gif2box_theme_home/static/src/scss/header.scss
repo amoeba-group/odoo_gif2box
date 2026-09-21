@@ -490,6 +490,16 @@ header#top {
             }
 
             &.active {
+                // The theme paints the current item white through
+                // `--dropdown-link-active-color`, then pins it with
+                // `color: var(...) !important` on any `.o_cc` block -- and the
+                // header is one. A plain `color` here lost that fight and the
+                // label stayed white on the tint. Setting the variable is what
+                // actually moves it, and works with the theme rather than
+                // against it.
+                --dropdown-link-active-color: #{$g-coral};
+                --dropdown-link-active-bg: #{rgba($g-coral, .12)};
+
                 font-weight: 600;
                 color: $g-coral;
                 background-color: rgba($g-coral, .12);
