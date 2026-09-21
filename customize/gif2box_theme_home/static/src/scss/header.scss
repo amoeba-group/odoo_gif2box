@@ -1485,23 +1485,56 @@ header#top {
             // `:not()` keeps the discount badge out: it is a span inside the
             // price block, and this rule is what made it coral-on-coral and
             // 1.1rem -- an invisible label in a solid blob.
-            .oe_currency_value:not(.o_g2b_discount),
-            .h6:not(.o_g2b_discount),
+            // `span.h6` on purpose, twice over. Odoo puts `h6` on the
+            // struck-through old price as well as on the price being charged,
+            // so a reset written as `.h6` caught both -- and being the more
+            // specific selector it beat the `del` rule below, handing the old
+            // price the current price's 17.6px and 600. Naming the element
+            // leaves the `del` to its own rule.
+            //
+            // The plain `span` alone will not do either: Odoo sizes this very
+            // element with
+            //
+            //   #products_grid:where(...) ... .product_price .h6 {
+            //       font-size: clamp(.95rem, .5rem + 3cqw, 4rem) }
+            //
+            // which outranks it and shrank the price to 15.2px.
+            //
+            // `:not()` keeps the discount badge out: it is a span inside the
+            // price block, and this rule is what made it coral-on-coral and
+            // 1.1rem -- an invisible label in a solid blob.
+            span.h6:not(.o_g2b_discount),
             span:not(.o_g2b_discount) {
                 font-size: inherit;
                 font-weight: inherit;
-                // `h6` on the span is a heading class and carries a heading's
-                // line-height too, which no amount of styling on the block
-                // around it reaches.
+                // `h6` is a heading class and carries a heading's line-height
+                // too, which no amount of styling on the block around it
+                // reaches.
                 line-height: inherit;
                 color: inherit;
             }
 
             del,
             .text-decoration-line-through {
-                font-size: .85rem;
+                // `!important` for the same reason the shared rule above uses
+                // it: the `del` carries `h6`, so Odoo's `clamp()` on
+                // `#products_grid ... .product_price .h6` reaches it, and no
+                // selector rooted at `.oe_product` outranks an id plus four
+                // classes.
+                font-size: .85rem !important;
                 font-weight: 500;
                 color: $gray-500 !important;
+
+                // The grid prints the figure inside `<em class="small">`, so
+                // it arrived italic and at 87.5% of a size already set here.
+                // It is a price, not an aside: it reads like the rest of the
+                // block, only quieter -- which is how the same price already
+                // reads on the homepage cards.
+                em,
+                .small {
+                    font-size: inherit;
+                    font-style: normal;
+                }
             }
         }
 
