@@ -43,16 +43,29 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
     // ==================================================================
     .o_wizard {
         counter-reset: g2b-step;
-        padding: 1rem 0 1.15rem;
-        margin-bottom: 1.5rem !important;
+        padding: 1.75rem 0 1.9rem;
+        margin-bottom: 1.75rem !important;
         border-bottom: 1px solid $border-color;
+    }
+
+    // The bar is the one thing on the page that belongs to the page rather
+    // than to a column, so it reads best down the middle. Only from `md`:
+    // below that Odoo swaps it for a label and a progress ring, which are
+    // meant to sit at opposite ends.
+    //
+    // `!important` answers `justify-content-md-start` on the element.
+    @include media-breakpoint-up(md) {
+
+        .o_wizard {
+            justify-content: center !important;
+        }
     }
 
     .o_wizard_steplabel {
         display: flex;
         align-items: center;
-        gap: .55rem;
-        font-size: .9rem;
+        gap: .6rem;
+        font-size: 1rem;
         font-weight: 500;
         color: $gray-600;
         white-space: nowrap;
@@ -64,10 +77,10 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
             flex: 0 0 auto;
             align-items: center;
             justify-content: center;
-            width: 1.7rem;
-            height: 1.7rem;
+            width: 1.9rem;
+            height: 1.9rem;
             font-family: inherit;
-            font-size: .8rem;
+            font-size: .85rem;
             font-weight: 700;
             line-height: 1;
             color: $gray-600;
@@ -678,6 +691,85 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
         border: 1px solid $border-color;
         border-radius: $g2b-radius;
         box-shadow: 0 .25rem 1rem rgba($black, .05);
+
+        // --- Email, and the way back to an account --------------------
+        //
+        // For a guest cart Odoo puts "Already have an account?" and a Sign
+        // in button in a `float-end` div with an inline `margin-top: -11px`,
+        // which lands the pair on top of the email input below it. And the
+        // group sits outside the `.row` that spaces every other field, so
+        // it had no margin under it either.
+        //
+        // Laid out as a grid instead: the label and the prompt share the
+        // header line above the field, and the field spans both columns.
+        #div_email_public {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            column-gap: 1rem;
+            row-gap: .3rem;
+            align-items: center;
+            margin-bottom: 1.35rem;
+
+            > .col-form-label {
+                grid-column: 1;
+                margin-bottom: 0;
+            }
+
+            // The prompt. Selected by position rather than by class: the
+            // div carries only layout utilities, and the inline style is
+            // the thing being undone.
+            > div {
+                grid-row: 1;
+                grid-column: 2;
+                float: none !important;
+                margin-top: 0 !important;
+                font-size: .85rem;
+                color: $gray-600;
+                text-align: right;
+            }
+
+            > input {
+                grid-column: 1 / -1;
+            }
+
+            // Outlined and small. Filled and full size it was the loudest
+            // thing on a page whose actual button is "Save address".
+            .btn {
+                padding: .3rem .8rem;
+                margin-left: .4rem;
+                font-size: .85rem;
+                font-weight: 600;
+                color: $g2b-coral-dark !important;
+                background-color: transparent !important;
+                border: 1px solid $g2b-coral !important;
+                border-radius: .45rem;
+
+                &:hover,
+                &:focus {
+                    color: $white !important;
+                    background-color: $g2b-coral !important;
+                }
+            }
+        }
+
+        // Below `sm` the prompt and the label cannot share a line.
+        @include media-breakpoint-down(sm) {
+
+            #div_email_public {
+                grid-template-columns: 1fr;
+
+                > div {
+                    grid-row: auto;
+                    grid-column: 1;
+                    text-align: left;
+                }
+            }
+        }
+
+        // "Fill in your address" under the email, which carries `mt-5`.
+        #div_email_public + h4 {
+            margin-top: 0 !important;
+        }
 
         // --- Required fields ------------------------------------------
         //

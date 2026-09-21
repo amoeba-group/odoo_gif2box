@@ -69,4 +69,19 @@
         <xpath expr="//a[@data-action='o_wishlist']/parent::span" position="replace"/>
     </template>
 
+    <!--
+        Put the footer back on /shop/address.
+
+        Odoo hides it with `no_footer` on that one template. On the two steps
+        either side of it the footer is there, so the page lost the contact
+        details, the policy links and the language switcher for no reason a
+        shopper could see, and it was the one step where they might be
+        looking for exactly those.
+    -->
+    <template id="address_show_footer" inherit_id="website_sale.address">
+        <xpath expr="//t[@t-set='no_footer']" position="attributes">
+            <attribute name="t-value">0</attribute>
+        </xpath>
+    </template>
+
 </odoo>
