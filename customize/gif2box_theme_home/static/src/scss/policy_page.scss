@@ -21,9 +21,9 @@
     // ------------------------------------------------------------------
     h1 {
         position: relative;
-        // Hugs its own text so the accent below centres on the words rather
-        // than on the column: some of these pages centre the title and some
-        // leave it left, and CSS cannot read which.
+        // Hugs its own text so the accent below starts at the first letter
+        // rather than at the column edge: some of these pages centre the
+        // title and some leave it left, and CSS cannot read which.
         display: inline-block;
         padding-bottom: 1rem;
         margin-bottom: 0;
@@ -36,13 +36,12 @@
         &::after {
             position: absolute;
             bottom: 0;
-            left: 50%;
+            left: 0;
             width: 64px;
             height: 3px;
             content: "";
             background-color: $g-coral;
             border-radius: 3px;
-            transform: translateX(-50%);
         }
     }
 
