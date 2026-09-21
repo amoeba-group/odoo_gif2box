@@ -94,6 +94,55 @@
         }
     }
 
+    // --- A product on its own ---------------------------------------
+    //
+    // With no combo items underneath it, the line has room to breathe.
+    // Odoo splits it three ways, which squeezed the name into half the
+    // panel while the price sat out on the far edge with a gap between
+    // them. Two zones instead: the picture on the left, the name and the
+    // price stacked to the right of it.
+    //
+    // `:not(:has(.row))` is the discriminator. A combo line carries a
+    // nested row per item; a plain one carries none, and the combo layout
+    // below is left exactly as it is.
+    .toast-body > .row:not(:has(.row)) {
+        display: grid;
+        grid-template-areas:
+            "thumb name"
+            "thumb price";
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: .8rem;
+        row-gap: .1rem;
+
+        > .col-3:first-child {
+            grid-area: thumb;
+        }
+
+        img {
+            width: 52px !important;
+            max-width: 52px !important;
+            height: 52px;
+        }
+
+        > .col-6 {
+            grid-area: name;
+            // The two sit against the line between their rows, so they read
+            // as one block beside the picture rather than as two things
+            // pinned to the top and bottom of it.
+            align-self: end;
+        }
+
+        > .col-3:last-child {
+            grid-area: price;
+            align-self: start;
+            // Odoo's `align-items-end` on this column was what pushed the
+            // price to the right edge; under the name it belongs at the
+            // start of the line.
+            align-items: flex-start !important;
+            font-size: 1rem;
+        }
+    }
+
     // --- The items inside a combo -----------------------------------
     //
     // Odoo indents these with an empty `col-2` and then gives them the same
