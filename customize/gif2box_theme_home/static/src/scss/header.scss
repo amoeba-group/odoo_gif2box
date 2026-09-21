@@ -1038,7 +1038,19 @@ header#top {
     > span.h6,
     > [name="product_price"] {
         display: block;
-        margin-bottom: .15rem !important;
+    }
+
+    // The gap belongs *between* the two prices, so it is only drawn when
+    // there is a second line to separate. Unconditional, it padded the bottom
+    // of every single-price block and knocked the figure a hair off the
+    // centre of the row it shares with the buttons.
+    //
+    // `!important` answers the `mb-0` on the span, which is a utility.
+    &:has(del, .oe_compare_list_price, .o_g2b_compare_price, .oe_default_price) {
+        > span.h6,
+        > [name="product_price"] {
+            margin-bottom: .15rem !important;
+        }
     }
 
     .o_g2b_discount {
@@ -1486,7 +1498,11 @@ header#top {
         // The markup puts the buttons before the price; reordering rather
         // than moving the node keeps us off the core template.
         .o_wsale_product_sub {
-            align-items: center;
+            // The div carries Bootstrap's `align-items-end`, which bottom-aligns
+            // a 24px-tall price against 39px-tall buttons and left it sitting
+            // 8px below their centre. The utility is `!important`, so this has
+            // to be too -- specificity alone does not reach it.
+            align-items: center !important;
 
             .product_price { order: 1; }
 
@@ -1526,6 +1542,47 @@ header#top {
                 background-color: $g-coral-dark;
                 border-color: $g-coral-dark;
                 transform: scale(1.08);
+            }
+        }
+
+        // --- Out of stock, on a full-width card -------------------------
+        //
+        // Three things do not fit. Measured at 1280px, a grid card gives the
+        // action row 232px; a seven-figure price, the "Out of stock" chip and
+        // the heart ask for 265, so the group wrapped to a second line and
+        // left the price stranded above it.
+        //
+        // The heart is the least of the three, so it is the one that goes --
+        // onto the foot of the picture, which is where the whole group
+        // already goes below `lg`, and where a wishlist control is
+        // conventional anyway. That leaves the price and the chip a line to
+        // themselves at any price and in any language.
+        //
+        // Above `lg` only: below it the group as a whole is already absolute,
+        // and a heart positioned inside it would resolve against it rather
+        // than against the card.
+        @include media-breakpoint-up(lg) {
+
+            .o_wsale_product_sub:has(.o_g2b_oos_label) .o_add_wishlist {
+                position: absolute;
+                right: .5rem;
+                // `.o_wsale_product_information` is `position-relative` and
+                // begins where the image ends, so a full height above it is
+                // the foot of the picture, whatever height that picture is.
+                bottom: calc(100% + .5rem);
+                z-index: 2;
+                // It sits on a photograph now, so it gets the same opaque
+                // backing and shadow the buttons get on small screens.
+                background-color: rgba($white, .96);
+                box-shadow: 0 .15rem .5rem rgba($black, .2);
+            }
+
+            // With the heart gone the chip has room, but not so much that it
+            // can stay at the size it takes in the roomier snippet cards.
+            .o_g2b_oos_label {
+                height: 2.2rem;
+                padding: 0 .7rem;
+                font-size: .75rem;
             }
         }
 
