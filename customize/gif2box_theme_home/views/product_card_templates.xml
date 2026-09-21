@@ -75,6 +75,22 @@
     </template>
 
     <!--
+        Close the gap above the price row on the snippet cards.
+
+        `remove` rather than restating the class list, so the dozen layout
+        classes on that div stay Odoo's business and only the spacing is ours.
+        The price block carries `py-2` of its own, which is the breathing room
+        the row actually needs.
+    -->
+    <template id="dynamic_card_action_row_spacing"
+              inherit_id="website_sale.dynamic_filter_template_product_product_add_to_cart">
+        <xpath expr="//div[hasclass('o_carousel_product_card_body')]/div[hasclass('justify-content-between')]"
+               position="attributes">
+            <attribute name="class" remove="mt-3" separator=" "/>
+        </xpath>
+    </template>
+
+    <!--
         "Borderless Product n°1" has no add-to-cart button at all, so the
         marker follows the price, which is the only thing in its action row.
     -->
