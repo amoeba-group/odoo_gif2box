@@ -1,0 +1,653 @@
+///
+/// Checkout, delivery and payment restyle for gif2box.
+///
+/// Covers /shop/address, /shop/checkout and /shop/payment; the cart page
+/// itself is in `cart.scss`. The two wrappers Odoo uses across those pages
+/// are `.o_website_sale_checkout` (cart, delivery, payment) and
+/// `.o_wsale_address_fill` (the address form), so every rule here is scoped
+/// to both and nothing outside the order flow is touched.
+///
+/// The palette is the site's, not the theme's: `o-color-1` is a plain grey,
+/// which is why the selected address card and the step bar arrived grey.
+///
+
+// Sampled from the site logo, as in `cart.scss`. Declared again rather than
+// shared because the two modules are separate and their order in the bundle
+// is not ours to decide.
+$g2b-coral: #FD7352;
+$g2b-coral-dark: #E85A38;
+$g2b-ink: #004444;
+
+$g2b-radius: .75rem;
+$g2b-radius-sm: .6rem;
+
+// The tint every "this one is selected" surface uses, so the delivery
+// methods, the payment methods and the address cards all read as one idea.
+$g2b-selected-bg: rgba($g2b-coral, .07);
+
+.o_website_sale_checkout,
+.o_wsale_address_fill {
+
+    // ==================================================================
+    // Step bar
+    //
+    // Odoo ships three labels separated by chevrons, in body grey, with the
+    // current one bolded. Which step you are on, how many there are and how
+    // far along you are all have to be read off the text.
+    //
+    // The markup is left alone and given numbers: a counter on the labels
+    // draws a circle in front of each, the chevron between them becomes the
+    // rule that joins them, and colour carries the state. A step already
+    // taken shows a tick rather than its number -- `counter-increment` is a
+    // separate property, so the ones after it still count correctly.
+    // ==================================================================
+    .o_wizard {
+        counter-reset: g2b-step;
+        padding: 1rem 0 1.15rem;
+        margin-bottom: 1.5rem !important;
+        border-bottom: 1px solid $border-color;
+    }
+
+    .o_wizard_steplabel {
+        display: flex;
+        align-items: center;
+        gap: .55rem;
+        font-size: .9rem;
+        font-weight: 500;
+        color: $gray-600;
+        white-space: nowrap;
+
+        &::before {
+            counter-increment: g2b-step;
+            content: counter(g2b-step);
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 1.7rem;
+            height: 1.7rem;
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: $gray-600;
+            background-color: $gray-200;
+            border-radius: 50%;
+            transition: color .18s ease, background-color .18s ease,
+                        box-shadow .18s ease;
+        }
+    }
+
+    // The chevron becomes the connector. Keeping the element and dropping its
+    // glyph means the spacing between steps stays Odoo's (`mx-sm-3`) and no
+    // node has to be added to the template.
+    .o_wizard_steplabel + .fa-angle-right {
+        width: 2.25rem;
+        height: 2px;
+        background-color: $gray-300;
+        border-radius: 2px;
+
+        &::before {
+            content: none;
+        }
+    }
+
+    // Done: a tick, and the connector out of it coloured to show the path
+    // taken. The whole step stays a link, so it also gets a hover.
+    .o_wizard_step-done {
+
+        .o_wizard_steplabel {
+            color: $g2b-ink;
+
+            &::before {
+                font-family: FontAwesome;
+                content: "\f00c"; // check
+                color: $white;
+                background-color: $g2b-coral;
+            }
+        }
+
+        .fa-angle-right {
+            background-color: rgba($g2b-coral, .45);
+        }
+    }
+
+    a:hover .o_wizard_step-done .o_wizard_steplabel {
+        color: $g2b-coral-dark;
+    }
+
+    // Current: filled, with a halo so it reads as "you are here" at a glance.
+    .o_wizard_step_active .o_wizard_steplabel {
+        font-weight: 700;
+        color: $g2b-coral-dark;
+
+        &::before {
+            color: $white;
+            background-color: $g2b-coral-dark;
+            box-shadow: 0 0 0 .22rem rgba($g2b-coral, .2);
+        }
+    }
+
+    // Still to come: hollow, so it reads as an outline of what is left.
+    .o_disabled .o_wizard_steplabel::before {
+        color: $gray-500;
+        background-color: transparent;
+        border: 1.5px solid $gray-300;
+    }
+
+    // --- The phone version ---------------------------------------------
+    //
+    // Below `md` Odoo swaps the bar for a dropdown and a progress ring. The
+    // ring is drawn out of four borders in `border-primary`, which is the
+    // theme grey.
+    .o_wizard_circle_progress {
+
+        .progress-bar {
+            border-color: $g2b-coral !important;
+        }
+
+        > p {
+            font-size: .8rem;
+            color: $g2b-ink;
+        }
+    }
+
+    .o_wizard .dropdown-toggle {
+        font-size: 1.05rem;
+        color: $g2b-ink;
+        text-decoration: none;
+    }
+
+    // ==================================================================
+    // Section headings
+    //
+    // "Địa chỉ giao hàng", "Chọn một phương thức giao hàng" and the rest
+    // arrive as `text-uppercase small`: capitals at 13px, which is the size
+    // reserved for fine print everywhere else on the site. They are the only
+    // signposts on the page, so they are given a heading's weight instead.
+    //
+    // `!important` answers the utilities on the elements themselves.
+    // ==================================================================
+    h3 {
+        margin-bottom: 1.25rem !important;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: $g2b-ink;
+        letter-spacing: -.01em;
+    }
+
+    h4 {
+        margin-bottom: .85rem !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        color: $g2b-ink;
+        text-transform: none !important;
+        letter-spacing: 0;
+    }
+
+    // ==================================================================
+    // Address cards
+    //
+    // The chosen one carries `bg-primary border-primary`, so it came out as
+    // a grey block with its text washed out against it. Selection is shown
+    // the same way it is on the delivery and payment rows instead: a coral
+    // tint, a coral border and a tick.
+    // ==================================================================
+    [name="address_card"] {
+        border-color: $border-color;
+        border-radius: $g2b-radius-sm;
+        transition: border-color .18s ease, box-shadow .18s ease;
+
+        &:hover {
+            border-color: rgba($g2b-coral, .45);
+            box-shadow: 0 .25rem .85rem rgba($black, .07);
+        }
+
+        .card-body {
+            padding: 1rem 1.1rem;
+        }
+
+        address {
+            font-size: .9rem;
+            line-height: 1.55;
+            color: $gray-700;
+        }
+
+        // The name is the first line and the only one worth scanning.
+        address > div:first-child {
+            margin-bottom: .2rem;
+            font-weight: 600;
+            color: $g2b-ink;
+        }
+
+        .js_edit_address {
+            padding-top: .65rem !important;
+            font-size: .85rem;
+            font-weight: 600;
+            color: $g2b-coral-dark !important;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.bg-primary {
+            // `.o_cc` on the card sets a text colour to go with the fill, so
+            // the text has to be handed back as well as the background.
+            color: $body-color !important;
+            background-color: $g2b-selected-bg !important;
+            border-color: $g2b-coral !important;
+            box-shadow: 0 0 0 1px $g2b-coral;
+
+            &::after {
+                position: absolute;
+                top: .6rem;
+                right: .7rem;
+                font-family: FontAwesome;
+                font-size: 1rem;
+                line-height: 1;
+                color: $g2b-coral;
+                content: "\f058"; // check-circle
+            }
+
+            address,
+            address > div:first-child {
+                color: $g2b-ink;
+            }
+        }
+    }
+
+    // "Thêm địa chỉ": an outline of a card rather than a filled button, so it
+    // reads as an empty slot next to the ones already filled.
+    .o_wsale_add_address {
+        font-weight: 600;
+        color: $g2b-coral-dark !important;
+        border: 1px dashed rgba($g2b-coral, .55) !important;
+        border-radius: $g2b-radius-sm !important;
+        transition: background-color .18s ease, border-color .18s ease;
+
+        &:hover {
+            background-color: $g2b-selected-bg;
+            border-color: $g2b-coral !important;
+        }
+    }
+
+    // ==================================================================
+    // Delivery and payment methods
+    //
+    // Both are `.list-group-item`s: square, flush against each other, and
+    // the only sign of which is chosen is a small radio. They are the two
+    // decisions the page asks for, so each becomes a card of its own and the
+    // chosen one is tinted -- the same tint as the chosen address.
+    //
+    // `:has()` rather than a class, because nothing marks the chosen row in
+    // the markup; the state lives on the radio inside it.
+    // ==================================================================
+    #o_delivery_methods,
+    #o_payment_methods .list-group {
+        border-radius: 0;
+    }
+
+    #o_delivery_methods > li,
+    #o_payment_methods .list-group > li {
+        padding: .95rem 1.05rem;
+        margin-bottom: .6rem;
+        background-color: $white;
+        border: 1px solid $border-color !important;
+        border-radius: $g2b-radius-sm !important;
+        transition: border-color .18s ease, background-color .18s ease,
+                    box-shadow .18s ease;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        // Odoo's own hover paints the border near-black and drops a shadow
+        // above the row, which was drawn for a flush list.
+        &:hover:not(.text-muted) {
+            border-color: rgba($g2b-coral, .5) !important;
+            box-shadow: none !important;
+        }
+
+        &:has(input:checked) {
+            background-color: $g2b-selected-bg;
+            border-color: $g2b-coral !important;
+            box-shadow: 0 0 0 1px $g2b-coral !important;
+        }
+
+        // Unavailable methods: greyed, and plainly not clickable.
+        &.text-muted {
+            background-color: $gray-100;
+            opacity: .85;
+        }
+    }
+
+    .o_delivery_carrier_label,
+    .o_payment_option_label {
+        font-weight: 600;
+        color: $g2b-ink;
+        cursor: pointer;
+    }
+
+    .o_wsale_delivery_price_badge {
+        font-size: .9rem;
+        color: $g2b-coral-dark;
+    }
+
+    // The radio itself, on both lists.
+    .form-check-input {
+        &:checked {
+            background-color: $g2b-coral;
+            border-color: $g2b-coral;
+        }
+
+        &:focus {
+            border-color: rgba($g2b-coral, .6);
+            box-shadow: 0 0 0 .2rem rgba($g2b-coral, .2);
+        }
+    }
+
+    // ==================================================================
+    // Order summary
+    //
+    // Odoo gives `.o_total_card` a border and a radius and then removes the
+    // border again further down its own sheet, leaving the totals floating
+    // against the page. It is the one thing the shopper re-reads before
+    // paying, so it is given the card treatment the cart lines already have.
+    // ==================================================================
+    .o_total_card {
+        background-color: $white;
+        border: 1px solid $border-color !important;
+        border-radius: $g2b-radius !important;
+        box-shadow: 0 .25rem 1rem rgba($black, .05);
+
+        .accordion-item {
+            padding: 1.25rem;
+            background-color: transparent !important;
+            border-radius: $g2b-radius !important;
+        }
+
+        .accordion-header {
+            margin-bottom: 1rem !important;
+        }
+
+        // The header doubles as the collapse toggle on small screens.
+        .accordion-button {
+            font-size: .95rem;
+            color: $g2b-ink;
+            background-color: transparent !important;
+            box-shadow: none !important;
+
+            b {
+                margin-bottom: .15rem;
+                font-size: 1.1rem;
+                font-weight: 700;
+            }
+
+            &::after {
+                width: 1rem;
+                height: 1rem;
+                background-size: 1rem;
+            }
+
+            &:not(.collapsed)::after {
+                filter: none;
+            }
+        }
+
+        #amount_total_summary {
+            font-weight: 700;
+            color: $g2b-coral;
+        }
+    }
+
+    // --- The lines inside the summary ---------------------------------
+    #o_wsale_total_accordion #cart_products {
+
+        td {
+            padding-top: .65rem;
+            padding-bottom: .65rem;
+            vertical-align: middle;
+            border-color: $border-color;
+        }
+
+        img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            background-color: $gray-100;
+            border-radius: .45rem;
+        }
+
+        h6 {
+            margin-bottom: 0;
+            font-size: .875rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: $gray-700;
+        }
+
+        .td-price {
+            font-weight: 600;
+            color: $g2b-ink;
+            white-space: nowrap;
+        }
+    }
+
+    // --- Totals --------------------------------------------------------
+    #cart_total {
+
+        td {
+            font-size: .925rem;
+            border-color: $border-color;
+        }
+
+        // The number the shopper is actually agreeing to. Everything above it
+        // is an ingredient, so only this one is given the accent and a size.
+        #order_total {
+
+            td {
+                padding-top: .85rem !important;
+            }
+
+            strong {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: $g2b-coral;
+            }
+
+            > td:first-child strong {
+                font-size: 1rem;
+                color: $g2b-ink;
+            }
+        }
+    }
+
+    // --- Coupon --------------------------------------------------------
+    //
+    // Outlined, not filled: a solid coral button here sat directly above the
+    // solid coral "Xác nhận" and the two competed for the same glance.
+    .coupon_form {
+
+        .form-control {
+            border-right: 0;
+        }
+
+        // `#wrap` is carried here on purpose. The site paints every
+        // `.btn-secondary` coral from `#wrap .btn-secondary`, with
+        // `!important`; among `!important` declarations it is specificity
+        // that decides, and an id beats any number of classes.
+        #wrap & .btn {
+            font-weight: 600;
+            color: $g2b-coral-dark !important;
+            background-color: $white !important;
+            border: 1px solid $border-color !important;
+            border-left: 0 !important;
+
+            &:hover,
+            &:focus {
+                color: $white !important;
+                background-color: $g2b-coral !important;
+                border-color: $g2b-coral !important;
+            }
+        }
+    }
+
+    // ==================================================================
+    // The call to action
+    // ==================================================================
+    [name="website_sale_main_button"] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: .8rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: $g2b-radius-sm;
+        box-shadow: 0 .35rem .9rem rgba($g2b-coral, .3);
+        transition: transform .18s ease, box-shadow .18s ease,
+                    background-color .18s ease;
+
+        &:hover,
+        &:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 .55rem 1.1rem rgba($g2b-coral, .4);
+        }
+    }
+
+    // "hoặc" / "Quay lại giỏ hàng": the way back, and quiet about it.
+    .o_cta_navigation_container {
+
+        hr {
+            border-color: $border-color;
+            opacity: 1;
+        }
+
+        > div > a:not([name="website_sale_main_button"]) {
+            font-size: .9rem;
+            font-weight: 600;
+            color: $gray-600 !important;
+            text-decoration: none;
+
+            &:hover {
+                color: $g2b-coral-dark !important;
+            }
+        }
+    }
+
+    // ==================================================================
+    // The address form
+    //
+    // One field height, one radius and one focus colour, so the form reads
+    // as a single object rather than a stack of browser defaults.
+    // ==================================================================
+    // The form is `col-lg-8` with nothing beside it, so on a wide screen the
+    // fields were floating in the middle of an empty page. A card gives them
+    // an edge to sit against, and matches the summary card on the steps
+    // either side of this one.
+    .checkout_autoformat {
+        padding: 1.5rem;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: $g2b-radius;
+        box-shadow: 0 .25rem 1rem rgba($black, .05);
+    }
+
+    .form-control,
+    .form-select {
+        padding: .55rem .85rem;
+        font-size: .95rem;
+        border-color: $border-color;
+        border-radius: $g2b-radius-sm;
+        transition: border-color .15s ease, box-shadow .15s ease;
+
+        &:focus {
+            border-color: $g2b-coral;
+            box-shadow: 0 0 0 .2rem rgba($g2b-coral, .18);
+        }
+    }
+
+    .col-form-label {
+        padding-bottom: .3rem;
+        font-size: .875rem;
+        font-weight: 600;
+        color: $g2b-ink;
+    }
+
+    // Odoo marks the optional fields with this class and nothing else. It is
+    // drawn rather than labelled: a word in `content` could not be
+    // translated, and the site runs in four languages.
+    .label-optional {
+        color: $gray-500;
+        font-weight: 500;
+    }
+
+    // The "same as delivery" switch.
+    .form-switch .form-check-input {
+        &:checked {
+            background-color: $g2b-coral;
+            border-color: $g2b-coral;
+        }
+    }
+
+    #use_delivery_as_billing_label {
+        font-size: .95rem;
+        color: $gray-700;
+        cursor: pointer;
+    }
+
+    // ==================================================================
+    // The address recap on /shop/payment
+    // ==================================================================
+    #address_on_payment .card {
+        background-color: $gray-100;
+        border: 1px solid $border-color;
+        border-radius: $g2b-radius-sm;
+
+        .card-body {
+            padding: 1rem 1.1rem;
+            font-size: .9rem;
+        }
+
+        b {
+            color: $g2b-ink;
+        }
+
+        a {
+            font-weight: 600;
+            color: $g2b-coral-dark !important;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // ==================================================================
+    // Phones
+    // ==================================================================
+    @include media-breakpoint-down(lg) {
+
+        .o_wizard {
+            padding-top: .5rem;
+            margin-bottom: 1.25rem !important;
+        }
+
+        .o_total_card .accordion-item {
+            padding: 1rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        // The confirm button is the last thing on a long page; at full width
+        // it is hard to miss and easy to hit.
+        [name="website_sale_main_button"] {
+            width: 100%;
+            padding: .9rem 1rem;
+        }
+    }
+}

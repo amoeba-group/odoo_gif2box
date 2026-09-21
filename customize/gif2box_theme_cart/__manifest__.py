@@ -12,6 +12,7 @@
     'assets': {
         'web.assets_frontend': [
             'gif2box_theme_cart/static/src/scss/cart.scss',
+            'gif2box_theme_cart/static/src/scss/checkout.scss',
         ],
     },
     'installable': True,
