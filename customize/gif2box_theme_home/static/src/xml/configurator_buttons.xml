@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Rename the configurator's left-hand button.
+
+        Odoo calls it "Continue Shopping", which describes what happens after
+        the click and says nothing about the click itself. It is the button
+        that puts the product in the cart: its twin beside it does the same
+        and then goes on to the cart. So one adds, the other adds and checks
+        out, and the plain one should say so. It is the one most shoppers
+        press, and on a dialog titled "Choose your options" it was the only
+        thing on screen that did not mention the cart.
+
+        The button has to be restated rather than edited: QWeb inheritance
+        can replace a node or its attributes, but has no handle on the text
+        inside it. Everything but the label is copied from
+        `website_sale/static/src/js/*_configurator_dialog/*.xml`.
+    -->
+
+    <t t-inherit="sale.ProductConfiguratorDialog" t-inherit-mode="extension">
+        <button name="website_sale_product_configurator_continue_button" position="replace">
+            <button
+                name="website_sale_product_configurator_continue_button"
+                class="btn btn-secondary"
+                t-if="showShopButtons()"
+                t-on-click="() => this.onConfirm({goToCart: false})"
+                t-att-disabled="!isPossibleConfiguration() || !canBeSold()"
+            >
+                Add to cart
+            </button>
+        </button>
+    </t>
+
+    <t t-inherit="sale.ComboConfiguratorDialog" t-inherit-mode="extension">
+        <button name="website_sale_combo_configurator_continue_button" position="replace">
+            <button
+                name="website_sale_combo_configurator_continue_button"
+                class="btn btn-secondary flex-grow-1 flex-md-grow-0"
+                t-if="this.props.isFrontend"
+                t-on-click="() => this.confirm({goToCart: false})"
+                t-att-disabled="!areAllCombosSelected"
+            >
+                Add to cart
+            </button>
+        </button>
+    </t>
+
+</templates>

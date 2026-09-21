@@ -1,0 +1,170 @@
+///
+/// The "added to your cart" toast, under the header.
+///
+/// Odoo renders one row per line, and a combo is one line per item, so a
+/// four-item combo came out as five rows of a 64px picture beside a product
+/// name wrapping to five or six lines. The toast ran past 600px and off the
+/// bottom of a laptop screen, and it is the panel that is supposed to
+/// reassure the shopper at a glance.
+///
+/// Selected with `:has()` rather than a class of ours. The markup carries
+/// nothing that distinguishes this toast from any other -- it is
+/// `toast show o_cc1` and no more -- and its own "View cart" link is the one
+/// thing about it that is unmistakable. That keeps `website_sale`'s Owl
+/// templates untouched.
+///
+
+.toast:has(> .toast-body > a[href="/shop/cart"]) {
+    // 350px by default, which is what forced the long names to wrap.
+    // `min()` so the extra width is never taken from a phone.
+    --toast-max-width: #{"min(24rem, calc(100vw - 2rem))"};
+    // Odoo's default is the body colour at 85%, so the page showed through
+    // the list. It is a panel, not an overlay.
+    --toast-bg: #{$white};
+
+    border: 0;
+    border-radius: .8rem;
+    box-shadow: 0 1rem 2rem rgba($black, .16);
+
+    .toast-header {
+        padding: .75rem 1rem;
+        font-size: .95rem;
+        color: $g-title;
+        background-color: transparent;
+        border-bottom: 1px solid $border-color;
+    }
+
+    // The last line of defence: however many items a combo holds, the panel
+    // stops before the bottom of the screen and the rest scrolls.
+    .toast-body {
+        max-height: #{"min(58vh, 26rem)"};
+        padding: .85rem 1rem 1rem;
+        overflow-y: auto;
+    }
+
+    // --- The line that was added ------------------------------------
+    .toast-body > .row {
+        align-items: center;
+        margin-bottom: 0 !important;
+
+        img {
+            width: 44px !important;
+            max-width: 44px !important;
+            height: 44px;
+            margin-bottom: 0 !important;
+            object-fit: cover;
+            background-color: $gray-100;
+            border-radius: .45rem;
+        }
+
+        > .col-3:first-child {
+            flex: 0 0 auto;
+            width: auto;
+        }
+
+        > .col-6 {
+            flex: 1 1 auto;
+            width: auto;
+            // Without this the column refuses to shrink below its text and
+            // the ellipsis never gets a chance to appear.
+            min-width: 0;
+
+            > span:first-child {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                // Two lines for the product actually chosen: it is worth
+                // reading. Its combo items get one each, below.
+                -webkit-line-clamp: 2;
+                width: 100%;
+                overflow: hidden;
+                font-size: .875rem;
+                font-weight: 600;
+                line-height: 1.35;
+                color: $g-title;
+                text-overflow: ellipsis;
+            }
+        }
+
+        > .col-3:last-child {
+            flex: 0 0 auto;
+            width: auto;
+            font-weight: 700;
+            color: $g-coral;
+            white-space: nowrap;
+        }
+    }
+
+    // --- The items inside a combo -----------------------------------
+    //
+    // Odoo indents these with an empty `col-2` and then gives them the same
+    // three columns as the parent, so a 28px thumbnail sat in a quarter of
+    // the panel and the name had to wrap around it. They are a list of
+    // what is in the box, so they are laid out as one: a rule down the
+    // left, a small picture, and the name on a single line.
+    .toast-body .row .row {
+        flex-wrap: nowrap;
+        gap: .5rem;
+        align-items: center;
+        padding-left: .7rem;
+        margin: .45rem 0 0 .6rem;
+        border-left: 2px solid rgba($g-coral, .3);
+
+        > .col-2 {
+            display: none;
+        }
+
+        > .col-3,
+        > .col-6 {
+            flex: 0 0 auto;
+            width: auto;
+            padding: 0;
+        }
+
+        > .col-6 {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        img {
+            width: 30px !important;
+            max-width: 30px !important;
+            height: 30px;
+            border-radius: .35rem;
+        }
+
+        span {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            font-size: .8rem;
+            font-weight: 400;
+            line-height: 1.35;
+            color: $gray-600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    // --- View cart ---------------------------------------------------
+    .toast-body > a[href="/shop/cart"] {
+        // Sticky so it stays reachable while a long combo scrolls behind
+        // it. The white ring is what hides the rows passing underneath --
+        // the button sits flush against the padding of a scrolling box, so
+        // there is nowhere to put an opaque strip.
+        position: sticky;
+        bottom: 0;
+        margin-top: .85rem;
+        font-weight: 700;
+        color: $white !important;
+        background-color: $g-coral !important;
+        border-color: $g-coral !important;
+        border-radius: .6rem;
+        box-shadow: 0 0 0 .5rem $white;
+
+        &:hover,
+        &:focus {
+            background-color: $g-coral-dark !important;
+            border-color: $g-coral-dark !important;
+        }
+    }
+}

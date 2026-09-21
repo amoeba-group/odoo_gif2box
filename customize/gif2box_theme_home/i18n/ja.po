@@ -61,3 +61,9 @@ msgstr "在庫切れ"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 msgid "Information"
 msgstr "情報"
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/configurator_buttons.xml:0
+msgid "Add to cart"
+msgstr "カートに追加"
