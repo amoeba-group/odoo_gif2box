@@ -1266,12 +1266,6 @@ header#top {
             color: $g-coral;
         }
 
-        // The rating block is empty when reviews are off; it would otherwise
-        // add dead space above the price.
-        .o_carousel_product_card_body > .mt-2:empty {
-            display: none;
-        }
-
         // --- Price and add to cart --------------------------------------
         //
         // Selected on the `name` attribute, not a class: the markup is

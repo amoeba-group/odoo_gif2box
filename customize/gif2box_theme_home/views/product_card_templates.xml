@@ -54,6 +54,27 @@
     </template>
 
     <!--
+        Drop the empty row between the product name and the price.
+
+        The snippet card reserves a `mt-2` div for the review stars, which only
+        render when `website_sale.product_comment` is active. It is not, so
+        every card carried an empty div and the margin that goes with it.
+
+        A `t-if` on the div rather than deleting it: the same condition its one
+        child already carries, so the row comes back by itself if reviews are
+        ever switched on. `:empty` in CSS cannot do this: QWeb leaves the
+        indentation inside the div, and whitespace is content as far as that
+        selector is concerned.
+    -->
+    <template id="dynamic_card_no_empty_rating"
+              inherit_id="website_sale.dynamic_filter_template_product_product_add_to_cart">
+        <xpath expr="//div[hasclass('o_carousel_product_card_body')]/div[hasclass('mt-2')]"
+               position="attributes">
+            <attribute name="t-if">is_view_active('website_sale.product_comment')</attribute>
+        </xpath>
+    </template>
+
+    <!--
         "Borderless Product n°1" has no add-to-cart button at all, so the
         marker follows the price, which is the only thing in its action row.
     -->
