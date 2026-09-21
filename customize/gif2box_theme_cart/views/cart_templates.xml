@@ -84,4 +84,32 @@
         </xpath>
     </template>
 
+    <!--
+        Widen the checkout pages to 8 / 4.
+
+        Odoo lays them out as 7 columns of content, a one-column offset and
+        then a 4-column summary, which puts a gap the width of a whole column
+        between the two. On a 1280px screen that is about 100px of nothing
+        down the middle of the page, with the content squeezed on the left of
+        it. The offset goes and the content takes the column back.
+
+        `.oe_cart` is set with `t-attf-class`, so it is matched on that
+        attribute rather than with `hasclass()`, which only reads a static
+        `class`. For the same reason the value is restated rather than
+        edited with `add`/`remove`. It holds no dynamic part.
+    -->
+    <template id="checkout_layout_columns" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//div[@id='o_cart_summary']" position="attributes">
+            <attribute name="class" add="col-lg-4"
+                       remove="offset-xl-1 col-lg-5 col-xl-4" separator=" "/>
+        </xpath>
+        <xpath expr="//div[@id='o_wsale_total_accordion']" position="attributes">
+            <attribute name="class" add="col-lg-4"
+                       remove="offset-xl-1 col-lg-5 col-xl-4" separator=" "/>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'oe_cart')]" position="attributes">
+            <attribute name="t-attf-class">oe_cart col-12 col-lg-8</attribute>
+        </xpath>
+    </template>
+
 </odoo>
