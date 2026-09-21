@@ -542,18 +542,6 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
     // One field height, one radius and one focus colour, so the form reads
     // as a single object rather than a stack of browser defaults.
     // ==================================================================
-    // The form is `col-lg-8` with nothing beside it, so on a wide screen the
-    // fields were floating in the middle of an empty page. A card gives them
-    // an edge to sit against, and matches the summary card on the steps
-    // either side of this one.
-    .checkout_autoformat {
-        padding: 1.5rem;
-        background-color: $white;
-        border: 1px solid $border-color;
-        border-radius: $g2b-radius;
-        box-shadow: 0 .25rem 1rem rgba($black, .05);
-    }
-
     .form-control,
     .form-select {
         padding: .55rem .85rem;
@@ -648,6 +636,110 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
         [name="website_sale_main_button"] {
             width: 100%;
             padding: .9rem 1rem;
+        }
+    }
+}
+
+
+// =====================================================================
+// THE ADDRESS FORM, ON ITS OWN
+//
+// /shop/address is the only page in the flow that is a form rather than a
+// summary, and the only one where the shopper has to type. It is given its
+// own block because everything here is about that: a narrower measure, a
+// centred card, and a clear mark on the fields that cannot be left empty.
+// =====================================================================
+.o_wsale_address_fill {
+
+    // Odoo puts the form in `col-lg-8` with nothing beside it, so on a wide
+    // screen it sat off to the left and ran far wider than a name or a
+    // street ever needs. The column is widened and the form centred inside
+    // it, which puts the fields under the eye rather than off to one side.
+    .oe_cart {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .oe_cart > div {
+        max-width: 44rem;
+        margin-inline: auto;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    // A card, matching the order summary on the steps either side of this
+    // one, so the form reads as one object instead of a stack of inputs on
+    // an empty page.
+    .checkout_autoformat {
+        padding: 1.75rem;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: $g2b-radius;
+        box-shadow: 0 .25rem 1rem rgba($black, .05);
+
+        // --- Required fields ------------------------------------------
+        //
+        // The mark follows the input's own `required` attribute, not a class
+        // of ours. Odoo's address widget rewrites that attribute every time
+        // the country changes -- Vietnam asks for neither a province nor a
+        // postcode, Japan asks for both -- so the marks stay true to what
+        // the form will actually refuse to submit without, instead of
+        // repeating the template's static guess.
+        //
+        // `> [required]` on purpose: it has to be the field in this group,
+        // not one somewhere further down the form.
+        //
+        // Drawn as a glyph rather than written as a word, so there is
+        // nothing here to translate.
+        div:has(> [required]) > .col-form-label::after {
+            margin-left: .2rem;
+            font-weight: 700;
+            color: $g2b-coral;
+            content: "*";
+        }
+
+        // --- Tighter than the default ---------------------------------
+        .col-form-label {
+            padding-top: 0;
+            padding-bottom: .25rem;
+            font-size: .825rem;
+        }
+
+        .form-control,
+        .form-select {
+            padding: .5rem .8rem;
+            font-size: .925rem;
+        }
+
+        // Odoo's own `mb-2`; a little less, now that the labels are smaller.
+        > .row > [class*="col-"] {
+            margin-bottom: .55rem !important;
+        }
+
+        // --- Footer ---------------------------------------------------
+        //
+        // "Bỏ qua" and "Lưu địa chỉ" carry `mt32 mb32`, which left them
+        // adrift at the bottom of the card. A rule above them makes them a
+        // footer to the form rather than two loose buttons.
+        > div:last-child {
+            gap: .75rem;
+            padding-top: 1.25rem;
+            margin-top: 1.5rem !important;
+            margin-bottom: 0 !important;
+            border-top: 1px solid $border-color;
+        }
+
+        #save_address {
+            font-weight: 700;
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+
+        .checkout_autoformat {
+            padding: 1.25rem;
         }
     }
 }
