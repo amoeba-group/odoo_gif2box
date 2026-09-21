@@ -1009,6 +1009,53 @@ header#top {
     white-space: nowrap;
 }
 
+// On a card the price shares its row with the cart and wishlist buttons, and
+// three pieces of price do not fit beside them: on the shop grid the buttons
+// wrapped to a line of their own, and on the homepage the coral badge ran into
+// the coral cart button and read as one smudged shape.
+//
+// The price being charged keeps the first line to itself; the old price and
+// the saving go underneath, small and quiet. The block ends up narrow enough
+// for the buttons to sit beside it at any card width.
+//
+// The product page is left alone: there the row is the width of half the page
+// and the three read well in sequence.
+// Done by making the price a block and leaving the rest inline, not with a
+// flex row and a full basis: as a flex item the block is still sized to its
+// max-content, so a 100% basis resolves against the width it was already
+// taking and nothing narrows. A block box measures each line separately, so
+// the container ends up as wide as the wider of the two.
+@mixin g2b-stacked-price {
+    display: block;
+    // Without this the old price and the badge break apart and stack, giving
+    // three ragged lines instead of two: the block is a flex item and shrinks
+    // below the width that run needs.
+    white-space: nowrap;
+
+    // `span` on purpose: the grid's struck-through price is a `<del>` that
+    // also carries `h6`, and turning that into a block put the badge on a
+    // third line.
+    > span.h6,
+    > [name="product_price"] {
+        display: block;
+        margin-bottom: .15rem !important;
+    }
+
+    .o_g2b_discount {
+        margin-left: .3rem;
+    }
+}
+
+#wrap .oe_product .product_price {
+    @include g2b-stacked-price;
+}
+
+// The snippet card wraps its price in a bare `<div class="py-2">`, so the
+// block has to be found by what it contains.
+#wrap .o_carousel_product_card_body div:has(> [name="product_price"]) {
+    @include g2b-stacked-price;
+}
+
 // The saving, worked out from the two prices rather than left to the shopper.
 .o_g2b_discount {
     display: inline-block;
