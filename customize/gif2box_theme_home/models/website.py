@@ -1,6 +1,11 @@
+import base64
 import logging
 
+from werkzeug.urls import url_join
+
 from odoo import api, models
+from odoo.http import request
+from odoo.tools import file_open
 
 _logger = logging.getLogger(__name__)
 
@@ -48,6 +53,24 @@ POLICY_URLS = [
 TOP_ORDER = ['/', ABOUT_URL, '/shop/category/34', '/shop/category/gift-38']
 
 
+# --- The social share card -----------------------------------------------
+#
+# What Facebook, Zalo and X put beside a link to the site. Odoo falls back to
+# the website logo, which is a 95x40 wordmark on transparency: below
+# Facebook's 200x200 floor, so the link shared as a bare line of text.
+#
+# The card is 1200x630, the 1.91:1 every one of them crops to. It is kept in
+# the module rather than uploaded through Settings so that a deploy carries
+# it, the same bargain the menu above makes.
+SOCIAL_SHARE_IMAGE = 'gif2box_theme_home/static/src/img/social_share.png'
+
+# The pages someone had pointed at the logo or at one product's photo through
+# the SEO panel. Both are the reason there was no preview; cleared, they fall
+# back to the card above. Matched on what the value points at, so a share
+# image chosen deliberately later is left alone.
+_BROKEN_OG_IMG = ('/web/image/website/', '/web/image/product.template/')
+
+
 class Website(models.Model):
     _inherit = 'website'
 
@@ -57,6 +80,39 @@ class Website(models.Model):
         for code, value in names.items():
             if code in installed:
                 record.with_context(lang=code).write({field: value})
+
+    @api.model
+    def _gif2box_set_social_share_image(self):
+        """Install the share card, and clear what was standing in its way.
+
+        Called from `data/social_share_data.xml`. A `<record>` on the website
+        cannot do this: `website.default_website` is flagged `noupdate`, so it
+        would be skipped without a word.
+        """
+        with file_open(SOCIAL_SHARE_IMAGE, 'rb') as fh:
+            card = base64.b64encode(fh.read())
+
+        websites = self.env['website'].sudo().search([])
+        websites.write({'social_default_image': card})
+
+        # Per-page overrides win over the website default, so the card would
+        # have changed nothing on the pages that carry one. These all point at
+        # the logo or at a single product's photo -- the state the site was
+        # in -- and are cleared so those pages fall back to the card. The
+        # value is visible in the SEO panel, so any of them can be set again.
+        views = self.env['ir.ui.view'].sudo().search([
+            ('website_meta_og_img', '!=', False),
+            ('website_meta_og_img', '!=', ''),
+        ])
+        stale = views.filtered(
+            lambda v: any(part in (v.website_meta_og_img or '') for part in _BROKEN_OG_IMG)
+        )
+        if stale:
+            stale.write({'website_meta_og_img': False})
+
+        _logger.info(
+            'gif2box: share card set on %s website(s), %s stale og:image override(s) cleared',
+            len(websites), len(stale))
 
     @api.model
     def _gif2box_setup_menu(self):
@@ -157,3 +213,42 @@ class Website(models.Model):
         _logger.info(
             'gif2box menu: website %s laid out, %s policy entries in the submenu',
             website.id, found)
+
+
+class WebsiteSocialShare(models.AbstractModel):
+    """Mixin hook: adds the sizes of the share card to the page head.
+
+    Facebook renders a large card on first sight of a link only if it is told
+    the dimensions; without them it waits until it has fetched and measured
+    the image, and the first share of a page -- usually the one that matters --
+    goes out as a small card or none at all.
+
+    `get_website_meta` rather than `_default_website_meta`, which is where
+    Odoo asks for customisation, because the tags are only true when the image
+    really is the card: a product page swaps in the product's own photo, and
+    claiming 1200x630 for that would be a lie told to every crawler.
+    """
+    _inherit = 'website.seo.metadata'
+
+    def get_website_meta(self):
+        meta = super().get_website_meta()
+
+        website = request.website
+        if not website.has_social_default_image:
+            return meta
+
+        root_url = website.domain or request.httprequest.url_root.strip('/')
+        card_url = url_join(root_url, website.image_url(website, 'social_default_image'))
+        if meta['opengraph_meta'].get('og:image') != card_url:
+            return meta
+
+        meta['opengraph_meta'].update({
+            'og:image:width': '1200',
+            'og:image:height': '630',
+            'og:image:alt': website.name,
+        })
+        # Odoo asks X for the card at 300x300, which the image endpoint fits
+        # to 300x157 -- the exact floor for `summary_large_image`, and blurry
+        # at any size X actually draws it. The card is 1200x630 already.
+        meta['twitter_meta']['twitter:image'] = card_url
+        return meta

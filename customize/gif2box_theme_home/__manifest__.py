@@ -20,6 +20,7 @@
         # the time they run.
         'data/settings_data.xml',
         'data/menu_data.xml',
+        'data/social_share_data.xml',
     ],
     'assets': {
         'web.assets_frontend': [

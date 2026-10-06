@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Install the social share card and clear the overrides that were
+        hiding it. See `models/website.py` for why this is a function and not
+        a record: the website is flagged `noupdate`.
+
+        It runs on every update of this module, so the card a deploy carries
+        is the card the site serves.
+    -->
+    <function model="website" name="_gif2box_set_social_share_image"/>
+
+</odoo>
