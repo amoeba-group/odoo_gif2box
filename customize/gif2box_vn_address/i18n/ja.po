@@ -1,0 +1,182 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_vn_address
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 09:46+0000\n"
+"PO-Revision-Date: 2026-10-07 09:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ja\n"
+"Plural-Forms: \n"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,help:gif2box_vn_address.field_res_country_state__vn_gso_code
+msgid ""
+"Code of the province in the General Statistics Office register, for the "
+"provinces in force since 1 July 2025."
+msgstr "統計総局の行政区画コード（2025年7月1日以降の省・市）。"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,help:gif2box_vn_address.field_res_country_ward__code
+msgid "Code of the unit in the General Statistics Office register."
+msgstr "統計総局の行政区画コード。"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields.selection,name:gif2box_vn_address.selection__res_country_ward__division_type__xa
+msgid "Commune"
+msgstr "社（Xã）"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
+msgid "Communes"
+msgstr "社（Xã）"
+
+#. module: gif2box_vn_address
+#: model:ir.model,name:gif2box_vn_address.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__country_id
+msgid "Country"
+msgstr "国"
+
+#. module: gif2box_vn_address
+#: model:ir.model,name:gif2box_vn_address.model_res_country_state
+msgid "Country state"
+msgstr ""
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__create_uid
+msgid "Created by"
+msgstr "作成者"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__create_date
+msgid "Created on"
+msgstr "作成日"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+msgid "Detailed address"
+msgstr "詳細住所"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__display_name
+msgid "Display Name"
+msgstr "表示名"
+
+#. module: gif2box_vn_address
+#: model:ir.model.constraint,message:gif2box_vn_address.constraint_res_country_ward_code_uniq
+msgid "Each ward has its own GSO code."
+msgstr "各坊・社には固有の統計総局コードがあります。"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_state__vn_gso_code
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__code
+msgid "GSO code"
+msgstr "統計総局コード"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+msgid "House number, street, building, apartment..."
+msgstr "番地、通り名、建物名、部屋番号など"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__write_uid
+msgid "Last Updated by"
+msgstr "最終更新者"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__write_date
+msgid "Last Updated on"
+msgstr "最終更新日"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__name
+msgid "Name"
+msgstr "名称"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__state_id
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
+msgid "Province / City"
+msgstr "省・市"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+msgid "Select a province / city first"
+msgstr "先に省・市を選択してください"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+msgid "Select a ward / commune..."
+msgstr "坊・社を選択..."
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields.selection,name:gif2box_vn_address.selection__res_country_ward__division_type__dac_khu
+msgid "Special zone"
+msgstr "特別区（Đặc khu）"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
+msgid "Special zones"
+msgstr "特別区（Đặc khu）"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/controllers/main.py:0
+msgid "The selected ward or commune is not in the selected province or city."
+msgstr "選択した坊・社は、選択した省・市に属していません。"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/controllers/main.py:0
+msgid ""
+"This province no longer exists after the 2025 merger. Please choose its "
+"current province or city."
+msgstr "この省は2025年の合併により廃止されました。現在の省・市を選択してください。"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__division_type
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
+msgid "Type"
+msgstr "種別"
+
+#. module: gif2box_vn_address
+#: model:ir.model.fields.selection,name:gif2box_vn_address.selection__res_country_ward__division_type__phuong
+msgid "Ward"
+msgstr "坊（Phường）"
+
+#. module: gif2box_vn_address
+#: model:ir.model,name:gif2box_vn_address.model_res_country_ward
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_partner__ward_id
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_users__ward_id
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.view_partner_form_ward
+msgid "Ward / Commune"
+msgstr "坊・社（Phường / Xã）"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
+msgid "Wards"
+msgstr "坊（Phường）"
+
+#. module: gif2box_vn_address
+#: model:ir.actions.act_window,name:gif2box_vn_address.res_country_ward_action
+#: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_state__ward_ids
+#: model:ir.ui.menu,name:gif2box_vn_address.res_country_ward_menu
+msgid "Wards / Communes"
+msgstr "坊・社（Phường / Xã）"

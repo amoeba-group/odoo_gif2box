@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Thua Thien - Hue became Thanh pho Hue in January 2025, a centrally-run
+        city, and is one of the 34 that came through the July merger. Named
+        the way Odoo names the other cities of that rank.
+
+        `base` ships this record without `noupdate`, so an update of `base`
+        puts the old name back until this module is next updated.
+    -->
+    <record id="base.state_vn_VN-26" model="res.country.state">
+        <field name="name">TP Huế</field>
+    </record>
+
+    <!--
+        The form needs the ward to be writable from the address form; Odoo
+        only accepts fields that have been opted into the form builder.
+    -->
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>res.partner</value>
+        <value eval="['ward_id']"/>
+    </function>
+
+</odoo>

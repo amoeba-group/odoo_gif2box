@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The address form in the order a Vietnamese address is written:
+
+            1. Country           (Vietnam by default)
+            2. Province / City   (the 34 in force since 1 July 2025)
+            3. Ward / Commune    (the wards of that province)
+            4. Detailed address  (house number, street, building, flat)
+
+        Odoo asks for the street first and the country last, has no ward at
+        all, and carries both a free-text "City" and a "State / Province"
+        dropdown, which in Vietnamese read as the same question twice.
+
+        For Vietnam, "City", "Apartment, suite" and the postcode are hidden;
+        the ward's name is written into `city` on save. For any other
+        country the form is Odoo's own: `static/src/js/address_vn.js` swaps
+        between the two as the country changes, and the inline styles below
+        only stop the hidden fields flashing up before it has run.
+
+        The `position="move"` xpaths are direct children of their spec on
+        purpose: that is the only place Odoo honours them.
+    -->
+    <template id="address_vn" inherit_id="website_sale.address" name="Vietnamese address order">
+
+        <xpath expr="//div[@id='div_street']" position="before">
+            <xpath expr="//div[@id='div_country']" position="move"/>
+            <xpath expr="//div[@id='div_state']" position="move"/>
+            <div id="div_ward" class="col-lg-6 mb-2"
+                 t-att-style="not (country and country.code == 'VN') and 'display: none'">
+                <label class="col-form-label" for="o_ward_id">Ward / Commune</label>
+                <select id="o_ward_id" name="ward_id" class="form-select"
+                        t-att-disabled="not vn_wards and 'disabled'">
+                    <option t-if="vn_wards" value="">Select a ward / commune...</option>
+                    <option t-else="" value="">Select a province / city first</option>
+                    <t t-foreach="vn_wards or []" t-as="ward">
+                        <option t-att-value="ward.id"
+                                t-att-selected="ward.id == partner_sudo.ward_id.id">
+                            <t t-out="ward.name"/>
+                        </option>
+                    </t>
+                </select>
+                <!--
+                    The two prompts the script swaps in when it rebuilds the
+                    list. Kept here, as text, so they are translated with the
+                    rest of the page rather than needing a script bundle.
+                    Block elements, each on its own: inline siblings are
+                    extracted for translation as one term, markup and all.
+                -->
+                <div class="d-none" data-g2b-prompt="pick-ward">Select a ward / commune...</div>
+                <div class="d-none" data-g2b-prompt="pick-state">Select a province / city first</div>
+            </div>
+        </xpath>
+
+        <!-- The country gets the full row; province and ward share the next. -->
+        <xpath expr="//div[@id='div_country']" position="attributes">
+            <attribute name="class" add="col-lg-12" remove="col-lg-6" separator=" "/>
+        </xpath>
+
+        <!-- One line for everything below the ward. -->
+        <xpath expr="//label[@for='o_street']" position="replace">
+            <label class="col-form-label" for="o_street">Detailed address</label>
+        </xpath>
+        <xpath expr="//input[@id='o_street']" position="attributes">
+            <attribute name="placeholder">House number, street, building, apartment...</attribute>
+        </xpath>
+
+        <!-- Hidden for Vietnam before the script runs; see above. -->
+        <xpath expr="//div[@id='div_street2']" position="attributes">
+            <attribute name="t-att-style">country and country.code == 'VN' and 'display: none'</attribute>
+        </xpath>
+        <xpath expr="//div[@id='div_city']" position="attributes">
+            <attribute name="t-att-style">country and country.code == 'VN' and 'display: none'</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='zip_before_city']/div[@id='div_zip']" position="attributes">
+            <attribute name="t-att-style">country and country.code == 'VN' and 'display: none'</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='not zip_before_city']/div[@id='div_zip']" position="attributes">
+            <attribute name="t-att-style">country and country.code == 'VN' and 'display: none'</attribute>
+        </xpath>
+
+    </template>
+
+</odoo>
