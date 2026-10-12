@@ -687,6 +687,9 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
     // an empty page.
     .checkout_autoformat {
         padding: 1.75rem;
+        // 50px of room before the footer, which otherwise starts right under
+        // the card's shadow.
+        margin-bottom: 3.125rem;
         background-color: $white;
         border: 1px solid $border-color;
         border-radius: $g2b-radius;
