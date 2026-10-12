@@ -4,7 +4,7 @@
     <!--
         The address form in the order a Vietnamese address is written:
 
-            1. Country           (Vietnam by default)
+            1. Country           (Vietnam, fixed)
             2. Province / City   (the 34 in force since 1 July 2025)
             3. Ward / Commune    (the wards of that province)
             4. Detailed address  (house number, street, building, flat)
@@ -13,16 +13,47 @@
         all, and carries both a free-text "City" and a "State / Province"
         dropdown, which in Vietnamese read as the same question twice.
 
-        For Vietnam, "City", "Apartment, suite" and the postcode are hidden;
-        the ward's name is written into `city` on save. For any other
-        country the form is Odoo's own: `static/src/js/address_vn.js` swaps
-        between the two as the country changes, and the inline styles below
-        only stop the hidden fields flashing up before it has run.
+        "City", "Apartment, suite" and the postcode are hidden; the ward's
+        name is written into `city` on save. The inline styles below only
+        stop them flashing up before `static/src/js/address_vn.js` has run.
+        That script still knows how to give another country Odoo's own form
+        back, so lifting the Vietnam-only rule is a change to the controller
+        and to this view, nothing more.
 
         The `position="move"` xpaths are direct children of their spec on
         purpose: that is the only place Odoo honours them.
     -->
     <template id="address_vn" inherit_id="website_sale.address" name="Vietnamese address order">
+
+        <!--
+            Name and phone on one line. Odoo puts the name alone on a full row
+            and the phone below it, after the email when there is one; the
+            phone is moved up beside the name, and the email, when shown,
+            takes the row under them on its own.
+        -->
+        <xpath expr="//div[@id='div_name']" position="after">
+            <xpath expr="//div[@id='div_phone']" position="move"/>
+        </xpath>
+        <xpath expr="//div[@id='div_name']" position="attributes">
+            <attribute name="class" add="col-lg-6" remove="col-lg-12" separator=" "/>
+        </xpath>
+        <xpath expr="//div[@id='div_email']" position="attributes">
+            <attribute name="class" add="col-lg-12" remove="col-lg-6" separator=" "/>
+        </xpath>
+
+        <!--
+            The shop delivers in Vietnam only, so the country is stated, not
+            asked. It stays a select, with Vietnam as its one option: Odoo's
+            address script and `website_sale_autocomplete` both read it as a
+            select, and swapping it for a hidden input broke the latter. The
+            controller sets Vietnam whatever is posted.
+        -->
+        <!-- By position: inheritance refuses `@value` as a selector. -->
+        <xpath expr="//select[@id='o_country_id']/option[1]" position="replace"/>
+        <xpath expr="//select[@id='o_country_id']" position="attributes">
+            <attribute name="tabindex">-1</attribute>
+            <attribute name="aria-readonly">true</attribute>
+        </xpath>
 
         <xpath expr="//div[@id='div_street']" position="before">
             <xpath expr="//div[@id='div_country']" position="move"/>

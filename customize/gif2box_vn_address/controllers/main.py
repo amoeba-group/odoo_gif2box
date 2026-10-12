@@ -22,19 +22,17 @@ class WebsiteSaleVnAddress(WebsiteSale):
         values = super()._prepare_address_form_values(order_sudo, partner_sudo, *args, **kwargs)
         vietnam = request.env.ref('base.vn').sudo()
 
-        # Vietnam unless the address already says otherwise. Odoo guesses from
-        # the visitor's IP, which sends a buyer browsing from abroad to a form
-        # for the wrong country; the shop delivers in Vietnam.
-        if not partner_sudo.country_id:
-            values['country'] = vietnam
+        # Vietnam, always: the shop delivers nowhere else. Odoo would guess
+        # from the visitor's IP, or keep the country an older address was
+        # saved with; either way the form would be for the wrong country.
+        values['country'] = vietnam
+        values['countries'] = vietnam
+        values['country_states'] = request.env['res.country.state']._vn_current_provinces()
 
-        Ward = request.env['res.country.ward'].sudo()
-        values['vn_wards'] = Ward
-        if values['country'] == vietnam:
-            values['country_states'] = request.env['res.country.state']._vn_current_provinces()
-            state = partner_sudo.state_id
-            if state in values['country_states']:
-                values['vn_wards'] = state.ward_ids._sorted_for_display()
+        values['vn_wards'] = request.env['res.country.ward'].sudo()
+        state = partner_sudo.state_id
+        if state in values['country_states']:
+            values['vn_wards'] = state.ward_ids._sorted_for_display()
         return values
 
     @route()
@@ -80,10 +78,9 @@ class WebsiteSaleVnAddress(WebsiteSale):
 
     def _parse_form_data(self, form_data):
         address_values, extra_form_data = super()._parse_form_data(form_data)
-        country = request.env['res.country'].browse(address_values.get('country_id'))
-        if 'ward_id' in address_values and country.code != 'VN':
-            # The dropdown is hidden for other countries but still in the form.
-            address_values['ward_id'] = False
+        # The form offers Vietnam and nothing else; this is what makes that
+        # true of whatever is actually posted.
+        address_values['country_id'] = request.env.ref('base.vn').id
         return address_values, extra_form_data
 
     def _validate_address_values(self, address_values, partner_sudo, address_type, *args, **kwargs):

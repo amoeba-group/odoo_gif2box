@@ -1,0 +1,16 @@
+// Vietnam is the only country the form offers. Shown as a filled-in value:
+// no arrow, a muted fill, and no pointer or keyboard focus to suggest it
+// could be changed.
+.o_wsale_address_fill #o_country_id {
+    color: $gray-700;
+    pointer-events: none;
+    background-color: $gray-100;
+    background-image: none;
+}
+
+// No required-field asterisk either. The cart theme draws one on any field
+// the browser marks required, and Odoo marks the country so; with nothing to
+// fill in, the mark only adds noise. The id outranks the theme's selector.
+.o_wsale_address_fill .checkout_autoformat #div_country > .col-form-label::after {
+    content: none;
+}

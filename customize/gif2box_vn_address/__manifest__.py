@@ -32,6 +32,7 @@ them. Districts were abolished.
     ],
     'assets': {
         'web.assets_frontend': [
+            'gif2box_vn_address/static/src/scss/address_vn.scss',
             'gif2box_vn_address/static/src/js/address_vn.js',
         ],
     },
