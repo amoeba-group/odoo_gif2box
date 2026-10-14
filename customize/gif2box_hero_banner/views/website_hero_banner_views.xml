@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="website_hero_banner_view_list" model="ir.ui.view">
+        <field name="name">website.hero.banner.list</field>
+        <field name="model">website.hero.banner</field>
+        <field name="arch" type="xml">
+            <!-- Dragged by the handle to change the order they slide in. -->
+            <list string="Hero Banners">
+                <field name="sequence" widget="handle"/>
+                <field name="image_desktop" widget="image" options="{'size': [150, 42]}" string="Image"/>
+                <field name="name"/>
+                <field name="title"/>
+                <field name="button_url" optional="show"/>
+                <field name="website_id" groups="website.group_multi_website" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="website_hero_banner_view_form" model="ir.ui.view">
+        <field name="name">website.hero.banner.form</field>
+        <field name="model">website.hero.banner</field>
+        <field name="arch" type="xml">
+            <form string="Hero Banner">
+                <header>
+                    <button name="action_view_on_website" type="object"
+                            string="View on website" icon="fa-globe" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Gift combo campaign"/></h1>
+                    </div>
+
+                    <!-- What the homepage will show, updated as the fields change. -->
+                    <field name="preview_html" nolabel="1" readonly="1" class="mb-4"/>
+
+                    <group>
+                        <group string="Content">
+                            <field name="title" placeholder="e.g. Little gifts, big joy"/>
+                            <field name="description" placeholder="e.g. Practical combos for a baby's first days"/>
+                            <field name="button_text" placeholder="e.g. Shop the combo"/>
+                            <field name="button_url" placeholder="e.g. /shop/category/gift-38"/>
+                        </group>
+                        <group string="Appearance">
+                            <field name="content_position" widget="radio" options="{'horizontal': true}"/>
+                            <field name="text_theme" widget="radio" options="{'horizontal': true}"/>
+                            <field name="website_id" groups="website.group_multi_website"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Images">
+                        <group>
+                            <field name="image_desktop" widget="image" options="{'size': [360, 99]}"/>
+                        </group>
+                        <group>
+                            <field name="image_mobile" widget="image" options="{'size': [120, 120]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="website_hero_banner_view_search" model="ir.ui.view">
+        <field name="name">website.hero.banner.search</field>
+        <field name="model">website.hero.banner</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="title"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_website" string="Website" context="{'group_by': 'website_id'}"
+                            groups="website.group_multi_website"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="website_hero_banner_action" model="ir.actions.act_window">
+        <field name="name">Hero Banners</field>
+        <field name="res_model">website.hero.banner</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add the first banner of the homepage</p>
+            <p>A background picture, a title, a short description and a button. Banners slide in the order of this list; drag them to change it.</p>
+        </field>
+    </record>
+
+    <menuitem id="website_hero_banner_menu"
+              name="Hero Banners"
+              parent="website.menu_site"
+              action="website_hero_banner_action"
+              sequence="15"
+              groups="website.group_website_designer"/>
+
+</odoo>

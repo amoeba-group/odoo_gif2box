@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The hero, right under the header of the homepage.
+
+        Rendered by the server as part of the page rather than fetched by a
+        script afterwards: it is the first and largest thing a visitor sees,
+        and the picture is what the browser should start loading first.
+
+        It sits outside `#wrap`, so the website editor leaves it alone; it is
+        edited from Website > Site > Hero Banners. Nothing renders until at
+        least one banner is active, so installing the module changes nothing
+        on the site by itself.
+    -->
+    <template id="hero_banner_layout" inherit_id="website.layout" name="Homepage hero banner">
+        <xpath expr="//main/t[@t-out='0']" position="before">
+            <t t-if="website and website._gif2box_is_homepage(main_object)">
+                <t t-set="g2b_heroes" t-value="website._gif2box_hero_banners()"/>
+                <t t-if="g2b_heroes" t-call="gif2box_hero_banner.hero_banner"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="hero_banner" name="Hero banner">
+        <t t-set="g2b_multiple" t-value="len(g2b_heroes) &gt; 1"/>
+        <section id="o_g2b_hero"
+                 t-attf-class="o_g2b_hero carousel slide carousel-fade"
+                 t-att-data-bs-ride="g2b_multiple and 'carousel'"
+                 data-bs-interval="6000"
+                 data-bs-pause="hover"
+                 aria-roledescription="carousel">
+
+            <div class="carousel-inner">
+                <t t-foreach="g2b_heroes" t-as="hero">
+                    <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} #{hero_first and 'active' or ''}">
+
+                        <picture class="o_g2b_hero_media">
+                            <source t-if="hero.image_mobile"
+                                    media="(max-width: 767.98px)"
+                                    t-att-srcset="website.image_url(hero, 'image_mobile', size='1080x0')"/>
+                            <!-- The first picture is the page's largest element: fetched first, not lazily. -->
+                            <img class="o_g2b_hero_img"
+                                 t-att-src="website.image_url(hero, 'image_desktop', size='1920x0')"
+                                 t-att-alt="hero.title or hero.name"
+                                 t-att-fetchpriority="hero_first and 'high' or 'low'"
+                                 decoding="async"/>
+                        </picture>
+
+                        <div t-if="hero.title or hero.description or hero._gif2box_show_button()"
+                             class="o_g2b_hero_overlay">
+                            <div class="container">
+                                <div class="o_g2b_hero_content">
+                                    <h2 t-if="hero.title" class="o_g2b_hero_title" t-out="hero.title"/>
+                                    <p t-if="hero.description" class="o_g2b_hero_desc" t-out="hero.description"/>
+                                    <a t-if="hero._gif2box_show_button()"
+                                       class="o_g2b_hero_btn"
+                                       t-att-href="hero.button_url">
+                                        <span t-out="hero.button_text"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- A link but no button text: the whole slide is the link. -->
+                        <a t-if="hero._gif2box_link_whole_slide()"
+                           class="o_g2b_hero_cover_link"
+                           t-att-href="hero.button_url"
+                           t-att-aria-label="hero.title or hero.name"/>
+                    </div>
+                </t>
+            </div>
+
+            <t t-if="g2b_multiple">
+                <!-- Labelled by attribute, not by an inner span: the extractor
+                     would otherwise take the span's markup into the term. -->
+                <button class="carousel-control-prev o_g2b_hero_ctrl" type="button"
+                        data-bs-target="#o_g2b_hero" data-bs-slide="prev" aria-label="Previous"/>
+                <button class="carousel-control-next o_g2b_hero_ctrl" type="button"
+                        data-bs-target="#o_g2b_hero" data-bs-slide="next" aria-label="Next"/>
+                <div class="carousel-indicators o_g2b_hero_dots">
+                    <button t-foreach="g2b_heroes" t-as="hero" type="button"
+                            data-bs-target="#o_g2b_hero"
+                            t-att-data-bs-slide-to="str(hero_index)"
+                            t-att-class="hero_first and 'active'"
+                            t-att-aria-current="hero_first and 'true'"
+                            t-att-aria-label="hero.title or hero.name"/>
+                </div>
+            </t>
+
+            <!-- A shortcut to the banners, for the people who edit them. -->
+            <a groups="website.group_website_designer"
+               class="o_g2b_hero_edit"
+               href="/odoo/action-gif2box_hero_banner.website_hero_banner_action">Edit banners</a>
+        </section>
+    </template>
+
+    <!--
+        The preview on the banner form. The backend does not load the site's
+        stylesheets, so it is styled inline, to the same proportions and
+        colours as the real one.
+    -->
+    <template id="hero_banner_preview" name="Hero banner preview">
+        <t t-set="dark" t-value="banner.text_theme == 'dark'"/>
+        <t t-set="align" t-value="{'left': 'flex-start', 'center': 'center', 'right': 'flex-end'}[banner.content_position or 'right']"/>
+        <t t-set="text_align" t-value="'center' if banner.content_position == 'center' else 'left'"/>
+        <t t-set="wash" t-value="{
+            ('dark', 'left'): 'linear-gradient(90deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,0) 60%)',
+            ('dark', 'right'): 'linear-gradient(270deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,0) 60%)',
+            ('dark', 'center'): 'radial-gradient(ellipse at center, rgba(255,255,255,.78) 0%, rgba(255,255,255,0) 70%)',
+            ('light', 'left'): 'linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 65%)',
+            ('light', 'right'): 'linear-gradient(270deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 65%)',
+            ('light', 'center'): 'radial-gradient(ellipse at center, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 72%)',
+        }[(banner.text_theme or 'dark', banner.content_position or 'right')]"/>
+        <div t-attf-style="position: relative; width: 100%; aspect-ratio: 1920 / 528; min-height: 200px; border-radius: 14px; overflow: hidden; background: #{image_src and ('url(%s) center / cover no-repeat' % image_src) or 'repeating-linear-gradient(45deg, #f4f1ef 0 14px, #ece7e3 14px 28px)'}; box-shadow: 0 6px 20px rgba(0,0,0,.08); font-family: inherit;">
+            <div t-attf-style="position: absolute; inset: 0; background: #{wash}; display: flex; align-items: center; justify-content: #{align}; padding: 0 6%;">
+                <div t-attf-style="max-width: 46%; text-align: #{text_align};">
+                    <div t-if="banner.title"
+                         t-attf-style="font-size: clamp(16px, 2.1vw, 30px); font-weight: 800; line-height: 1.15; letter-spacing: .01em; text-transform: uppercase; color: #{dark and '#1d2a2a' or '#ffffff'}; margin-bottom: 8px;"
+                         t-out="banner.title"/>
+                    <div t-if="banner.description"
+                         t-attf-style="font-size: clamp(11px, 1vw, 15px); line-height: 1.5; color: #{dark and '#4a5757' or 'rgba(255,255,255,.92)'}; margin-bottom: 14px; white-space: pre-line;"
+                         t-out="banner.description"/>
+                    <span t-if="banner.button_text"
+                          style="display: inline-block; padding: 9px 22px; border-radius: 999px; background: #FD7352; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(253,115,82,.35);">
+                        <t t-out="banner.button_text"/> →
+                    </span>
+                </div>
+            </div>
+            <div t-if="not image_src"
+                 style="position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 12px; color: #8a8f94;">
+                Add a background image to see the banner.
+            </div>
+        </div>
+    </template>
+
+</odoo>

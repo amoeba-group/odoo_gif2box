@@ -1,0 +1,291 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_hero_banner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-14 08:27+0000\n"
+"PO-Revision-Date: 2026-10-14 08:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ko\n"
+"Plural-Forms: \n"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.actions.act_window,help:gif2box_hero_banner.website_hero_banner_action
+msgid ""
+"A background picture, a title, a short description and a button. Banners "
+"slide in the order of this list; drag them to change it."
+msgstr "배경 이미지, 제목, 짧은 설명, 버튼으로 구성됩니다. 배너는 이 목록 순서대로 넘어가며, 끌어서 순서를 바꿀 수 있습니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__active
+msgid "Active"
+msgstr "활성"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_preview
+msgid "Add a background image to see the banner."
+msgstr "배경 이미지를 추가하면 배너를 볼 수 있습니다."
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.actions.act_window,help:gif2box_hero_banner.website_hero_banner_action
+msgid "Add the first banner of the homepage"
+msgstr "홈페이지의 첫 배너를 추가하세요"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Appearance"
+msgstr "표시"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_search
+msgid "Archived"
+msgstr "보관됨"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_desktop
+msgid "Background image"
+msgstr "배경 이미지"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_url
+msgid "Button link"
+msgstr "버튼 링크"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_text
+msgid "Button text"
+msgstr "버튼 텍스트"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__center
+msgid "Center"
+msgstr "가운데"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Content"
+msgstr "콘텐츠"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__create_uid
+msgid "Created by"
+msgstr "작성자"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__create_date
+msgid "Created on"
+msgstr "작성일"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__text_theme__dark
+msgid "Dark text"
+msgstr "어두운 글자"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__text_theme
+msgid "Dark text for light pictures, light text for dark ones."
+msgstr "밝은 이미지에는 어두운 글자, 어두운 이미지에는 밝은 글자."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
+msgid "Description"
+msgstr "설명"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__display_name
+msgid "Display Name"
+msgstr "표시명"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
+msgid "Edit banners"
+msgstr "배너 편집"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Hero Banner"
+msgstr "히어로 배너"
+
+#. module: gif2box_hero_banner
+#: model:ir.actions.act_window,name:gif2box_hero_banner.website_hero_banner_action
+#: model:ir.ui.menu,name:gif2box_hero_banner.website_hero_banner_menu
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_list
+msgid "Hero Banners"
+msgstr "히어로 배너"
+
+#. module: gif2box_hero_banner
+#: model:ir.model,name:gif2box_hero_banner.model_website_hero_banner
+msgid "Homepage Hero Banner"
+msgstr "홈페이지 히어로 배너"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_list
+msgid "Image"
+msgstr "이미지"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Images"
+msgstr "이미지"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__name
+msgid "Internal name"
+msgstr "내부 이름"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__write_uid
+msgid "Last Updated by"
+msgstr "최종 수정자"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__write_date
+msgid "Last Updated on"
+msgstr "최종 수정일"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__website_id
+msgid "Leave empty to show the banner on every website."
+msgstr "비워 두면 모든 웹사이트에 배너가 표시됩니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__left
+msgid "Left"
+msgstr "왼쪽"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__text_theme__light
+msgid "Light text"
+msgstr "밝은 글자"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_mobile
+msgid "Mobile background"
+msgstr "모바일 배경"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
+msgid "Next"
+msgstr "다음"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__name
+msgid "Only shown here, to tell the banners apart."
+msgstr "관리 화면에서만 표시되며 배너를 구분하는 데 사용됩니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_mobile
+msgid ""
+"Optional. Shown on phones instead of the wide picture, which would otherwise"
+" be cropped. Best at 1080 x 1080 px."
+msgstr "선택 사항. 휴대폰에서는 가로형 이미지 대신 표시됩니다(가로형 이미지는 잘리기 때문). 권장 크기는 1080 x 1080 px입니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__button_url
+msgid ""
+"Page the button opens, e.g. /shop/category/gift-38 or a full address. With a"
+" link but no button text, the whole banner is clickable."
+msgstr "버튼을 누르면 열리는 페이지. 예: /shop/category/gift-38 또는 전체 주소. 링크만 있고 버튼 텍스트가 없으면 배너 전체를 클릭할 수 있습니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__preview_html
+msgid "Preview"
+msgstr "미리보기"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
+msgid "Previous"
+msgstr "이전"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__right
+msgid "Right"
+msgstr "오른쪽"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__sequence
+msgid "Sequence"
+msgstr "순서"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "Shop now"
+msgstr "지금 쇼핑하기"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__text_theme
+msgid "Text colour"
+msgstr "글자 색"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__content_position
+msgid "Text position"
+msgstr "글자 위치"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
+msgid "Title"
+msgstr "제목"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "View on website"
+msgstr "웹사이트에서 보기"
+
+#. module: gif2box_hero_banner
+#: model:ir.model,name:gif2box_hero_banner.model_website
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__website_id
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_search
+msgid "Website"
+msgstr "웹사이트"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_desktop
+msgid ""
+"Wide picture behind the text. Best at 1920 x 528 px, with the main subject "
+"on the opposite side from the text."
+msgstr "텍스트 뒤에 표시되는 가로형 이미지. 권장 크기는 1920 x 528 px이며, 주요 피사체는 텍스트 반대편에 두세요."
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
+msgid "carousel"
+msgstr "캐러셀"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "e.g. /shop/category/gift-38"
+msgstr "예: /shop/category/gift-38"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "e.g. Gift combo campaign"
+msgstr "예: 선물 콤보 캠페인"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "e.g. Little gifts, big joy"
+msgstr "예: 작은 선물, 큰 기쁨"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "e.g. Practical combos for a baby's first days"
+msgstr "예: 아기의 첫날들을 위한 실속 콤보"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "e.g. Shop the combo"
+msgstr "예: 콤보 구매하기"
