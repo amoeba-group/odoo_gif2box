@@ -24,7 +24,15 @@
 
     <template id="hero_banner" name="Hero banner">
         <t t-set="g2b_multiple" t-value="len(g2b_heroes) &gt; 1"/>
+        <!--
+            Protected from the website editor: the hero is edited from its own
+            form, and its slides keep turning while the page is being edited.
+            Unprotected, each turn counted as a change to the page, and the
+            editor undid any other change made in the same instant: deleting
+            a block below the hero would not stick.
+        -->
         <section id="o_g2b_hero"
+                 data-oe-protected="true"
                  t-attf-class="o_g2b_hero carousel slide carousel-fade"
                  t-att-data-bs-ride="g2b_multiple and 'carousel'"
                  data-bs-interval="6000"
