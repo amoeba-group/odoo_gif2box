@@ -1,35 +1,41 @@
 ///
 /// The homepage hero.
 ///
-/// Drawn to the shape of the banners it replaces: a wide 1920 x 528 picture
-/// with the product on one side and the words on the other. The words are now
-/// real text over the picture, so a wash of the background colour is laid
-/// behind them, strongest under the text and fading out before the product,
-/// to keep them legible on any picture without hiding it.
+/// Built to the shape of the banners it replaces: a 1920 x 528 band whose
+/// background runs edge to edge, with the product and the words in front of it,
+/// held to the width of the page. Product on one side, words on the other:
+/// a serif title in capitals, a coral line under it, a coral pill button.
 ///
 
-// The site's palette, sampled from the logo, as in the theme modules.
+// The site's palette, sampled from the logo, as in the theme modules; and the
+// orange of the banner artwork for the line under the title.
 $g2b-hero-coral: #FD7352;
 $g2b-hero-coral-dark: #E85A38;
-$g2b-hero-ink: #1d2a2a;
+$g2b-hero-orange: #EE6A2C;
+$g2b-hero-ink: #1a1a1a;
+
+// Serif from the system, not a web font: Times New Roman on Windows and
+// Apple, Noto Serif on Android, all with complete Vietnamese, and nothing
+// extra to download before the largest text on the page can paint.
+$g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
 
 .o_g2b_hero {
     position: relative;
     overflow: hidden;
-    background-color: #f6f2ef;
+    background-color: #f8ece6;
 
     .carousel-inner,
     .o_g2b_hero_slide {
         // 528 / 1920 of the width, the proportion of the artwork, but never so
-        // short the text has no room nor so tall it pushes the shop down.
-        height: clamp(340px, 27.5vw, 620px);
+        // short the words have no room nor so tall it pushes the shop down.
+        height: clamp(360px, 27.5vw, 620px);
     }
 
     .o_g2b_hero_slide {
         position: relative;
     }
 
-    // --- The picture ---------------------------------------------------
+    // --- Layer one: the background ----------------------------------
     .o_g2b_hero_media,
     .o_g2b_hero_img {
         position: absolute;
@@ -40,158 +46,158 @@ $g2b-hero-ink: #1d2a2a;
 
     .o_g2b_hero_img {
         object-fit: cover;
-        // Slow zoom while the slide is showing: enough to feel alive, not
-        // enough to notice as movement.
-        transform: scale(1.04);
-        transition: transform 6.5s ease-out;
     }
 
-    .carousel-item.active .o_g2b_hero_img {
-        transform: scale(1);
-    }
-
-    // --- The words -----------------------------------------------------
+    // --- Layer two: product and words, within the page width ---------
     .o_g2b_hero_overlay {
         position: absolute;
         inset: 0;
-        display: flex;
-        align-items: center;
+    }
 
-        > .container {
-            display: flex;
+    .o_g2b_hero_grid {
+        display: flex;
+        gap: clamp(1.5rem, 4vw, 4rem);
+        align-items: center;
+        height: 100%;
+    }
+
+    // Words on the left: the product goes to the right of them.
+    .o_g2b_hero_left .o_g2b_hero_grid {
+        flex-direction: row-reverse;
+    }
+
+    .o_g2b_hero_center .o_g2b_hero_grid {
+        justify-content: center;
+        text-align: center;
+    }
+
+    // The words get the larger share: the artwork's title runs to about two
+    // fifths of the band, and its line under the title further still.
+    .o_g2b_hero_product {
+        display: flex;
+        flex: 1 1 42%;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-width: 0;
+
+        img {
+            max-width: 100%;
+            max-height: 92%;
+            object-fit: contain;
+            // Comes up a little after the slide appears.
+            transform: translateY(14px) scale(.98);
+            opacity: 0;
+            transition: opacity .7s ease .1s, transform .9s cubic-bezier(.2, .7, .2, 1) .1s;
         }
     }
 
     .o_g2b_hero_content {
         position: relative;
         z-index: 2;
-        max-width: 34rem;
+        flex: 1 1 58%;
+        min-width: 0;
+        max-width: 46rem;
         opacity: 0;
         transform: translateY(18px);
-        transition: opacity .6s ease .15s, transform .6s ease .15s;
+        transition: opacity .6s ease .25s, transform .6s ease .25s;
     }
 
-    .carousel-item.active .o_g2b_hero_content {
-        opacity: 1;
-        transform: none;
+    // With no product, the words keep to their side alone.
+    .o_g2b_hero_right .o_g2b_hero_grid:not(:has(.o_g2b_hero_product)) {
+        justify-content: flex-end;
     }
 
+    .carousel-item.active {
+
+        .o_g2b_hero_content,
+        .o_g2b_hero_product img {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    // --- The words ------------------------------------------------------
     .o_g2b_hero_title {
-        margin: 0 0 .85rem;
-        font-size: clamp(1.6rem, 2.6vw, 2.75rem);
-        font-weight: 800;
-        line-height: 1.15;
-        letter-spacing: .01em;
+        margin: 0 0 clamp(.75rem, 1.2vw, 1.25rem);
+        font-size: clamp(1.6rem, 2.65vw, 3.1rem);
+        font-weight: 700;
+        line-height: 1.22;
         text-transform: uppercase;
+        // Line breaks typed in the form are kept; within a line, balanced.
+        white-space: pre-line;
         text-wrap: balance;
     }
 
+    .o_g2b_hero_title_serif .o_g2b_hero_title {
+        font-family: $g2b-hero-serif;
+        letter-spacing: .06em;
+    }
+
+    .o_g2b_hero_title_sans .o_g2b_hero_title {
+        font-weight: 800;
+        letter-spacing: .01em;
+    }
+
     .o_g2b_hero_desc {
-        margin: 0 0 1.6rem;
-        font-size: clamp(.95rem, 1.1vw, 1.15rem);
-        line-height: 1.6;
+        margin: 0 0 clamp(1.25rem, 2vw, 2.25rem);
+        font-size: clamp(1rem, 1.4vw, 1.7rem);
+        font-weight: 600;
+        line-height: 1.4;
         white-space: pre-line;
     }
 
     .o_g2b_hero_btn {
         display: inline-flex;
-        gap: .6rem;
         align-items: center;
-        padding: .85rem 1.9rem;
-        font-size: .9rem;
+        justify-content: center;
+        padding: clamp(.8rem, 1vw, 1.2rem) clamp(1.9rem, 2.6vw, 3rem);
+        font-size: clamp(.9rem, 1.4vw, 1.65rem);
         font-weight: 700;
-        letter-spacing: .04em;
+        letter-spacing: .05em;
         color: #fff;
         text-decoration: none;
         text-transform: uppercase;
-        background-color: $g2b-hero-coral;
+        background: linear-gradient(180deg, #F26A35 0%, #DE4E1A 100%);
         border-radius: 999px;
-        box-shadow: 0 .6rem 1.4rem rgba($g2b-hero-coral, .38);
-        transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
-
-        &::after {
-            font-family: FontAwesome;
-            font-size: .85em;
-            content: "\f061"; // arrow-right
-            transition: transform .18s ease;
-        }
+        box-shadow: 0 .65rem 1.4rem rgba(#DE4E1A, .32), inset 0 1px 0 rgba(#fff, .25);
+        transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
 
         &:hover,
         &:focus-visible {
             color: #fff;
-            background-color: $g2b-hero-coral-dark;
+            filter: brightness(1.05);
             transform: translateY(-2px);
-            box-shadow: 0 .9rem 1.6rem rgba($g2b-hero-coral, .45);
-
-            &::after {
-                transform: translateX(.25rem);
-            }
+            box-shadow: 0 .9rem 1.7rem rgba(#DE4E1A, .4), inset 0 1px 0 rgba(#fff, .25);
         }
     }
 
-    // --- Where the words sit, and the wash behind them -----------------
-    .o_g2b_hero_left .o_g2b_hero_overlay > .container {
-        justify-content: flex-start;
-    }
-
-    .o_g2b_hero_center .o_g2b_hero_overlay > .container {
-        justify-content: center;
-        text-align: center;
-    }
-
-    .o_g2b_hero_right .o_g2b_hero_overlay > .container {
-        justify-content: flex-end;
-    }
-
-    // Dark words on a light wash, for light pictures.
+    // Dark words, for light backgrounds: the artwork's black title and
+    // orange line.
     .o_g2b_hero_text_dark {
         .o_g2b_hero_title { color: $g2b-hero-ink; }
-        .o_g2b_hero_desc { color: rgba($g2b-hero-ink, .78); }
-
-        &.o_g2b_hero_left .o_g2b_hero_overlay {
-            background: linear-gradient(90deg, rgba(#fff, .85) 0%, rgba(#fff, .55) 35%, rgba(#fff, 0) 62%);
-        }
-
-        &.o_g2b_hero_right .o_g2b_hero_overlay {
-            background: linear-gradient(270deg, rgba(#fff, .85) 0%, rgba(#fff, .55) 35%, rgba(#fff, 0) 62%);
-        }
-
-        &.o_g2b_hero_center .o_g2b_hero_overlay {
-            background: radial-gradient(ellipse at center, rgba(#fff, .8) 0%, rgba(#fff, 0) 70%);
-        }
+        .o_g2b_hero_desc { color: $g2b-hero-orange; }
     }
 
-    // Light words on a dark wash, for dark pictures.
+    // Light words, for dark backgrounds, with a soft shade behind them.
     .o_g2b_hero_text_light {
         .o_g2b_hero_title { color: #fff; }
         .o_g2b_hero_desc { color: rgba(#fff, .92); }
 
         .o_g2b_hero_title,
         .o_g2b_hero_desc {
-            text-shadow: 0 1px 12px rgba(#000, .25);
-        }
-
-        &.o_g2b_hero_left .o_g2b_hero_overlay {
-            background: linear-gradient(90deg, rgba(#000, .6) 0%, rgba(#000, .3) 40%, rgba(#000, 0) 68%);
-        }
-
-        &.o_g2b_hero_right .o_g2b_hero_overlay {
-            background: linear-gradient(270deg, rgba(#000, .6) 0%, rgba(#000, .3) 40%, rgba(#000, 0) 68%);
-        }
-
-        &.o_g2b_hero_center .o_g2b_hero_overlay {
-            background: radial-gradient(ellipse at center, rgba(#000, .55) 0%, rgba(#000, 0) 72%);
+            text-shadow: 0 1px 14px rgba(#000, .28);
         }
     }
 
-    // --- A slide that is a link as a whole ---------------------------
+    // --- A slide that is a link as a whole -----------------------------
     .o_g2b_hero_cover_link {
         position: absolute;
         inset: 0;
         z-index: 3;
     }
 
-    // --- Arrows and dots --------------------------------------------
+    // --- Arrows and dots ----------------------------------------------
     .o_g2b_hero_ctrl {
         z-index: 4;
         width: 3rem;
@@ -230,7 +236,7 @@ $g2b-hero-ink: #1d2a2a;
         gap: .4rem;
         margin-bottom: 1.1rem;
 
-        // White with a faint ring: the dots sit over whichever picture is
+        // White with a faint ring: the dots sit over whichever background is
         // showing, and an ink dot vanished on the dark ones.
         [data-bs-target] {
             width: .55rem;
@@ -280,41 +286,58 @@ $g2b-hero-ink: #1d2a2a;
         }
     }
 
-    // --- Phones ------------------------------------------------------
+    // --- Tablets ----------------------------------------------------------
+    @include media-breakpoint-between(md, lg) {
+
+        .o_g2b_hero_grid {
+            gap: 1.5rem;
+        }
+    }
+
+    // --- Phones -------------------------------------------------------------
     //
-    // The wide picture would only show a sliver at this width, so the words
-    // move to the foot of the slide over a wash rising from the bottom, and
-    // the picture keeps the side the product is on in view.
+    // Side by side does not fit: the product goes on top and the words under
+    // it, centred, and the slide grows to hold them. The background still
+    // covers the whole slide.
     @include media-breakpoint-down(md) {
 
         .carousel-inner,
         .o_g2b_hero_slide {
-            height: clamp(420px, 118vw, 560px);
+            height: auto;
         }
 
-        .o_g2b_hero_right .o_g2b_hero_img { object-position: 22% center; }
-        .o_g2b_hero_left .o_g2b_hero_img { object-position: 78% center; }
+        .o_g2b_hero_slide {
+            min-height: 30rem;
+        }
 
         .o_g2b_hero_overlay {
-            align-items: flex-end;
-            padding-bottom: 3.25rem;
+            position: relative;
+            min-height: 30rem;
+        }
 
-            > .container {
-                justify-content: center !important;
-                text-align: center;
+        .o_g2b_hero_grid,
+        .o_g2b_hero_left .o_g2b_hero_grid {
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            min-height: 30rem;
+            padding-top: 1.5rem;
+            padding-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .o_g2b_hero_product {
+            flex: 0 0 auto;
+            height: auto;
+
+            img {
+                max-height: 14rem;
             }
         }
 
-        .o_g2b_hero_text_dark .o_g2b_hero_overlay {
-            background: linear-gradient(0deg, rgba(#fff, .92) 0%, rgba(#fff, .7) 38%, rgba(#fff, 0) 65%) !important;
-        }
-
-        .o_g2b_hero_text_light .o_g2b_hero_overlay {
-            background: linear-gradient(0deg, rgba(#000, .7) 0%, rgba(#000, .35) 40%, rgba(#000, 0) 68%) !important;
-        }
-
-        .o_g2b_hero_desc {
-            margin-bottom: 1.1rem;
+        .o_g2b_hero_content {
+            flex: 0 0 auto;
+            max-width: 100%;
         }
 
         .o_g2b_hero_ctrl {
@@ -324,8 +347,8 @@ $g2b-hero-ink: #1d2a2a;
 
     @media (prefers-reduced-motion: reduce) {
 
-        .o_g2b_hero_img,
-        .o_g2b_hero_content {
+        .o_g2b_hero_content,
+        .o_g2b_hero_product img {
             transition: none;
         }
     }

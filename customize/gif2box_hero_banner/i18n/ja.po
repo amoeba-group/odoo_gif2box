@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 08:27+0000\n"
-"PO-Revision-Date: 2026-10-14 08:27+0000\n"
+"POT-Creation-Date: 2026-10-15 03:41+0000\n"
+"PO-Revision-Date: 2026-10-15 03:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -189,9 +189,9 @@ msgstr "管理画面でのみ表示され、バナーの区別に使います。
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_mobile
 msgid ""
-"Optional. Shown on phones instead of the wide picture, which would otherwise"
-" be cropped. Best at 1080 x 1080 px."
-msgstr "任意。スマートフォンでは横長の画像の代わりに表示されます（横長の画像は切り取られるため）。推奨サイズは 1080 x 1080 px です。"
+"Optional. Shown on phones instead of the wide background, which would "
+"otherwise be cropped. Best at 1080 x 1350 px."
+msgstr "任意。スマートフォンでは横長の背景の代わりに表示されます（横長の背景は切り取られるため）。推奨サイズは 1080 x 1350 px です。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__button_url
@@ -199,6 +199,11 @@ msgid ""
 "Page the button opens, e.g. /shop/category/gift-38 or a full address. With a"
 " link but no button text, the whole banner is clickable."
 msgstr "ボタンで開くページ。例: /shop/category/gift-38 または完全なURL。リンクがあってボタンのテキストが空の場合、バナー全体がクリックできます。"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__title
+msgid "Press Enter to choose where the title breaks onto a new line."
+msgstr "Enter キーで、タイトルを改行する位置を指定できます。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__preview_html
@@ -211,14 +216,44 @@ msgid "Previous"
 msgstr "前へ"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_product
+msgid "Product image"
+msgstr "商品画像"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__right
 msgid "Right"
 msgstr "右"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_desktop
+msgid ""
+"Runs the full width of the screen, behind everything. Best at 1920 x 528 px."
+" Keep it calm, a colour wash or a soft scene: the product and the text sit "
+"on top of it."
+msgstr "画面の横幅いっぱいに、すべての要素の背後に表示されます。推奨サイズは 1920 x 528 px。グラデーションややわらかい背景など、落ち着いたものを選んでください。商品画像と文字はその上に重なります。"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__title_style__sans
+msgid "Sans-serif"
+msgstr "ゴシック体"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__sequence
 msgid "Sequence"
 msgstr "順序"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__title_style__serif
+msgid "Serif"
+msgstr "明朝体"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__title_style
+msgid ""
+"Serif for an elegant, gift-like title; sans-serif to match the rest of the "
+"site."
+msgstr "明朝体はギフトらしい上品なタイトルに、ゴシック体はサイト全体と統一したいときに。"
 
 #. module: gif2box_hero_banner
 #. odoo-python
@@ -237,9 +272,27 @@ msgid "Text position"
 msgstr "文字の位置"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__content_position
+msgid "The product image takes the other side."
+msgstr "商品画像は反対側に表示されます。"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_product
+msgid ""
+"The product, on a transparent background (PNG or WebP), shown beside the "
+"text within the page width. Best at about 1200 x 1000 px. Not shown when the"
+" text is centred."
+msgstr "透過背景の商品画像（PNG または WebP）。ページの幅の内側で、文字の横に表示されます。推奨サイズは約 1200 x 1000 px。文字を中央揃えにした場合は表示されません。"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
 msgid "Title"
 msgstr "タイトル"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
+msgid "Title style"
+msgstr "タイトルの書体"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
@@ -252,13 +305,6 @@ msgstr "ウェブサイトで表示"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_search
 msgid "Website"
 msgstr "ウェブサイト"
-
-#. module: gif2box_hero_banner
-#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_desktop
-msgid ""
-"Wide picture behind the text. Best at 1920 x 528 px, with the main subject "
-"on the opposite side from the text."
-msgstr "テキストの背後に表示される横長の画像。推奨サイズは 1920 x 528 px で、主な被写体はテキストの反対側に配置してください。"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner

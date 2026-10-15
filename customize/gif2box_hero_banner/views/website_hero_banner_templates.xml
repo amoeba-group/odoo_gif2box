@@ -33,24 +33,37 @@
 
             <div class="carousel-inner">
                 <t t-foreach="g2b_heroes" t-as="hero">
-                    <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} #{hero_first and 'active' or ''}">
+                    <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} o_g2b_hero_title_#{hero.title_style} #{hero_first and 'active' or ''}">
 
+                        <!--
+                            Layer one: the background, edge to edge. It is
+                            decoration once there is a product or a title in
+                            front of it, so it then carries no alt text; on its
+                            own it is the whole message and is named.
+                        -->
                         <picture class="o_g2b_hero_media">
                             <source t-if="hero.image_mobile"
                                     media="(max-width: 767.98px)"
                                     t-att-srcset="website.image_url(hero, 'image_mobile', size='1080x0')"/>
-                            <!-- The first picture is the page's largest element: fetched first, not lazily. -->
+                            <!-- The first slide's pictures are the largest on the page: fetched first, not lazily. -->
                             <img class="o_g2b_hero_img"
                                  t-att-src="website.image_url(hero, 'image_desktop', size='1920x0')"
-                                 t-att-alt="hero.title or hero.name"
+                                 t-att-alt="'' if (hero.title or hero.image_product) else hero.name"
                                  t-att-fetchpriority="hero_first and 'high' or 'low'"
                                  decoding="async"/>
                         </picture>
 
-                        <div t-if="hero.title or hero.description or hero._gif2box_show_button()"
-                             class="o_g2b_hero_overlay">
-                            <div class="container">
-                                <div class="o_g2b_hero_content">
+                        <!-- Layer two: the product and the words, held to the width of the page. -->
+                        <div class="o_g2b_hero_overlay">
+                            <div class="container o_g2b_hero_grid">
+                                <div t-if="hero._gif2box_show_product()" class="o_g2b_hero_product">
+                                    <img t-att-src="website.image_url(hero, 'image_product', size='1200x0')"
+                                         t-att-alt="hero.title or hero.name"
+                                         t-att-fetchpriority="hero_first and 'high' or 'low'"
+                                         decoding="async"/>
+                                </div>
+                                <div t-if="hero.title or hero.description or hero._gif2box_show_button()"
+                                     class="o_g2b_hero_content">
                                     <h2 t-if="hero.title" class="o_g2b_hero_title" t-out="hero.title"/>
                                     <p t-if="hero.description" class="o_g2b_hero_desc" t-out="hero.description"/>
                                     <a t-if="hero._gif2box_show_button()"
@@ -102,29 +115,24 @@
     -->
     <template id="hero_banner_preview" name="Hero banner preview">
         <t t-set="dark" t-value="banner.text_theme == 'dark'"/>
-        <t t-set="align" t-value="{'left': 'flex-start', 'center': 'center', 'right': 'flex-end'}[banner.content_position or 'right']"/>
-        <t t-set="text_align" t-value="'center' if banner.content_position == 'center' else 'left'"/>
-        <t t-set="wash" t-value="{
-            ('dark', 'left'): 'linear-gradient(90deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,0) 60%)',
-            ('dark', 'right'): 'linear-gradient(270deg, rgba(255,255,255,.82) 0%, rgba(255,255,255,0) 60%)',
-            ('dark', 'center'): 'radial-gradient(ellipse at center, rgba(255,255,255,.78) 0%, rgba(255,255,255,0) 70%)',
-            ('light', 'left'): 'linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 65%)',
-            ('light', 'right'): 'linear-gradient(270deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 65%)',
-            ('light', 'center'): 'radial-gradient(ellipse at center, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 72%)',
-        }[(banner.text_theme or 'dark', banner.content_position or 'right')]"/>
+        <t t-set="centred" t-value="banner.content_position == 'center'"/>
+        <t t-set="show_product" t-value="product_src and not centred"/>
+        <t t-set="serif" t-value="banner.title_style != 'sans'"/>
         <div t-attf-style="position: relative; width: 100%; aspect-ratio: 1920 / 528; min-height: 200px; border-radius: 14px; overflow: hidden; background: #{image_src and ('url(%s) center / cover no-repeat' % image_src) or 'repeating-linear-gradient(45deg, #f4f1ef 0 14px, #ece7e3 14px 28px)'}; box-shadow: 0 6px 20px rgba(0,0,0,.08); font-family: inherit;">
-            <div t-attf-style="position: absolute; inset: 0; background: #{wash}; display: flex; align-items: center; justify-content: #{align}; padding: 0 6%;">
-                <div t-attf-style="max-width: 46%; text-align: #{text_align};">
+            <div t-attf-style="position: absolute; inset: 0; display: flex; align-items: center; gap: 4%; padding: 0 7%; flex-direction: #{'row-reverse' if banner.content_position == 'left' else 'row'}; justify-content: #{centred and 'center' or 'space-between'};">
+                <div t-if="show_product" style="flex: 1 1 42%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <img t-att-src="product_src" style="max-height: 88%; max-width: 100%; object-fit: contain;" alt=""/>
+                </div>
+                <div t-attf-style="flex: 1 1 58%; max-width: #{show_product and '58%' or '64%'}; text-align: #{centred and 'center' or 'left'};">
                     <div t-if="banner.title"
-                         t-attf-style="font-size: clamp(16px, 2.1vw, 30px); font-weight: 800; line-height: 1.15; letter-spacing: .01em; text-transform: uppercase; color: #{dark and '#1d2a2a' or '#ffffff'}; margin-bottom: 8px;"
+                         t-attf-style="font-family: #{serif and 'Noto Serif, Times New Roman, Times, Georgia, serif' or 'inherit'}; font-size: clamp(16px, 2.2vw, 30px); font-weight: 700; line-height: 1.25; letter-spacing: #{serif and '.06em' or '.01em'}; text-transform: uppercase; white-space: pre-line; color: #{dark and '#1a1a1a' or '#ffffff'}; margin-bottom: 10px;"
                          t-out="banner.title"/>
                     <div t-if="banner.description"
-                         t-attf-style="font-size: clamp(11px, 1vw, 15px); line-height: 1.5; color: #{dark and '#4a5757' or 'rgba(255,255,255,.92)'}; margin-bottom: 14px; white-space: pre-line;"
+                         t-attf-style="font-size: clamp(11px, 1.15vw, 17px); font-weight: 600; line-height: 1.45; color: #{dark and '#EE6A2C' or 'rgba(255,255,255,.92)'}; margin-bottom: 16px; white-space: pre-line;"
                          t-out="banner.description"/>
                     <span t-if="banner.button_text"
-                          style="display: inline-block; padding: 9px 22px; border-radius: 999px; background: #FD7352; color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(253,115,82,.35);">
-                        <t t-out="banner.button_text"/> →
-                    </span>
+                          style="display: inline-block; padding: 10px 26px; border-radius: 999px; background: linear-gradient(180deg, #F26A35 0%, #DE4E1A 100%); color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(222,78,26,.32), inset 0 1px 0 rgba(255,255,255,.25);"
+                          t-out="banner.button_text"/>
                 </div>
             </div>
             <div t-if="not image_src"

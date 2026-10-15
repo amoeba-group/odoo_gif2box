@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 08:27+0000\n"
-"PO-Revision-Date: 2026-10-14 08:27+0000\n"
+"POT-Creation-Date: 2026-10-15 03:41+0000\n"
+"PO-Revision-Date: 2026-10-15 03:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
@@ -189,9 +189,9 @@ msgstr "관리 화면에서만 표시되며 배너를 구분하는 데 사용됩
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_mobile
 msgid ""
-"Optional. Shown on phones instead of the wide picture, which would otherwise"
-" be cropped. Best at 1080 x 1080 px."
-msgstr "선택 사항. 휴대폰에서는 가로형 이미지 대신 표시됩니다(가로형 이미지는 잘리기 때문). 권장 크기는 1080 x 1080 px입니다."
+"Optional. Shown on phones instead of the wide background, which would "
+"otherwise be cropped. Best at 1080 x 1350 px."
+msgstr "선택 사항. 휴대폰에서는 가로형 배경 대신 표시됩니다(가로형 배경은 잘리기 때문). 권장 크기는 1080 x 1350 px입니다."
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__button_url
@@ -199,6 +199,11 @@ msgid ""
 "Page the button opens, e.g. /shop/category/gift-38 or a full address. With a"
 " link but no button text, the whole banner is clickable."
 msgstr "버튼을 누르면 열리는 페이지. 예: /shop/category/gift-38 또는 전체 주소. 링크만 있고 버튼 텍스트가 없으면 배너 전체를 클릭할 수 있습니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__title
+msgid "Press Enter to choose where the title breaks onto a new line."
+msgstr "Enter 키로 제목이 줄바꿈될 위치를 정할 수 있습니다."
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__preview_html
@@ -211,14 +216,44 @@ msgid "Previous"
 msgstr "이전"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_product
+msgid "Product image"
+msgstr "상품 이미지"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__right
 msgid "Right"
 msgstr "오른쪽"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_desktop
+msgid ""
+"Runs the full width of the screen, behind everything. Best at 1920 x 528 px."
+" Keep it calm, a colour wash or a soft scene: the product and the text sit "
+"on top of it."
+msgstr "화면 가로 전체에 걸쳐 모든 요소 뒤에 표시됩니다. 권장 크기는 1920 x 528 px입니다. 그라데이션이나 부드러운 배경처럼 차분한 이미지를 사용하세요. 상품 이미지와 글자가 그 위에 놓입니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__title_style__sans
+msgid "Sans-serif"
+msgstr "고딕체"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__sequence
 msgid "Sequence"
 msgstr "순서"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__title_style__serif
+msgid "Serif"
+msgstr "명조체"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__title_style
+msgid ""
+"Serif for an elegant, gift-like title; sans-serif to match the rest of the "
+"site."
+msgstr "명조체는 선물다운 고급스러운 제목에, 고딕체는 사이트의 다른 부분과 맞출 때 사용하세요."
 
 #. module: gif2box_hero_banner
 #. odoo-python
@@ -237,9 +272,27 @@ msgid "Text position"
 msgstr "글자 위치"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__content_position
+msgid "The product image takes the other side."
+msgstr "상품 이미지는 반대쪽에 표시됩니다."
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_product
+msgid ""
+"The product, on a transparent background (PNG or WebP), shown beside the "
+"text within the page width. Best at about 1200 x 1000 px. Not shown when the"
+" text is centred."
+msgstr "배경이 투명한 상품 이미지(PNG 또는 WebP)로, 페이지 폭 안에서 글자 옆에 표시됩니다. 권장 크기는 약 1200 x 1000 px입니다. 글자를 가운데 정렬하면 표시되지 않습니다."
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
 msgid "Title"
 msgstr "제목"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
+msgid "Title style"
+msgstr "제목 글꼴"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
@@ -252,13 +305,6 @@ msgstr "웹사이트에서 보기"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_search
 msgid "Website"
 msgstr "웹사이트"
-
-#. module: gif2box_hero_banner
-#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__image_desktop
-msgid ""
-"Wide picture behind the text. Best at 1920 x 528 px, with the main subject "
-"on the opposite side from the text."
-msgstr "텍스트 뒤에 표시되는 가로형 이미지. 권장 크기는 1920 x 528 px이며, 주요 피사체는 텍스트 반대편에 두세요."
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
