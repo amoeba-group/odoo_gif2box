@@ -99,8 +99,10 @@ class WebsiteHeroBanner(models.Model):
     machine_translations = fields.Json(
         string='Machine translations', readonly=True,
         help="What the machine wrote for each language, to tell its translations from those corrected by hand.")
-    translation_status_html = fields.Html(
-        string='Translations', compute='_compute_translation_status_html', sanitize=False)
+    # The words of every language, edited together in a table on the form.
+    translation_values = fields.Json(
+        string='Translations', compute='_compute_translation_values',
+        inverse='_inverse_translation_values', readonly=False)
 
     # --- Preview -----------------------------------------------------------
 
@@ -378,9 +380,16 @@ class WebsiteHeroBanner(models.Model):
             raise ValueError("Unexpected answer from the translation service")
         return answer
 
-    @api.depends(*TRANSLATED_FIELDS, 'machine_translations', 'translation_source_lang')
-    def _compute_translation_status_html(self):
-        """Each language's words and where they came from, as saved."""
+    # No dependencies on purpose: computed when the form is read, and left
+    # alone while it is edited, or typing in the Title field would throw away
+    # what was typed in the table.
+    @api.depends()
+    def _compute_translation_values(self):
+        """Each language's words as saved, and where they came from.
+
+        Each row carries the words twice, `values` to edit and `initial` as
+        they were read, so that saving writes only what was changed.
+        """
         for banner in self:
             origin = banner._origin
             rows = []
@@ -403,9 +412,49 @@ class WebsiteHeroBanner(models.Model):
                         state = 'manual'
                     else:
                         state = 'machine'
-                    rows.append({'lang': lang, 'values': values, 'state': state})
-            banner.translation_status_html = self.env['ir.qweb']._render(
-                'gif2box_hero_banner.hero_banner_translations', {'rows': rows})
+                    texts = {fname: values[fname] or '' for fname in TRANSLATED_FIELDS}
+                    rows.append({
+                        'code': lang.code,
+                        # In its own name ("Japanese / 日本語" reads 日本語):
+                        # understood whatever the admin's language.
+                        'name': lang.name.split(' / ')[-1],
+                        'state': state,
+                        'values': texts,
+                        'initial': dict(texts),
+                    })
+            banner.translation_values = {'rows': rows}
+
+    def _inverse_translation_values(self):
+        """Save the cells changed in the table.
+
+        A translation is set as typed, and from then on counts as corrected by
+        hand. A change to the original is written as any change to it is, so
+        the other languages follow.
+        """
+        for banner in self:
+            originals = {}
+            original_lang = banner._gif2box_default_lang()
+            for row in (banner.translation_values or {}).get('rows') or []:
+                code = row.get('code')
+                values, initial = row.get('values') or {}, row.get('initial') or {}
+                changed = {
+                    fname: values.get(fname) or ''
+                    for fname in TRANSLATED_FIELDS
+                    if (values.get(fname) or '') != (initial.get(fname) or '')
+                }
+                if not changed or code not in banner._gif2box_languages().mapped('code'):
+                    continue
+                if code == original_lang:
+                    originals = changed
+                    continue
+                for fname, value in changed.items():
+                    banner.with_context(gif2box_hero_no_translate=True) \
+                        .update_field_translations(fname, {code: value or False})
+            # Last, so that the languages just corrected count as such.
+            if originals:
+                banner.with_context(lang=original_lang).write(originals)
+        # Read afresh after saving, not as typed.
+        self.invalidate_recordset(['translation_values'])
 
     def action_translate(self):
         """Translate the languages not corrected by hand."""

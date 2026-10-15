@@ -28,6 +28,10 @@ is active, so installing the module changes nothing on its own.
         'web.assets_frontend': [
             'gif2box_hero_banner/static/src/scss/hero_banner.scss',
         ],
+        'web.assets_backend': [
+            'gif2box_hero_banner/static/src/js/hero_translations_field.js',
+            'gif2box_hero_banner/static/src/xml/hero_translations_field.xml',
+        ],
     },
     'installable': True,
     'auto_install': False,

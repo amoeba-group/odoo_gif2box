@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 04:30+0000\n"
-"PO-Revision-Date: 2026-10-15 04:30+0000\n"
+"POT-Creation-Date: 2026-10-15 04:43+0000\n"
+"PO-Revision-Date: 2026-10-15 04:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,8 @@ msgid "Archived"
 msgstr "アーカイブ済"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Auto-translated"
 msgstr "自動翻訳"
 
@@ -65,8 +66,9 @@ msgid "Button link"
 msgstr "ボタンのリンク"
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_text
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Button text"
 msgstr "ボタンのテキスト"
 
@@ -101,8 +103,9 @@ msgid "Dark text for light pictures, light text for dark ones."
 msgstr "明るい画像には濃い文字、暗い画像には明るい文字。"
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Description"
 msgstr "説明"
 
@@ -112,12 +115,21 @@ msgid "Display Name"
 msgstr "表示名"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid ""
+"Edit any language right in the table, then save. Translations edited by hand"
+" are kept when the banner is translated again; a change to the original is "
+"translated into the other languages."
+msgstr "表の中でどの言語も直接編集して保存できます。手動で修正した翻訳は再翻訳しても残り、原文を変更すると他の言語に翻訳されます。"
+
+#. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
 msgid "Edit banners"
 msgstr "バナーを編集"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Edited by hand"
 msgstr "手動で修正済み"
 
@@ -172,7 +184,8 @@ msgid "Internal name"
 msgstr "管理用の名前"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Language"
 msgstr "言語"
 
@@ -217,7 +230,8 @@ msgid "Next"
 msgstr "次へ"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Not translated"
 msgstr "未翻訳"
 
@@ -241,7 +255,8 @@ msgid ""
 msgstr "任意。スマートフォンでは横長の背景の代わりに表示されます（横長の背景は切り取られるため）。推奨サイズは 1080 x 1350 px です。"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Original"
 msgstr "原文"
 
@@ -324,7 +339,8 @@ msgid "Shop now"
 msgstr "今すぐ購入"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Status"
 msgstr "状態"
 
@@ -377,13 +393,15 @@ msgid ""
 msgstr "翻訳サービスの利用上限に達しました。しばらくしてから再度お試しください。"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "The translations appear here once the banner is saved."
 msgstr "バナーを保存すると、ここに翻訳が表示されます。"
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Title"
 msgstr "タイトル"
 
@@ -391,14 +409,6 @@ msgstr "タイトル"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
 msgid "Title style"
 msgstr "タイトルの書体"
-
-#. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
-msgid ""
-"To correct a translation, click the language code beside the Title, "
-"Description or Button text field and edit it there. Corrections are kept "
-"when the banner is translated again."
-msgstr "翻訳を修正するには、タイトル・説明・ボタンの文言の欄の横にある言語コードをクリックして編集してください。修正した内容は再翻訳しても残ります。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__auto_translate
@@ -411,7 +421,7 @@ msgid "Translate now"
 msgstr "今すぐ翻訳"
 
 #. module: gif2box_hero_banner
-#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_status_html
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_values
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
 msgid "Translations"
 msgstr "翻訳"
@@ -421,6 +431,12 @@ msgstr "翻訳"
 #: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
 msgid "Translations updated."
 msgstr "翻訳を更新しました。"
+
+#. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
+msgid "Unsaved"
+msgstr "未保存"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form

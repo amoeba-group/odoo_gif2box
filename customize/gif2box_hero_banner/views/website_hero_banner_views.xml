@@ -64,9 +64,9 @@
                                     confirm="Every language will be translated again, including the translations corrected by hand. Continue?"/>
                         </div>
                         <div colspan="2" class="text-muted small">
-                            To correct a translation, click the language code beside the Title, Description or Button text field and edit it there. Corrections are kept when the banner is translated again.
+                            Edit any language right in the table, then save. Translations edited by hand are kept when the banner is translated again; a change to the original is translated into the other languages.
                         </div>
-                        <field name="translation_status_html" nolabel="1" readonly="1" colspan="2"/>
+                        <field name="translation_values" widget="hero_banner_translations" nolabel="1" colspan="2"/>
                     </group>
                     <group string="Images">
                         <!--

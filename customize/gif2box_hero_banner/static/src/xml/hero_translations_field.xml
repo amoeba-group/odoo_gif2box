@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gif2box_hero_banner.HeroTranslationsField">
+        <div class="o_g2b_hero_translations w-100">
+            <div t-if="!rows.length" class="text-muted fst-italic">
+                The translations appear here once the banner is saved.
+            </div>
+            <div t-else="" class="table-responsive">
+                <table class="table table-sm align-top mb-0">
+                    <thead>
+                        <tr class="text-muted small">
+                            <th style="width: 12%;">Language</th>
+                            <th t-foreach="columns" t-as="column" t-key="column.name"
+                                t-att-style="column.multiline ? 'width: 31%;' : 'width: 16%;'"
+                                t-esc="column.label"/>
+                            <th style="width: 10%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="rows" t-as="row" t-key="row.code">
+                            <td class="fw-semibold pt-2" t-esc="row.name"/>
+                            <td t-foreach="columns" t-as="column" t-key="column.name">
+                                <textarea t-if="column.multiline"
+                                          t-attf-class="form-control form-control-sm {{ isChanged(row, column.name) ? 'border-warning bg-warning-subtle' : '' }}"
+                                          t-att-rows="lineCount(row, column.name)"
+                                          t-att-value="row.values[column.name]"
+                                          t-att-readonly="props.readonly"
+                                          t-on-input="(ev) => this.onInput(row, column.name, ev)"/>
+                                <input t-else="" type="text"
+                                       t-attf-class="form-control form-control-sm {{ isChanged(row, column.name) ? 'border-warning bg-warning-subtle' : '' }}"
+                                       t-att-value="row.values[column.name]"
+                                       t-att-readonly="props.readonly"
+                                       t-on-input="(ev) => this.onInput(row, column.name, ev)"/>
+                            </td>
+                            <td class="pt-2">
+                                <span t-if="rowChanged(row)" class="badge rounded-pill text-bg-warning">Unsaved</span>
+                                <span t-else=""
+                                      t-attf-class="badge rounded-pill {{ {source: 'text-bg-primary', machine: 'text-bg-info', manual: 'text-bg-success'}[row.state] || 'text-bg-secondary' }}"
+                                      t-esc="stateLabels[row.state]"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+
+</templates>

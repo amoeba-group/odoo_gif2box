@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 04:30+0000\n"
-"PO-Revision-Date: 2026-10-15 04:30+0000\n"
+"POT-Creation-Date: 2026-10-15 04:43+0000\n"
+"PO-Revision-Date: 2026-10-15 04:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,8 @@ msgid "Archived"
 msgstr "보관됨"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Auto-translated"
 msgstr "자동 번역"
 
@@ -65,8 +66,9 @@ msgid "Button link"
 msgstr "버튼 링크"
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_text
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Button text"
 msgstr "버튼 텍스트"
 
@@ -101,8 +103,9 @@ msgid "Dark text for light pictures, light text for dark ones."
 msgstr "밝은 이미지에는 어두운 글자, 어두운 이미지에는 밝은 글자."
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Description"
 msgstr "설명"
 
@@ -112,12 +115,21 @@ msgid "Display Name"
 msgstr "표시명"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid ""
+"Edit any language right in the table, then save. Translations edited by hand"
+" are kept when the banner is translated again; a change to the original is "
+"translated into the other languages."
+msgstr "표에서 어떤 언어든 바로 수정한 뒤 저장하세요. 직접 수정한 번역은 다시 번역해도 유지되며, 원문을 바꾸면 다른 언어로 번역됩니다."
+
+#. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
 msgid "Edit banners"
 msgstr "배너 편집"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Edited by hand"
 msgstr "직접 수정함"
 
@@ -172,7 +184,8 @@ msgid "Internal name"
 msgstr "내부 이름"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Language"
 msgstr "언어"
 
@@ -217,7 +230,8 @@ msgid "Next"
 msgstr "다음"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Not translated"
 msgstr "번역 안 됨"
 
@@ -241,7 +255,8 @@ msgid ""
 msgstr "선택 사항. 휴대폰에서는 가로형 배경 대신 표시됩니다(가로형 배경은 잘리기 때문). 권장 크기는 1080 x 1350 px입니다."
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Original"
 msgstr "원문"
 
@@ -324,7 +339,8 @@ msgid "Shop now"
 msgstr "지금 쇼핑하기"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Status"
 msgstr "상태"
 
@@ -377,13 +393,15 @@ msgid ""
 msgstr "번역 서비스 사용 한도에 도달했습니다. 잠시 후 다시 시도해 주세요."
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "The translations appear here once the banner is saved."
 msgstr "배너를 저장하면 여기에 번역이 표시됩니다."
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Title"
 msgstr "제목"
 
@@ -391,14 +409,6 @@ msgstr "제목"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
 msgid "Title style"
 msgstr "제목 글꼴"
-
-#. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
-msgid ""
-"To correct a translation, click the language code beside the Title, "
-"Description or Button text field and edit it there. Corrections are kept "
-"when the banner is translated again."
-msgstr "번역을 수정하려면 제목, 설명, 버튼 문구 칸 옆의 언어 코드를 눌러 직접 수정하세요. 수정한 내용은 다시 번역해도 유지됩니다."
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__auto_translate
@@ -411,7 +421,7 @@ msgid "Translate now"
 msgstr "지금 번역"
 
 #. module: gif2box_hero_banner
-#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_status_html
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_values
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
 msgid "Translations"
 msgstr "번역"
@@ -421,6 +431,12 @@ msgstr "번역"
 #: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
 msgid "Translations updated."
 msgstr "번역을 업데이트했습니다."
+
+#. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
+msgid "Unsaved"
+msgstr "저장 안 됨"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form

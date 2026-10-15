@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 04:30+0000\n"
-"PO-Revision-Date: 2026-10-15 04:30+0000\n"
+"POT-Creation-Date: 2026-10-15 04:43+0000\n"
+"PO-Revision-Date: 2026-10-15 04:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,8 @@ msgid "Archived"
 msgstr "Đã lưu trữ"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Auto-translated"
 msgstr "Dịch tự động"
 
@@ -65,8 +66,9 @@ msgid "Button link"
 msgstr "Link của nút"
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_text
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Button text"
 msgstr "Chữ trên nút"
 
@@ -101,8 +103,9 @@ msgid "Dark text for light pictures, light text for dark ones."
 msgstr "Chữ tối cho ảnh sáng, chữ sáng cho ảnh tối."
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Description"
 msgstr "Mô tả"
 
@@ -112,12 +115,21 @@ msgid "Display Name"
 msgstr "Tên hiển thị"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid ""
+"Edit any language right in the table, then save. Translations edited by hand"
+" are kept when the banner is translated again; a change to the original is "
+"translated into the other languages."
+msgstr "Sửa trực tiếp bất kỳ ngôn ngữ nào trong bảng rồi bấm Lưu. Bản dịch sửa tay sẽ được giữ nguyên khi banner được dịch lại; thay đổi ở bản gốc sẽ được dịch sang các ngôn ngữ khác."
+
+#. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
 msgid "Edit banners"
 msgstr "Sửa banner"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Edited by hand"
 msgstr "Đã sửa tay"
 
@@ -172,7 +184,8 @@ msgid "Internal name"
 msgstr "Tên nội bộ"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Language"
 msgstr "Ngôn ngữ"
 
@@ -217,7 +230,8 @@ msgid "Next"
 msgstr "Tiếp theo"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Not translated"
 msgstr "Chưa dịch"
 
@@ -241,7 +255,8 @@ msgid ""
 msgstr "Không bắt buộc. Hiển thị trên điện thoại thay cho nền ngang, vì nền ngang sẽ bị cắt. Đẹp nhất ở 1080 x 1350 px."
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 msgid "Original"
 msgstr "Bản gốc"
 
@@ -324,7 +339,8 @@ msgid "Shop now"
 msgstr "Mua ngay"
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -377,13 +393,15 @@ msgid ""
 msgstr "Dịch vụ dịch đã đạt giới hạn sử dụng. Vui lòng thử lại sau."
 
 #. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
 msgid "The translations appear here once the banner is saved."
 msgstr "Bản dịch sẽ hiện ở đây sau khi lưu banner."
 
 #. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/js/hero_translations_field.js:0
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Title"
 msgstr "Tiêu đề"
 
@@ -391,14 +409,6 @@ msgstr "Tiêu đề"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
 msgid "Title style"
 msgstr "Kiểu chữ tiêu đề"
-
-#. module: gif2box_hero_banner
-#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
-msgid ""
-"To correct a translation, click the language code beside the Title, "
-"Description or Button text field and edit it there. Corrections are kept "
-"when the banner is translated again."
-msgstr "Để sửa bản dịch, bấm vào mã ngôn ngữ bên cạnh ô Tiêu đề, Mô tả hoặc Chữ trên nút rồi sửa trực tiếp. Bản sửa sẽ được giữ nguyên khi banner được dịch lại."
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__auto_translate
@@ -411,7 +421,7 @@ msgid "Translate now"
 msgstr "Dịch ngay"
 
 #. module: gif2box_hero_banner
-#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_status_html
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_values
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
 msgid "Translations"
 msgstr "Bản dịch"
@@ -421,6 +431,12 @@ msgstr "Bản dịch"
 #: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
 msgid "Translations updated."
 msgstr "Đã cập nhật bản dịch."
+
+#. module: gif2box_hero_banner
+#. odoo-javascript
+#: code:addons/gif2box_hero_banner/static/src/xml/hero_translations_field.xml:0
+msgid "Unsaved"
+msgstr "Chưa lưu"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
