@@ -71,11 +71,11 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
         text-align: center;
     }
 
-    // The words get the larger share: the artwork's title runs to about two
-    // fifths of the band, and its line under the title further still.
+    // The words get the larger share: the artwork's titles run to about two
+    // fifths of the band, the longest ("THÊM NGÀN YÊU THƯƠNG") further still.
     .o_g2b_hero_product {
         display: flex;
-        flex: 1 1 42%;
+        flex: 1 1 38%;
         align-items: center;
         justify-content: center;
         height: 100%;
@@ -95,9 +95,9 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
     .o_g2b_hero_content {
         position: relative;
         z-index: 2;
-        flex: 1 1 58%;
+        flex: 1 1 62%;
         min-width: 0;
-        max-width: 46rem;
+        max-width: 50rem;
         opacity: 0;
         transform: translateY(18px);
         transition: opacity .6s ease .25s, transform .6s ease .25s;
@@ -131,7 +131,7 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
 
     .o_g2b_hero_title_serif .o_g2b_hero_title {
         font-family: $g2b-hero-serif;
-        letter-spacing: .06em;
+        letter-spacing: .04em;
     }
 
     .o_g2b_hero_title_sans .o_g2b_hero_title {

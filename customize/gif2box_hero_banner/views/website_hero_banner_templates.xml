@@ -120,12 +120,12 @@
         <t t-set="serif" t-value="banner.title_style != 'sans'"/>
         <div t-attf-style="position: relative; width: 100%; aspect-ratio: 1920 / 528; min-height: 200px; border-radius: 14px; overflow: hidden; background: #{image_src and ('url(%s) center / cover no-repeat' % image_src) or 'repeating-linear-gradient(45deg, #f4f1ef 0 14px, #ece7e3 14px 28px)'}; box-shadow: 0 6px 20px rgba(0,0,0,.08); font-family: inherit;">
             <div t-attf-style="position: absolute; inset: 0; display: flex; align-items: center; gap: 4%; padding: 0 7%; flex-direction: #{'row-reverse' if banner.content_position == 'left' else 'row'}; justify-content: #{centred and 'center' or 'space-between'};">
-                <div t-if="show_product" style="flex: 1 1 42%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <div t-if="show_product" style="flex: 1 1 38%; height: 100%; display: flex; align-items: center; justify-content: center;">
                     <img t-att-src="product_src" style="max-height: 88%; max-width: 100%; object-fit: contain;" alt=""/>
                 </div>
-                <div t-attf-style="flex: 1 1 58%; max-width: #{show_product and '58%' or '64%'}; text-align: #{centred and 'center' or 'left'};">
+                <div t-attf-style="flex: 1 1 62%; max-width: #{show_product and '62%' or '64%'}; text-align: #{centred and 'center' or 'left'};">
                     <div t-if="banner.title"
-                         t-attf-style="font-family: #{serif and 'Noto Serif, Times New Roman, Times, Georgia, serif' or 'inherit'}; font-size: clamp(16px, 2.2vw, 30px); font-weight: 700; line-height: 1.25; letter-spacing: #{serif and '.06em' or '.01em'}; text-transform: uppercase; white-space: pre-line; color: #{dark and '#1a1a1a' or '#ffffff'}; margin-bottom: 10px;"
+                         t-attf-style="font-family: #{serif and 'Noto Serif, Times New Roman, Times, Georgia, serif' or 'inherit'}; font-size: clamp(16px, 2.2vw, 30px); font-weight: 700; line-height: 1.25; letter-spacing: #{serif and '.04em' or '.01em'}; text-transform: uppercase; white-space: pre-line; color: #{dark and '#1a1a1a' or '#ffffff'}; margin-bottom: 10px;"
                          t-out="banner.title"/>
                     <div t-if="banner.description"
                          t-attf-style="font-size: clamp(11px, 1.15vw, 17px); font-weight: 600; line-height: 1.45; color: #{dark and '#EE6A2C' or 'rgba(255,255,255,.92)'}; margin-bottom: 16px; white-space: pre-line;"
