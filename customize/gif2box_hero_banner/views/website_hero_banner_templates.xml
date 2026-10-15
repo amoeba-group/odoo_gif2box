@@ -142,4 +142,42 @@
         </div>
     </template>
 
+    <!--
+        The banner's words in each language of the website, as saved, and
+        where each came from. Shown on the form under the translation switch.
+    -->
+    <template id="hero_banner_translations" name="Hero banner translations">
+        <div t-if="not rows" class="text-muted fst-italic">
+            The translations appear here once the banner is saved.
+        </div>
+        <div t-else="" class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+                <thead>
+                    <tr class="text-muted small">
+                        <th style="width: 15%;">Language</th>
+                        <th style="width: 33%;">Title</th>
+                        <th style="width: 27%;">Description</th>
+                        <th style="width: 13%;">Button text</th>
+                        <th style="width: 12%;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="rows" t-as="row">
+                        <!-- In its own name ("Japanese / 日本語" reads 日本語): understood whatever the admin's language. -->
+                        <td class="fw-semibold" t-out="row['lang'].name.split(' / ')[-1]"/>
+                        <td style="white-space: pre-line;" t-out="row['values']['title'] or ''"/>
+                        <td style="white-space: pre-line;" t-out="row['values']['description'] or ''"/>
+                        <td t-out="row['values']['button_text'] or ''"/>
+                        <td>
+                            <span t-if="row['state'] == 'source'" class="badge rounded-pill text-bg-primary">Original</span>
+                            <span t-elif="row['state'] == 'machine'" class="badge rounded-pill text-bg-info">Auto-translated</span>
+                            <span t-elif="row['state'] == 'manual'" class="badge rounded-pill text-bg-success">Edited by hand</span>
+                            <span t-else="" class="badge rounded-pill text-bg-warning">Not translated</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
 </odoo>

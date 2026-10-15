@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 03:41+0000\n"
-"PO-Revision-Date: 2026-10-15 03:41+0000\n"
+"POT-Creation-Date: 2026-10-15 04:30+0000\n"
+"PO-Revision-Date: 2026-10-15 04:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,11 @@ msgid "Archived"
 msgstr "アーカイブ済"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Auto-translated"
+msgstr "自動翻訳"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_desktop
 msgid "Background image"
 msgstr "背景画像"
@@ -61,6 +66,7 @@ msgstr "ボタンのリンク"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_text
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Button text"
 msgstr "ボタンのテキスト"
 
@@ -96,6 +102,7 @@ msgstr "明るい画像には濃い文字、暗い画像には明るい文字。
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Description"
 msgstr "説明"
 
@@ -108,6 +115,24 @@ msgstr "表示名"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
 msgid "Edit banners"
 msgstr "バナーを編集"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Edited by hand"
+msgstr "手動で修正済み"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "Every language is already translated."
+msgstr "すべての言語が翻訳済みです。"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid ""
+"Every language will be translated again, including the translations "
+"corrected by hand. Continue?"
+msgstr "手動で修正した翻訳も含め、すべての言語を翻訳し直します。続けますか？"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
@@ -147,6 +172,11 @@ msgid "Internal name"
 msgstr "管理用の名前"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Language"
+msgstr "言語"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__write_uid
 msgid "Last Updated by"
 msgstr "最終更新者"
@@ -172,6 +202,11 @@ msgid "Light text"
 msgstr "明るい文字"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__machine_translations
+msgid "Machine translations"
+msgstr "機械翻訳"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_mobile
 msgid "Mobile background"
 msgstr "モバイル用背景"
@@ -180,6 +215,18 @@ msgstr "モバイル用背景"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner
 msgid "Next"
 msgstr "次へ"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Not translated"
+msgstr "未翻訳"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__auto_translate
+msgid ""
+"On saving, the title, description and button text are translated into the "
+"website's other languages. Translations corrected by hand are kept."
+msgstr "保存時に、タイトル・説明・ボタンの文言をウェブサイトの他の言語へ翻訳します。手動で修正した翻訳はそのまま残ります。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__name
@@ -192,6 +239,16 @@ msgid ""
 "Optional. Shown on phones instead of the wide background, which would "
 "otherwise be cropped. Best at 1080 x 1350 px."
 msgstr "任意。スマートフォンでは横長の背景の代わりに表示されます（横長の背景は切り取られるため）。推奨サイズは 1080 x 1350 px です。"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Original"
+msgstr "原文"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_source_lang
+msgid "Original language"
+msgstr "原文の言語"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__button_url
@@ -219,6 +276,11 @@ msgstr "前へ"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__image_product
 msgid "Product image"
 msgstr "商品画像"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Re-translate all"
+msgstr "すべて再翻訳"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__right
@@ -262,6 +324,11 @@ msgid "Shop now"
 msgstr "今すぐ購入"
 
 #. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "Status"
+msgstr "状態"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__text_theme
 msgid "Text colour"
 msgstr "文字の色"
@@ -270,6 +337,18 @@ msgstr "文字の色"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__content_position
 msgid "Text position"
 msgstr "文字の位置"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "The banner could not be translated: %(error)s"
+msgstr "バナーを翻訳できませんでした: %(error)s"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__translation_source_lang
+msgid ""
+"The language the words were written in, as detected on the last translation."
+msgstr "前回の翻訳時に判定された、文言の元の言語。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__content_position
@@ -285,7 +364,26 @@ msgid ""
 msgstr "透過背景の商品画像（PNG または WebP）。ページの幅の内側で、文字の横に表示されます。推奨サイズは約 1200 x 1000 px。文字を中央揃えにした場合は表示されません。"
 
 #. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "The translation service did not answer. Try again later."
+msgstr "翻訳サービスから応答がありません。しばらくしてから再度お試しください。"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid ""
+"The translation service has reached its limit for now. Try again later."
+msgstr "翻訳サービスの利用上限に達しました。しばらくしてから再度お試しください。"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
+msgid "The translations appear here once the banner is saved."
+msgstr "バナーを保存すると、ここに翻訳が表示されます。"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner_translations
 msgid "Title"
 msgstr "タイトル"
 
@@ -293,6 +391,36 @@ msgstr "タイトル"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style
 msgid "Title style"
 msgstr "タイトルの書体"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid ""
+"To correct a translation, click the language code beside the Title, "
+"Description or Button text field and edit it there. Corrections are kept "
+"when the banner is translated again."
+msgstr "翻訳を修正するには、タイトル・説明・ボタンの文言の欄の横にある言語コードをクリックして編集してください。修正した内容は再翻訳しても残ります。"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__auto_translate
+msgid "Translate automatically"
+msgstr "自動で翻訳"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Translate now"
+msgstr "今すぐ翻訳"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__translation_status_html
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "Translations"
+msgstr "翻訳"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "Translations updated."
+msgstr "翻訳を更新しました。"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
@@ -305,6 +433,19 @@ msgstr "ウェブサイトで表示"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_search
 msgid "Website"
 msgstr "ウェブサイト"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__machine_translations
+msgid ""
+"What the machine wrote for each language, to tell its translations from "
+"those corrected by hand."
+msgstr "言語ごとの機械翻訳。手動で修正した翻訳と区別するために使います。"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "Write a title, a description or a button text first."
+msgstr "先にタイトル、説明、またはボタンの文言を入力してください。"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.hero_banner

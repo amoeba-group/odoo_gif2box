@@ -18,7 +18,7 @@ is active, so installing the module changes nothing on its own.
 """,
     'author': 'Amoeba',
     'license': 'LGPL-3',
-    'depends': ['website'],
+    'depends': ['website', 'iap'],
     'data': [
         'security/ir.model.access.csv',
         'views/website_hero_banner_templates.xml',

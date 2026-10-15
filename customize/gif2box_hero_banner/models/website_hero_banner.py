@@ -1,9 +1,23 @@
 import base64
 import binascii
+import json
+import logging
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.addons.iap.tools import iap_tools
+from odoo.exceptions import AccessError, UserError
+from odoo.tools import SQL
 from odoo.tools.image import image_data_uri, image_process
+
+_logger = logging.getLogger(__name__)
+
+# The words a visitor reads, translated together.
+TRANSLATED_FIELDS = ('title', 'description', 'button_text')
+
+# Odoo's own AI text service, the one behind the editor's "AI" command: no key
+# to set up, and the endpoint can be moved by the same system parameter.
+OLG_ENDPOINT = 'https://olg.api.odoo.com'
+
 
 class WebsiteHeroBanner(models.Model):
     """One slide of the hero at the top of the homepage.
@@ -70,6 +84,24 @@ class WebsiteHeroBanner(models.Model):
     preview_html = fields.Html(
         string='Preview', compute='_compute_preview_html', sanitize=False)
 
+    # --- Translation -------------------------------------------------------
+    #
+    # The words are typed once, in any of the website's languages, and the
+    # other languages are filled in by machine on saving. What the machine
+    # wrote is remembered, so a translation corrected by hand is told apart
+    # and never written over.
+    auto_translate = fields.Boolean(
+        string='Translate automatically', default=True,
+        help="On saving, the title, description and button text are translated into the website's other languages. Translations corrected by hand are kept.")
+    translation_source_lang = fields.Char(
+        string='Original language', readonly=True,
+        help="The language the words were written in, as detected on the last translation.")
+    machine_translations = fields.Json(
+        string='Machine translations', readonly=True,
+        help="What the machine wrote for each language, to tell its translations from those corrected by hand.")
+    translation_status_html = fields.Html(
+        string='Translations', compute='_compute_translation_status_html', sanitize=False)
+
     # --- Preview -----------------------------------------------------------
 
     @api.depends('image_desktop', 'image_product', 'title', 'description', 'button_text',
@@ -115,6 +147,290 @@ class WebsiteHeroBanner(models.Model):
             return image_data_uri(base64.b64encode(small))
         except (binascii.Error, ValueError, UserError):
             return origin.id and self.env['website'].image_url(origin, field, size=size)
+
+    # --- Translation -------------------------------------------------------
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        banners = super().create(vals_list)
+        if not self.env.context.get('gif2box_hero_no_translate'):
+            for banner, vals in zip(banners, vals_list):
+                if banner.auto_translate:
+                    banner._gif2box_translate(changed=set(vals) & set(TRANSLATED_FIELDS))
+        return banners
+
+    def write(self, vals):
+        if self.env.context.get('gif2box_hero_no_translate') or not (
+                set(vals) & set(TRANSLATED_FIELDS) or vals.get('auto_translate')):
+            return super().write(vals)
+        # The words as they were, in the language being written: a language
+        # still showing them was never translated, and must follow the change.
+        before = {
+            banner.id: {fname: banner[fname] for fname in TRANSLATED_FIELDS}
+            for banner in self
+        }
+        result = super().write(vals)
+        for banner in self.filtered('auto_translate'):
+            # Only what really changed: after a translation is set, as from
+            # the translation dialog, Odoo writes the field again with the
+            # value it already has.
+            changed = {
+                fname for fname in TRANSLATED_FIELDS
+                if fname in vals and (vals[fname] or False) != (before[banner.id][fname] or False)
+            }
+            if changed or vals.get('auto_translate'):
+                banner._gif2box_translate(old_texts=before[banner.id], changed=changed)
+        return result
+
+    def _gif2box_languages(self):
+        """The languages of the website(s) the banner shows on."""
+        self.ensure_one()
+        websites = self.website_id or self.env['website'].sudo().search([])
+        return websites.language_ids or self.env['res.lang'].search([('code', '=', self.env.lang)])
+
+    def _gif2box_stored_texts(self):
+        """Each translated field as stored, by language, without fallback.
+
+        The ORM answers a language with no translation of its own with the
+        English text; here a missing language stays missing.
+        """
+        self.ensure_one()
+        self.flush_recordset(list(TRANSLATED_FIELDS))
+        self.env.cr.execute(SQL(
+            "SELECT %s FROM %s WHERE id = %s",
+            SQL(', ').join(SQL.identifier(fname) for fname in TRANSLATED_FIELDS),
+            SQL.identifier(self._table), self.id,
+        ))
+        row = self.env.cr.fetchone() or (None,) * len(TRANSLATED_FIELDS)
+        return {fname: dict(value or {}) for fname, value in zip(TRANSLATED_FIELDS, row)}
+
+    def _gif2box_default_lang(self):
+        """The language of the original words: as detected, else the website's."""
+        self.ensure_one()
+        website = self.website_id or self.env['website'].get_current_website()
+        return self.translation_source_lang or website.default_lang_id.code or self.env.lang
+
+    def _gif2box_translate(self, old_texts=None, overwrite=False, raise_errors=False, changed=()):
+        """Fill in the other languages from the original words.
+
+        `changed` names the fields just written, in the language of the
+        context. Written in the original language, they are the new original.
+        Written in another language, they are asked about: still in the
+        original language (Vietnamese typed by a user working in English),
+        they are the new original all the same, and go to its place; in the
+        language of the form, they correct that language's translation, and
+        are kept as they are.
+
+        A language is translated when it has nothing or still shows the
+        original's words; and when the original just changed, if it shows
+        the words as they were or what the machine last wrote for it.
+        Anything else was corrected by hand and is kept, unless `overwrite`
+        asks for everything to be done again.
+
+        Saving never fails because the service is out of reach: the banner is
+        saved untranslated, and the form says which languages are missing.
+        """
+        done = self.browse()
+        for banner in self:
+            written_lang = banner.env.lang
+            original_lang = banner._gif2box_default_lang()
+            stored = banner._gif2box_stored_texts()
+            written = banner.with_context(lang=written_lang)
+            typed = {fname: written[fname] for fname in changed if written[fname]}
+            langs = banner._gif2box_languages()
+            try:
+                if typed and written_lang != original_lang:
+                    detected = banner._gif2box_ai_detect(typed, (original_lang, written_lang))
+                    if all(code == written_lang for code in detected.values()) and not any(
+                            stored[fname].get(original_lang) for fname in TRANSLATED_FIELDS
+                            if fname not in typed):
+                        # A new banner written in the language of the form.
+                        original_lang = written_lang
+                    else:
+                        typed = {fname: text for fname, text in typed.items()
+                                 if detected.get(fname) != written_lang}
+                texts = {}
+                for fname in TRANSLATED_FIELDS:
+                    value = typed.get(fname) or (
+                        None if fname in changed else stored[fname].get(original_lang))
+                    if value:
+                        texts[fname] = value
+                machine = dict(banner.machine_translations or {})
+                old_texts = old_texts or {}
+
+                def needed(code, fname):
+                    # Missing, or still the original's words: always. The
+                    # machine's own work: only once the original changed,
+                    # or every save would reword it.
+                    value = stored[fname].get(code)
+                    return overwrite or not value or value == texts[fname] or (
+                        fname in typed and value in (
+                            old_texts.get(fname), stored[fname].get(original_lang),
+                            (machine.get(code) or {}).get(fname)))
+
+                todo = {
+                    lang.code: [fname for fname in texts if needed(lang.code, fname)]
+                    for lang in langs if lang.code != original_lang
+                }
+                todo = {code: fnames for code, fnames in todo.items() if fnames}
+                translated = banner._gif2box_ai_translate(
+                    {fname: texts[fname] for fname in set().union(*todo.values())},
+                    original_lang, langs.filtered(lambda lang: lang.code in todo),
+                ) if todo else {}
+            except (AccessError, UserError, ValueError) as error:
+                if raise_errors:
+                    raise UserError(self.env._(
+                        "The banner could not be translated: %(error)s",
+                        error=getattr(error, 'args', [error])[0] or error)) from error
+                _logger.warning("Hero banner %s left untranslated: %s", banner.id, error)
+                continue
+
+            updates = {fname: {} for fname in TRANSLATED_FIELDS}
+            for fname, text in typed.items():
+                if written_lang != original_lang:
+                    # Typed in another language's place: the original takes it.
+                    updates[fname][original_lang] = text
+            for code, fnames in todo.items():
+                for fname in fnames:
+                    value = (translated.get(code) or {}).get(fname)
+                    if value:
+                        updates[fname][code] = value
+                        machine.setdefault(code, {})[fname] = value
+            machine.pop(original_lang, None)
+            for fname, values in updates.items():
+                if values:
+                    banner.with_context(gif2box_hero_no_translate=True) \
+                        .update_field_translations(fname, values)
+            banner.with_context(gif2box_hero_no_translate=True).write({
+                'machine_translations': {code: values for code, values in machine.items() if values},
+                'translation_source_lang': original_lang,
+            })
+            if any(updates.values()):
+                done |= banner
+        return done
+
+    def _gif2box_ai_translate(self, texts, source_lang, langs):
+        """The words, in the original language, in each of `langs`."""
+        if not texts or not langs:
+            return {}
+        names = {lang.code: lang.name for lang in langs}
+        source_name = self._gif2box_lang_name(source_lang)
+        answer = self._gif2box_ai_ask("\n".join([
+            "You translate the homepage banner of gif2box, a Vietnamese shop for baby and mother gift boxes.",
+            "Translate the texts below from %s into: %s." % (
+                source_name, ", ".join("%s (code %s)" % (name, code) for code, name in names.items())),
+            "Translate the meaning, not word for word: short, warm and natural, as a native marketer would write a headline."
+            " Add nothing and leave nothing out. Keep the brand and product names."
+            " Keep every line break (\\n) where the original has one, and the same number of lines.",
+            'Answer with JSON only, shaped {"<code>": {"<key>": "<text>"}}, with the same keys as the texts.',
+            "Texts:",
+            json.dumps(texts, ensure_ascii=False),
+        ]))
+        return {
+            code: {fname: str(value).strip() for fname, value in (values or {}).items()
+                   if fname in texts and value}
+            for code, values in answer.items() if code in names and isinstance(values, dict)
+        }
+
+    def _gif2box_ai_detect(self, texts, codes):
+        """For each text, which of the two languages it is written in.
+
+        Asked apart from the translation, and between two languages only:
+        asked about several texts and every language at once, the machine
+        took "Shop the combo" for Vietnamese.
+        """
+        names = {code: self._gif2box_lang_name(code) for code in codes}
+        answer = self._gif2box_ai_ask("\n".join([
+            "For each text below, say whether it is written in %s." % " or in ".join(
+                "%s (code %s)" % (name, code) for code, name in names.items()),
+            "Judge each text on its own words only. Vietnamese written without accents is still Vietnamese.",
+            'Answer with JSON only, shaped {"<key>": "<code>"}, with the same keys as the texts.',
+            "Texts:",
+            json.dumps(texts, ensure_ascii=False),
+        ]))
+        return {fname: code for fname, code in answer.items() if fname in texts and code in names}
+
+    def _gif2box_lang_name(self, code):
+        lang = self.env['res.lang'].with_context(active_test=False).search([('code', '=', code)], limit=1)
+        return lang.name or code
+
+    def _gif2box_ai_ask(self, prompt):
+        """Odoo's AI text service: the answer, read as JSON."""
+        ICP = self.env['ir.config_parameter'].sudo()
+        response = iap_tools.iap_jsonrpc(
+            ICP.get_param('web_editor.olg_api_endpoint', OLG_ENDPOINT) + '/api/olg/1/chat',
+            params={
+                'prompt': prompt,
+                'conversation_history': [],
+                'database_id': ICP.get_param('database.uuid'),
+            },
+            timeout=45,
+        )
+        status = response.get('status')
+        if status == 'limit_call_reached':
+            raise UserError(self.env._("The translation service has reached its limit for now. Try again later."))
+        if status != 'success':
+            raise UserError(self.env._("The translation service did not answer. Try again later."))
+        content = response.get('content') or ''
+        # The answer may come wrapped in a code block.
+        answer = json.loads(content[content.find('{'):content.rfind('}') + 1])
+        if not isinstance(answer, dict):
+            raise ValueError("Unexpected answer from the translation service")
+        return answer
+
+    @api.depends(*TRANSLATED_FIELDS, 'machine_translations', 'translation_source_lang')
+    def _compute_translation_status_html(self):
+        """Each language's words and where they came from, as saved."""
+        for banner in self:
+            origin = banner._origin
+            rows = []
+            if origin.id:
+                stored = origin._gif2box_stored_texts()
+                machine = origin.machine_translations or {}
+                source = origin._gif2box_default_lang()
+                langs = origin._gif2box_languages().sorted(lambda lang: lang.code != source)
+                originals = {fname: stored[fname].get(source) for fname in TRANSLATED_FIELDS}
+                for lang in langs:
+                    values = {fname: stored[fname].get(lang.code) for fname in TRANSLATED_FIELDS}
+                    filled = [fname for fname in TRANSLATED_FIELDS if values[fname]]
+                    if lang.code == source:
+                        state = 'source'
+                    elif not filled or any(
+                            not values[fname] for fname in TRANSLATED_FIELDS if originals.get(fname)
+                    ) or all(values[fname] == originals[fname] for fname in filled):
+                        state = 'missing'
+                    elif any(values[fname] != (machine.get(lang.code) or {}).get(fname) for fname in filled):
+                        state = 'manual'
+                    else:
+                        state = 'machine'
+                    rows.append({'lang': lang, 'values': values, 'state': state})
+            banner.translation_status_html = self.env['ir.qweb']._render(
+                'gif2box_hero_banner.hero_banner_translations', {'rows': rows})
+
+    def action_translate(self):
+        """Translate the languages not corrected by hand."""
+        return self._gif2box_translate_action(overwrite=False)
+
+    def action_translate_all(self):
+        """Translate every language again, hand corrections included."""
+        return self._gif2box_translate_action(overwrite=True)
+
+    def _gif2box_translate_action(self, overwrite):
+        self.ensure_one()
+        original = self.with_context(lang=self._gif2box_default_lang())
+        if not any(original[fname] for fname in TRANSLATED_FIELDS):
+            raise UserError(self.env._("Write a title, a description or a button text first."))
+        done = self._gif2box_translate(overwrite=overwrite, raise_errors=True)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'success' if done else 'info',
+                'message': self.env._("Translations updated.") if done
+                    else self.env._("Every language is already translated."),
+                'next': {'type': 'ir.actions.client', 'tag': 'soft_reload'},
+            },
+        }
 
     # --- Actions -----------------------------------------------------------
 
