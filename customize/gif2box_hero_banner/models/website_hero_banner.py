@@ -5,7 +5,7 @@ import logging
 
 from odoo import api, fields, models
 from odoo.addons.iap.tools import iap_tools
-from odoo.exceptions import AccessError, UserError
+from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools import SQL
 from odoo.tools.image import image_data_uri, image_process
 
@@ -81,6 +81,18 @@ class WebsiteHeroBanner(models.Model):
         string='Title style', required=True, default='serif',
         help="Serif for an elegant, gift-like title; sans-serif to match the rest of the site.")
 
+    # Sizes as on a wide screen, 1920 px across; narrower screens, phones
+    # included, scale them down by themselves (see hero_banner.scss).
+    title_font_size = fields.Integer(
+        string='Title size', default=50, required=True,
+        help="In pixels, on a large screen (1920 px wide). Smaller screens and phones scale it down automatically.")
+    description_font_size = fields.Integer(
+        string='Description size', default=27, required=True,
+        help="In pixels, on a large screen (1920 px wide). Smaller screens and phones scale it down automatically.")
+    button_font_size = fields.Integer(
+        string='Button text size', default=26, required=True,
+        help="In pixels, on a large screen (1920 px wide). The button grows with its text. Smaller screens and phones scale it down automatically.")
+
     preview_html = fields.Html(
         string='Preview', compute='_compute_preview_html', sanitize=False)
 
@@ -104,10 +116,26 @@ class WebsiteHeroBanner(models.Model):
         string='Translations', compute='_compute_translation_values',
         inverse='_inverse_translation_values', readonly=False)
 
+    @api.constrains('title_font_size', 'description_font_size', 'button_font_size')
+    def _check_font_sizes(self):
+        for banner in self:
+            for fname in ('title_font_size', 'description_font_size', 'button_font_size'):
+                if not 10 <= banner[fname] <= 120:
+                    raise ValidationError(self.env._(
+                        "%(field)s must be between 10 and 120 px.",
+                        field=self._fields[fname]._description_string(self.env)))
+
+    def _gif2box_size_style(self):
+        """The sizes, handed to the stylesheet as custom properties."""
+        self.ensure_one()
+        return '--g2b-title-size: %d; --g2b-desc-size: %d; --g2b-btn-size: %d;' % (
+            self.title_font_size or 50, self.description_font_size or 27, self.button_font_size or 26)
+
     # --- Preview -----------------------------------------------------------
 
     @api.depends('image_desktop', 'image_product', 'title', 'description', 'button_text',
-                 'content_position', 'text_theme', 'title_style')
+                 'content_position', 'text_theme', 'title_style',
+                 'title_font_size', 'description_font_size', 'button_font_size')
     def _compute_preview_html(self):
         """Render the banner as the homepage will, so it can be judged here.
 

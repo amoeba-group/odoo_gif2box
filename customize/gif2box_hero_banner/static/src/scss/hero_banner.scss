@@ -19,16 +19,37 @@ $g2b-hero-ink: #1a1a1a;
 // extra to download before the largest text on the page can paint.
 $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
 
+// A font size set on the banner form, in px as on a screen 1920 px wide
+// (`--g2b-title-size` and the like, unitless, on each slide).
+//
+// From tablets up, it follows the width of the screen, so the words keep
+// their place against the picture, down to `$floor` of itself. Phones stack
+// the slide, and words in a single column want to be larger for the width:
+// there it follows the width again, on `$phone-width`, between `$phone-min`
+// and `$phone-max` of the size set.
+// 528 / 1920 of the width, the proportion of the artwork, but never so short
+// the words have no room nor so tall it pushes the shop down.
+$g2b-hero-height: clamp(360px, 27.5vw, 620px);
+
+@function g2b-hero-size($var, $default, $floor) {
+    $size: var(#{$var}, #{$default});
+    @return clamp(calc(#{$size} * #{$floor} * 1px), calc(#{$size} * 100vw / 1920), calc(#{$size} * 1px));
+}
+
+@function g2b-hero-phone-size($var, $default, $phone-width, $phone-min, $phone-max) {
+    $size: var(#{$var}, #{$default});
+    @return clamp(calc(#{$size} * #{$phone-min} * 1px), calc(#{$size} * 100vw / #{$phone-width}), calc(#{$size} * #{$phone-max} * 1px));
+}
+
 .o_g2b_hero {
     position: relative;
     overflow: hidden;
     background-color: #f8ece6;
 
-    .carousel-inner,
+    // The height of the artwork, or more when large words need it: the
+    // background follows, the words are never cut off.
     .o_g2b_hero_slide {
-        // 528 / 1920 of the width, the proportion of the artwork, but never so
-        // short the words have no room nor so tall it pushes the shop down.
-        height: clamp(360px, 27.5vw, 620px);
+        min-height: $g2b-hero-height;
     }
 
     .o_g2b_hero_slide {
@@ -50,15 +71,16 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
 
     // --- Layer two: product and words, within the page width ---------
     .o_g2b_hero_overlay {
-        position: absolute;
-        inset: 0;
+        position: relative;
     }
 
     .o_g2b_hero_grid {
         display: flex;
         gap: clamp(1.5rem, 4vw, 4rem);
         align-items: center;
-        height: 100%;
+        min-height: $g2b-hero-height;
+        padding-top: 1.5rem;
+        padding-bottom: 2.25rem;
     }
 
     // Words on the left: the product goes to the right of them.
@@ -78,12 +100,12 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
         flex: 1 1 38%;
         align-items: center;
         justify-content: center;
-        height: 100%;
+        align-self: stretch;
         min-width: 0;
 
         img {
             max-width: 100%;
-            max-height: 92%;
+            max-height: calc(#{$g2b-hero-height} * .9);
             object-fit: contain;
             // Comes up a little after the slide appears.
             transform: translateY(14px) scale(.98);
@@ -120,9 +142,10 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
     // --- The words ------------------------------------------------------
     .o_g2b_hero_title {
         margin: 0 0 clamp(.75rem, 1.2vw, 1.25rem);
-        font-size: clamp(1.6rem, 2.65vw, 3.1rem);
+        font-size: g2b-hero-size(--g2b-title-size, 50, .55);
         font-weight: 700;
         line-height: 1.22;
+        overflow-wrap: break-word;
         text-transform: uppercase;
         // Line breaks typed in the form are kept; within a line, balanced.
         white-space: pre-line;
@@ -141,9 +164,10 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
 
     .o_g2b_hero_desc {
         margin: 0 0 clamp(1.25rem, 2vw, 2.25rem);
-        font-size: clamp(1rem, 1.4vw, 1.7rem);
+        font-size: g2b-hero-size(--g2b-desc-size, 27, .6);
         font-weight: 600;
         line-height: 1.4;
+        overflow-wrap: break-word;
         white-space: pre-line;
     }
 
@@ -151,8 +175,10 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: clamp(.8rem, 1vw, 1.2rem) clamp(1.9rem, 2.6vw, 3rem);
-        font-size: clamp(.9rem, 1.4vw, 1.65rem);
+        max-width: 100%;
+        // In ems: the button grows with its text.
+        padding: .72em 1.9em;
+        font-size: g2b-hero-size(--g2b-btn-size, 26, .55);
         font-weight: 700;
         letter-spacing: .05em;
         color: #fff;
@@ -338,6 +364,20 @@ $g2b-hero-serif: "Noto Serif", "Times New Roman", Times, Georgia, serif;
         .o_g2b_hero_content {
             flex: 0 0 auto;
             max-width: 100%;
+        }
+
+        // At 390 px across, a 50 px title comes to about 26 px, a 27 px line
+        // to 16 px and a 26 px button to 14.5 px; every phone in proportion.
+        .o_g2b_hero_title {
+            font-size: g2b-hero-phone-size(--g2b-title-size, 50, 760, .36, .62);
+        }
+
+        .o_g2b_hero_desc {
+            font-size: g2b-hero-phone-size(--g2b-desc-size, 27, 660, .5, .75);
+        }
+
+        .o_g2b_hero_btn {
+            font-size: g2b-hero-phone-size(--g2b-btn-size, 26, 700, .52, .7);
         }
 
         .o_g2b_hero_ctrl {

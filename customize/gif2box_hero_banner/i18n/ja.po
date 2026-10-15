@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 04:43+0000\n"
-"PO-Revision-Date: 2026-10-15 04:43+0000\n"
+"POT-Creation-Date: 2026-10-15 06:46+0000\n"
+"PO-Revision-Date: 2026-10-15 06:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,17 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: ja\n"
 "Plural-Forms: \n"
+
+#. module: gif2box_hero_banner
+#. odoo-python
+#: code:addons/gif2box_hero_banner/models/website_hero_banner.py:0
+msgid "%(field)s must be between 10 and 120 px."
+msgstr "%(field)s は 10〜120 px の範囲で指定してください。"
+
+#. module: gif2box_hero_banner
+#: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
+msgid "<span class=\"text-muted\">px</span>"
+msgstr "<span class=\"text-muted\">px</span>"
 
 #. module: gif2box_hero_banner
 #: model_terms:ir.actions.act_window,help:gif2box_hero_banner.website_hero_banner_action
@@ -73,6 +84,11 @@ msgid "Button text"
 msgstr "ボタンのテキスト"
 
 #. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__button_font_size
+msgid "Button text size"
+msgstr "ボタンの文字サイズ"
+
+#. module: gif2box_hero_banner
 #: model:ir.model.fields.selection,name:gif2box_hero_banner.selection__website_hero_banner__content_position__center
 msgid "Center"
 msgstr "中央"
@@ -108,6 +124,11 @@ msgstr "明るい画像には濃い文字、暗い画像には明るい文字。
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description
 msgid "Description"
 msgstr "説明"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__description_font_size
+msgid "Description size"
+msgstr "説明の文字サイズ"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__display_name
@@ -177,6 +198,21 @@ msgstr "画像"
 #: model_terms:ir.ui.view,arch_db:gif2box_hero_banner.website_hero_banner_view_form
 msgid "Images"
 msgstr "画像"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__description_font_size
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__title_font_size
+msgid ""
+"In pixels, on a large screen (1920 px wide). Smaller screens and phones "
+"scale it down automatically."
+msgstr "ピクセル単位、大きな画面（幅 1920 px）での大きさです。小さい画面やスマートフォンでは自動的に縮小されます。"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,help:gif2box_hero_banner.field_website_hero_banner__button_font_size
+msgid ""
+"In pixels, on a large screen (1920 px wide). The button grows with its text."
+" Smaller screens and phones scale it down automatically."
+msgstr "ピクセル単位、大きな画面（幅 1920 px）での大きさです。ボタンは文字に合わせて大きくなります。小さい画面やスマートフォンでは自動的に縮小されます。"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__name
@@ -404,6 +440,11 @@ msgstr "バナーを保存すると、ここに翻訳が表示されます。"
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title
 msgid "Title"
 msgstr "タイトル"
+
+#. module: gif2box_hero_banner
+#: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_font_size
+msgid "Title size"
+msgstr "タイトルの文字サイズ"
 
 #. module: gif2box_hero_banner
 #: model:ir.model.fields,field_description:gif2box_hero_banner.field_website_hero_banner__title_style

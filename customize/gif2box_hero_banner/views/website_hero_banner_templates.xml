@@ -33,7 +33,8 @@
 
             <div class="carousel-inner">
                 <t t-foreach="g2b_heroes" t-as="hero">
-                    <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} o_g2b_hero_title_#{hero.title_style} #{hero_first and 'active' or ''}">
+                    <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} o_g2b_hero_title_#{hero.title_style} #{hero_first and 'active' or ''}"
+                         t-att-style="hero._gif2box_size_style()">
 
                         <!--
                             Layer one: the background, edge to edge. It is
@@ -118,20 +119,20 @@
         <t t-set="centred" t-value="banner.content_position == 'center'"/>
         <t t-set="show_product" t-value="product_src and not centred"/>
         <t t-set="serif" t-value="banner.title_style != 'sans'"/>
-        <div t-attf-style="position: relative; width: 100%; aspect-ratio: 1920 / 528; min-height: 200px; border-radius: 14px; overflow: hidden; background: #{image_src and ('url(%s) center / cover no-repeat' % image_src) or 'repeating-linear-gradient(45deg, #f4f1ef 0 14px, #ece7e3 14px 28px)'}; box-shadow: 0 6px 20px rgba(0,0,0,.08); font-family: inherit;">
+        <div t-attf-style="position: relative; width: 100%; aspect-ratio: 1920 / 528; min-height: 200px; container-type: inline-size; border-radius: 14px; overflow: hidden; background: #{image_src and ('url(%s) center / cover no-repeat' % image_src) or 'repeating-linear-gradient(45deg, #f4f1ef 0 14px, #ece7e3 14px 28px)'}; box-shadow: 0 6px 20px rgba(0,0,0,.08); font-family: inherit;">
             <div t-attf-style="position: absolute; inset: 0; display: flex; align-items: center; gap: 4%; padding: 0 7%; flex-direction: #{'row-reverse' if banner.content_position == 'left' else 'row'}; justify-content: #{centred and 'center' or 'space-between'};">
                 <div t-if="show_product" style="flex: 1 1 38%; height: 100%; display: flex; align-items: center; justify-content: center;">
                     <img t-att-src="product_src" style="max-height: 88%; max-width: 100%; object-fit: contain;" alt=""/>
                 </div>
                 <div t-attf-style="flex: 1 1 62%; max-width: #{show_product and '62%' or '64%'}; text-align: #{centred and 'center' or 'left'};">
                     <div t-if="banner.title"
-                         t-attf-style="font-family: #{serif and 'Noto Serif, Times New Roman, Times, Georgia, serif' or 'inherit'}; font-size: clamp(16px, 2.2vw, 30px); font-weight: 700; line-height: 1.25; letter-spacing: #{serif and '.04em' or '.01em'}; text-transform: uppercase; white-space: pre-line; color: #{dark and '#1a1a1a' or '#ffffff'}; margin-bottom: 10px;"
+                         t-attf-style="font-family: #{serif and 'Noto Serif, Times New Roman, Times, Georgia, serif' or 'inherit'}; font-size: #{banner.title_font_size / 19.2}cqw; font-weight: 700; line-height: 1.22; letter-spacing: #{serif and '.04em' or '.01em'}; text-transform: uppercase; white-space: pre-line; color: #{dark and '#1a1a1a' or '#ffffff'}; margin-bottom: 10px;"
                          t-out="banner.title"/>
                     <div t-if="banner.description"
-                         t-attf-style="font-size: clamp(11px, 1.15vw, 17px); font-weight: 600; line-height: 1.45; color: #{dark and '#EE6A2C' or 'rgba(255,255,255,.92)'}; margin-bottom: 16px; white-space: pre-line;"
+                         t-attf-style="font-size: #{banner.description_font_size / 19.2}cqw; font-weight: 600; line-height: 1.4; color: #{dark and '#EE6A2C' or 'rgba(255,255,255,.92)'}; margin-bottom: 16px; white-space: pre-line;"
                          t-out="banner.description"/>
                     <span t-if="banner.button_text"
-                          style="display: inline-block; padding: 10px 26px; border-radius: 999px; background: linear-gradient(180deg, #F26A35 0%, #DE4E1A 100%); color: #ffffff; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(222,78,26,.32), inset 0 1px 0 rgba(255,255,255,.25);"
+                          t-attf-style="display: inline-block; padding: .72em 1.9em; border-radius: 999px; background: linear-gradient(180deg, #F26A35 0%, #DE4E1A 100%); color: #ffffff; font-size: #{banner.button_font_size / 19.2}cqw; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; box-shadow: 0 6px 14px rgba(222,78,26,.32), inset 0 1px 0 rgba(255,255,255,.25);"
                           t-out="banner.button_text"/>
                 </div>
             </div>

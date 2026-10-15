@@ -50,6 +50,21 @@
                             <field name="content_position" widget="radio" options="{'horizontal': true}"/>
                             <field name="text_theme" widget="radio" options="{'horizontal': true}"/>
                             <field name="title_style" widget="radio" options="{'horizontal': true}"/>
+                            <label for="title_font_size"/>
+                            <div class="o_row">
+                                <field name="title_font_size" class="oe_inline" style="max-width: 5rem;"/>
+                                <span class="text-muted">px</span>
+                            </div>
+                            <label for="description_font_size"/>
+                            <div class="o_row">
+                                <field name="description_font_size" class="oe_inline" style="max-width: 5rem;"/>
+                                <span class="text-muted">px</span>
+                            </div>
+                            <label for="button_font_size"/>
+                            <div class="o_row">
+                                <field name="button_font_size" class="oe_inline" style="max-width: 5rem;"/>
+                                <span class="text-muted">px</span>
+                            </div>
                             <field name="website_id" groups="website.group_multi_website"
                                    options="{'no_create': True}"/>
                         </group>
