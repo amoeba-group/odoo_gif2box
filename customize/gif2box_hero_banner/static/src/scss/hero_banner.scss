@@ -65,8 +65,40 @@ $g2b-hero-height: clamp(360px, 27.5vw, 620px);
         height: 100%;
     }
 
+    // Until the background arrives: a blur of it, inlined in the page by the
+    // template (`--g2b-placeholder`, 32 px wide), so the band already has its
+    // colours and shapes. Blurred on a layer of its own, as `filter` on the
+    // picture would blur the photograph too; overdrawn so the blur's soft
+    // edge falls outside the band.
+    .o_g2b_hero_media {
+        overflow: hidden;
+        background-color: #F3ECE8;
+
+        &::before {
+            position: absolute;
+            inset: -24px;
+            content: "";
+            background: var(--g2b-placeholder, none) center / cover no-repeat;
+            filter: blur(18px);
+        }
+
+        @include media-breakpoint-down(md) {
+            &::before {
+                background-image: var(--g2b-placeholder-mobile, var(--g2b-placeholder, none));
+            }
+        }
+    }
+
+    // ...and the picture fades in over it once it has fully arrived, rather
+    // than being painted strip by strip as it downloads.
     .o_g2b_hero_img {
         object-fit: cover;
+        opacity: 0;
+        transition: opacity .6s ease;
+
+        &.o_g2b_loaded {
+            opacity: 1;
+        }
     }
 
     // --- Layer two: product and words, within the page width ---------
@@ -130,10 +162,12 @@ $g2b-hero-height: clamp(360px, 27.5vw, 620px);
         justify-content: flex-end;
     }
 
+    // The product rises in only once it has arrived: on a slow line it used
+    // to finish its entrance empty and then pop in, half drawn.
     .carousel-item.active {
 
         .o_g2b_hero_content,
-        .o_g2b_hero_product img {
+        .o_g2b_hero_product img.o_g2b_loaded {
             opacity: 1;
             transform: none;
         }
@@ -388,7 +422,8 @@ $g2b-hero-height: clamp(360px, 27.5vw, 620px);
     @media (prefers-reduced-motion: reduce) {
 
         .o_g2b_hero_content,
-        .o_g2b_hero_product img {
+        .o_g2b_hero_product img,
+        .o_g2b_hero_img {
             transition: none;
         }
     }

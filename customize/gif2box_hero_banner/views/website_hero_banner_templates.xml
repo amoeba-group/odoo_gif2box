@@ -14,12 +14,41 @@
         on the site by itself.
     -->
     <template id="hero_banner_layout" inherit_id="website.layout" name="Homepage hero banner">
+        <!--
+            The first slide's pictures, announced at the top of the page: the
+            browser starts fetching them while it is still reading the head,
+            instead of after the stylesheets and the markup above the hero.
+        -->
+        <xpath expr="//head/meta[last()]" position="after">
+            <t t-if="website and website._gif2box_is_homepage(main_object)">
+                <t t-set="g2b_lead" t-value="website._gif2box_hero_banners()[:1]"/>
+                <t t-if="g2b_lead" t-call="gif2box_hero_banner.hero_banner_preload">
+                    <t t-set="hero" t-value="g2b_lead"/>
+                </t>
+            </t>
+        </xpath>
         <xpath expr="//main/t[@t-out='0']" position="before">
             <t t-if="website and website._gif2box_is_homepage(main_object)">
                 <t t-set="g2b_heroes" t-value="website._gif2box_hero_banners()"/>
                 <t t-if="g2b_heroes" t-call="gif2box_hero_banner.hero_banner"/>
             </t>
         </xpath>
+    </template>
+
+    <template id="hero_banner_preload" name="Hero banner preload">
+        <t t-set="g2b_has_mobile" t-value="hero._gif2box_has_picture('image_mobile')"/>
+        <link rel="preload" as="image" fetchpriority="high"
+              t-att-href="hero._gif2box_picture_url('image_desktop_web')"
+              t-att-imagesrcset="hero._gif2box_background_srcset()"
+              imagesizes="100vw"
+              t-att-media="g2b_has_mobile and '(min-width: 768px)'"/>
+        <link t-if="g2b_has_mobile" rel="preload" as="image" fetchpriority="high"
+              t-att-href="hero._gif2box_picture_url('image_mobile_web')"
+              media="(max-width: 767.98px)"/>
+        <link t-if="hero._gif2box_show_product()" rel="preload" as="image" fetchpriority="high"
+              t-att-href="hero._gif2box_picture_url('image_product_web')"
+              t-att-imagesrcset="hero._gif2box_product_srcset()"
+              t-att-imagesizes="hero._gif2box_product_sizes()"/>
     </template>
 
     <template id="hero_banner" name="Hero banner">
@@ -39,6 +68,9 @@
                  data-bs-pause="hover"
                  aria-roledescription="carousel">
 
+            <!-- The pictures fade in from `onload`; without scripts they just show. -->
+            <noscript><style>#o_g2b_hero .o_g2b_hero_img, #o_g2b_hero .o_g2b_hero_product img { opacity: 1 !important; }</style></noscript>
+
             <div class="carousel-inner">
                 <t t-foreach="g2b_heroes" t-as="hero">
                     <div t-attf-class="carousel-item o_g2b_hero_slide o_g2b_hero_#{hero.content_position} o_g2b_hero_text_#{hero.text_theme} o_g2b_hero_title_#{hero.title_style} #{hero_first and 'active' or ''}"
@@ -50,26 +82,52 @@
                             front of it, so it then carries no alt text; on its
                             own it is the whole message and is named.
                         -->
-                        <picture class="o_g2b_hero_media">
-                            <source t-if="hero.image_mobile"
+                        <!--
+                            The pictures load in this order, and never as one
+                            slow block:
+                            - a 32 px blur of the background, inlined in the
+                              page, is there at once (`_gif2box_placeholder_style`);
+                            - the first slide's pictures are fetched first,
+                              eagerly (Odoo would otherwise mark every picture
+                              `lazy`) and announced in the head;
+                            - each picture fades in once it has arrived
+                              (`o_g2b_loaded`, set by `onload`), rather than
+                              being painted top to bottom as it downloads;
+                            - the other slides wait until the page has loaded
+                              (`hero_banner.js`), so they never compete with it.
+                            All are the light copies made when the banner is
+                            saved, in the size the screen needs (`srcset`).
+                        -->
+                        <picture class="o_g2b_hero_media" t-att-style="hero._gif2box_placeholder_style()">
+                            <source t-if="hero._gif2box_has_picture('image_mobile')"
                                     media="(max-width: 767.98px)"
-                                    t-att-srcset="website.image_url(hero, 'image_mobile', size='1080x0')"/>
-                            <!-- The first slide's pictures are the largest on the page: fetched first, not lazily. -->
+                                    t-att-srcset="hero._gif2box_picture_url('image_mobile_web')"/>
                             <img class="o_g2b_hero_img"
-                                 t-att-src="website.image_url(hero, 'image_desktop', size='1920x0')"
-                                 t-att-alt="'' if (hero.title or hero.image_product) else hero.name"
+                                 t-att-src="hero._gif2box_picture_url('image_desktop_web')"
+                                 t-att-srcset="hero._gif2box_background_srcset()"
+                                 sizes="100vw"
+                                 width="1920" height="528"
+                                 t-att-alt="'' if (hero.title or hero._gif2box_has_picture('image_product')) else hero.name"
+                                 t-att-loading="'eager' if hero_first else 'lazy'"
                                  t-att-fetchpriority="hero_first and 'high' or 'low'"
-                                 decoding="async"/>
+                                 t-att-decoding="'auto' if hero_first else 'async'"
+                                 onload="this.classList.add('o_g2b_loaded')"
+                                 onerror="this.classList.add('o_g2b_loaded')"/>
                         </picture>
 
                         <!-- Layer two: the product and the words, held to the width of the page. -->
                         <div class="o_g2b_hero_overlay">
                             <div class="container o_g2b_hero_grid">
                                 <div t-if="hero._gif2box_show_product()" class="o_g2b_hero_product">
-                                    <img t-att-src="website.image_url(hero, 'image_product', size='1200x0')"
+                                    <img t-att-src="hero._gif2box_picture_url('image_product_web')"
+                                         t-att-srcset="hero._gif2box_product_srcset()"
+                                         t-att-sizes="hero._gif2box_product_sizes()"
                                          t-att-alt="hero.title or hero.name"
+                                         t-att-loading="'eager' if hero_first else 'lazy'"
                                          t-att-fetchpriority="hero_first and 'high' or 'low'"
-                                         decoding="async"/>
+                                         t-att-decoding="'auto' if hero_first else 'async'"
+                                         onload="this.classList.add('o_g2b_loaded')"
+                                         onerror="this.classList.add('o_g2b_loaded')"/>
                                 </div>
                                 <div t-if="hero.title or hero.description or hero._gif2box_show_button()"
                                      class="o_g2b_hero_content">

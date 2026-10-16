@@ -1,7 +1,10 @@
 import base64
 import binascii
+import io
 import json
 import logging
+
+from PIL import Image
 
 from odoo import api, fields, models
 from odoo.addons.iap.tools import iap_tools
@@ -54,6 +57,25 @@ class WebsiteHeroBanner(models.Model):
     image_product = fields.Image(
         string='Product image', max_width=1600, max_height=1600,
         help="The product, on a transparent background (PNG or WebP), shown beside the text within the page width. Best at about 1200 x 1000 px. Not shown when the text is centred.")
+
+    # The pictures as the homepage serves them, made once when a picture is
+    # saved; see `_gif2box_web_picture`. Served as stored, never resized on
+    # the fly: resizing the product PNG on request took the server 4.7 s per
+    # picture, for every new visitor, and still sent 1.4 MB.
+    image_desktop_web = fields.Binary(
+        attachment=True, compute='_compute_web_pictures', store=True)
+    image_desktop_web_small = fields.Binary(
+        attachment=True, compute='_compute_web_pictures', store=True)
+    image_mobile_web = fields.Binary(
+        attachment=True, compute='_compute_web_pictures', store=True)
+    image_product_web = fields.Binary(
+        attachment=True, compute='_compute_web_pictures', store=True)
+    image_product_web_small = fields.Binary(
+        attachment=True, compute='_compute_web_pictures', store=True)
+    # A blurred stand-in for each background, small enough to inline in the
+    # page, shown in the instant before the picture itself arrives.
+    image_desktop_placeholder = fields.Char(compute='_compute_web_pictures', store=True)
+    image_mobile_placeholder = fields.Char(compute='_compute_web_pictures', store=True)
 
     # Text rather than Char so the title can be broken where it should be,
     # as the artwork breaks it: Enter in the form is a new line on the page.
@@ -130,6 +152,93 @@ class WebsiteHeroBanner(models.Model):
         self.ensure_one()
         return '--g2b-title-size: %d; --g2b-desc-size: %d; --g2b-btn-size: %d;' % (
             self.title_font_size or 50, self.description_font_size or 27, self.button_font_size or 26)
+
+    # --- Web pictures ------------------------------------------------------
+
+    @api.depends('image_desktop', 'image_mobile', 'image_product')
+    def _compute_web_pictures(self):
+        for banner in self:
+            raws = {
+                fname: banner.with_context(bin_size=False)[fname]
+                for fname in ('image_desktop', 'image_mobile', 'image_product')
+            }
+            make = banner._gif2box_web_picture
+            banner.image_desktop_web = make(raws['image_desktop'], 1920)
+            banner.image_desktop_web_small = make(raws['image_desktop'], 960)
+            banner.image_mobile_web = make(raws['image_mobile'], 1080)
+            banner.image_product_web = make(raws['image_product'], 960)
+            banner.image_product_web_small = make(raws['image_product'], 480)
+            banner.image_desktop_placeholder = banner._gif2box_placeholder(raws['image_desktop'])
+            banner.image_mobile_placeholder = banner._gif2box_placeholder(raws['image_mobile'])
+
+    @api.model
+    def _gif2box_open_picture(self, raw):
+        if not raw:
+            return None
+        try:
+            image = Image.open(io.BytesIO(base64.b64decode(raw)))
+            image.load()
+            return image
+        except Exception:  # noqa: BLE001 -- a bad upload must not block the save
+            _logger.warning("gif2box hero: could not read a picture", exc_info=True)
+            return None
+
+    @api.model
+    def _gif2box_web_picture(self, raw, width):
+        """`raw` at most `width` px wide, in the lightest format that keeps it.
+
+        - No transparency (the backgrounds): a progressive JPEG.
+        - Transparency (the product cut-outs): a 256-colour PNG. It keeps the
+          alpha channel, and at a third of the full-colour PNG's weight per
+          pixel. This server's image library has no WebP encoder, so WebP,
+          which would do better still, is not an option.
+
+        The original stays untouched in its own field; only what the page
+        loads is converted. Returns False, and the page falls back to the
+        original, if the picture cannot be read.
+        """
+        image = self._gif2box_open_picture(raw)
+        if image is None:
+            return False
+        if image.width > width:
+            image = image.resize((width, round(image.height * width / image.width)), Image.LANCZOS)
+        has_alpha = image.mode in ('RGBA', 'LA', 'PA') or (
+            image.mode == 'P' and 'transparency' in image.info)
+        out = io.BytesIO()
+        if has_alpha:
+            image.convert('RGBA').quantize(colors=256, method=Image.FASTOCTREE).save(
+                out, 'PNG', optimize=True)
+        else:
+            image.convert('RGB').save(out, 'JPEG', quality=82, optimize=True, progressive=True)
+        return base64.b64encode(out.getvalue())
+
+    @api.model
+    def _gif2box_placeholder(self, raw):
+        """A 32 px wide JPEG of `raw` as a data URI: about 1 KB, inlined."""
+        image = self._gif2box_open_picture(raw)
+        if image is None:
+            return False
+        image = image.convert('RGB')
+        image = image.resize((32, max(1, round(image.height * 32 / image.width))), Image.LANCZOS)
+        out = io.BytesIO()
+        image.save(out, 'JPEG', quality=60)
+        return image_data_uri(base64.b64encode(out.getvalue()))
+
+    def _gif2box_picture_url(self, field):
+        """URL of a stored web picture, or of the original as a fallback."""
+        self.ensure_one()
+        website = self.env['website']
+        # `bin_size`: only whether there is one, without reading it.
+        if self.with_context(bin_size=True)[field]:
+            return website.image_url(self, field)
+        fallback = {
+            'image_desktop_web': ('image_desktop', '1920x0'),
+            'image_desktop_web_small': ('image_desktop', '960x0'),
+            'image_mobile_web': ('image_mobile', '1080x0'),
+            'image_product_web': ('image_product', '960x0'),
+            'image_product_web_small': ('image_product', '480x0'),
+        }[field]
+        return website.image_url(self, fallback[0], size=fallback[1])
 
     # --- Preview -----------------------------------------------------------
 
@@ -534,4 +643,43 @@ class WebsiteHeroBanner(models.Model):
     def _gif2box_show_product(self):
         """The product image needs a side of its own, so not with centred text."""
         self.ensure_one()
-        return bool(self.image_product) and self.content_position != 'center'
+        return self._gif2box_has_picture('image_product') and self.content_position != 'center'
+
+    def _gif2box_has_picture(self, field):
+        """Whether `field` holds a picture, without loading it to find out.
+
+        Plain `bool(self.image_product)` reads the whole 1.6 MB picture, on
+        every render of the homepage.
+        """
+        self.ensure_one()
+        return bool(self.with_context(bin_size=True)[field])
+
+    def _gif2box_background_srcset(self):
+        self.ensure_one()
+        return '%s 960w, %s 1920w' % (
+            self._gif2box_picture_url('image_desktop_web_small'),
+            self._gif2box_picture_url('image_desktop_web'),
+        )
+
+    def _gif2box_product_srcset(self):
+        self.ensure_one()
+        return '%s 480w, %s 960w' % (
+            self._gif2box_picture_url('image_product_web_small'),
+            self._gif2box_picture_url('image_product_web'),
+        )
+
+    def _gif2box_product_sizes(self):
+        """How wide the product shows: about three fifths of a phone, and its
+        38% share of the page width beside the words, which stops growing
+        with the container."""
+        return '(max-width: 767.98px) 60vw, min(40vw, 520px)'
+
+    def _gif2box_placeholder_style(self):
+        """The blurred stand-ins, for the stylesheet to paint under the picture."""
+        self.ensure_one()
+        style = []
+        if self.image_desktop_placeholder:
+            style.append('--g2b-placeholder: url(%s);' % self.image_desktop_placeholder)
+        if self.image_mobile_placeholder:
+            style.append('--g2b-placeholder-mobile: url(%s);' % self.image_mobile_placeholder)
+        return ' '.join(style) or None

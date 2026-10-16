@@ -51,12 +51,24 @@
         });
     }
 
+    /**
+     * Only the pictures on screen are waited for. The cards' pictures are
+     * `loading="lazy"`: the ones below the fold, or further along a sliding
+     * row, are not fetched until scrolled to, so `complete` stayed false and
+     * every page load sat out the whole IMAGE_WAIT_MS.
+     */
+    function onScreen(img) {
+        var r = img.getBoundingClientRect();
+        return r.bottom > 0 && r.right > 0
+            && r.top < window.innerHeight && r.left < window.innerWidth;
+    }
+
     function imagesSettled() {
         var imgs = document.querySelectorAll(
             ".s_dynamic .dynamic_snippet_template img"
         );
         return Array.prototype.every.call(imgs, function (img) {
-            return img.complete;
+            return img.complete || !onScreen(img);
         });
     }
 

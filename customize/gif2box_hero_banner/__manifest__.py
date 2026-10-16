@@ -27,6 +27,7 @@ is active, so installing the module changes nothing on its own.
     'assets': {
         'web.assets_frontend': [
             'gif2box_hero_banner/static/src/scss/hero_banner.scss',
+            'gif2box_hero_banner/static/src/js/hero_banner.js',
         ],
         'web.assets_backend': [
             'gif2box_hero_banner/static/src/js/hero_translations_field.js',

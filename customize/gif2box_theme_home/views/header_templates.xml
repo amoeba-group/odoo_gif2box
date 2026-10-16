@@ -65,6 +65,63 @@
                     class="o_gif2box_word_b">box</span></div>
                 <div class="o_gif2box_loader_bar"><span/></div>
             </div>
+            <!--
+                On a page that opens on the hero (the homepage), lift the
+                loader as soon as the hero's first slide has its pictures, or
+                after 2.5 s at most: the hero paints a blurred stand-in of
+                itself at once, so there is never an empty screen to hide.
+
+                Inline, because `loader.js` comes with the lazily loaded
+                bundle, which only runs after the whole page has loaded. Held
+                on the full page, product rows below included, the loader
+                stayed up 14 to 16 s on a slow 4G line while the hero itself
+                was ready after 3.
+
+                Written without `&` or `<`, which QWeb would escape.
+            -->
+            <script>
+                (function () {
+                    var HERO_WAIT_MS = 2500;
+                    function lift() {
+                        var loader = document.getElementById("gif2box_loader");
+                        if (!loader || loader.classList.contains("o_gif2box_loader_done")) {
+                            return;
+                        }
+                        loader.classList.add("o_gif2box_loader_done");
+                        setTimeout(function () {
+                            if (loader.parentNode) {
+                                loader.parentNode.removeChild(loader);
+                            }
+                        }, 400);
+                    }
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var hero = document.getElementById("o_g2b_hero");
+                        if (!hero) {
+                            return;
+                        }
+                        var images = hero.querySelectorAll(".carousel-item.active img");
+                        var pending = images.length;
+                        function settled() {
+                            pending -= 1;
+                            if (pending === 0) {
+                                lift();
+                            }
+                        }
+                        Array.prototype.forEach.call(images, function (img) {
+                            if (img.complete) {
+                                settled();
+                            } else {
+                                img.addEventListener("load", settled, { once: true });
+                                img.addEventListener("error", settled, { once: true });
+                            }
+                        });
+                        if (!images.length) {
+                            lift();
+                        }
+                        setTimeout(lift, HERO_WAIT_MS);
+                    });
+                })();
+            </script>
         </xpath>
     </template>
 
