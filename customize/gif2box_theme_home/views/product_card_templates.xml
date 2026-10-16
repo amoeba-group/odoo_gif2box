@@ -100,10 +100,10 @@
 
         The picture is the product's first extra image (`_gif2box_hover_image_url`);
         a product without one keeps its card as it is. It is given as
-        `data-src`, not `src`: `product_hover.js` fetches it the first time
-        the pointer comes onto the card, and the stylesheet only crossfades
-        once it has arrived. A page of cards weighs what it did, and touch
-        screens, which cannot hover, never load it at all.
+        `data-src`, not `src`: `product_hover.js` fetches it on screens with
+        a mouse, once its card is on screen and the browser is idle (or at
+        once on hover), and the stylesheet only crossfades once it is
+        decoded. Touch screens, which cannot hover, never load it at all.
 
         Empty `alt` and `aria-hidden`: it is the same product again, and the
         card's first picture already names it.

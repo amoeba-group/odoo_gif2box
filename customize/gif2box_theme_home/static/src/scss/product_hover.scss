@@ -2,16 +2,24 @@
 /// Product cards: the second picture on hover.
 ///
 /// The picture is `img.o_g2b_hover_img`, laid over the card's own
-/// (`views/product_card_templates.xml`), fetched on the first hover
-/// (`product_hover.js`). Once it has arrived the card is
-/// `.o_g2b_hover_ready`, and hovering it crossfades: the first picture
-/// fades out while the second fades in and settles from a slight zoom, so
-/// the change reads as one soft movement rather than a swap.
+/// (`views/product_card_templates.xml`), fetched and decoded ahead of the
+/// hover (`product_hover.js`), which marks the card `.o_g2b_hover_ready`.
 ///
-/// Cards without a second picture, or whose picture has not arrived yet,
-/// keep the plain zoom from `header.scss`. Touch screens cannot hover, so
-/// there the picture is not even displayed, which also keeps its lazy fetch
-/// from ever starting.
+/// The motion, as the better shop themes do it:
+/// - both pictures zoom together, slowly, on one ease-out curve, so the
+///   card moves as one thing whatever is showing;
+/// - the second picture fades in *over* the first, and the first only goes
+///   once the second is nearly opaque, so the grey behind never shows
+///   through halfway (two half-transparent pictures read as a flicker);
+/// - on leaving, the first picture is back at once and the second fades off
+///   it, the same soft change in reverse.
+///
+/// A card with a second picture zooms the same way from the very first
+/// hover, before that picture has arrived, so its arrival is a fade and
+/// never a jump. Cards without one keep the plain zoom from `header.scss`.
+///
+/// Only with a mouse: touch screens cannot hover, so there the picture is
+/// not displayed at all, which also keeps it from ever being fetched.
 ///
 /// Three markups carry it:
 /// - `.oe_product`: shop, category and search grids;
@@ -20,6 +28,16 @@
 /// - the same card with the picture in a rounded wrapper: the product page's
 ///   "alternative products" ("Borderless Product n°1").
 ///
+/// The selectors are long on purpose: `header.scss` zooms every picture in
+/// a card (`#wrap .oe_product:hover .oe_product_image img`), the second one
+/// included, and these must win over it.
+///
+
+// The zoom both pictures share, and its curve: an ease-out that starts
+// briskly and settles slowly, as a physical object would.
+$g2b-hover-zoom: 1.045;
+$g2b-hover-ease: cubic-bezier(.22, .61, .36, 1);
+$g2b-hover-move: .7s;
 
 #wrap .o_g2b_hover_img {
     display: none;
@@ -34,41 +52,64 @@
         position: relative;
     }
 
-    #wrap .o_g2b_hover_img {
-        position: absolute;
-        inset: 0;
-        display: block;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        object-fit: cover;
-        opacity: 0;
-        transform: scale(1.06);
-        transition: opacity .45s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
-    }
-
-    // The first picture fades out instead of zooming once there is a second
-    // to show. Its own zoom (`header.scss`) is for cards with nothing else.
-    #wrap .o_g2b_hover_ready {
+    #wrap :is(.oe_product, .o_carousel_product_card):has(.o_g2b_hover_img) {
 
         .oe_product_image_img_wrapper img,
-        .card-img-top {
-            transition: opacity .45s ease, transform .35s ease;
+        .card-img-top,
+        .o_g2b_hover_img {
+            // Composited from the start, so the first hover does not pay
+            // for promoting the layers.
+            backface-visibility: hidden;
+            transform: scale(1);
+            // At rest, the first picture is back quickly: never a frame
+            // with neither picture shown.
+            transition: transform $g2b-hover-move $g2b-hover-ease,
+                        opacity .25s ease;
+            will-change: transform, opacity;
         }
 
-        &:hover,
-        &:focus-within {
+        .o_g2b_hover_img {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            object-fit: cover;
+            opacity: 0;
+            // On leaving, it waits for the first picture, back in .25 s, to
+            // be nearly whole under it before fading off.
+            transition: transform $g2b-hover-move $g2b-hover-ease,
+                        opacity .45s ease .12s;
+        }
+
+        &:is(:hover, :focus-within) {
 
             .oe_product_image_img_wrapper img,
-            .card-img-top {
-                opacity: 0;
-                transform: none;
-            }
-
+            .card-img-top,
             .o_g2b_hover_img {
-                opacity: 1;
-                transform: none;
+                transform: scale($g2b-hover-zoom);
             }
+        }
+    }
+
+    // The crossfade, once the second picture is there to show. After the
+    // rules above, which it must follow to win at equal weight.
+    #wrap :is(.oe_product, .o_carousel_product_card).o_g2b_hover_ready:is(:hover, :focus-within) {
+
+        // In at once, without the wait it has on the way out.
+        .o_g2b_hover_img {
+            opacity: 1;
+            transition: transform $g2b-hover-move $g2b-hover-ease,
+                        opacity .45s ease;
+        }
+
+        // Hidden only once the second is almost opaque over it.
+        .oe_product_image_img_wrapper img,
+        .card-img-top {
+            opacity: 0;
+            transition: transform $g2b-hover-move $g2b-hover-ease,
+                        opacity .2s linear .3s;
         }
     }
 
@@ -77,10 +118,24 @@
         filter: grayscale(.85);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        #wrap .o_g2b_hover_img {
+    // No zoom for those either, as `header.scss` has it.
+    #wrap .o_carousel_product_card:has(.o_g2b_oos_label):is(:hover, :focus-within) {
+
+        .card-img-top,
+        .o_g2b_hover_img {
             transform: none;
-            transition: opacity .2s linear;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #wrap :is(.oe_product, .o_carousel_product_card):has(.o_g2b_hover_img) {
+
+            .oe_product_image_img_wrapper img,
+            .card-img-top,
+            .o_g2b_hover_img {
+                transform: none !important;
+                transition: opacity .2s linear !important;
+            }
         }
     }
 }
