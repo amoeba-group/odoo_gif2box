@@ -2,6 +2,8 @@ import logging
 
 from odoo import api, fields, models
 
+from .product_product import _hover_image_url
+
 _logger = logging.getLogger(__name__)
 
 # The label, in every language the site runs in.
@@ -129,3 +131,13 @@ class ProductTemplate(models.Model):
         if self.type == 'combo' and self._is_sold_out():
             return False
         return super()._website_show_quick_add()
+
+    def _gif2box_hover_image_url(self, size='image_512'):
+        """The picture a product card shows on hover: its first extra image.
+
+        Videos are skipped (an extra "image" can be a video, whose picture is
+        only its thumbnail), and so is anything without a picture. Returns
+        False when there is no second picture, and the card keeps its own.
+        """
+        self.ensure_one()
+        return _hover_image_url(self, size)

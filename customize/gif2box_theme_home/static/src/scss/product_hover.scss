@@ -1,0 +1,86 @@
+///
+/// Product cards: the second picture on hover.
+///
+/// The picture is `img.o_g2b_hover_img`, laid over the card's own
+/// (`views/product_card_templates.xml`), fetched on the first hover
+/// (`product_hover.js`). Once it has arrived the card is
+/// `.o_g2b_hover_ready`, and hovering it crossfades: the first picture
+/// fades out while the second fades in and settles from a slight zoom, so
+/// the change reads as one soft movement rather than a swap.
+///
+/// Cards without a second picture, or whose picture has not arrived yet,
+/// keep the plain zoom from `header.scss`. Touch screens cannot hover, so
+/// there the picture is not even displayed, which also keeps its lazy fetch
+/// from ever starting.
+///
+/// Three markups carry it:
+/// - `.oe_product`: shop, category and search grids;
+/// - `.o_carousel_product_card` with the picture directly in its link: the
+///   homepage rows ("Classic Card");
+/// - the same card with the picture in a rounded wrapper: the product page's
+///   "alternative products" ("Borderless Product n°1").
+///
+
+#wrap .o_g2b_hover_img {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    // The overlay needs a positioned box the size of the picture. The shop
+    // card's link already is one.
+    #wrap .o_carousel_product_img_link,
+    #wrap .o_carousel_product_img_link > .overflow-hidden {
+        position: relative;
+    }
+
+    #wrap .o_g2b_hover_img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        object-fit: cover;
+        opacity: 0;
+        transform: scale(1.06);
+        transition: opacity .45s ease, transform .7s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    // The first picture fades out instead of zooming once there is a second
+    // to show. Its own zoom (`header.scss`) is for cards with nothing else.
+    #wrap .o_g2b_hover_ready {
+
+        .oe_product_image_img_wrapper img,
+        .card-img-top {
+            transition: opacity .45s ease, transform .35s ease;
+        }
+
+        &:hover,
+        &:focus-within {
+
+            .oe_product_image_img_wrapper img,
+            .card-img-top {
+                opacity: 0;
+                transform: none;
+            }
+
+            .o_g2b_hover_img {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+
+    // Grey for a sold-out card, like its first picture (`header.scss`).
+    #wrap .o_carousel_product_card:has(.o_g2b_oos_label) .o_g2b_hover_img {
+        filter: grayscale(.85);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #wrap .o_g2b_hover_img {
+            transform: none;
+            transition: opacity .2s linear;
+        }
+    }
+}

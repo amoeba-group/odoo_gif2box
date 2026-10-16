@@ -94,6 +94,59 @@
     </template>
 
     <!--
+        Second picture on hover, on every product card: the shop, category
+        and search grids, the homepage rows, and the product page's
+        "alternative products".
+
+        The picture is the product's first extra image (`_gif2box_hover_image_url`);
+        a product without one keeps its card as it is. It is given as
+        `data-src`, not `src`: `product_hover.js` fetches it the first time
+        the pointer comes onto the card, and the stylesheet only crossfades
+        once it has arrived. A page of cards weighs what it did, and touch
+        screens, which cannot hover, never load it at all.
+
+        Empty `alt` and `aria-hidden`: it is the same product again, and the
+        card's first picture already names it.
+    -->
+    <template id="hover_image">
+        <img t-if="g2b_hover_src"
+             t-att-class="g2b_hover_class"
+             t-att-data-src="g2b_hover_src"
+             alt=""
+             aria-hidden="true"
+             decoding="async"/>
+    </template>
+
+    <template id="products_item_hover_image" inherit_id="website_sale.products_item">
+        <xpath expr="//span[hasclass('oe_product_image_img_wrapper')]" position="after">
+            <t t-call="gif2box_theme_home.hover_image">
+                <t t-set="g2b_hover_src" t-value="product._gif2box_hover_image_url(image_type)"/>
+                <t t-set="g2b_hover_class" t-value="'o_g2b_hover_img h-100 w-100 position-absolute object-fit-contain'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="dynamic_card_hover_image"
+              inherit_id="website_sale.dynamic_filter_template_product_product_add_to_cart">
+        <xpath expr="//a[hasclass('o_carousel_product_img_link')]/img" position="after">
+            <t t-call="gif2box_theme_home.hover_image">
+                <t t-set="g2b_hover_src" t-value="record._gif2box_hover_image_url()"/>
+                <t t-set="g2b_hover_class" t-value="'o_g2b_hover_img'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="dynamic_card_borderless_hover_image"
+              inherit_id="website_sale.dynamic_filter_template_product_product_borderless_1">
+        <xpath expr="//a[hasclass('o_carousel_product_img_link')]//img" position="after">
+            <t t-call="gif2box_theme_home.hover_image">
+                <t t-set="g2b_hover_src" t-value="record._gif2box_hover_image_url()"/>
+                <t t-set="g2b_hover_class" t-value="'o_g2b_hover_img'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!--
         "Borderless Product n°1" has no add-to-cart button at all, so the
         marker follows the price, which is the only thing in its action row.
     -->

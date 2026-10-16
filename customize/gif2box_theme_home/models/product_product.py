@@ -25,3 +25,19 @@ class ProductProduct(models.Model):
         if self.type == 'combo' and self._is_sold_out():
             return False
         return super()._website_show_quick_add()
+
+    def _gif2box_hover_image_url(self, size='image_512'):
+        """See `product.template._gif2box_hover_image_url`. A variant's own
+        extra images come first, then its template's."""
+        self.ensure_one()
+        return _hover_image_url(self, size)
+
+
+def _hover_image_url(product, size):
+    for image in product._get_images()[1:]:
+        if image._name != 'product.image' or image.video_url:
+            continue
+        # `bin_size`: whether there is a picture, without reading it.
+        if image.with_context(bin_size=True).image_1920:
+            return product.env['website'].image_url(image, size)
+    return False
