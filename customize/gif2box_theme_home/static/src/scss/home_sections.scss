@@ -1,0 +1,674 @@
+///
+/// Homepage product sections: Gift Box (a sliding rail) and Life (a grid).
+///
+/// Loaded after `header.scss`, whose brand variables and product card styles
+/// these build on. The markup is the page's own content, editable in the
+/// website editor:
+///
+///   section.o_g2b_home_section
+///     .o_g2b_sec_head      eyebrow, title, subtitle | "View all"
+///     .o_g2b_sec_body      banner | Odoo "Products" snippet
+///     .o_g2b_sec_foot      "View all" again, under a grid (Life only)
+///
+/// The snippet is marked `.o_g2b_home_products`, plus `.o_g2b_home_rail` or
+/// `.o_g2b_home_grid`; `home_product_sections.js` puts all of its products in
+/// one row, which is what is laid out here.
+///
+/// "View all" sits beside the title, where a shopper scanning the page looks
+/// for it before scrolling through products, and again where the products
+/// end: a closing card on the rail, a button under the grid.
+///
+
+// Bootstrap's container padding: how far the rail bleeds to the screen edge
+// on phones, so the next card visibly runs off it.
+$g2b-bleed: $grid-gutter-width * .5;
+
+// =====================================================================
+// SECTION
+// =====================================================================
+#wrap .o_g2b_home_section {
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+
+    @include media-breakpoint-up(lg) {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+    }
+
+    // Life sits on a faint tint, so the two sections read as two.
+    &.o_g2b_home_section_tint {
+        background: linear-gradient(180deg, #F4F9F8 0%, rgba(#F4F9F8, .35) 100%);
+    }
+}
+
+// --- Header ----------------------------------------------------------------
+#wrap .o_g2b_sec_head {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 1.5rem;
+    }
+}
+
+#wrap .o_g2b_sec_heading {
+    min-width: 0;
+}
+
+#wrap .o_g2b_sec_eyebrow {
+    margin: 0 0 .3rem;
+    font-size: .72rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: $g-coral-dark;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+#wrap .o_g2b_sec_title {
+    margin: 0;
+    // `calc()` hands the sum to the browser: libsass tries to add rem to vw
+    // itself, and fails the whole bundle.
+    font-size: clamp(1.4rem, calc(1.05rem + 1.5vw), 2.1rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: $g-title;
+    letter-spacing: -.02em;
+}
+
+// One line of context where there is room for it; on a phone the title and
+// the products say enough, and every line there pushes the products down.
+#wrap .o_g2b_sec_sub {
+    display: none;
+    max-width: 36rem;
+    margin: .45rem 0 0;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: $gray-600;
+
+    @include media-breakpoint-up(md) {
+        display: block;
+    }
+}
+
+#wrap .o_g2b_sec_all {
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: .55rem;
+    align-items: center;
+    // A full finger's height, though the words are small.
+    min-height: 44px;
+    font-size: .9rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-decoration: none;
+    white-space: nowrap;
+
+    .o_g2b_sec_all_icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.9rem;
+        height: 1.9rem;
+        font-size: .8rem;
+        background-color: rgba($g-coral, .12);
+        border-radius: 50%;
+        transition: color .15s ease, background-color .15s ease, transform .15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $g-coral-dark;
+
+        .o_g2b_sec_all_icon {
+            color: $white;
+            background-color: $g-coral;
+            transform: translateX(3px);
+        }
+    }
+}
+
+// --- Body: banner beside the products -----------------------------------------
+#wrap .o_g2b_sec_body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+}
+
+// --- Footer: "View all" under the grid --------------------------------------
+#wrap .o_g2b_sec_foot {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+
+    @include media-breakpoint-up(lg) {
+        margin-top: 2rem;
+    }
+}
+
+#wrap .o_g2b_sec_more {
+    display: inline-flex;
+    gap: .55rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 22rem;
+    min-height: 48px;
+    padding: .7rem 1.75rem;
+    font-size: .95rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-decoration: none;
+    background-color: $white;
+    border: 1.5px solid $g-coral-dark;
+    border-radius: 2rem;
+    transition: color .15s ease, background-color .15s ease, box-shadow .15s ease;
+
+    .fa {
+        transition: transform .15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background-color: $g-coral-dark;
+        box-shadow: 0 .5rem 1.1rem rgba($g-coral, .3);
+
+        .fa {
+            transform: translateX(3px);
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        width: auto;
+    }
+}
+
+// =====================================================================
+// BANNER
+// =====================================================================
+//
+// A strip above the products on phones and tablets, a column beside them
+// from `lg`. The whole tile is the link; the "button" inside it is a span.
+#wrap .o_g2b_sec_banner {
+    position: relative;
+    // The decorative disc below sits behind the content, not behind the page.
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7rem;
+    gap: .75rem;
+    align-items: center;
+    min-height: 8.5rem;
+    padding: 1rem 1rem 1rem 1.25rem;
+    overflow: hidden;
+    color: $g-title;
+    text-decoration: none;
+    background: var(--g2b-banner-bg);
+    border-radius: 1.25rem;
+    box-shadow: inset 0 0 0 1px rgba($g-title, .05);
+    transition: box-shadow .25s ease;
+
+    &::before {
+        position: absolute;
+        top: -5rem;
+        right: -4rem;
+        z-index: -1;
+        width: 14rem;
+        height: 14rem;
+        content: "";
+        background-color: rgba($white, .45);
+        border-radius: 50%;
+    }
+
+    &:hover,
+    &:focus-visible {
+        box-shadow: inset 0 0 0 1px rgba($g-title, .05),
+                    0 .8rem 1.6rem -.6rem rgba($g-title, .28);
+
+        .o_g2b_sec_banner_img {
+            transform: scale(1.05) rotate(-1.5deg);
+        }
+
+        .o_g2b_sec_banner_cta .fa {
+            transform: translateX(3px);
+        }
+    }
+
+    &.o_g2b_sec_banner_gift {
+        --g2b-banner-bg: linear-gradient(150deg, #FFF3EC 0%, #FFDCCD 55%, #FFC6B0 100%);
+    }
+
+    &.o_g2b_sec_banner_life {
+        --g2b-banner-bg: linear-gradient(150deg, #EFF8F6 0%, #D3EDE7 55%, #BCE3DA 100%);
+    }
+
+    p {
+        margin: 0;
+    }
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: minmax(0, 1fr) 9.5rem;
+        min-height: 10rem;
+        padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    }
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: minmax(0, 1fr) 12rem;
+        padding: 1.5rem 1.75rem;
+    }
+
+    // Beside the products: text at the top, the picture filling what is left.
+    //
+    // The products set the height, never the banner: `height: 0` keeps it
+    // out of the row's sizing, and the `min-height` then stretches it to the
+    // row. Left to size itself, its picture made it 100px taller than the
+    // Gift Box rail, leaving a gap under the cards. 22rem is the floor for a
+    // section whose snippet has nothing to show.
+    @include media-breakpoint-up(lg) {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+        height: 0;
+        // Quoted: libsass would evaluate `max()` itself and fail on the units.
+        min-height: unquote("max(100%, 22rem)");
+        padding: 1.75rem 1.5rem 1.25rem;
+        border-radius: 1.5rem;
+
+        &::before {
+            top: auto;
+            right: -5rem;
+            bottom: -5rem;
+            width: 18rem;
+            height: 18rem;
+        }
+    }
+}
+
+#wrap .o_g2b_sec_banner_eyebrow {
+    margin-bottom: .3rem !important;
+    font-size: .7rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+#wrap .o_g2b_sec_banner_title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -.01em;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 1.25rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+        font-size: 1.4rem;
+    }
+}
+
+#wrap .o_g2b_sec_banner_desc {
+    display: none;
+    margin-top: .4rem !important;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: rgba($g-title, .75);
+
+    @include media-breakpoint-up(sm) {
+        display: block;
+    }
+}
+
+#wrap .o_g2b_sec_banner_cta {
+    display: inline-flex;
+    gap: .4rem;
+    align-items: center;
+    margin-top: .7rem;
+    padding: .45rem .95rem;
+    font-size: .78rem;
+    font-weight: 700;
+    color: $white;
+    background-color: $g-coral;
+    border-radius: 2rem;
+    box-shadow: 0 .3rem .7rem rgba($g-coral, .35);
+
+    .fa {
+        transition: transform .15s ease;
+    }
+
+    @include media-breakpoint-up(md) {
+        padding: .55rem 1.15rem;
+        margin-top: 1rem;
+        font-size: .85rem;
+    }
+}
+
+#wrap .o_g2b_sec_banner_img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    filter: drop-shadow(0 .6rem .8rem rgba($black, .12));
+    transition: transform .35s ease;
+
+    // Whatever height the text leaves; `contain` keeps it whole, centred in
+    // that space, however tall the products make the banner.
+    @include media-breakpoint-up(lg) {
+        flex: 1 1 0;
+        width: 100%;
+        min-height: 0;
+        aspect-ratio: auto;
+    }
+}
+
+// =====================================================================
+// PRODUCTS (Odoo's "Products" snippet, flattened to one row)
+// =====================================================================
+#wrap .o_g2b_home_products {
+    padding: 0 !important;
+    background: none;
+
+    > .container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .s_nb_column_fixed {
+        margin: 0;
+    }
+
+    .s_dynamic_snippet_content {
+        padding: 0;
+    }
+
+    .dynamic_snippet_template {
+        margin: 0;
+    }
+
+    // A single slide that never moves: none of the carousel's geometry is
+    // wanted, only its markup.
+    .carousel-inner {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    // Odoo pads the slide from `md`, which pushed the first card 16px in from
+    // the title and the banner above it.
+    .carousel-item {
+        display: block !important;
+        float: none;
+        padding: 0 !important;
+        margin: 0;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    // `.row > *` brings a top margin for the row gutter (`g-3`); the rail
+    // and the grid space their cards with `gap` instead.
+    .s_dynamic_snippet_row > * {
+        margin-top: 0 !important;
+    }
+
+    .s_dynamic_snippet_row > * > .card {
+        width: 100%;
+    }
+
+    // --- Cards: the cart button on the picture, at every width ----------
+    //
+    // These cards run from 150 to 210px wide. Odoo's action row puts the
+    // price and the cart button side by side, which a seven-digit price and
+    // a 42px button do not fit below ~200px: the button dropped to a line of
+    // its own on some cards and not others, and between `md` and `lg` the
+    // row turns into a column (`flex-md-column`) and centred the price. The
+    // shop grid's phone layout is used throughout instead: the button (or
+    // the "Out of stock" chip, never both) in the picture's corner, the price
+    // left-aligned on a line of its own.
+    .o_carousel_product_card_body {
+        position: relative;
+    }
+
+    .o_carousel_product_card_body > .justify-content-between {
+        flex-direction: row !important;
+        align-items: flex-end !important;
+        justify-content: flex-start !important;
+        margin-top: .5rem !important;
+    }
+
+    .o_dynamic_snippet_btn_wrapper,
+    .o_carousel_product_card .o_g2b_oos_label {
+        position: absolute;
+        right: .6rem;
+        // The body starts where the picture ends: a full height above it is
+        // the foot of the picture.
+        bottom: calc(100% + .6rem);
+        z-index: 2;
+    }
+
+    .o_carousel_product_card .o_g2b_oos_label {
+        gap: .3rem;
+        height: 2rem;
+        padding: 0 .65rem;
+        font-size: .7rem;
+        background-color: rgba($white, .96);
+        box-shadow: 0 .15rem .5rem rgba($black, .2);
+    }
+}
+
+// --- Rail (Gift Box) ---------------------------------------------------------
+#wrap .o_g2b_home_rail {
+
+    .carousel {
+        position: relative;
+    }
+
+    .s_dynamic_snippet_row {
+        // Cards across the visible width; the fraction is the next card
+        // peeking in, which is what tells a phone user the row scrolls.
+        --g2b-per: 2.15;
+        --g2b-gap: .75rem;
+
+        display: flex;
+        flex-wrap: nowrap !important;
+        gap: var(--g2b-gap);
+        // Edge to edge on phones, with the first card still lined up on the
+        // page's margin.
+        padding: .75rem $g2b-bleed 1rem;
+        margin: 0 (-$g2b-bleed) !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-padding-inline: $g2b-bleed;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        > * {
+            flex: 0 0 calc((100% - (var(--g2b-per) - 1) * var(--g2b-gap)) / var(--g2b-per)) !important;
+            width: auto;
+            max-width: none;
+            padding: 0 !important;
+            scroll-snap-align: start;
+        }
+
+        @include media-breakpoint-up(sm) {
+            --g2b-per: 2.6;
+        }
+
+        @include media-breakpoint-up(md) {
+            --g2b-per: 3.4;
+            --g2b-gap: 1rem;
+        }
+
+        // Beside the banner: whole cards only, the arrows say there is more.
+        // A little side padding still, or the hover shadow of the end cards
+        // would be clipped by the scroll box.
+        @include media-breakpoint-up(lg) {
+            --g2b-per: 3;
+
+            padding: .75rem .4rem 1rem;
+            margin: 0 -.4rem !important;
+            scroll-padding-inline: .4rem;
+        }
+
+        @include media-breakpoint-up(xl) {
+            --g2b-per: 4;
+        }
+    }
+}
+
+// Closing "View all" card.
+#wrap .o_g2b_rail_more {
+    display: flex;
+}
+
+#wrap .o_g2b_rail_more_link {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: .85rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 12rem;
+    padding: 1.25rem;
+    font-size: .95rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgba($g-coral, .05);
+    border: 1.5px dashed rgba($g-coral, .45);
+    border-radius: 1rem;
+    transition: background-color .15s ease, border-color .15s ease;
+
+    .o_g2b_rail_more_icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.25rem;
+        height: 3.25rem;
+        font-size: 1.1rem;
+        color: $white;
+        background-color: $g-coral;
+        border-radius: 50%;
+        box-shadow: 0 .4rem .9rem rgba($g-coral, .35);
+        transition: transform .15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $g-coral-dark;
+        background-color: rgba($g-coral, .1);
+        border-color: $g-coral;
+
+        .o_g2b_rail_more_icon {
+            transform: translateX(4px);
+        }
+    }
+}
+
+// Arrows: for a mouse, on screens wide enough to hold them. Touch screens
+// swipe, and the peeking card already says so.
+#wrap .o_g2b_rail_arrow {
+    display: none;
+}
+
+@include media-breakpoint-up(lg) {
+    @media (hover: hover) and (pointer: fine) {
+        #wrap .o_g2b_rail_arrow {
+            position: absolute;
+            // Level with the middle of the pictures, which are square and
+            // fill the top of each card.
+            top: 38%;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            padding: 0;
+            font-size: .85rem;
+            color: $g-title;
+            background-color: $white;
+            border: 1px solid $border-color;
+            border-radius: 50%;
+            box-shadow: 0 .35rem .9rem rgba($g-title, .16);
+            transform: translateY(-50%);
+            transition: opacity .2s ease, color .15s ease, background-color .15s ease,
+                        border-color .15s ease;
+
+            &:hover,
+            &:focus-visible {
+                color: $white;
+                background-color: $g-coral;
+                border-color: $g-coral;
+            }
+
+            &:disabled {
+                pointer-events: none;
+                opacity: 0;
+            }
+        }
+
+        #wrap .o_g2b_rail_arrow_prev {
+            left: -1.1rem;
+        }
+
+        #wrap .o_g2b_rail_arrow_next {
+            right: -1.1rem;
+        }
+    }
+}
+
+#wrap .o_g2b_rail_static .o_g2b_rail_arrow {
+    display: none !important;
+}
+
+// --- Grid (Life) -----------------------------------------------------------
+#wrap .o_g2b_home_grid .s_dynamic_snippet_row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+    padding-top: .25rem;
+    margin: 0 !important;
+
+    > * {
+        width: auto;
+        max-width: none;
+        padding: 0 !important;
+    }
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #wrap .o_g2b_home_rail .s_dynamic_snippet_row {
+        scroll-behavior: auto;
+    }
+
+    #wrap .o_g2b_sec_banner_img,
+    #wrap .o_g2b_sec_all .o_g2b_sec_all_icon,
+    #wrap .o_g2b_rail_more_icon {
+        transition: none;
+    }
+}
