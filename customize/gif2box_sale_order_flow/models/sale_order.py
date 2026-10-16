@@ -9,6 +9,14 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    is_buy_now_order = fields.Boolean(
+        string="Mua ngay",
+        readonly=True,
+        copy=False,
+        help="Placed with the product page's \"Buy now\" button: the order holds "
+             "that product alone, and the customer's cart was set aside meanwhile.",
+    )
+
     order_payment_date = fields.Datetime(
         string="Ngày thanh toán",
         compute='_compute_order_payment_date',
