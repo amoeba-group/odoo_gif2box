@@ -34,6 +34,7 @@ msgstr "Xem thêm"
 #. module: gif2box_theme_home
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
 msgid "Show less"
 msgstr "Thu gọn"
 
@@ -56,6 +57,7 @@ msgstr "Liên hệ"
 #. odoo-javascript
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
 msgid "Out of stock"
 msgstr "Hết hàng"
 
@@ -97,3 +99,44 @@ msgstr "Bạn đã thêm toàn bộ số lượng còn lại của sản phẩm 
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 msgid "View cart"
 msgstr "Xem giỏ hàng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "This set includes"
+msgstr "Bộ này gồm có"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "Bought separately"
+msgstr "Mua lẻ"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "You save"
+msgstr "Tiết kiệm"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
+msgid "From"
+msgstr "Từ"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s options"
+msgstr "%s lựa chọn"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s products"
+msgstr "%s sản phẩm"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "Show %s more"
+msgstr "Xem thêm %s sản phẩm"

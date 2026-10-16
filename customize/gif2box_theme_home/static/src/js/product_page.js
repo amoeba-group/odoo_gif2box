@@ -94,8 +94,25 @@
         }
     }
 
+    /**
+     * "This set includes" (`views/product_templates.xml`): on phones only the
+     * first lines show, the button opens the rest. From `md` the list is two
+     * columns, all shown, and the stylesheet hides the button.
+     */
+    function setupComboContents(box) {
+        var button = box.querySelector(".o_g2b_combo_more");
+        if (!button) {
+            return;
+        }
+        button.addEventListener("click", function () {
+            var open = box.classList.toggle("o_g2b_combo_open");
+            button.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+    }
+
     function setup() {
         document.querySelectorAll(".o_g2b_fold").forEach(setupFold);
+        document.querySelectorAll(".o_g2b_combo").forEach(setupComboContents);
     }
 
     if (document.readyState === "loading") {

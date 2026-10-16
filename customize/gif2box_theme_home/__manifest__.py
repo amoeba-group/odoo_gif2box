@@ -21,6 +21,7 @@
         'data/settings_data.xml',
         'data/menu_data.xml',
         'data/social_share_data.xml',
+        'data/combo_contents_data.xml',
     ],
     'assets': {
         'web.assets_frontend': [

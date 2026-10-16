@@ -1,10 +1,13 @@
 import logging
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 from .product_product import _hover_image_url
 
 _logger = logging.getLogger(__name__)
+
+# Lines of the combo box shown before "Show more", on phones.
+COMBO_LINES_FOLDED = 4
 
 # The label, in every language the site runs in.
 #
@@ -97,19 +100,101 @@ class ProductTemplate(models.Model):
         items is not tracked, can be backordered, or has stock left.
         """
         self.ensure_one()
+        return any(
+            not self._gif2box_combo_choice_available(combo)
+            for combo in self.sudo().combo_ids
+        )
+
+    @api.model
+    def _gif2box_combo_choice_available(self, combo):
+        """Whether any item of a combo choice can still be bought."""
         website = self.env['website'].get_current_website()
+        products = combo.combo_item_ids.product_id
+        # One query for the choice rather than one per item.
+        products.with_context(warehouse_id=website.warehouse_id.id).mapped('free_qty')
+        return any(
+            not product.is_storable
+            or product.allow_out_of_stock_order
+            or website._get_product_available_qty(product) > 0
+            for product in products
+        )
+
+    def _gif2box_combo_contents(self):
+        """What the product page's "This set includes" box lists, or None.
+
+        One line per combo choice, as the set is made of one item from each:
+        its picture, name and price when bought on its own, how many options
+        it comes in, whether it has sold out, and where to read about it.
+
+        A choice usually holds the variants of one product (a chopping board
+        in five colours), so the line shows that product: its page is where
+        all of them are. A choice spanning several products shows the first,
+        priced "from" the cheapest.
+
+        Prices are the shop's own (`_get_combination_info_variant`: the
+        website's pricelist and tax display), so they match what the item's
+        page says. Their total, against the set's price, is the saving.
+        """
+        self.ensure_one()
+        if self.type != 'combo':
+            return None
+        website = self.env['website'].get_current_website()
+        lines = []
         for combo in self.sudo().combo_ids:
             products = combo.combo_item_ids.product_id
-            # One query for the choice rather than one per item.
-            products.with_context(warehouse_id=website.warehouse_id.id).mapped('free_qty')
-            if not any(
-                not product.is_storable
-                or product.allow_out_of_stock_order
-                or website._get_product_available_qty(product) > 0
-                for product in products
-            ):
-                return True
-        return False
+            if not products:
+                continue
+            templates = products.product_tmpl_id
+            first = products[0]
+            prices = [p._get_combination_info_variant()['price'] for p in products]
+            # One product: its page, where every variant is. Several: the
+            # first one's. Nothing for a product the shop does not show.
+            target = templates if len(templates) == 1 else first.product_tmpl_id
+            url = target.website_url if target.is_published else False
+            lines.append({
+                'name': target.with_context(lang=self.env.lang).name,
+                'url': url,
+                'image_url': website.image_url(first if len(products) == 1 else target, 'image_256'),
+                'price': min(prices),
+                'price_from': min(prices) != max(prices),
+                'options_label': len(products) > 1 and _("%s options", len(products)),
+                'sold_out': not self._gif2box_combo_choice_available(combo),
+            })
+        if not lines:
+            return None
+        set_price = self._get_combination_info()['price']
+        retail_total = sum(line['price'] for line in lines)
+        saving = retail_total - set_price
+        return {
+            'lines': lines,
+            'count_label': _("%s products", len(lines)),
+            'more_label': _("Show %s more", max(len(lines) - COMBO_LINES_FOLDED, 0)),
+            'folds': len(lines) > COMBO_LINES_FOLDED,
+            'retail_total': retail_total,
+            'saving': saving if saving > 0 else 0,
+            'saving_percent': round(saving * 100 / retail_total) if saving > 0 and retail_total else 0,
+            'currency': website.currency_id,
+        }
+
+    @api.model
+    def _gif2box_retire_combo_thumbnails(self):
+        """Switch off the combo blocks made by hand in the database.
+
+        "Included in this set" thumbnails under the product picture and their
+        description modals (`website_sale.product_combo_thumbnails*`) were
+        created in the backend on 2026-09-11, not by any module. The box under
+        the price replaces them; switched off rather than deleted, so they can
+        be turned back on from Settings > Technical > Views. Called on every
+        update of this module, harmlessly once done.
+        """
+        views = self.env['ir.ui.view'].sudo().with_context(active_test=False).search([
+            ('key', 'in', ('website_sale.product_combo_thumbnails',
+                           'website_sale.product_combo_thumbnails_sticky')),
+            ('active', '=', True),
+        ])
+        views.write({'active': False})
+        if views:
+            _logger.info('gif2box: switched off %s hand-made combo view(s)', len(views))
 
     def _gif2box_shows_out_of_stock(self):
         """Whether the shop should mark this product "Out of stock".

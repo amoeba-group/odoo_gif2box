@@ -34,6 +34,7 @@ msgstr "もっと見る"
 #. module: gif2box_theme_home
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
 msgid "Show less"
 msgstr "閉じる"
 
@@ -56,6 +57,7 @@ msgstr "お問い合わせ"
 #. odoo-javascript
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
 msgid "Out of stock"
 msgstr "在庫切れ"
 
@@ -97,3 +99,44 @@ msgstr "この商品の在庫はすべてカートに入っています。"
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 msgid "View cart"
 msgstr "カートを見る"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "This set includes"
+msgstr "このセットの内容"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "Bought separately"
+msgstr "単品合計"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "You save"
+msgstr "お得"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
+msgid "From"
+msgstr "最安"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s options"
+msgstr "%s 種類から選べます"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s products"
+msgstr "%s 点"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "Show %s more"
+msgstr "さらに %s 点を表示"

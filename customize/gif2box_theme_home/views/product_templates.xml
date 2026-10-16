@@ -250,4 +250,88 @@
         </xpath>
     </template>
 
+
+    <!--
+        "This set includes", for a combo, right under its price.
+
+        What a set holds is the reason to buy it, and the price above only
+        means something next to it: each item with its picture, its name and
+        what it costs on its own, then what the set saves on buying them
+        separately. Every line links to the item's own page.
+
+        It replaces two blocks made by hand in the database (thumbnails under
+        the picture, opening description dialogs), which showed neither names
+        nor prices; `data/combo_contents_data.xml` switches those off.
+
+        The data comes from `_gif2box_combo_contents`; the labels that carry
+        a number are translated there, in Python, because a number set inside
+        a sentence here is extracted as one term with its markup. For the same
+        reason every static label below is a block of its own.
+
+        Styled and folded on phones in `product_page.scss` / `product_page.js`.
+    -->
+    <template id="product_combo_contents" inherit_id="website_sale.product">
+        <xpath expr="//div[hasclass('js_main_product')]/div[t[@t-call='website_sale.product_price']]" position="after">
+            <t t-set="g2b_set" t-value="product._gif2box_combo_contents()"/>
+            <section t-if="g2b_set"
+                     t-attf-class="o_g2b_combo o_not_editable #{'o_g2b_combo_folds' if g2b_set['folds'] else ''}"
+                     aria-labelledby="o_g2b_combo_title">
+                <header class="o_g2b_combo_head">
+                    <div class="o_g2b_combo_heading">
+                        <h2 id="o_g2b_combo_title" class="o_g2b_combo_title">This set includes</h2>
+                        <div class="o_g2b_combo_count" t-out="g2b_set['count_label']"/>
+                    </div>
+                    <div t-if="g2b_set['saving']" class="o_g2b_combo_value">
+                        <div class="o_g2b_combo_value_row">
+                            <div class="o_g2b_combo_value_label">Bought separately</div>
+                            <del class="o_g2b_combo_value_retail" t-out="g2b_set['retail_total']"
+                                 t-options="{'widget': 'monetary', 'display_currency': g2b_set['currency']}"/>
+                        </div>
+                        <div class="o_g2b_combo_value_row o_g2b_combo_value_save">
+                            <div class="o_g2b_combo_value_label">You save</div>
+                            <strong t-out="g2b_set['saving']"
+                                    t-options="{'widget': 'monetary', 'display_currency': g2b_set['currency']}"/>
+                            <span class="o_g2b_combo_value_pct" t-out="'-' + str(g2b_set['saving_percent']) + '%'"/>
+                        </div>
+                    </div>
+                </header>
+
+                <ul class="o_g2b_combo_list">
+                    <li t-foreach="g2b_set['lines']" t-as="line" class="o_g2b_combo_item">
+                        <a t-if="line['url']" t-att-href="line['url']"
+                           t-attf-class="o_g2b_combo_link #{'o_g2b_combo_sold_out' if line['sold_out'] else ''}">
+                            <t t-call="gif2box_theme_home.product_combo_line"/>
+                            <i class="fa fa-angle-right o_g2b_combo_arrow" aria-hidden="true"/>
+                        </a>
+                        <div t-else=""
+                             t-attf-class="o_g2b_combo_link #{'o_g2b_combo_sold_out' if line['sold_out'] else ''}">
+                            <t t-call="gif2box_theme_home.product_combo_line"/>
+                        </div>
+                    </li>
+                </ul>
+
+                <button t-if="g2b_set['folds']" type="button" class="btn o_g2b_combo_more" aria-expanded="false">
+                    <div class="o_g2b_combo_more_label" t-out="g2b_set['more_label']"/>
+                    <div class="o_g2b_combo_less_label">Show less</div>
+                </button>
+            </section>
+        </xpath>
+    </template>
+
+
+    <template id="product_combo_line" name="Combo contents line">
+        <img class="o_g2b_combo_img" t-att-src="line['image_url']" alt=""
+             width="64" height="64" loading="lazy" decoding="async"/>
+        <div class="o_g2b_combo_body">
+            <div class="o_g2b_combo_name" t-out="line['name']"/>
+            <div class="o_g2b_combo_meta">
+                <div t-if="line['price_from']" class="o_g2b_combo_from">From</div>
+                <div class="o_g2b_combo_price" t-out="line['price']"
+                     t-options="{'widget': 'monetary', 'display_currency': g2b_set['currency']}"/>
+                <div t-if="line['options_label']" class="o_g2b_combo_chip" t-out="line['options_label']"/>
+                <div t-if="line['sold_out']" class="o_g2b_combo_chip o_g2b_combo_chip_oos">Out of stock</div>
+            </div>
+        </div>
+    </template>
+
 </odoo>

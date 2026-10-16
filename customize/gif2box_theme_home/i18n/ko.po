@@ -34,6 +34,7 @@ msgstr "더 보기"
 #. module: gif2box_theme_home
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_accordion_description
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_description_below
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
 msgid "Show less"
 msgstr "접기"
 
@@ -56,6 +57,7 @@ msgstr "문의하기"
 #. odoo-javascript
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
 msgid "Out of stock"
 msgstr "품절"
 
@@ -97,3 +99,44 @@ msgstr "이 상품의 남은 재고를 모두 장바구니에 담으셨습니다
 #: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 msgid "View cart"
 msgstr "장바구니 보기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "This set includes"
+msgstr "세트 구성"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "Bought separately"
+msgstr "개별 구매 시"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_contents
+msgid "You save"
+msgstr "절약"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_combo_line
+msgid "From"
+msgstr "최저"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s options"
+msgstr "%s가지 옵션"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "%s products"
+msgstr "%s개 상품"
+
+#. module: gif2box_theme_home
+#. odoo-python
+#: code:addons/gif2box_theme_home/models/product_template.py:0
+#, python-format
+msgid "Show %s more"
+msgstr "%s개 더 보기"
