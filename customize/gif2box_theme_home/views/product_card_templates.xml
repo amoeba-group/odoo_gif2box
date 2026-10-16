@@ -11,7 +11,8 @@
         The condition matches the one Odoo uses to drop that button
         (`_website_show_quick_add`), so the two always agree. A product flagged
         `allow_out_of_stock_order` is never marked: it can be ordered whatever
-        the stock says.
+        the stock says. A combo is marked when one of its choices has run out
+        (`models/product_template.py`).
 
         The caller passes the record as `g2b_product`; it works for both a
         `product.template` and a `product.product`, which is what the dynamic
@@ -21,7 +22,7 @@
         keep resolving.
     -->
     <template id="out_of_stock_badge">
-        <span t-if="not g2b_product.allow_out_of_stock_order and g2b_product._is_sold_out()"
+        <span t-if="g2b_product._gif2box_shows_out_of_stock()"
               class="o_g2b_oos_label">Out of stock</span>
     </template>
 

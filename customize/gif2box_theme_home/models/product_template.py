@@ -63,6 +63,8 @@ class ProductTemplate(models.Model):
         one the check landed on was the last of those.
         """
         self.ensure_one()
+        if self.type == 'combo':
+            return self._gif2box_combo_sold_out()
         if not self.is_storable:
             return False
         variants = self.product_variant_ids
@@ -80,3 +82,50 @@ class ProductTemplate(models.Model):
         return all(
             website._get_product_available_qty(variant) <= 0 for variant in variants
         )
+
+    def _gif2box_combo_sold_out(self):
+        """A combo is sold out when one of its choices has nothing left to pick.
+
+        Odoo never calls a combo sold out: it is not a storable product, so
+        the cards kept their add-to-cart button and no "Out of stock" marker.
+        Its product page knew better (`max_combo_quantity` in
+        `website_sale_stock`) and dropped the whole buy form. This is the same
+        rule, read from the stock alone rather than net of what the visitor
+        already has in the cart: a choice is available when any one of its
+        items is not tracked, can be backordered, or has stock left.
+        """
+        self.ensure_one()
+        website = self.env['website'].get_current_website()
+        for combo in self.sudo().combo_ids:
+            products = combo.combo_item_ids.product_id
+            # One query for the choice rather than one per item.
+            products.with_context(warehouse_id=website.warehouse_id.id).mapped('free_qty')
+            if not any(
+                not product.is_storable
+                or product.allow_out_of_stock_order
+                or website._get_product_available_qty(product) > 0
+                for product in products
+            ):
+                return True
+        return False
+
+    def _gif2box_shows_out_of_stock(self):
+        """Whether the shop should mark this product "Out of stock".
+
+        For a combo the flag on the combo itself means nothing (it is never
+        tracked); only its items count, and `_is_sold_out` already reads them.
+        """
+        self.ensure_one()
+        if self.type == 'combo':
+            return self._is_sold_out()
+        return not self.allow_out_of_stock_order and self._is_sold_out()
+
+    def _website_show_quick_add(self):
+        """No add-to-cart button on the card of a combo that cannot be bought.
+
+        `website_sale_stock` lets the combo's own `allow_out_of_stock_order`
+        through, which is always set on a combo.
+        """
+        if self.type == 'combo' and self._is_sold_out():
+            return False
+        return super()._website_show_quick_add()

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Stock status for the cases `website_sale_stock` leaves silent.
+
+        Its template only speaks for tracked products, and only says "already
+        all in your cart" when the product shows its stock level, which none
+        here do. In both cases the buy form is disabled with nothing to say
+        why. Each block carries the `availability_message_<template>` class
+        so the next variant change clears it with Odoo's own messages.
+
+        Rendered with `combination` as context: `max_combo_quantity` and
+        `free_qty` have already had the cart's quantities taken off by then.
+    -->
+    <t t-inherit="website_sale_stock.product_availability" t-inherit-mode="extension">
+        <xpath expr="//div[@id='product_stock_availability']" position="after">
+
+            <!-- A combo with a choice that has run out. -->
+            <div t-if="product_type == 'combo' and has_max_combo_quantity and max_combo_quantity lte 0"
+                 t-attf-class="availability_message_#{product_template} o_g2b_stock_status">
+                <div class="o_g2b_stock_status_badge">Out of stock</div>
+                <div class="o_g2b_stock_status_text">Some items in this combo have sold out. Please check back soon.</div>
+            </div>
+
+            <!--
+                Everything left is already in the cart. Odoo's own message for
+                this needs "Show available quantity" on the product.
+            -->
+            <div t-if="is_storable and !allow_out_of_stock_order and !show_availability and free_qty lte 0 and cart_qty"
+                 t-attf-class="availability_message_#{product_template} o_g2b_stock_status o_g2b_stock_status_cart">
+                <div class="o_g2b_stock_status_text">You already have all the remaining stock of this product in your cart.</div>
+                <a href="/shop/cart" class="o_g2b_stock_status_link">View cart</a>
+            </div>
+
+        </xpath>
+    </t>
+
+</templates>

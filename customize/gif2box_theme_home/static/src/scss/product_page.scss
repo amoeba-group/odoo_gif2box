@@ -237,25 +237,77 @@
         }
     }
 
+    // The stepper and the two buttons only share a row on the widest screens:
+    // the info column is half the container, and "Thêm vào giỏ hàng" beside
+    // "Mua ngay" fills most of it on its own. `flex-wrap` then puts the
+    // buttons on a full-width row of their own, side by side. The wishlist
+    // disc, when it is still here (see "Wishlist heart" below), stays with
+    // the stepper.
+    .css_quantity {
+        order: 1;
+    }
+
+    #product_option_block {
+        order: 2;
+    }
+
     #add_to_cart_wrap {
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        gap: .6rem;
+        order: 3;
         margin-bottom: 0 !important;
         // `me-auto` was there to push the wishlist row's contents away; with
         // the wishlist now a disc beside the button, it would only have
         // stranded it against the far edge of the column.
         margin-right: 0 !important;
+
+        // Labels never break: a button too narrow for its words drops to a
+        // line of its own instead, which only happens on the smallest phones.
+        .btn {
+            flex: 1 1 auto;
+            justify-content: center;
+            white-space: nowrap;
+        }
+    }
+
+    #add_to_cart,
+    .o_we_buy_now {
+        display: inline-flex;
+        align-items: center;
+        padding: .7rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 2rem;
+        transition: color .15s ease, background-color .15s ease,
+                    box-shadow .15s ease, transform .15s ease;
+    }
+
+    // Second to "Add to cart", so outlined, in the wishlist disc's colours.
+    // The `ms-1` it ships with is replaced by the wrapper's gap.
+    .o_we_buy_now {
+        margin-left: 0 !important;
+        color: $g-coral-dark;
+        background-color: $white;
+        border: 1px solid $g-coral-dark;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background-color: $g-coral-dark;
+            border-color: $g-coral-dark;
+            box-shadow: 0 .5rem 1.1rem rgba($g-coral, .3);
+            transform: translateY(-1px);
+        }
     }
 
     #add_to_cart {
-        padding: .7rem 2rem;
         font-size: 1rem;
         font-weight: 700;
         color: $white;
         background-color: $g-coral;
         border-color: $g-coral;
-        border-radius: 2rem;
         box-shadow: 0 .35rem .9rem rgba($g-coral, .3);
-        transition: background-color .15s ease, box-shadow .15s ease,
-                    transform .15s ease;
 
         &:hover,
         &:focus {
@@ -310,14 +362,309 @@
         }
     }
 
+    // An empty option block (a combo, which takes no wishlist, or the heart
+    // moved onto the picture) would still hold a gap's width in the row.
+    // `:has()` and not `:empty`: QWeb leaves whitespace inside it.
+    &:has(.o_g2b_wish_on_image) #product_option_block:not(:has(.btn:not(.o_add_wishlist_dyn))),
+    #product_option_block:not(:has(*)) {
+        display: none !important;
+    }
+
+    // ------------------------------------------------------------------
+    // Cannot be bought: the form stays, faded and inert
+    // ------------------------------------------------------------------
+    //
+    // `website_sale_stock` adds `out_of_stock` and `d-none` to the form when
+    // the variant or combo has run out; the form is kept on screen instead,
+    // so the page does not jump and the shopper can see what they would have
+    // pressed. `product_stock_state.js` takes the controls out of the tab
+    // order and stops their clicks; `pointer-events` here only covers the
+    // mouse. The id outranks `.d-none`, which is why both rules carry
+    // `!important`.
+    #o_wsale_cta_wrapper.out_of_stock {
+        display: flex !important;
+        cursor: not-allowed;
+
+        > * {
+            pointer-events: none;
+            opacity: .42;
+            filter: grayscale(1);
+            transition: opacity .2s ease, filter .2s ease;
+        }
+
+        #add_to_cart,
+        .o_we_buy_now {
+            box-shadow: none;
+            transform: none;
+        }
+    }
+
+    // A variant combination that does not exist: Odoo disables the two
+    // buttons itself (`.disabled`), with Bootstrap's lighter fade. Matched
+    // to the out-of-stock look, so "cannot buy" always looks the same.
+    #add_to_cart.disabled,
+    .o_we_buy_now.disabled {
+        opacity: .42;
+        filter: grayscale(1);
+        box-shadow: none;
+        transform: none;
+    }
+
+    // ------------------------------------------------------------------
+    // Stock status, above the form
+    // ------------------------------------------------------------------
+    //
+    // Moved above the form by `views/product_templates.xml`. It holds Odoo's
+    // messages (`website_sale_stock.product_availability`) and the ones it
+    // leaves out (`static/src/xml/stock_status.xml`). The "Out of stock" line
+    // reads as the chip on the product cards: brand teal on a tint, with the
+    // coral cross, never red, which on this site means a price.
     .availability_messages {
-        &:not(:empty) {
+        &:empty {
+            display: none;
+        }
+
+        // Odoo's wrapper holds every message, and renders even when empty.
+        #product_stock_availability:not(:has(*)) {
+            display: none;
+        }
+
+        #product_stock_availability:has(#out_of_stock_message),
+        .o_g2b_stock_status {
+            padding: .9rem 1rem;
+            margin-bottom: .85rem;
+            background-color: rgba($g-title, .035);
+            border: 1px solid rgba($g-title, .1);
+            border-radius: 1rem;
+
+            > div {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        #out_of_stock_message .text-danger,
+        .o_g2b_stock_status_badge {
+            display: inline-flex;
+            gap: .45rem;
+            align-items: center;
+            padding: .4rem .85rem;
+            font-size: .85rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba($g-title, .88) !important;
+            background-color: rgba($g-title, .08);
+            border-radius: 2rem;
+
+            .fa {
+                margin: 0 !important;
+                color: $g-coral-dark;
+            }
+        }
+
+        // Ours carries no icon of its own, unlike Odoo's.
+        .o_g2b_stock_status_badge::before {
+            font-family: FontAwesome;
+            font-size: .9em;
+            font-weight: 400;
+            color: $g-coral-dark;
+            content: "\f00d"; // times
+        }
+
+        // A product's own "out of stock" text, from its Sales tab, shown in
+        // place of the chip.
+        #out_of_stock_message:not(:has(.text-danger)) {
+            font-size: .9rem;
+            color: $gray-700;
+        }
+
+        .o_g2b_stock_status_text {
+            margin-top: .55rem;
+            font-size: .875rem;
+            line-height: 1.5;
+            color: $gray-700;
+        }
+
+        // Nothing to call out when the cart is the reason: just the sentence
+        // and the way to the cart, on one line where it fits.
+        .o_g2b_stock_status_cart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem .9rem;
+            align-items: baseline;
+
+            .o_g2b_stock_status_text {
+                margin-top: 0;
+            }
+        }
+
+        .o_g2b_stock_status_link,
+        #product_stock_notification_message {
+            display: inline-flex;
+            gap: .4rem;
+            align-items: center;
+            padding: 0 !important;
+            font-size: .875rem;
+            font-weight: 600;
+            color: $g-coral-dark;
+            text-decoration: none;
+
+            .fa {
+                margin: 0 !important;
+            }
+
+            &:hover,
+            &:focus {
+                color: $g-coral-dark;
+                text-decoration: underline;
+            }
+        }
+
+        // "Get notified when back in stock", then its e-mail field.
+        #stock_notification_div {
             margin-top: .6rem;
         }
 
-        .text-danger,
-        .text-warning {
+        #stock_notification_form .input-group {
+            max-width: 26rem;
+            overflow: hidden;
+            border: 1px solid $border-color;
+            border-radius: 2rem;
+
+            &:focus-within {
+                border-color: $g-coral;
+                box-shadow: 0 0 0 .2rem rgba($g-coral, .12);
+            }
+
+            .form-control {
+                height: 2.6rem;
+                padding: 0 1rem;
+                font-size: .9rem;
+                border: 0;
+                box-shadow: none;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 3rem;
+                color: $white;
+                background-color: $g-coral;
+                border: 0;
+                border-radius: 0;
+
+                &:hover {
+                    background-color: $g-coral-dark;
+                }
+            }
+
+            // The "invalid e-mail" cross Odoo swaps in for the send button.
+            #stock_notification_input_incorrect {
+                color: $danger;
+                background-color: transparent;
+            }
+        }
+
+        #stock_notification_success_message .text-muted {
+            display: inline-flex;
+            gap: .45rem;
+            align-items: center;
+            font-size: .875rem;
+            color: $g-title !important;
+
+            .fa {
+                color: $g-coral-dark;
+            }
+        }
+
+        // Odoo's other notes ("Only 3 left", "already in your cart"), for a
+        // product that ever has "Show available quantity" switched on.
+        #threshold_message,
+        #already_in_cart_message {
+            margin: 0 0 .85rem !important;
+            font-size: .875rem;
             font-weight: 600;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Wishlist heart, on the picture
+    // ------------------------------------------------------------------
+    //
+    // `views/product_templates.xml` puts it in the corner of the main
+    // picture; Odoo's own button stays in the buy form, hidden, and is what
+    // the heart presses (`product_stock_state.js`). Hidden by `:has()` rather
+    // than by the script, so it never shows for an instant first. If the
+    // script finds no button to press it removes the heart, and Odoo's disc
+    // comes back by itself.
+    &:has(.o_g2b_wish_on_image) #product_option_block .o_add_wishlist_dyn {
+        display: none !important;
+    }
+
+    .o_g2b_wish_on_image {
+        position: absolute;
+        top: .9rem;
+        right: .9rem;
+        // Over the slides and Bootstrap's controls (z-index 1).
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        font-size: 1.2rem;
+        line-height: 1;
+        color: $g-coral-dark;
+        background-color: rgba($white, .94);
+        border: 0;
+        border-radius: 50%;
+        box-shadow: 0 .3rem .9rem rgba($g-title, .14);
+        transition: color .15s ease, background-color .15s ease,
+                    box-shadow .15s ease, transform .15s ease;
+
+        &:hover {
+            background-color: $white;
+            box-shadow: 0 .4rem 1.1rem rgba($g-title, .2);
+            transform: scale(1.08);
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $g-coral;
+            outline-offset: 2px;
+        }
+
+        .o_g2b_wish_icon_on,
+        .o_g2b_wish_label_on {
+            display: none;
+        }
+
+        // In the wishlist: Odoo has nothing to undo from the product page,
+        // so the heart is a state from here on, not a button.
+        &.o_g2b_wish_active {
+            cursor: default;
+
+            &:hover {
+                transform: none;
+            }
+
+            .o_g2b_wish_icon_off,
+            .o_g2b_wish_label_off {
+                display: none;
+            }
+
+            .o_g2b_wish_icon_on {
+                display: inline-block;
+                animation: o_g2b_wish_pop .3s ease-out;
+            }
+
+            .o_g2b_wish_label_on {
+                display: block;
+            }
         }
     }
 
@@ -608,23 +955,38 @@
         }
     }
 
-    // On a phone the three controls cannot share a row: "Thêm vào giỏ hàng"
-    // alone needs more width than what is left beside the stepper and the
-    // wishlist, and flex-wrap would strand the wishlist disc on a line of its
-    // own. The two small controls pair up instead and the main action takes
-    // the full width below them.
+    // On a phone the buttons always get a row of their own, and slimmer
+    // padding so both labels fit side by side on a 360px screen.
     @include media-breakpoint-down(sm) {
-        .css_quantity {
-            order: 1;
-        }
-
-        #product_option_block {
-            order: 2;
-        }
-
         #add_to_cart_wrap {
-            flex: 1 1 100%;
-            order: 3;
+            flex-basis: 100%;
         }
+
+        #add_to_cart,
+        .o_we_buy_now {
+            padding: .7rem .75rem;
+            font-size: .95rem;
+        }
+    }
+}
+
+// The heart filling in, once, when the product joins the wishlist.
+@keyframes o_g2b_wish_pop {
+    0% {
+        transform: scale(.6);
+    }
+
+    60% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_wsale_product_page .o_g2b_wish_on_image .o_g2b_wish_icon_on {
+        animation: none;
     }
 }

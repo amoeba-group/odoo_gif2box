@@ -53,6 +53,8 @@ msgid "Contact us"
 msgstr "문의하기"
 
 #. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
 msgid "Out of stock"
 msgstr "품절"
@@ -67,3 +69,31 @@ msgstr "정보"
 #: code:addons/gif2box_theme_home/static/src/xml/configurator_buttons.xml:0
 msgid "Add to cart"
 msgstr "장바구니에 담기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_wishlist_on_image
+msgid "Add to wishlist"
+msgstr "위시리스트에 추가"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_wishlist_on_image
+msgid "In your wishlist"
+msgstr "위시리스트에 담긴 상품"
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "Some items in this combo have sold out. Please check back soon."
+msgstr "이 세트의 일부 상품이 품절되었습니다. 잠시 후 다시 확인해 주세요."
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "You already have all the remaining stock of this product in your cart."
+msgstr "이 상품의 남은 재고를 모두 장바구니에 담으셨습니다."
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "View cart"
+msgstr "장바구니 보기"

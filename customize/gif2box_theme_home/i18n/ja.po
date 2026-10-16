@@ -53,6 +53,8 @@ msgid "Contact us"
 msgstr "お問い合わせ"
 
 #. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.out_of_stock_badge
 msgid "Out of stock"
 msgstr "在庫切れ"
@@ -67,3 +69,31 @@ msgstr "情報"
 #: code:addons/gif2box_theme_home/static/src/xml/configurator_buttons.xml:0
 msgid "Add to cart"
 msgstr "カートに追加"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_wishlist_on_image
+msgid "Add to wishlist"
+msgstr "ウィッシュリストに追加"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.product_wishlist_on_image
+msgid "In your wishlist"
+msgstr "ウィッシュリストに追加済み"
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "Some items in this combo have sold out. Please check back soon."
+msgstr "このセットの一部の商品が売り切れです。再入荷までしばらくお待ちください。"
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "You already have all the remaining stock of this product in your cart."
+msgstr "この商品の在庫はすべてカートに入っています。"
+
+#. module: gif2box_theme_home
+#. odoo-javascript
+#: code:addons/gif2box_theme_home/static/src/xml/stock_status.xml:0
+msgid "View cart"
+msgstr "カートを見る"
