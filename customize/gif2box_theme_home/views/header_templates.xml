@@ -264,9 +264,12 @@
         from the Menu Editor) is drawn as before.
 
         `aria-hidden`: the label already says what the entry is.
+
+        Elsewhere (the category chips of `gif2box_theme_shop`) the icon is
+        named directly, as `g2b_icon_key`, with no menu entry behind it.
     -->
     <template id="menu_icon" name="Menu icon">
-        <t t-set="g2b_icon" t-value="submenu._gif2box_icon()"/>
+        <t t-set="g2b_icon" t-value="g2b_icon_key or submenu._gif2box_icon()"/>
         <svg t-if="g2b_icon"
              t-attf-class="o_g2b_menu_icon o_g2b_menu_icon_#{g2b_icon}"
              viewBox="0 0 24 24" fill="none" stroke="currentColor"

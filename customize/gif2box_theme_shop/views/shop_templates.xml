@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The shop, category and search listing (`website_sale.products`).
+
+        Top to bottom, what a shopper needs in the order they need it:
+
+        1. Where am I: a breadcrumb from the home page, the page's name with
+           how many products it holds, and the category's introduction,
+           cut to a few lines with a "Read more" (`shop_page.js`), so the
+           products start on the first screen even on a phone.
+        2. Where else can I go: the neighbouring categories as chips, with
+           the menu's icons and their product counts.
+        3. Narrow it down: price bands as chips (a present is chosen by
+           budget first), the sort, and the grid / list switch.
+        4. The products, with sold-out ones moved last (`controllers/main.py`).
+        5. "Show more products", which appends the next page in place, with
+           how far through the list the shopper is.
+
+        Everything Odoo's Customize panel switches still switches it: the
+        category chips follow "Categories in top-nav", the price bands
+        "Filter by Prices", the sort "Sort-by", the switch "Grid or List".
+
+        The texts the client writes for a category (`website_description`,
+        `website_footer`) keep their place, their editor and their hints.
+    -->
+    <template id="products" inherit_id="website_sale.products" name="Gif2box shop listing">
+
+        <!-- 1. Header: replaces Odoo's breadcrumb, which shows from `lg` only -->
+        <xpath expr="//t[@t-call='website_sale.products_breadcrumb']" position="replace">
+            <header class="o_g2b_shop_head">
+                <nav class="o_g2b_shop_crumbs" aria-label="Breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li t-if="category or search" class="breadcrumb-item">
+                            <a t-att-href="keep('/shop', category=0, search=0, min_price=0, max_price=0)">Products</a>
+                        </li>
+                        <li t-else="" class="breadcrumb-item active" aria-current="page">Products</li>
+                        <t t-foreach="category.parents_and_self if category else []" t-as="cat">
+                            <li t-if="cat == category" class="breadcrumb-item active" aria-current="page">
+                                <span t-field="cat.name"/>
+                            </li>
+                            <li t-else="" class="breadcrumb-item">
+                                <a t-att-href="keep('/shop/category/%s' % slug(cat), category=0)" t-field="cat.name"/>
+                            </li>
+                        </t>
+                    </ol>
+                </nav>
+
+                <div class="o_g2b_shop_title_row">
+                    <h1 class="o_g2b_shop_title">
+                        <t t-if="category" t-out="category.name"/>
+                        <t t-elif="search">Results for <q t-out="search"/></t>
+                        <t t-else="">All products</t>
+                    </h1>
+                    <p class="o_g2b_shop_count d-none d-md-block">
+                        <span class="o_g2b_shop_count_num" t-out="search_count"/>
+                        <span t-if="search_count == 1">product</span>
+                        <span t-else="">products</span>
+                    </p>
+                </div>
+
+                <!-- The category's own text, moved in below with its editor hint -->
+                <div t-if="category" class="o_g2b_shop_intro">
+                    <button type="button"
+                            class="o_g2b_shop_intro_toggle d-none"
+                            aria-controls="category_header"
+                            aria-expanded="false">
+                        <!-- The chevron between the two labels keeps them
+                             two terms for translation; CSS draws it last. -->
+                        <span class="o_g2b_shop_intro_more">Read more</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                             focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+                        <span class="o_g2b_shop_intro_less">Show less</span>
+                    </button>
+                </div>
+            </header>
+        </xpath>
+
+        <xpath expr="//button[hasclass('o_g2b_shop_intro_toggle')]" position="before">
+            <xpath expr="//t[@t-if='category'][div[@id='category_header']]" position="move"/>
+        </xpath>
+
+        <!-- The title is in the header now -->
+        <xpath expr="//h1[@t-if='category']" position="replace"/>
+
+        <!-- 2. Neighbouring categories -->
+        <xpath expr="//t[@t-if='opt_wsale_categories_top']" position="replace">
+            <nav t-if="opt_wsale_categories_top and g2b_chips"
+                 class="o_g2b_shop_cats o_g2b_chip_row"
+                 aria-label="Categories">
+                <a t-foreach="g2b_chips" t-as="chip"
+                   t-att-href="chip['url']"
+                   t-attf-class="o_g2b_chip #{chip['active'] and 'active' or ''}"
+                   t-att-aria-current="chip['active'] and 'page' or None">
+                    <t t-if="chip['icon']" t-call="gif2box_theme_home.menu_icon">
+                        <t t-set="g2b_icon_key" t-value="chip['icon']"/>
+                    </t>
+                    <t t-if="chip['is_all']">
+                        <span t-if="chip['category']" class="o_g2b_chip_label">All <t t-out="chip['category'].name"/></span>
+                        <span t-else="" class="o_g2b_chip_label">All</span>
+                    </t>
+                    <span t-else="" class="o_g2b_chip_label" t-out="chip['category'].name"/>
+                    <span class="o_g2b_chip_count" t-out="chip['count']"/>
+                </a>
+            </nav>
+        </xpath>
+
+        <!-- 3. Price bands, sort, layout -->
+        <xpath expr="//div[hasclass('products_header')]" position="replace">
+            <t t-set="g2b_sort_key" t-value="request.params.get('order') or website.shop_default_sort"/>
+            <t t-set="g2b_sort_now" t-value="[s for s in website_sale_sortable if s[0] == g2b_sort_key] or website_sale_sortable[:1]"/>
+            <div class="o_g2b_shop_bar">
+                <div t-if="opt_wsale_filter_price and g2b_budgets"
+                     class="o_g2b_shop_budgets"
+                     role="group"
+                     aria-labelledby="o_g2b_budget_label">
+                    <p id="o_g2b_budget_label" class="o_g2b_shop_bar_label">Price</p>
+                    <div class="o_g2b_chip_row">
+                        <a t-foreach="g2b_budgets" t-as="band"
+                           t-att-href="band['url']"
+                           rel="nofollow"
+                           t-attf-class="o_g2b_chip #{band['active'] and 'active' or ''}"
+                           t-att-aria-current="band['active'] and 'true' or None">
+                            <span class="o_g2b_chip_label" t-out="band['label']"/>
+                            <span class="o_g2b_chip_count" t-out="band['count']"/>
+                            <svg t-if="band['active']" class="o_g2b_chip_clear" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2.4"
+                                 stroke-linecap="round" aria-hidden="true" focusable="false">
+                                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="o_g2b_shop_tools">
+                    <!-- On a phone the count sits here, on the sort's row,
+                         rather than taking a line of its own up top. -->
+                    <p class="o_g2b_shop_bar_count d-md-none">
+                        <span class="o_g2b_shop_count_num" t-out="search_count"/>
+                        <span t-if="search_count == 1">product</span>
+                        <span t-else="">products</span>
+                    </p>
+
+                    <t t-if="is_view_active('website_sale.search')" t-call="website_sale.search">
+                        <t t-set="search" t-value="original_search or search"/>
+                        <t t-set="_form_classes" t-valuef="o_g2b_shop_search d-none d-lg-flex"/>
+                    </t>
+
+                    <t t-call="website_sale.pricelist_list">
+                        <t t-set="_classes" t-valuef="d-none d-lg-inline"/>
+                    </t>
+
+                    <div t-if="products and is_view_active('website_sale.sort')" class="dropdown o_g2b_sort">
+                        <button type="button"
+                                class="o_g2b_tool o_g2b_sort_toggle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                 focusable="false">
+                                <path d="m3 16 4 4 4-4"/><path d="M7 20V4"/>
+                                <path d="m21 8-4-4-4 4"/><path d="M17 4v16"/>
+                            </svg>
+                            <span class="o_g2b_sort_prefix">Sort by:</span>
+                            <span class="o_g2b_sort_value" t-out="g2b_sort_now[0][1]"/>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end o_g2b_sort_menu">
+                            <li t-foreach="website_sale_sortable" t-as="sortby">
+                                <a rel="noindex,nofollow"
+                                   t-att-href="keep(g2b_base_url, category=0, order=sortby[0])"
+                                   t-attf-class="dropdown-item #{sortby[0] == g2b_sort_now[0][0] and 'active' or ''}"
+                                   t-att-aria-current="sortby[0] == g2b_sort_now[0][0] and 'true' or None">
+                                    <span t-out="sortby[1]"/>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                         focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <t t-if="products and is_view_active('website_sale.add_grid_or_list_option')" t-call="website_sale.add_grid_or_list_option">
+                        <t t-set="_classes" t-valuef="d-flex o_g2b_layout"/>
+                    </t>
+
+                    <!-- Odoo's filter panel, for when attribute filters are
+                         switched on. The sort it also holds is in the bar. -->
+                    <button t-if="opt_wsale_categories or opt_wsale_attributes or opt_wsale_attributes_top"
+                            type="button"
+                            t-attf-class="o_g2b_tool position-relative {{not opt_wsale_attributes_top and 'd-lg-none'}}"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#o_wsale_offcanvas">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" aria-hidden="true" focusable="false">
+                            <path d="M21 4h-7"/><path d="M10 4H3"/><path d="M21 12h-9"/>
+                            <path d="M8 12H3"/><path d="M21 20h-5"/><path d="M12 20H3"/>
+                            <path d="M14 2v4"/><path d="M8 10v4"/><path d="M16 18v4"/>
+                        </svg>
+                        <span>Filters</span>
+                        <span t-if="isFilteringByPrice or attrib_set or tags" class="o_g2b_tool_dot"><span class="visually-hidden">filters active</span></span>
+                    </button>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- 4. Nothing to show -->
+        <xpath expr="//div[hasclass('mt128')][hasclass('mb256')]" position="replace">
+            <div t-else="" class="o_g2b_shop_empty">
+                <span class="o_g2b_shop_empty_icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                        <path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                    </svg>
+                </span>
+                <t t-set="g2b_filtered" t-value="request.params.get('min_price') or request.params.get('max_price') or attrib_set"/>
+                <h2 class="o_g2b_shop_empty_title">No matching products</h2>
+                <p t-if="search" class="o_g2b_shop_empty_text">
+                    Nothing matches <q t-out="search"/>. Try another word, or browse the categories.
+                </p>
+                <p t-elif="g2b_filtered" class="o_g2b_shop_empty_text">
+                    Nothing in this price range yet. Try another one, or see everything.
+                </p>
+                <p t-else="" class="o_g2b_shop_empty_text">
+                    New products are on their way to this category.
+                </p>
+                <div class="o_g2b_shop_empty_actions">
+                    <a t-if="search or g2b_filtered" class="o_g2b_btn o_g2b_btn_ghost"
+                       t-att-href="keep(g2b_base_url, category=0, search=0, min_price=0, max_price=0, attrib=0)">Clear filters</a>
+                    <a class="o_g2b_btn" href="/shop">See all products</a>
+                </div>
+            </div>
+        </xpath>
+
+        <!-- 5. Show more, then the page numbers for anyone who landed deep -->
+        <xpath expr="//div[hasclass('products_pager')]" position="replace">
+            <t t-set="g2b_shown" t-value="pager['offset'] + len(products)"/>
+            <div t-if="products and search_count &gt; len(products)"
+                 class="o_g2b_more"
+                 t-att-data-g2b-page="pager['page']['num']">
+                <p class="o_g2b_more_count">
+                    <span>You have seen</span>
+                    <b class="o_g2b_more_shown" t-out="g2b_shown"/>
+                    <span>of</span>
+                    <b t-out="search_count"/>
+                    <span>products</span>
+                </p>
+                <div class="o_g2b_more_bar" aria-hidden="true">
+                    <span t-attf-style="width: {{ int(g2b_shown * 100 / search_count) }}%;"/>
+                </div>
+                <a t-if="pager['page']['num'] &lt; pager['page_count']"
+                   t-att-href="pager['page_next']['url']"
+                   class="o_g2b_btn o_g2b_btn_ghost o_g2b_more_btn">
+                    <span>Show</span>
+                    <t t-out="min(ppg, search_count - g2b_shown)"/>
+                    <span>more products</span>
+                </a>
+                <span class="d-none o_g2b_more_loaded_msg">More products loaded</span>
+            </div>
+            <div class="visually-hidden" aria-live="polite" id="o_g2b_more_status"/>
+            <div t-if="pager['page']['num'] &gt; 1" class="products_pager d-flex justify-content-center pt-4 pb-3">
+                <t t-call="website.pager"/>
+            </div>
+        </xpath>
+
+        <!-- What search engines read: the trail and the products listed -->
+        <xpath expr="//div[@id='products_grid']" position="inside">
+            <script t-if="g2b_jsonld" type="application/ld+json" t-out="g2b_jsonld"/>
+        </xpath>
+    </template>
+
+    <!--
+        The product card on the listing.
+
+        Its buttons go onto the picture, each in the corner a shopper expects
+        it: the heart top right, as on the product page, the cart bottom
+        right, under the thumb, as on the homepage cards, and "Out of stock"
+        top left, where it is read before anything else. The text below is
+        left to the name and the price.
+
+        The wrapper moves as a whole, with everything other modules put in
+        it, hidden inputs included, so it stays inside the form it submits.
+        It now renders before the price block, and the cart button's
+        condition reads the prices, so they are fetched here too (the call is
+        cached per product).
+
+        A combo says how many items its box holds, and the picture's
+        description is the product's name, without the internal code in
+        brackets that `display_name` puts before it.
+    -->
+    <template id="products_item" inherit_id="website_sale.products_item" priority="30"
+              name="Gif2box product card">
+        <xpath expr="//div[hasclass('oe_product_image')]/a" position="after">
+            <t t-set="template_price_vals" t-value="get_product_prices(product)"/>
+            <xpath expr="//div[hasclass('o_wsale_product_btn')]" position="move"/>
+        </xpath>
+
+        <xpath expr="//h6[hasclass('o_wsale_products_item_title')]" position="after">
+            <p t-if="product.type == 'combo' and product.combo_ids" class="o_g2b_card_meta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <rect x="3" y="8" width="18" height="4" rx="1"/>
+                    <path d="M12 8v13"/>
+                    <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+                    <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+                </svg>
+                <span><t t-out="len(product.combo_ids)"/> items in the box</span>
+            </p>
+        </xpath>
+
+        <xpath expr="//span[@t-field='image_holder.image_1920']" position="attributes">
+            <attribute name="t-options">{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute object-fit-contain', 'alt-field': 'name'}</attribute>
+        </xpath>
+    </template>
+
+</odoo>

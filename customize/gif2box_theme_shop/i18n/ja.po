@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_theme_shop
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Home"
+msgstr "ホーム"
+
+#. module: gif2box_theme_shop
+#. odoo-python
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+#: code:addons/gif2box_theme_shop/controllers/main.py:0
+msgid "Products"
+msgstr "商品一覧"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Breadcrumb"
+msgstr "パンくずリスト"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Results for"
+msgstr "検索結果："
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "All products"
+msgstr "すべての商品"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "product"
+msgstr "件の商品"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "products"
+msgstr "件の商品"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span class=\"o_g2b_shop_intro_more\">Read more</span>"
+msgstr "<span class=\"o_g2b_shop_intro_more\">続きを読む</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span class=\"o_g2b_shop_intro_less\">Show less</span>"
+msgstr "<span class=\"o_g2b_shop_intro_less\">閉じる</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "All"
+msgstr "すべて"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Categories"
+msgstr "カテゴリー"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Price"
+msgstr "価格帯"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span class=\"o_g2b_sort_prefix\">Sort by:</span>"
+msgstr "<span class=\"o_g2b_sort_prefix\">並び替え：</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>Filters</span>"
+msgstr "<span>絞り込み</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span class=\"visually-hidden\">filters active</span>"
+msgstr "<span class=\"visually-hidden\">絞り込み中</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "No matching products"
+msgstr "該当する商品がありません"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Nothing matches"
+msgstr "検索語"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid ". Try another word, or browse the categories."
+msgstr "に一致する商品はありません。別のキーワードで検索するか、カテゴリーをご覧ください。"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Nothing in this price range yet. Try another one, or see everything."
+msgstr "この価格帯の商品はまだありません。別の価格帯を選ぶか、すべての商品をご覧ください。"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "New products are on their way to this category."
+msgstr "このカテゴリーには近日中に新しい商品が入荷します。"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "Clear filters"
+msgstr "条件をクリア"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "See all products"
+msgstr "すべての商品を見る"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>You have seen</span>"
+msgstr "<span>表示中</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>of</span>"
+msgstr "<span>/</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>products</span>"
+msgstr "<span>件</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>Show</span>"
+msgstr "<span>さらに</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span>more products</span>"
+msgstr "<span>件を表示</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products
+msgid "<span class=\"d-none o_g2b_more_loaded_msg\">More products loaded</span>"
+msgstr "<span class=\"d-none o_g2b_more_loaded_msg\">商品を追加で読み込みました</span>"
+
+#. module: gif2box_theme_shop
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_shop.products_item
+msgid "items in the box"
+msgstr "点入り"

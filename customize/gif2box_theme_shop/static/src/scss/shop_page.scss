@@ -1,0 +1,904 @@
+///
+/// The shop, category and search listing (`views/shop_templates.xml`).
+///
+/// Loaded after `gif2box_theme_home` in the same bundle: the brand variables
+/// (`$g-coral`, `$g-title`...) come from its `header.scss`, and so does the
+/// card's look (border, lift, name, price), which this builds on rather than
+/// redraws. Everything is scoped to the listing's `#wrap`, one class more
+/// specific than `header.scss`'s `#wrap .oe_product` rules, so where the
+/// two meet these win without `!important`; it is only used against Odoo's
+/// own `!important` utilities and inline styles.
+///
+/// Touch targets are 40px and up, chips 38-40px, and the rows that do not
+/// fit a phone scroll sideways, edge to edge, rather than wrap into a wall
+/// of buttons.
+///
+
+$g2b-shop-gutter: calc(var(--bs-gutter-x, 1.5rem) * .5);
+
+@keyframes o_g2b_spin {
+    to { transform: rotate(360deg); }
+}
+
+#wrap.o_wsale_products_page {
+
+    // =================================================================
+    // 1. Header
+    // =================================================================
+    .o_g2b_shop_head {
+        padding-top: .75rem;
+        margin-bottom: 1.1rem;
+    }
+
+    // A phone's first screen is short: Odoo's 15px above the listing and
+    // the header's own padding gave the breadcrumb a band of white to
+    // itself under the fixed header.
+    @include media-breakpoint-down(md) {
+        .o_wsale_products_main_row {
+            margin-top: 0;
+        }
+
+        .o_g2b_shop_head {
+            padding-top: .25rem;
+            margin-bottom: .9rem;
+        }
+
+        .o_g2b_shop_cats {
+            margin-bottom: .85rem;
+        }
+
+        .o_g2b_shop_bar {
+            padding: .75rem 0 .9rem;
+        }
+    }
+
+    .o_g2b_shop_crumbs .breadcrumb {
+        --bs-breadcrumb-divider: "›";
+        flex-wrap: nowrap;
+        padding: 0;
+        overflow-x: auto;
+        font-size: .82rem;
+        white-space: nowrap;
+        background: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        a {
+            color: $gray-600;
+            text-decoration: none;
+
+            &:hover {
+                color: $g-coral-dark;
+            }
+        }
+
+        .active {
+            font-weight: 500;
+            color: $body-color;
+        }
+    }
+
+    .o_g2b_shop_title_row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .2rem .75rem;
+        align-items: baseline;
+        margin-top: .65rem;
+    }
+
+    .o_g2b_shop_title {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.25;
+        color: $g-title;
+
+        @include media-breakpoint-up(lg) {
+            font-size: 1.9rem;
+        }
+    }
+
+    .o_g2b_shop_count {
+        margin: 0;
+        font-size: .9rem;
+        color: $gray-600;
+    }
+
+    .o_g2b_shop_count_num {
+        font-weight: 600;
+        color: $body-color;
+    }
+
+    // --- The category's own text -----------------------------------------
+    // Kept to a reading width: at the full 1280px a line ran to 180
+    // characters, and the eye lost its place going back for the next.
+    .o_g2b_shop_intro {
+        max-width: 52rem;
+        margin-top: .6rem;
+        font-size: .95rem;
+        line-height: 1.65;
+        color: $gray-700;
+
+        #category_header {
+            // Odoo's `mb16`.
+            margin-bottom: 0 !important;
+
+            p {
+                margin-bottom: .5rem;
+            }
+
+            > :last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // Folded by `shop_page.js` when long. Never in the editor, where the
+    // whole text is what is being worked on.
+    body:not(.editor_enable) & .o_g2b_shop_intro.o_g2b_folded:not(.o_g2b_open) #category_header {
+        max-height: calc(1.65em * 2);
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent);
+        mask-image: linear-gradient(to bottom, #000 45%, transparent);
+
+        @include media-breakpoint-up(lg) {
+            max-height: calc(1.65em * 3);
+            -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+            mask-image: linear-gradient(to bottom, #000 60%, transparent);
+        }
+    }
+
+    // No text, nothing to show; in the editor the empty area stays, as the
+    // place to drop blocks into.
+    body:not(.editor_enable) & .o_g2b_shop_intro:has(#category_header:empty) {
+        display: none;
+    }
+
+    .o_g2b_shop_intro_toggle {
+        display: inline-flex;
+        gap: .25rem;
+        align-items: center;
+        padding: .3rem 0;
+        margin-top: .25rem;
+        font-size: .9rem;
+        font-weight: 600;
+        color: $g-coral-dark;
+        background: none;
+        border: 0;
+
+        svg {
+            order: 1;
+            width: 1rem;
+            height: 1rem;
+            transition: transform .2s ease;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $g-coral;
+            outline-offset: 2px;
+            border-radius: .25rem;
+        }
+    }
+
+    .o_g2b_shop_intro_less {
+        display: none;
+    }
+
+    .o_g2b_open .o_g2b_shop_intro_toggle {
+        svg {
+            transform: rotate(180deg);
+        }
+
+        .o_g2b_shop_intro_more {
+            display: none;
+        }
+
+        .o_g2b_shop_intro_less {
+            display: inline;
+        }
+    }
+
+    .editor_enable & .o_g2b_shop_intro_toggle {
+        display: none !important;
+    }
+
+    // =================================================================
+    // Chips: categories and price bands
+    // =================================================================
+    .o_g2b_chip_row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        // Room for the focus ring, which `overflow` would otherwise clip.
+        padding: .2rem;
+        margin: -.2rem;
+
+        // A phone: one row, edge to edge, scrolled sideways.
+        @include media-breakpoint-down(md) {
+            flex-wrap: nowrap;
+            padding: .2rem $g2b-shop-gutter;
+            margin: -.2rem calc(#{$g2b-shop-gutter} * -1);
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            scroll-padding-inline: $g2b-shop-gutter;
+            scroll-snap-type: x proximity;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            // The side with more to see fades out (`shop_page.js`).
+            &.o_g2b_more_end {
+                -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+                mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+            }
+
+            &.o_g2b_more_start {
+                -webkit-mask-image: linear-gradient(to right, transparent, #000 2.5rem);
+                mask-image: linear-gradient(to right, transparent, #000 2.5rem);
+            }
+
+            &.o_g2b_more_start.o_g2b_more_end {
+                -webkit-mask-image: linear-gradient(to right, transparent, #000 2.5rem, #000 calc(100% - 2.5rem), transparent);
+                mask-image: linear-gradient(to right, transparent, #000 2.5rem, #000 calc(100% - 2.5rem), transparent);
+            }
+        }
+    }
+
+    .o_g2b_chip {
+        display: inline-flex;
+        flex: 0 0 auto;
+        gap: .45rem;
+        align-items: center;
+        height: 2.5rem;
+        padding: 0 1rem;
+        font-size: .9rem;
+        font-weight: 500;
+        line-height: 1;
+        color: $body-color;
+        white-space: nowrap;
+        text-decoration: none;
+        scroll-snap-align: start;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: 2rem;
+        transition: color .15s ease, background-color .15s ease,
+                    border-color .15s ease;
+
+        // The menu's icons (`gif2box_theme_home/.../menu_icons.scss`), at
+        // chip size; Gift Box keeps its coral.
+        .o_g2b_menu_icon {
+            width: 1.15rem;
+            height: 1.15rem;
+            margin-top: 0;
+        }
+
+        &:hover {
+            color: $g-coral-dark;
+            border-color: rgba($g-coral, .55);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $g-coral;
+            outline-offset: 2px;
+        }
+
+        &.active {
+            font-weight: 600;
+            color: $g-coral-dark;
+            background-color: rgba($g-coral, .08);
+            border-color: $g-coral;
+
+            .o_g2b_chip_count {
+                color: $white;
+                background-color: $g-coral;
+            }
+        }
+    }
+
+    .o_g2b_chip_count {
+        min-width: 1.5rem;
+        padding: .2rem .4rem;
+        font-size: .72rem;
+        font-weight: 600;
+        color: $gray-600;
+        text-align: center;
+        background-color: $gray-100;
+        border-radius: 1rem;
+    }
+
+    .o_g2b_chip_clear {
+        width: .85rem;
+        height: .85rem;
+        margin-right: -.2rem;
+    }
+
+    .o_g2b_shop_cats {
+        margin-bottom: 1rem;
+    }
+
+    // =================================================================
+    // 3. The bar: price bands, sort, layout
+    // =================================================================
+    .o_g2b_shop_bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem 1rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: .9rem 0 1.1rem;
+        border-top: 1px solid $border-color;
+    }
+
+    .o_g2b_shop_budgets {
+        display: flex;
+        flex: 1 1 auto;
+        gap: .75rem;
+        align-items: center;
+        min-width: 0;
+
+        .o_g2b_chip {
+            height: 2.375rem;
+            padding: 0 .85rem;
+            font-size: .85rem;
+        }
+
+        // On a phone the bands take the full row and scroll; the label
+        // would only eat into it.
+        @include media-breakpoint-down(md) {
+            flex-basis: 100%;
+
+            .o_g2b_shop_bar_label {
+                display: none;
+            }
+
+            .o_g2b_chip_row {
+                flex: 1 1 auto;
+            }
+        }
+    }
+
+    .o_g2b_shop_bar_label {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: .78rem;
+        font-weight: 600;
+        color: $gray-600;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+    }
+
+    .o_g2b_shop_tools {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        margin-left: auto;
+
+        @include media-breakpoint-down(md) {
+            flex: 1 1 100%;
+        }
+    }
+
+    .o_g2b_shop_bar_count {
+        margin: 0 auto 0 0;
+        font-size: .9rem;
+        color: $gray-600;
+    }
+
+    .o_g2b_tool {
+        display: inline-flex;
+        gap: .45rem;
+        align-items: center;
+        height: 2.5rem;
+        padding: 0 .9rem;
+        font-size: .88rem;
+        line-height: 1;
+        color: $body-color;
+        white-space: nowrap;
+        background-color: $white;
+        border: 1px solid $border-color;
+        border-radius: .75rem;
+        transition: border-color .15s ease;
+
+        svg {
+            width: 1.05rem;
+            height: 1.05rem;
+            color: $gray-600;
+        }
+
+        &:hover,
+        &[aria-expanded="true"] {
+            border-color: rgba($g-coral, .55);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $g-coral;
+            outline-offset: 2px;
+        }
+    }
+
+    .o_g2b_tool_dot {
+        position: absolute;
+        top: .4rem;
+        right: .4rem;
+        width: .5rem;
+        height: .5rem;
+        background-color: $g-coral;
+        border-radius: 50%;
+    }
+
+    .o_g2b_sort_prefix {
+        color: $gray-600;
+
+        @include media-breakpoint-down(sm) {
+            display: none;
+        }
+    }
+
+    .o_g2b_sort_value {
+        font-weight: 600;
+    }
+
+    .o_g2b_sort_menu {
+        min-width: 14rem;
+        padding: .4rem;
+        margin-top: .35rem !important;
+        border: 1px solid $border-color;
+        border-radius: .9rem;
+        box-shadow: 0 .75rem 2rem rgba($black, .12);
+
+        .dropdown-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            padding: .65rem .8rem;
+            font-size: .9rem;
+            color: $body-color;
+            border-radius: .6rem;
+
+            svg {
+                width: 1rem;
+                height: 1rem;
+                color: $g-coral-dark;
+                visibility: hidden;
+            }
+
+            &:hover,
+            &:focus {
+                color: $body-color;
+                background-color: $gray-100;
+            }
+
+            &.active {
+                font-weight: 600;
+                color: $g-coral-dark;
+                background-color: rgba($g-coral, .08);
+
+                svg {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    // Odoo's grid / list switch, as a segmented control.
+    .o_g2b_layout {
+        gap: .15rem;
+        padding: .2rem;
+        background-color: $gray-100;
+        border-radius: .75rem;
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.1rem;
+            height: 2.1rem;
+            padding: 0;
+            color: $gray-600;
+            background-color: transparent;
+            border: 0;
+            // Bootstrap's group squares the inner corners with `!important`.
+            border-radius: .55rem !important;
+            box-shadow: none;
+        }
+
+        .btn.active,
+        .btn-check:checked + .btn {
+            color: $g-coral-dark;
+            background-color: $white;
+            box-shadow: 0 .1rem .3rem rgba($black, .1);
+        }
+    }
+
+    // Search within the listing: desktop only, the header has the site's.
+    .o_g2b_shop_search {
+        flex: 0 1 16rem !important;
+        width: 16rem;
+        margin: 0 !important;
+
+        .input-group {
+            height: 2.5rem;
+            overflow: hidden;
+            background-color: $white;
+            border: 1px solid $border-color;
+            border-radius: .75rem;
+            transition: border-color .15s ease, box-shadow .15s ease;
+
+            &:focus-within {
+                border-color: $g-coral;
+                box-shadow: 0 0 0 .2rem rgba($g-coral, .15);
+            }
+        }
+
+        .form-control {
+            height: 100%;
+            padding: 0 .9rem;
+            font-size: .88rem;
+            background-color: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .oe_search_button {
+            height: 100%;
+            padding: 0 .85rem;
+            color: $gray-600;
+            background-color: transparent !important;
+            border: 0 !important;
+        }
+    }
+
+    // =================================================================
+    // 4. The grid and its cards
+    // =================================================================
+
+    // Two columns on a phone want the room for pictures, not gutters.
+    @include media-breakpoint-down(md) {
+        #o_wsale_products_grid {
+            --o-wsale-products-grid-gap: .75rem !important;
+        }
+    }
+
+    .oe_product {
+
+        // The text under the picture is the name and the price only; the
+        // price sits on the card's floor, level across a row.
+        .o_wsale_product_sub {
+            margin-top: auto;
+        }
+
+        @include media-breakpoint-down(md) {
+            .o_wsale_product_information {
+                padding: .7rem .75rem .85rem;
+            }
+
+            .o_wsale_products_item_title {
+                font-size: .9rem;
+            }
+        }
+
+        // --- The buttons, on the picture ---------------------------------
+        // Their wrapper becomes a layer the size of the picture that lets
+        // clicks through to the picture's link; only the buttons in it take
+        // them. Odoo floats it elsewhere and fades it out until hover; both
+        // with rules on its own selectors and utilities, hence the
+        // `!important`.
+        .oe_product_image .o_wsale_product_btn {
+            position: absolute !important;
+            inset: 0 !important;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 1 !important;
+
+            > * {
+                position: absolute;
+                pointer-events: auto;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                border: 0;
+                border-radius: 50%;
+                transition: transform .15s ease, box-shadow .15s ease,
+                            background-color .15s ease, color .15s ease;
+
+                // A finger-sized target around a smaller disc.
+                &::after {
+                    position: absolute;
+                    inset: -.25rem;
+                    content: "";
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $g-coral;
+                    outline-offset: 2px;
+                }
+            }
+
+            // Cart: the homepage card's button, at the foot of the picture.
+            .a-submit {
+                right: .6rem;
+                bottom: .6rem;
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1rem;
+                color: $white;
+                background-color: $g-coral;
+                box-shadow: 0 .25rem .6rem rgba($g-coral, .35);
+
+                &:hover,
+                &:focus-visible {
+                    color: $white;
+                    background-color: $g-coral-dark;
+                    box-shadow: 0 .4rem .9rem rgba($g-coral, .45);
+                    transform: scale(1.08);
+                }
+            }
+
+            // Heart: the product page's, in the top corner. An outline
+            // until saved, filled once in the wishlist (where Odoo disables
+            // it: there is nothing to undo from a card).
+            .o_add_wishlist {
+                top: .6rem;
+                right: .6rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                font-size: .95rem;
+                color: $g-coral-dark;
+                background-color: rgba($white, .94);
+                box-shadow: 0 .2rem .6rem rgba($g-title, .16);
+
+                &:not(:disabled) .fa-heart::before {
+                    content: "\f08a"; // heart-o
+                }
+
+                &:hover {
+                    color: $g-coral-dark;
+                    background-color: $white;
+                    transform: scale(1.08);
+                }
+
+                &:disabled {
+                    color: $white;
+                    background-color: $g-coral;
+                    opacity: 1;
+                }
+            }
+
+            // "Out of stock", first thing read on the card.
+            .o_g2b_oos_label {
+                top: .6rem;
+                left: .6rem;
+                gap: .3rem;
+                height: 1.85rem;
+                padding: 0 .65rem;
+                font-size: .72rem;
+                color: $g-title;
+                background-color: rgba($white, .94);
+                box-shadow: 0 .15rem .5rem rgba($black, .15);
+            }
+        }
+
+        // A combo's box size, under its name.
+        .o_g2b_card_meta {
+            display: flex;
+            gap: .35rem;
+            align-items: center;
+            margin: -.15rem 0 .5rem;
+            font-size: .8rem;
+            color: $gray-600;
+
+            svg {
+                flex: 0 0 auto;
+                width: .95rem;
+                height: .95rem;
+                color: $g-coral;
+            }
+        }
+    }
+
+    // List layout: a 100px thumbnail has no room for two buttons, so
+    // they go to the card's own corners, heart top right and cart (or
+    // "Out of stock") bottom right, level with the price. The picture
+    // stops being their frame; its link still clips the hover zoom.
+    #products_grid.o_wsale_layout_list .oe_product {
+
+        .oe_product_image {
+            position: static !important;
+        }
+
+        .oe_product_image_link {
+            overflow: hidden;
+        }
+
+        .o_wsale_product_information {
+            padding-right: 4rem;
+        }
+
+        .oe_product_image .o_wsale_product_btn .o_g2b_oos_label {
+            top: auto;
+            right: .75rem;
+            bottom: .75rem;
+            left: auto;
+        }
+    }
+
+    // =================================================================
+    // 5. Show more
+    // =================================================================
+    .o_g2b_more {
+        display: flex;
+        flex-direction: column;
+        gap: .7rem;
+        align-items: center;
+        max-width: 24rem;
+        margin: 2.5rem auto 1.5rem;
+        text-align: center;
+    }
+
+    .o_g2b_more_count {
+        margin: 0;
+        font-size: .9rem;
+        color: $gray-600;
+
+        b {
+            font-weight: 600;
+            color: $body-color;
+        }
+    }
+
+    .o_g2b_more_bar {
+        width: 100%;
+        max-width: 15rem;
+        height: 4px;
+        overflow: hidden;
+        background-color: $gray-200;
+        border-radius: 4px;
+
+        span {
+            display: block;
+            height: 100%;
+            background-color: $g-coral;
+            border-radius: inherit;
+            transition: width .4s ease;
+        }
+    }
+
+    .o_g2b_more_btn {
+        position: relative;
+        min-width: 15rem;
+        margin-top: .3rem;
+
+        &.o_g2b_loading {
+            color: transparent !important;
+            pointer-events: none;
+
+            &::after {
+                position: absolute;
+                inset: 0;
+                width: 1.25rem;
+                height: 1.25rem;
+                margin: auto;
+                content: "";
+                border: 2px solid rgba($g-coral, .3);
+                border-top-color: $g-coral-dark;
+                border-radius: 50%;
+                animation: o_g2b_spin .7s linear infinite;
+            }
+        }
+    }
+
+    // =================================================================
+    // Buttons and the empty state
+    // =================================================================
+    .o_g2b_btn {
+        display: inline-flex;
+        gap: .4rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: .7rem 1.5rem;
+        font-size: .95rem;
+        font-weight: 600;
+        line-height: 1.2;
+        color: $white;
+        text-decoration: none;
+        background-color: $g-coral;
+        border: 1.5px solid $g-coral;
+        border-radius: 2rem;
+        transition: color .15s ease, background-color .15s ease,
+                    border-color .15s ease;
+
+        &:hover {
+            color: $white;
+            background-color: $g-coral-dark;
+            border-color: $g-coral-dark;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $g-coral;
+            outline-offset: 3px;
+        }
+    }
+
+    .o_g2b_btn_ghost {
+        color: $g-coral-dark;
+        background-color: $white;
+
+        &:hover {
+            color: $white;
+            background-color: $g-coral;
+            border-color: $g-coral;
+        }
+    }
+
+    .o_g2b_shop_empty {
+        max-width: 32rem;
+        padding: 2.5rem 1.5rem;
+        margin: 1.5rem auto 4rem;
+        text-align: center;
+        background-color: $white;
+        border: 1px dashed $border-color;
+        border-radius: 1.25rem;
+    }
+
+    .o_g2b_shop_empty_icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 4.5rem;
+        height: 4.5rem;
+        margin-bottom: 1rem;
+        color: $g-coral;
+        background-color: rgba($g-coral, .1);
+        border-radius: 50%;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .o_g2b_shop_empty_title {
+        margin-bottom: .5rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $g-title;
+    }
+
+    .o_g2b_shop_empty_text {
+        margin-bottom: 1.5rem;
+        color: $gray-600;
+    }
+
+    .o_g2b_shop_empty_actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #wrap.o_wsale_products_page {
+        .o_g2b_chip,
+        .o_g2b_shop_intro_toggle svg,
+        .o_g2b_more_bar span,
+        .oe_product_image .o_wsale_product_btn .btn {
+            transition: none;
+        }
+    }
+}
