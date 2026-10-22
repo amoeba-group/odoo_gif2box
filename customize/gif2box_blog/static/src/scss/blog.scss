@@ -1,0 +1,804 @@
+///
+/// Blog: the index (`blog_index`, `posts_grid`, `post_card`) and the post
+/// page (`post_header`, `post_body`), in `views/blog_templates.xml`.
+///
+/// Built on the shop's tokens from `gif2box_theme_home` (`$g-coral`,
+/// `$g-title`...), so the blog reads as part of the shop. The reading column
+/// is kept to about 70 characters a line with generous leading, which is
+/// what makes a long post comfortable on a phone.
+///
+
+$g2b-blog-radius: 1.25rem;
+
+// =====================================================================
+// INDEX
+// =====================================================================
+.o_g2b_blog_hero {
+    padding: 2.25rem 0 1.5rem;
+    text-align: center;
+    background:
+        radial-gradient(40rem 18rem at 50% -10%, rgba($g-coral, .14), transparent 70%),
+        linear-gradient(180deg, #FFF8F4 0%, $white 100%);
+
+    @include media-breakpoint-up(lg) {
+        padding: 3.5rem 0 2rem;
+    }
+}
+
+.o_g2b_blog_eyebrow {
+    margin-bottom: .4rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+}
+
+.o_g2b_blog_title {
+    margin: 0 0 .6rem;
+    font-size: clamp(1.9rem, calc(1.3rem + 2vw), 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: $g-title;
+    letter-spacing: -.02em;
+}
+
+.o_g2b_blog_lead {
+    max-width: 36rem;
+    margin: 0 auto 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: $gray-700;
+}
+
+.o_g2b_blog_search {
+    display: flex;
+    max-width: 30rem;
+    margin: 0 auto 1.25rem;
+    overflow: hidden;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .15);
+    border-radius: 2rem;
+    box-shadow: 0 .3rem 1rem rgba($g-title, .06);
+    transition: border-color .15s ease, box-shadow .15s ease;
+
+    &:focus-within {
+        border-color: $g-coral;
+        box-shadow: 0 0 0 .2rem rgba($g-coral, .14);
+    }
+}
+
+.o_g2b_blog_search_input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 3rem;
+    padding: 0 1.25rem;
+    font-size: .95rem;
+    background: none;
+    border: 0;
+    outline: 0;
+}
+
+.o_g2b_blog_search_btn {
+    flex: 0 0 3rem;
+    color: $white;
+    background-color: $g-coral;
+    border: 0;
+    transition: background-color .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        background-color: $g-coral-dark;
+    }
+}
+
+// Topics: a row of chips, scrolling sideways on a phone rather than
+// wrapping into a block.
+.o_g2b_blog_topics {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    padding: .25rem .25rem .5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include media-breakpoint-down(md) {
+        justify-content: flex-start;
+        margin-inline: calc(var(--bs-gutter-x, 1.5rem) * -.5);
+        padding-inline: calc(var(--bs-gutter-x, 1.5rem) * .5);
+    }
+}
+
+.o_g2b_blog_topic {
+    flex: 0 0 auto;
+    padding: .5rem 1rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: $g-title;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .14);
+    border-radius: 2rem;
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: $g-coral-dark;
+        border-color: $g-coral;
+    }
+
+    &.active {
+        color: $white;
+        background-color: $g-coral;
+        border-color: $g-coral;
+    }
+}
+
+.o_g2b_blog_results {
+    display: flex;
+    gap: .4rem;
+    align-items: baseline;
+    margin-bottom: 1.25rem;
+    color: $gray-700;
+}
+
+.o_g2b_blog_empty {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.o_g2b_blog_empty_title {
+    margin-bottom: .4rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_blog_empty_text {
+    margin-bottom: 1.25rem;
+    color: $gray-600;
+}
+
+.o_g2b_blog_more {
+    display: inline-flex;
+    padding: .6rem 1.4rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-decoration: none;
+    border: 1.5px solid $g-coral-dark;
+    border-radius: 2rem;
+}
+
+// --- Cards --------------------------------------------------------------------
+.o_g2b_blog_grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.75rem;
+    }
+}
+
+.o_g2b_post_card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .09);
+    border-radius: $g2b-blog-radius;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
+    &:hover,
+    &:focus-within {
+        border-color: rgba($g-coral, .4);
+        box-shadow: 0 1rem 2rem -.8rem rgba($g-title, .25);
+        transform: translateY(-3px);
+
+        .o_g2b_post_card_media img {
+            transform: scale(1.04);
+        }
+
+        .o_g2b_post_card_title {
+            color: $g-coral-dark;
+        }
+
+        .o_g2b_post_card_cta .fa {
+            transform: translateX(3px);
+        }
+    }
+}
+
+.o_g2b_post_card_unpublished {
+    opacity: .65;
+}
+
+.o_g2b_post_card_media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: $gray-100;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+    }
+}
+
+.o_g2b_post_card_placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba($g-coral-dark, .55);
+    background: linear-gradient(150deg, #FFF3EC 0%, #FFD9C9 100%);
+
+    svg {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+.o_g2b_post_card_body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.o_g2b_post_card_topic {
+    align-self: flex-start;
+    padding: .15rem .6rem;
+    font-size: .72rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    background-color: rgba($g-coral, .12);
+    border-radius: 2rem;
+}
+
+.o_g2b_post_card_title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    margin: 0;
+    overflow: hidden;
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $g-title;
+    transition: color .15s ease;
+}
+
+// One link per card, stretched over the whole of it.
+.o_g2b_post_card_link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        content: "";
+    }
+
+    &:focus-visible {
+        outline: none;
+
+        &::after {
+            outline: 2px solid $g-coral;
+            outline-offset: -2px;
+            border-radius: $g2b-blog-radius;
+        }
+    }
+}
+
+.o_g2b_post_card_teaser {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    margin: 0;
+    overflow: hidden;
+    font-size: .92rem;
+    line-height: 1.6;
+    color: $gray-700;
+}
+
+.o_g2b_post_card_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    align-items: center;
+    margin-top: auto;
+    padding-top: .35rem;
+    font-size: .8rem;
+    color: $gray-600;
+}
+
+.o_g2b_post_card_cta {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    margin-top: .5rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+
+    .fa {
+        transition: transform .15s ease;
+    }
+}
+
+.o_g2b_post_card_badge {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    z-index: 2;
+    padding: .15rem .55rem;
+    font-size: .7rem;
+    font-weight: 700;
+    color: $white;
+    background-color: $danger;
+    border-radius: .35rem;
+}
+
+// The latest post, wide: picture and text side by side from tablets.
+.o_g2b_post_card_featured {
+    margin-bottom: 1.75rem;
+
+    .o_g2b_post_card_title {
+        font-size: clamp(1.3rem, calc(1rem + 1vw), 1.85rem);
+        -webkit-line-clamp: 4;
+    }
+
+    .o_g2b_post_card_teaser {
+        font-size: 1rem;
+    }
+
+    // The picture keeps its 16:10 and sets the card's height; the text is
+    // centred beside it. Left to stretch, a square cover made the card twice
+    // as tall as its words, with a hole between teaser and date.
+    @include media-breakpoint-up(md) {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+        align-items: center;
+
+        .o_g2b_post_card_media {
+            align-self: stretch;
+            aspect-ratio: 16 / 10;
+        }
+
+        .o_g2b_post_card_body {
+            justify-content: center;
+            padding: 2rem 2.25rem;
+        }
+
+        .o_g2b_post_card_meta {
+            margin-top: .5rem;
+        }
+    }
+}
+
+#o_wblog_index_content .container {
+    @include media-breakpoint-up(lg) {
+        padding-top: 2rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
+// =====================================================================
+// POST PAGE
+// =====================================================================
+.o_g2b_post_topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: .9rem;
+}
+
+.o_g2b_post_topic {
+    position: relative;
+    z-index: 1;
+    padding: .2rem .7rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    text-decoration: none;
+    background-color: rgba($g-coral, .12);
+    border-radius: 2rem;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background-color: $g-coral;
+    }
+}
+
+// The reading column: about 70 characters a line at the body size, for
+// the header (breadcrumb, title, cover) and the text alike. Odoo's readable
+// option left both at the container's full width on a laptop, near 150
+// characters a line.
+$g2b-read-width: 46rem;
+
+.website_blog {
+
+    .o_wblog_regular_cover_container,
+    #o_wblog_post_main #o_wblog_post_content {
+        max-width: $g2b-read-width;
+        margin-inline: auto;
+    }
+
+    // As specific as Odoo's own (`.o_wblog_post_title #o_wblog_post_name`,
+    // a display weight of 300 and a line height of 1), or it wins.
+    .o_wblog_post_title #o_wblog_post_name,
+    .o_wblog_regular_cover_container #o_wblog_post_name {
+        padding-bottom: 0;
+        font-size: clamp(1.8rem, calc(1.2rem + 2.2vw), 2.9rem);
+        font-weight: 800;
+        line-height: 1.18;
+        color: $g-title;
+        letter-spacing: -.02em;
+    }
+
+    .o_wblog_post_title #o_wblog_post_subtitle {
+        margin-top: .6rem;
+        font-weight: 400;
+        font-size: clamp(1.02rem, calc(.95rem + .35vw), 1.25rem);
+        line-height: 1.55;
+        color: $gray-700;
+    }
+
+    .o_wblog_regular_cover_container {
+        padding-top: .5rem;
+
+        .breadcrumb {
+            font-size: .85rem;
+
+            a {
+                color: $gray-600;
+                text-decoration: none;
+
+                &:hover {
+                    color: $g-coral-dark;
+                }
+            }
+        }
+
+        .text-muted.mb-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem .9rem;
+            align-items: center;
+            margin-bottom: 1.25rem !important;
+            font-size: .88rem;
+        }
+    }
+
+    .o_wblog_post_page_cover_regular {
+        border-radius: $g2b-blog-radius !important;
+        box-shadow: 0 1rem 2.4rem -1.2rem rgba($g-title, .35) !important;
+    }
+
+    .o_g2b_post_readtime {
+        display: inline-flex;
+        gap: .35rem;
+        align-items: center;
+    }
+
+    // --- The reading column -------------------------------------------
+    .o_wblog_post_content_field {
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: #2C3A3A;
+
+        > p,
+        > ul,
+        > ol {
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            margin: 2.5rem 0 1rem;
+            font-size: clamp(1.35rem, calc(1.1rem + .8vw), 1.7rem);
+            font-weight: 800;
+            line-height: 1.3;
+            color: $g-title;
+            letter-spacing: -.01em;
+            // Clear of the sticky header when reached from the contents.
+            scroll-margin-top: 6rem;
+        }
+
+        h3 {
+            margin: 1.75rem 0 .6rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: $g-title;
+            scroll-margin-top: 6rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.3rem;
+
+            li {
+                margin-bottom: .45rem;
+            }
+
+            li::marker {
+                color: $g-coral;
+            }
+        }
+
+        strong {
+            color: $g-title;
+        }
+
+        a {
+            font-weight: 600;
+            color: $g-coral-dark;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: .2em;
+
+            &:hover {
+                text-decoration-thickness: 2px;
+            }
+        }
+
+        figure {
+            margin: 2rem 0;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+                border-radius: 1rem;
+            }
+
+            figcaption {
+                margin-top: .6rem;
+                font-size: .85rem;
+                line-height: 1.5;
+                color: $gray-600;
+                text-align: center;
+            }
+        }
+
+        blockquote {
+            padding: 1rem 1.25rem;
+            margin: 1.75rem 0;
+            font-size: 1.1rem;
+            color: $g-title;
+            background-color: rgba($g-coral, .07);
+            border-left: 4px solid $g-coral;
+            border-radius: 0 .75rem .75rem 0;
+        }
+    }
+}
+
+// --- Table of contents -----------------------------------------------------
+.o_g2b_toc {
+    margin: 0 0 2rem;
+    background-color: #F6FAF9;
+    border: 1px solid rgba($g-title, .1);
+    border-radius: 1rem;
+
+    summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .9rem 1.1rem;
+        cursor: pointer;
+        list-style: none;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::after {
+            font-family: FontAwesome;
+            color: $g-coral-dark;
+            content: "\f107"; // angle-down
+            transition: transform .2s ease;
+        }
+    }
+
+    details[open] summary::after {
+        transform: rotate(180deg);
+    }
+
+    .o_g2b_toc_title {
+        font-size: .9rem;
+        font-weight: 700;
+        color: $g-title;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+    }
+
+    .o_g2b_toc_list {
+        padding: 0 1.1rem 1rem 2.4rem;
+        margin: 0;
+        counter-reset: none;
+    }
+
+    .o_g2b_toc_item {
+        margin: .35rem 0;
+        font-size: .95rem;
+        line-height: 1.45;
+
+        &::marker {
+            font-weight: 700;
+            color: $g-coral;
+        }
+
+        a {
+            color: $g-title;
+            text-decoration: none;
+
+            &:hover,
+            &:focus-visible {
+                color: $g-coral-dark;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .o_g2b_toc_h3 {
+        margin-left: 1rem;
+        font-size: .88rem;
+        list-style: circle;
+    }
+}
+
+// --- Reading progress ------------------------------------------------------
+.o_g2b_read_progress {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1100;
+    height: 3px;
+    pointer-events: none;
+    background: linear-gradient(90deg, $g-coral, $g-coral-dark);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+// --- Share -----------------------------------------------------------------
+.o_g2b_post_share {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba($g-title, .1);
+}
+
+.o_g2b_post_share_label {
+    margin-right: .25rem;
+    font-size: .9rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_share_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+    color: $g-title;
+    text-decoration: none;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .18);
+    border-radius: 50%;
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background-color: $g-coral;
+        border-color: $g-coral;
+    }
+}
+
+.o_g2b_copy_done {
+    font-size: .85rem;
+    font-weight: 600;
+    color: $g-coral-dark;
+    opacity: 0;
+    transition: opacity .2s ease;
+
+    .o_g2b_copied & {
+        opacity: 1;
+    }
+}
+
+// --- Call to action --------------------------------------------------------
+.o_g2b_post_cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    background: linear-gradient(150deg, #FFF3EC 0%, #FFDCCD 60%, #FFC6B0 100%);
+    border-radius: $g2b-blog-radius;
+
+    @include media-breakpoint-up(md) {
+        padding: 1.75rem 2rem;
+    }
+}
+
+.o_g2b_post_cta_text {
+    flex: 1 1 16rem;
+}
+
+.o_g2b_post_cta_title {
+    margin-bottom: .3rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: $g-title;
+}
+
+.o_g2b_post_cta_sub {
+    font-size: .95rem;
+    line-height: 1.55;
+    color: rgba($g-title, .78);
+}
+
+.o_g2b_post_cta_btn {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    padding: .75rem 1.5rem;
+    font-weight: 700;
+    color: $white;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: $g-coral;
+    border-radius: 2rem;
+    box-shadow: 0 .45rem 1.1rem rgba($g-coral, .35);
+    transition: background-color .15s ease, transform .15s ease;
+
+    .fa {
+        transition: transform .15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background-color: $g-coral-dark;
+        transform: translateY(-1px);
+
+        .fa {
+            transform: translateX(3px);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_g2b_post_card,
+    .o_g2b_post_card_media img,
+    .o_g2b_post_cta_btn {
+        transition: none;
+    }
+}

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Blog index (/blog/<blog>, also filtered by topic or search).
+
+        Odoo's own layout opens on a full-width cover and lists posts in a
+        plain grid. Here, as reading blogs on a phone wants it:
+        - a short header: title, one line of description, search, and the
+          topics as chips (the way readers browse a small blog);
+        - the latest post featured, large, on the first page;
+        - then cards: picture, topic, title, teaser, date and reading time.
+
+        Priority 99: applied after Odoo's index options, whose banner it
+        replaces. Those options are switched off by `_gif2box_setup_blog`.
+    -->
+    <template id="blog_index" inherit_id="website_blog.blog_post_short" priority="99">
+        <xpath expr="//div[@id='o_wblog_blog_top']" position="replace">
+            <t t-set="g2b_topics" t-value="blog._g2b_topics() if blog else request.env['blog.blog']._g2b_topics()"/>
+            <section class="o_g2b_blog_hero">
+                <div class="container">
+                    <div class="o_g2b_blog_eyebrow">Blog</div>
+                    <h1 class="o_g2b_blog_title" t-out="blog.name if blog else website.name"/>
+                    <p t-if="blog and blog.subtitle" class="o_g2b_blog_lead" t-out="blog.subtitle"/>
+
+                    <form class="o_g2b_blog_search" role="search" method="get"
+                          t-att-action="blog_url(tag=None, search=None, date_begin=None, date_end=None)">
+                        <input type="search" name="search" class="o_g2b_blog_search_input"
+                               t-att-value="search or ''" placeholder="Search articles"
+                               aria-label="Search articles"/>
+                        <button type="submit" class="o_g2b_blog_search_btn" aria-label="Search">
+                            <i class="fa fa-search" aria-hidden="true"/>
+                        </button>
+                    </form>
+
+                    <nav t-if="g2b_topics" class="o_g2b_blog_topics" aria-label="Topics">
+                        <a t-att-href="blog_url(tag=None, search=None, date_begin=None, date_end=None)"
+                           t-attf-class="o_g2b_blog_topic #{'active' if not active_tag_ids else ''}">
+                            <div>All articles</div>
+                        </a>
+                        <t t-foreach="g2b_topics" t-as="g2b_topic">
+                            <a t-att-href="blog_url(tag=slug(g2b_topic), search=None, date_begin=None, date_end=None)"
+                               t-attf-class="o_g2b_blog_topic #{'active' if g2b_topic.id in (active_tag_ids or []) else ''}"
+                               t-out="g2b_topic.name"/>
+                        </t>
+                    </nav>
+                </div>
+            </section>
+        </xpath>
+
+        <!-- The search and the topics above replace Odoo's bar. -->
+        <xpath expr="//t[@t-call='website_blog.blogs_nav']" position="replace"/>
+
+        <xpath expr="//t[@t-call='website_blog.posts_loop']" position="replace">
+            <t t-call="gif2box_blog.posts_grid"/>
+        </xpath>
+    </template>
+
+    <template id="posts_grid" name="Blog posts grid">
+        <t t-set="g2b_first_page" t-value="not pager or pager['page']['num'] == 1"/>
+        <t t-set="g2b_featured" t-value="posts[:1] if (g2b_first_page and not tag and not search and not date_begin and len(posts) &gt; 2) else posts[:0]"/>
+
+        <div t-if="search and posts" class="o_g2b_blog_results">
+            <div class="o_g2b_blog_results_label">Results for</div>
+            <strong t-out="search"/>
+        </div>
+
+        <div t-if="not posts" class="o_g2b_blog_empty">
+            <div class="o_g2b_blog_empty_title">No articles found</div>
+            <div class="o_g2b_blog_empty_text">Try another word, or browse all articles.</div>
+            <a t-att-href="blog_url(tag=None, search=None, date_begin=None, date_end=None)" class="o_g2b_blog_more">
+                <div>All articles</div>
+            </a>
+        </div>
+
+        <t t-foreach="g2b_featured" t-as="blog_post">
+            <t t-call="gif2box_blog.post_card">
+                <t t-set="g2b_featured_card" t-value="True"/>
+            </t>
+        </t>
+
+        <div t-if="posts - g2b_featured" class="o_g2b_blog_grid">
+            <t t-foreach="posts - g2b_featured" t-as="blog_post">
+                <t t-call="gif2box_blog.post_card"/>
+            </t>
+        </div>
+    </template>
+
+    <!--
+        One post as a card. The title is the heading the card hangs from (an
+        `h2`, under the blog's `h1`), and the whole card is clickable through
+        the title's link, stretched over it: one link per card, read once by
+        screen readers, rather than three to the same page.
+    -->
+    <template id="post_card" name="Blog post card">
+        <t t-set="g2b_url" t-value="'/blog/%s/%s' % (slug(blog_post.blog_id), slug(blog_post))"/>
+        <t t-set="g2b_cover" t-value="blog_post._g2b_cover_url()"/>
+        <article t-attf-class="o_g2b_post_card #{'o_g2b_post_card_featured' if g2b_featured_card else ''} #{'o_g2b_post_card_unpublished' if not blog_post.website_published else ''}">
+            <div class="o_g2b_post_card_media">
+                <img t-if="g2b_cover" t-att-src="g2b_cover" t-att-alt="blog_post.name"
+                     width="800" height="500" decoding="async"
+                     t-att-loading="'eager' if g2b_featured_card else 'lazy'"/>
+                <div t-else="" class="o_g2b_post_card_placeholder" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+                </div>
+            </div>
+            <div class="o_g2b_post_card_body">
+                <div t-if="blog_post.tag_ids" class="o_g2b_post_card_topic" t-out="blog_post.tag_ids[:1].name"/>
+                <h2 class="o_g2b_post_card_title">
+                    <a t-att-href="g2b_url" class="o_g2b_post_card_link" t-out="blog_post.name"/>
+                </h2>
+                <p class="o_g2b_post_card_teaser" t-out="blog_post.subtitle or blog_post.teaser"/>
+                <div class="o_g2b_post_card_meta">
+                    <time t-att-datetime="blog_post.post_date and blog_post.post_date.date().isoformat()"
+                          t-out="blog_post.post_date"
+                          t-options="{'widget': 'datetime', 'date_only': 'true', 'format': 'medium'}"/>
+                    <span class="o_g2b_post_card_dot" aria-hidden="true">·</span>
+                    <span t-out="blog_post._g2b_reading_label()"/>
+                </div>
+                <div t-if="g2b_featured_card" class="o_g2b_post_card_cta" aria-hidden="true">
+                    <div>Read the article</div>
+                    <i class="fa fa-arrow-right"/>
+                </div>
+                <span t-if="not blog_post.website_published" class="o_g2b_post_card_badge">unpublished</span>
+            </div>
+        </article>
+    </template>
+
+    <!--
+        Post page, header: the topic above the title, and the reading time
+        beside the date. On Odoo's "regular" cover (title over the picture),
+        which `_gif2box_setup_blog` switches on.
+    -->
+    <template id="post_header" inherit_id="website_blog.opt_blog_post_regular_cover">
+        <xpath expr="//div[contains(@t-attf-class, 'o_wblog_post_title')]" position="before">
+            <div t-if="blog_post.tag_ids" class="o_g2b_post_topics css_editable_mode_hidden">
+                <t t-foreach="blog_post.tag_ids" t-as="g2b_topic">
+                    <a t-att-href="blog_url(tag=slug(g2b_topic), date_begin=False, date_end=False)"
+                       class="o_g2b_post_topic" t-out="g2b_topic.name"/>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'o_wblog_post_title')]/following-sibling::div[1]" position="inside">
+            <span class="o_g2b_post_readtime">
+                <i class="fa fa-clock-o" aria-hidden="true"/>
+                <span t-out="blog_post._g2b_reading_label()"/>
+            </span>
+        </xpath>
+    </template>
+
+    <!--
+        Post page, body: a table of contents before the text (filled from its
+        headings by `blog_post.js`, which also draws the reading progress
+        bar), then sharing and a way to the gift boxes after it.
+
+        All outside the post's own field, so none of it can be saved into the
+        post by the website editor, and hidden while editing.
+    -->
+    <template id="post_body" inherit_id="website_blog.blog_post_content">
+        <xpath expr="//div[@t-field='blog_post.content']" position="before">
+            <nav class="o_g2b_toc d-none css_editable_mode_hidden" aria-labelledby="o_g2b_toc_title">
+                <details open="open">
+                    <summary>
+                        <div id="o_g2b_toc_title" class="o_g2b_toc_title">In this article</div>
+                    </summary>
+                    <ol class="o_g2b_toc_list"/>
+                </details>
+            </nav>
+        </xpath>
+        <xpath expr="//div[@t-field='blog_post.content']" position="after">
+            <div class="o_g2b_post_share css_editable_mode_hidden">
+                <div class="o_g2b_post_share_label">Share this article</div>
+                <a class="o_g2b_share_btn" t-att-href="blog_post._g2b_share_url('facebook')"
+                   target="_blank" rel="noopener" aria-label="Share on Facebook" title="Facebook">
+                    <i class="fa fa-facebook" aria-hidden="true"/>
+                </a>
+                <button type="button" class="o_g2b_share_btn o_g2b_copy_link" aria-label="Copy link" title="Copy link">
+                    <i class="fa fa-link" aria-hidden="true"/>
+                </button>
+                <div class="o_g2b_copy_done" role="status">Link copied</div>
+            </div>
+
+            <aside class="o_g2b_post_cta css_editable_mode_hidden">
+                <div class="o_g2b_post_cta_text">
+                    <div class="o_g2b_post_cta_title">Looking for a gift for a little one?</div>
+                    <div class="o_g2b_post_cta_sub">Our gift boxes hold everything the occasion needs, boxed and ready to give.</div>
+                </div>
+                <a href="/shop/category/gift-38" class="o_g2b_post_cta_btn">
+                    <div>Choose a gift box</div>
+                    <i class="fa fa-arrow-right" aria-hidden="true"/>
+                </a>
+            </aside>
+        </xpath>
+    </template>
+
+    <!-- Post page: what search engines read about it (see `_g2b_jsonld`). -->
+    <template id="post_structured_data" inherit_id="website_blog.blog_post_complete">
+        <xpath expr="//t[@t-call='website_blog.index']" position="inside">
+            <t t-set="head">
+                <script type="application/ld+json" t-out="blog_post._g2b_jsonld()"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

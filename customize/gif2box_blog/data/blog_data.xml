@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Name the blog, set its display options and create the starter posts
+        (once). See `blog.blog._gif2box_setup_blog`.
+    -->
+    <function model="blog.blog" name="_gif2box_setup_blog"/>
+</odoo>

@@ -1,0 +1,113 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_blog
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.blog_index
+msgid "Blog"
+msgstr "블로그"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.blog_index
+msgid "Search articles"
+msgstr "글 검색"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.blog_index
+msgid "Search"
+msgstr "검색"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.blog_index
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.posts_grid
+msgid "All articles"
+msgstr "전체 글"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.blog_index
+msgid "Topics"
+msgstr "주제"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.posts_grid
+msgid "Results for"
+msgstr "검색 결과:"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.posts_grid
+msgid "No articles found"
+msgstr "글을 찾을 수 없습니다"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.posts_grid
+msgid "Try another word, or browse all articles."
+msgstr "다른 검색어로 찾아보거나 전체 글을 둘러보세요."
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_card
+msgid "Read the article"
+msgstr "글 읽기"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_card
+msgid "unpublished"
+msgstr "비공개"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "In this article"
+msgstr "이 글의 목차"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Share this article"
+msgstr "이 글 공유하기"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Share on Facebook"
+msgstr "Facebook에 공유"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Copy link"
+msgstr "링크 복사"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Link copied"
+msgstr "링크가 복사되었습니다"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Looking for a gift for a little one?"
+msgstr "아기 선물을 찾고 계신가요?"
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Our gift boxes hold everything the occasion needs, boxed and ready to give."
+msgstr "Gif2box 선물 박스에는 그날 필요한 모든 것이 담겨 있고, 박스 포장으로 바로 선물할 수 있습니다."
+
+#. module: gif2box_blog
+#: model_terms:ir.ui.view,arch_db:gif2box_blog.post_body
+msgid "Choose a gift box"
+msgstr "선물 박스 고르기"
+
+#. module: gif2box_blog
+#. odoo-python
+#: code:addons/gif2box_blog/models/blog_post.py:0
+#, python-format
+msgid "%s min read"
+msgstr "%s분 분량"
