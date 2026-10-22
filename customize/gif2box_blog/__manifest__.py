@@ -1,6 +1,6 @@
 {
     'name': 'Gif2box: Blog',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.2.0',
     'category': 'Website/Website',
     'summary': 'A modern, search-friendly design for the Odoo blog, and its first gift guides',
     'description': """

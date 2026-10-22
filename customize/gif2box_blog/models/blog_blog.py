@@ -1,6 +1,7 @@
 import datetime
 import json
 import logging
+import re
 
 from odoo import api, fields, models
 from odoo.tools import file_open
@@ -61,12 +62,25 @@ VIEW_OPTIONS = {
 #
 # Created once (`SEEDED_PARAM`), never again: deleted or rewritten in the
 # backend, they stay as the client left them. Each body is an HTML file in
-# `data/posts/`, in Vietnamese and English; Japanese and Korean visitors
-# read the English. Placeholders are filled when the posts are created:
+# `data/posts/`, one per language, all four with the same structure, as the
+# English is the source the others are translations of (see
+# `_gif2box_translate_post_content`). Placeholders are filled when the posts
+# are created:
 #   {product:ID}  the product page, in the language of the text
 #   {img:ID}      the product's picture
 #   {gift} {life} the two shop categories
 SEEDED_PARAM = 'gif2box_blog.starter_posts_created'
+
+# The file suffix of each language's body.
+BODY_FILES = {'en_US': 'en', 'vi_VN': 'vi', 'ja_JP': 'ja', 'ko_KR': 'ko'}
+
+# The post fields written in each language, and their keys in `POSTS`.
+POST_FIELDS = {
+    'name': 'name',
+    'subtitle': 'subtitle',
+    'seo_name': 'seo_name',
+    'website_meta_description': 'meta_description',
+}
 
 TAGS = {
     'gifts': {'en_US': 'Gift ideas', 'vi_VN': 'Gợi ý quà tặng',
@@ -89,10 +103,14 @@ POSTS = [
         'name': {
             'en_US': 'Newborn gift ideas: practical, safe and thoughtful',
             'vi_VN': 'Gợi ý quà tặng cho bé sơ sinh thiết thực, an toàn và ý nghĩa',
+            'ja_JP': '出産祝いのギフトアイデア：実用的で安心な贈り物',
+            'ko_KR': '출산 선물 아이디어: 실용적이고 안전한 선물',
         },
         'subtitle': {
             'en_US': 'What parents really use in the first months, and how to choose a present that will not be a duplicate.',
             'vi_VN': 'Những món ba mẹ thực sự dùng trong những tháng đầu, và cách chọn quà để không bị trùng.',
+            'ja_JP': '生後数か月でご両親が本当に使うものと、ほかの贈り物と重ならない選び方。',
+            'ko_KR': '첫 몇 달 동안 부모님이 정말 쓰는 물건과, 다른 선물과 겹치지 않게 고르는 법.',
         },
         'seo_name': {
             'en_US': 'newborn-baby-gift-ideas',
@@ -101,6 +119,8 @@ POSTS = [
         'meta_description': {
             'en_US': 'Practical newborn gift ideas: silicone teethers, first spoons, freezer trays. How to avoid duplicates, and a gift set ready to give.',
             'vi_VN': 'Gợi ý quà tặng cho bé sơ sinh thiết thực: gặm nướu silicone, muỗng nĩa tập ăn, khay trữ đông. Mẹo chọn quà không trùng và set quà sẵn để tặng.',
+            'ja_JP': '実用的な出産祝いのアイデア：シリコーンの歯固め、初めてのスプーン、冷凍トレー。贈り物が重ならないコツと、そのまま贈れるギフトセット。',
+            'ko_KR': '실용적인 출산 선물 아이디어: 실리콘 치발기, 첫 숟가락, 냉동 트레이. 선물이 겹치지 않는 팁과 바로 선물하기 좋은 세트.',
         },
     },
     {
@@ -111,10 +131,14 @@ POSTS = [
         'name': {
             'en_US': "First birthday gift ideas for a one-year-old",
             'vi_VN': 'Quà thôi nôi cho bé 1 tuổi: chọn sao cho ý nghĩa và hữu ích',
+            'ja_JP': '1歳の誕生日プレゼントのアイデア',
+            'ko_KR': '첫돌 선물 아이디어',
         },
         'subtitle': {
             'en_US': 'Gifts that help a one-year-old eat on their own, and leave less to clean up.',
             'vi_VN': 'Những món quà giúp bé 1 tuổi tự lập trong bữa ăn, và giúp ba mẹ đỡ dọn dẹp.',
+            'ja_JP': '1歳の赤ちゃんが自分で食べるのを助け、片付けも楽になる贈り物。',
+            'ko_KR': '첫돌 아기가 스스로 먹도록 돕고, 뒷정리도 덜어 주는 선물.',
         },
         'seo_name': {
             'en_US': 'first-birthday-gift-ideas',
@@ -123,6 +147,8 @@ POSTS = [
         'meta_description': {
             'en_US': 'First birthday gift ideas: suction bowls, self-feeding sets and training cups. Tips for choosing, and gift sets ready to give.',
             'vi_VN': 'Gợi ý quà thôi nôi cho bé 1 tuổi: bát có đế hít, bộ dụng cụ tự xúc, cốc tập uống. Mẹo chọn quà và các set quà sẵn sàng để tặng.',
+            'ja_JP': '1歳の誕生日プレゼントのアイデア：吸盤ボウル、自分で食べるためのセット、トレーニングカップ。選び方のコツと、そのまま贈れるギフトセット。',
+            'ko_KR': '첫돌 선물 아이디어: 흡착 볼, 자기주도 식사 세트, 트레이닝 컵. 고르는 팁과 바로 선물하기 좋은 세트.',
         },
     },
     {
@@ -133,10 +159,14 @@ POSTS = [
         'name': {
             'en_US': 'Starting solids: the checklist of what you need',
             'vi_VN': 'Bắt đầu ăn dặm cần chuẩn bị gì? Checklist dụng cụ cho ba mẹ',
+            'ja_JP': '離乳食を始めるときに必要なものチェックリスト',
+            'ko_KR': '이유식 시작 준비물 체크리스트',
         },
         'subtitle': {
             'en_US': 'The tools to have ready, the materials to choose, and how to keep it all clean.',
             'vi_VN': 'Những dụng cụ cần có, cách chọn chất liệu an toàn và mẹo vệ sinh, bảo quản.',
+            'ja_JP': '用意しておきたい道具、安全な素材の選び方、清潔に保つコツ。',
+            'ko_KR': '준비해 둘 도구, 안전한 소재 고르는 법, 깨끗하게 관리하는 팁.',
         },
         'seo_name': {
             'en_US': 'starting-solids-checklist',
@@ -145,17 +175,11 @@ POSTS = [
         'meta_description': {
             'en_US': 'What you need to start solids: suction bowls, soft spoons, freezer trays, mashers. Safe materials and cleaning tips.',
             'vi_VN': 'Bắt đầu ăn dặm cần chuẩn bị gì: bát đế hít, thìa silicone, khay trữ đông, dụng cụ nghiền. Cách chọn chất liệu an toàn và mẹo vệ sinh.',
+            'ja_JP': '離乳食を始めるのに必要なもの：吸盤ボウル、やわらかいスプーン、冷凍トレー、すりつぶし器。安全な素材とお手入れのコツ。',
+            'ko_KR': '이유식 시작 준비물: 흡착 볼, 부드러운 숟가락, 냉동 트레이, 매셔. 안전한 소재와 세척 팁.',
         },
     },
 ]
-
-# Japanese and Korean titles: the bodies are in English, but a title in the
-# reader's language tells them what the post is about before they open it.
-POST_TITLES_JA_KO = {
-    'newborn': ('出産祝いのギフトアイデア：実用的で安心な贈り物', '출산 선물 아이디어: 실용적이고 안전한 선물'),
-    'birthday': ('1歳の誕生日プレゼントのアイデア', '첫돌 선물 아이디어'),
-    'solids': ('離乳食を始めるときに必要なものチェックリスト', '이유식 시작 준비물 체크리스트'),
-}
 
 
 class BlogBlog(models.Model):
@@ -221,17 +245,13 @@ class BlogBlog(models.Model):
                 }),
             })
             self._gif2box_set_post_content(post, spec['file'], installed)
-            if 'vi_VN' in installed:
-                post.with_context(lang='vi_VN').write({
-                    'name': spec['name']['vi_VN'],
-                    'subtitle': spec['subtitle']['vi_VN'],
-                    'seo_name': spec['seo_name']['vi_VN'],
-                    'website_meta_description': spec['meta_description']['vi_VN'],
-                })
-            ja, ko = POST_TITLES_JA_KO.get(spec['file'], (None, None))
-            for code, title in (('ja_JP', ja), ('ko_KR', ko)):
-                if title and code in installed:
-                    post.with_context(lang=code).write({'name': title})
+            for code in installed:
+                if code == 'en_US':
+                    continue
+                values = {field: spec[key][code]
+                          for field, key in POST_FIELDS.items() if code in spec[key]}
+                if values:
+                    post.with_context(lang=code).write(values)
             created += 1
 
         params.set_param(SEEDED_PARAM, fields.Datetime.now().isoformat())
@@ -256,38 +276,95 @@ class BlogBlog(models.Model):
         return author
 
     def _gif2box_set_post_content(self, post, key, installed):
-        """Write a post's body: English as the source, Vietnamese over it.
-
-        A post's body is translated term by term (paragraph, heading, list
-        item...), as Odoo translates every web page. Writing the Vietnamese
-        body as a whole replaced the English one as well, so the English is
-        written first and the Vietnamese is given term for term; the two
-        files keep the same structure for that, links included.
-        """
-        field = post._fields['content']
+        """Write a post's body: English as the source, the other languages
+        as its translations."""
         en = self._gif2box_post_body(key, 'en_US')
         post.with_context(lang='en_US').write({'content': en})
-        if 'vi_VN' not in installed:
-            return
-        vi = self._gif2box_post_body(key, 'vi_VN')
-        source = post.with_context(lang='en_US').content
-        terms_en = field.get_trans_terms(source)
-        terms_vi = field.get_trans_terms(vi)
-        if len(terms_en) != len(terms_vi):
-            _logger.warning(
-                'gif2box blog: %s: %s English terms against %s Vietnamese, '
-                'Vietnamese body not applied', key, len(terms_en), len(terms_vi))
-            return
-        post.update_field_translations('content', {'vi_VN': dict(zip(terms_en, terms_vi))})
+        self._gif2box_translate_post_content(post, key, [
+            code for code in installed if code != 'en_US' and code in BODY_FILES])
+
+    def _gif2box_translate_post_content(self, post, key, langs):
+        """Give a post's body in `langs`, term by term, from `data/posts/`.
+
+        A post's body is translated term by term (paragraph, heading, list
+        item, picture caption...), as Odoo translates every web page:
+        writing a translated body as a whole replaced the English one as
+        well. The files keep the English structure for that, so their terms
+        pair up by position.
+
+        Odoo also cuts a term at every link, and puts the English spacing
+        back around each piece ("danh mục Life , và"). A paragraph holding
+        links is marked `o_translate_inline` in the files, which makes it
+        one term, so each language places its links where its sentence
+        needs them.
+
+        A term whose English has been edited since the post was created
+        keeps the translation it has: only terms still reading as the file
+        does are given.
+        """
+        field = post._fields['content']
+        stored = field.get_trans_terms(post.with_context(lang='en_US').content)
+        source = field.get_trans_terms(self._gif2box_post_body(key, 'en_US'))
+        translations = {}
+        for code in langs:
+            target = field.get_trans_terms(self._gif2box_post_body(key, code))
+            if not len(stored) == len(source) == len(target):
+                _logger.warning(
+                    'gif2box blog: %s: %s terms in the post, %s in the English '
+                    'file, %s in the %s one; %s body not applied',
+                    key, len(stored), len(source), len(target), code, code)
+                continue
+            translations[code] = {
+                term: translated
+                for term, original, translated in zip(stored, source, target)
+                if _plain(term) == _plain(original)
+            }
+        if translations:
+            post.update_field_translations('content', translations)
+
+    @api.model
+    def _gif2box_refresh_starter_posts(self):
+        """Write the starter posts again from `data/posts/`, in every
+        language: body, title, subtitle and meta description.
+
+        For posts created by an earlier version of this module, in English
+        and Vietnamese only, and cut into pieces at every link. A post whose
+        English text has been edited since is left alone. A title, subtitle
+        or description given its own text in a language is kept; only those
+        still showing the English are written.
+        """
+        installed = self.env['res.lang'].search([]).mapped('code')
+        Post = self.env['blog.post'].with_context(lang='en_US')
+        for spec in POSTS:
+            post = Post.search([('seo_name', '=', spec['seo_name']['en_US'])], limit=1)
+            if not post:
+                continue
+            if _plain(post.content) != _plain(self._gif2box_post_body(spec['file'], 'en_US')):
+                _logger.warning(
+                    'gif2box blog: %s: post %s edited since it was created, not rewritten',
+                    spec['file'], post.id)
+                continue
+            self._gif2box_set_post_content(post, spec['file'], installed)
+            for code in installed:
+                if code == 'en_US':
+                    continue
+                localized = post.with_context(lang=code)
+                values = {
+                    field: spec[key][code]
+                    for field, key in POST_FIELDS.items()
+                    if code in spec[key] and localized[field] == post[field]
+                }
+                if values:
+                    localized.write(values)
 
     def _gif2box_post_body(self, key, lang):
         """A post body from `data/posts/`, with its placeholders filled in.
 
-        Links are the same in both languages, and carry no language prefix:
+        Links are the same in every language, and carry no language prefix:
         Odoo adds the visitor's own (`/en/...`) when it renders the page, and
         the product page redirects to its slug in that language.
         """
-        suffix = 'vi' if lang == 'vi_VN' else 'en'
+        suffix = BODY_FILES.get(lang, 'en')
         with file_open('gif2box_blog/data/posts/%s.%s.html' % (key, suffix)) as fh:
             body = fh.read()
         body = body.replace('{gift}', GIFT_CATEGORY).replace('{life}', LIFE_CATEGORY)
@@ -310,3 +387,8 @@ class BlogBlog(models.Model):
         if self:
             domain.append(('blog_id', 'in', self.ids))
         return self.env['blog.post'].search(domain).tag_ids.sorted('name')
+
+
+def _plain(term):
+    """A term's words, without its markup."""
+    return ' '.join(re.sub(r'<[^>]*>', ' ', term).split())
