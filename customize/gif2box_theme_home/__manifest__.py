@@ -28,6 +28,7 @@
             # header.scss first: it declares the brand variables the others use.
             'gif2box_theme_home/static/src/scss/header.scss',
             'gif2box_theme_home/static/src/scss/footer.scss',
+            'gif2box_theme_home/static/src/scss/menu_icons.scss',
             'gif2box_theme_home/static/src/scss/home_sections.scss',
             'gif2box_theme_home/static/src/scss/product_hover.scss',
             'gif2box_theme_home/static/src/scss/combo_dialog.scss',

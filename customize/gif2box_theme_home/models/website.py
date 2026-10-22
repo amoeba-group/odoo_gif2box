@@ -30,27 +30,44 @@ ABOUT_NAMES = {
     'ko_KR': '회사 소개',
 }
 
-POLICY_NAMES = {
-    'en_US': 'Policies',
-    'vi_VN': 'Chính sách',
-    'ja_JP': 'ポリシー',
-    'ko_KR': '정책',
+LIFE_URL = '/shop/category/34'
+GIFT_URL = '/shop/category/gift-38'
+BLOG_URL = '/blog'
+
+GIFT_NAMES = {
+    'en_US': 'Gift Box',
+    'vi_VN': 'Hộp quà tặng',
+    'ja_JP': 'ギフトボックス',
+    'ko_KR': '선물 박스',
 }
 
-# The pages that belong under "Policies", in the order they should appear.
-POLICY_URLS = [
-    '/chinh-sach-bao-mat-thong-tin',
-    '/dieu-khoan-va-dieu-kien',
-    '/chinh-sach-doi-tra-va-hoan-tien',
-    '/chinh-sach-thanh-toan',
-    '/chinh-sach-van-chuyen-va-giao-nhan',
-    '/chinh-sach-ve-gia',
-    '/cac-dieu-kien-va-han-che-trong-viec-cung-cap-hang-hoa-dich-vu-tren-nen-tang',
-    '/phuong-thuc-tiep-nhan-va-giai-quyet-phan-anh-yeu-cau-khieu-nai',
-]
+BLOG_NAMES = {
+    'en_US': 'Blog',
+    'vi_VN': 'Blog',
+    'ja_JP': 'ブログ',
+    'ko_KR': '블로그',
+}
 
-# Top level order; the policy parent is appended after these.
-TOP_ORDER = ['/', ABOUT_URL, '/shop/category/34', '/shop/category/gift-38']
+# The "Policies" dropdown that used to close the bar. It is taken off the
+# bar: every one of those pages is linked from the footer, where shoppers
+# look for them (and where Vietnamese e-commerce rules want them), and the
+# bar is kept for what leads to buying. Only the menu entries go; the pages
+# stay, published, at their URLs.
+RETIRED_POLICY_PARENT_NAMES = ('Policies', 'Chính sách', 'ポリシー', '정책')
+
+# Top level order.
+TOP_ORDER = ['/', ABOUT_URL, LIFE_URL, GIFT_URL, BLOG_URL]
+
+# The icon in front of each entry (`views/header_templates.xml`), by URL.
+MENU_ICONS = {
+    '/': 'home',
+    ABOUT_URL: 'about',
+    LIFE_URL: 'life',
+    GIFT_URL: 'gift',
+    BLOG_URL: 'blog',
+    '/shop': 'shop',
+    '/contactus': 'contact',
+}
 
 
 # --- The social share card -----------------------------------------------
@@ -116,7 +133,7 @@ class Website(models.Model):
 
     @api.model
     def _gif2box_setup_menu(self):
-        """Lay out the top menu: Home, About, Life, Gift, Policies.
+        """Lay out the top menu: Home, About, Life, Gift Box, Blog.
 
         `@api.model` because `<function>` in a data file passes no ids:
         without it `call_kw` treats this as a multi-record method and fails
@@ -166,38 +183,35 @@ class Website(models.Model):
             })
         self._gif2box_write_translations(about, 'name', ABOUT_NAMES)
 
-        # --- Policies parent --------------------------------------------
-        parent = Menu.search([
-            ('website_id', '=', website.id),
-            ('parent_id', '=', root.id),
-            ('name', 'in', list(POLICY_NAMES.values())),
-            # It holds the submenu and links nowhere of its own; Odoo renders
-            # a menu without a real URL as a dropdown toggle.
-            ('url', 'in', (False, '#')),
-        ], limit=1)
-        if not parent:
-            parent = Menu.create({
-                'name': POLICY_NAMES['en_US'],
-                'url': '#',
+        # --- Gift Box --------------------------------------------------
+        gift = Menu.search(
+            [('website_id', '=', website.id), ('url', '=', GIFT_URL)], limit=1)
+        if gift:
+            self._gif2box_write_translations(gift, 'name', GIFT_NAMES)
+
+        # --- Blog -------------------------------------------------------
+        blog = Menu.search(
+            [('website_id', '=', website.id), ('url', '=', BLOG_URL)], limit=1)
+        if not blog:
+            blog = Menu.create({
+                'name': BLOG_NAMES['en_US'],
+                'url': BLOG_URL,
                 'parent_id': root.id,
                 'website_id': website.id,
             })
-        self._gif2box_write_translations(parent, 'name', POLICY_NAMES)
+        self._gif2box_write_translations(blog, 'name', BLOG_NAMES)
 
-        # --- Move the policy entries under it ----------------------------
-        found = 0
-        for index, url in enumerate(POLICY_URLS):
-            menu = Menu.search(
-                [('website_id', '=', website.id), ('url', '=', url)], limit=1)
-            if not menu:
-                continue
-            menu.write({'parent_id': parent.id, 'sequence': index})
-            found += 1
-        if not found:
-            _logger.warning(
-                'gif2box menu: none of the policy URLs matched a menu on website %s. '
-                'Are the page URLs on this database the ones listed in POLICY_URLS?',
-                website.id)
+        # --- Policies off the bar -----------------------------------------
+        # The dropdown and its entries; the pages themselves are untouched.
+        retired = Menu.search([
+            ('website_id', '=', website.id),
+            ('parent_id', '=', root.id),
+            ('url', 'in', (False, '#')),
+            ('name', 'in', list(RETIRED_POLICY_PARENT_NAMES)),
+        ])
+        removed = len(retired.child_id)
+        if retired:
+            (retired.child_id | retired).unlink()
 
         # --- Order the top level -----------------------------------------
         for index, url in enumerate(TOP_ORDER):
@@ -208,11 +222,24 @@ class Website(models.Model):
             ], limit=1)
             if menu:
                 menu.sequence = index
-        parent.sequence = len(TOP_ORDER)
 
         _logger.info(
-            'gif2box menu: website %s laid out, %s policy entries in the submenu',
-            website.id, found)
+            'gif2box menu: website %s laid out, %s policy entries taken off the bar',
+            website.id, removed)
+
+
+class WebsiteMenu(models.Model):
+    _inherit = 'website.menu'
+
+    def _gif2box_icon(self):
+        """The icon drawn before this entry, or False for none."""
+        self.ensure_one()
+        url = (self.url or '').split('?')[0].rstrip('/') or '/'
+        if url in MENU_ICONS:
+            return MENU_ICONS[url]
+        if url.startswith(BLOG_URL + '/'):
+            return 'blog'
+        return False
 
 
 class WebsiteSocialShare(models.AbstractModel):
