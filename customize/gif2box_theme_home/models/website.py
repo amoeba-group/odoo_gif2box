@@ -1,10 +1,13 @@
 import base64
+import json
 import logging
 
 from werkzeug.urls import url_join
 
 from odoo import api, models
 from odoo.http import request
+from markupsafe import Markup
+
 from odoo.tools import file_open
 
 _logger = logging.getLogger(__name__)
@@ -70,6 +73,64 @@ MENU_ICONS = {
 }
 
 
+# --- The About Us page ----------------------------------------------------
+#
+# The page record (URL, menu, SEO panel) stays where Odoo keeps it; its view
+# is pointed at `gif2box_theme_home.about_us_content` on every update, the
+# same bargain as the menu above: the page is code, and an edit made in the
+# website editor is put back by the next deploy.
+ABOUT_ARCH = """<t name="About Us" t-name="website.about-us">
+    <t t-call="website.layout">
+        <div id="wrap" class="o_g2b_about">
+            <t t-call="gif2box_theme_home.about_us_content"/>
+        </div>
+    </t>
+</t>"""
+
+ABOUT_META_TITLE = {
+    'en_US': 'About Gif2box | Baby gift sets, ready to give',
+    'vi_VN': 'Về Gif2box | Set quà tặng cho bé, sẵn sàng trao tay',
+    'ja_JP': 'Gif2boxについて｜すぐに贈れるベビーギフトセット',
+    'ko_KR': 'Gif2box 소개 | 바로 선물하는 아기 선물 세트',
+}
+
+ABOUT_META_DESCRIPTION = {
+    'en_US': 'Authentic Korean baby feeding essentials in gift sets for every '
+             'milestone: newborn, first birthday, starting solids. Boxed and '
+             'better value than buying separately.',
+    'vi_VN': 'Set quà tặng cho bé từ đồ dùng ăn dặm chính hãng Hàn Quốc: chào '
+             'đón bé, thôi nôi, tập ăn dặm. Đóng hộp sẵn, tiết kiệm hơn mua lẻ, '
+             'giao toàn quốc.',
+    'ja_JP': '韓国の正規ベビー食器・離乳食グッズを、出産祝い・1歳の誕生日・離乳食デビュー'
+             'などの節目に合わせたギフトセットに。箱入りで、単品で買うよりお得です。',
+    'ko_KR': '한국 정품 이유식·육아 용품으로 구성한 아기 선물 세트. 출산 축하, 첫돌, '
+             '이유식 시작에 맞춰 박스 포장으로, 개별 구매보다 알뜰하게.',
+}
+
+# "A set for every occasion": one gift set per milestone, by product id,
+# each shown only while it is published and on sale. Chosen among the sets
+# that are in stock when this was written; change the ids here to change
+# the cards.
+ABOUT_OCCASIONS = [
+    ('newborn', 635),   # Combo Chào Đón Bé Yêu
+    ('birthday', 634),  # Combo Bé Tròn 1 Tuổi
+    ('kitchen', 633),   # Combo Bếp Nhỏ Của Bé
+    ('growing', 639),   # Combo Cùng Bé Lớn Khôn
+]
+
+# Who runs the shop, for the page's Organization data. The same facts the
+# footer gives.
+ORGANIZATION = {
+    'legal_name': 'CÔNG TY TNHH BRAND K VINA',
+    'tax_id': '3301659169',
+    'street': 'Tầng 3, Lô C299 Khu đô thị Phú Mỹ Thượng, Phường Mỹ Thượng',
+    'city': 'Thành phố Huế',
+    'country': 'VN',
+    'email': 'sales@brandkorea.vn',
+    'phone': '+84987861697',
+}
+
+
 # --- The social share card -----------------------------------------------
 #
 # What Facebook, Zalo and X put beside a link to the site. Odoo falls back to
@@ -130,6 +191,79 @@ class Website(models.Model):
         _logger.info(
             'gif2box: share card set on %s website(s), %s stale og:image override(s) cleared',
             len(websites), len(stale))
+
+    # --- About Us ------------------------------------------------------
+
+    @api.model
+    def _gif2box_setup_about_page(self):
+        """Point the About Us page at its template and set its SEO texts.
+
+        Called from `data/about_page_data.xml` on every install and update.
+        The arch carries no words of its own, so it is the same in every
+        language; the words are in `about_us_content` and its translations.
+        """
+        pages = self.env['website.page'].sudo().search([('url', '=', ABOUT_URL)])
+        for page in pages:
+            view = page.view_id
+            if view.with_context(lang='en_US').arch_db.strip() != ABOUT_ARCH:
+                view.with_context(lang='en_US').write({'arch_db': ABOUT_ARCH})
+            self._gif2box_write_translations(view, 'website_meta_title', ABOUT_META_TITLE)
+            self._gif2box_write_translations(
+                view, 'website_meta_description', ABOUT_META_DESCRIPTION)
+        _logger.info('gif2box: About Us page set on %s page(s)', len(pages))
+
+    def _gif2box_about_occasions(self):
+        """The gift sets of "A set for every occasion", in order."""
+        self.ensure_one()
+        Template = self.env['product.template']
+        cards = []
+        for key, template_id in ABOUT_OCCASIONS:
+            product = Template.browse(template_id).exists()
+            if not product or not (product.is_published and product.sale_ok):
+                continue
+            cards.append({
+                'key': key,
+                'product': product,
+                'price': product._get_combination_info()['price'],
+            })
+        return cards
+
+    def _gif2box_about_jsonld(self):
+        """The shop as a schema.org Organization, for search engines."""
+        self.ensure_one()
+        base = (self.domain or request.httprequest.url_root).rstrip('/')
+        data = {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            'name': self.name,
+            'legalName': ORGANIZATION['legal_name'],
+            'taxID': ORGANIZATION['tax_id'],
+            'url': base + '/',
+            'logo': base + self.image_url(self, 'logo'),
+            'email': ORGANIZATION['email'],
+            'telephone': ORGANIZATION['phone'],
+            'address': {
+                '@type': 'PostalAddress',
+                'streetAddress': ORGANIZATION['street'],
+                'addressLocality': ORGANIZATION['city'],
+                'addressCountry': ORGANIZATION['country'],
+            },
+            'contactPoint': {
+                '@type': 'ContactPoint',
+                'telephone': ORGANIZATION['phone'],
+                'contactType': 'customer service',
+                'areaServed': 'VN',
+                'availableLanguage': ['vi', 'en', 'ja', 'ko'],
+            },
+        }
+        same_as = [url for url in (self.social_facebook, self.social_instagram,
+                                   self.social_youtube, self.social_tiktok) if url]
+        if same_as:
+            data['sameAs'] = same_as
+        # `</` closed the script tag early in some parsers; escaped, it is
+        # still the same JSON.
+        return Markup(json.dumps(data, ensure_ascii=False).replace('</', '<\\/'))
+
 
     @api.model
     def _gif2box_setup_menu(self):

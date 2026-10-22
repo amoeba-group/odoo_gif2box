@@ -140,3 +140,273 @@ msgstr "%s개 상품"
 #, python-format
 msgid "Show %s more"
 msgstr "%s개 더 보기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "About Gif2box"
+msgstr "Gif2box 소개"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gifts for little ones, ready to give"
+msgstr "아기를 위한 선물, 바로 건넬 수 있게"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gif2box brings together authentic Korean baby feeding and care essentials in gift sets for every milestone: chosen with care, boxed with love, delivered ready to hand over."
+msgstr "Gif2box는 한국 정품 이유식·육아 용품을 아기의 소중한 순간마다 어울리는 선물 세트로 구성합니다. 꼼꼼하게 고르고, 정성껏 포장해, 바로 건넬 수 있게 보내 드립니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Choose a gift box"
+msgstr "선물 박스 고르기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Browse single items"
+msgstr "단품 보기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Authentic Korean brands"
+msgstr "한국 정품 브랜드"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Free shipping from 500,000₫"
+msgstr "500,000₫ 이상 무료 배송"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Delivered nationwide"
+msgstr "베트남 전국 배송"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "The idea"
+msgstr "콘셉트"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "One box, everything the occasion needs"
+msgstr "한 박스에, 그날 필요한 모든 것을"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Choosing a present for a newborn or a first birthday can take hours: which brand is safe, which pieces go together, what the family will really use. A Gif2box gift set answers all of it at once: a complete, coordinated set of everyday essentials, in one box, for less than buying each piece."
+msgstr "출산 선물이나 첫돌 선물을 고르다 보면 몇 시간이 훌쩍 지나갑니다. 어떤 브랜드가 안전한지, 무엇을 함께 쓰면 좋은지, 정말 쓰게 될지 고민되니까요. Gif2box 선물 세트는 이 모든 고민을 한 번에 해결합니다. 매일 쓰는 필수품을 잘 어울리게 구성해 한 박스에 담았고, 하나씩 사는 것보다 저렴합니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Curated for the moment"
+msgstr "순간에 맞춘 구성"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Each set is built around a milestone, from welcoming a newborn to a first birthday, with pieces the family will actually use every day."
+msgstr "출산 축하부터 첫돌까지, 각 세트는 하나의 특별한 순간을 위해 매일 실제로 쓰는 아이템으로 구성했습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Boxed and ready to give"
+msgstr "박스 포장으로 바로 선물"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Sets come in a gift box, so they go from the doorstep straight into your hands, with no wrapping to sort out."
+msgstr "세트는 선물 박스에 담겨 도착하므로, 받는 즉시 건넬 수 있고 따로 포장할 필요가 없습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Better value than buying separately"
+msgstr "개별 구매보다 알뜰하게"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A set costs less than its items bought one by one, and every set's page shows exactly how much you save."
+msgstr "세트 가격은 단품 합계보다 저렴하며, 각 세트 페이지에서 얼마나 절약되는지 바로 확인할 수 있습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Safe materials, authentic brands"
+msgstr "안전한 소재, 정품 브랜드"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Platinum silicone, PPSU and 304 stainless steel, from Korean brands such as Firgi, Le Made and Standard145."
+msgstr "플래티넘 실리콘, PPSU, 스테인리스 304 소재로, Firgi, Le Made, Standard145 등 한국 브랜드 제품입니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "How it works"
+msgstr "구매 방법"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A gift sorted in four steps"
+msgstr "4단계로 끝나는 선물 준비"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Pick the occasion"
+msgstr "선물할 순간 고르기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A newborn, a first birthday, a baby starting solids, or simply a thoughtful present."
+msgstr "출산 축하, 첫돌, 이유식 시작, 혹은 마음을 전하는 선물로."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Open a set to see every item inside, with its picture and its price on its own."
+msgstr "세트 페이지에서 구성품 하나하나를 사진과 단품 가격으로 확인하세요."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Pick colours and options"
+msgstr "색상과 옵션 선택"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Where an item comes in several colours, choose yours as you add the set to your cart."
+msgstr "색상이 여러 개인 아이템은 세트를 장바구니에 담을 때 원하는 색을 고를 수 있습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Receive it, ready to give"
+msgstr "받아서 바로 선물"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Delivered in 1–2 working days in central Hanoi and Ho Chi Minh City, 2–5 working days elsewhere."
+msgstr "하노이·호찌민 시내는 영업일 기준 1~2일, 그 외 지역은 2~5일 내 배송됩니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gift ideas"
+msgstr "선물 아이디어"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A set for every occasion"
+msgstr "모든 순간을 위한 세트"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "See all gift boxes"
+msgstr "선물 박스 전체 보기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Welcoming a newborn"
+msgstr "출산 축하"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "First birthday"
+msgstr "첫돌"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Starting solids"
+msgstr "이유식 시작"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Growing up together"
+msgstr "함께 자라는 시간"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Why Gif2box"
+msgstr "Gif2box를 선택하는 이유"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Thoughtful gifts you can give with confidence"
+msgstr "안심하고 건넬 수 있는 정성 어린 선물"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "We only carry what we would give ourselves: products from Korean brands parents already trust, made from materials meant for a baby's mouth and hands."
+msgstr "저희가 직접 선물하고 싶은 것만 고릅니다. 부모님들이 믿고 쓰는 한국 브랜드 제품으로, 아기의 입과 손에 닿는 것을 생각한 소재로 만들었습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Authentic products"
+msgstr "정품"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Genuine products from the Korean brands we carry, never imitations."
+msgstr "취급하는 한국 브랜드의 정품만 판매하며, 모조품은 취급하지 않습니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Baby-grade materials"
+msgstr "아기에게 안전한 소재"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Platinum silicone, PPSU and 304 stainless steel, safe for little ones."
+msgstr "플래티넘 실리콘, PPSU, 스테인리스 304로 아기에게도 안심입니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "On orders of 500,000₫ or more, nationwide. See the shipping policy for details."
+msgstr "500,000₫ 이상 주문 시 전국 무료 배송. 자세한 내용은 배송 정책을 확인하세요."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Here to help"
+msgstr "고객 지원"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Hotline 0987 861 697, Monday to Friday, 8:00 to 17:00."
+msgstr "고객센터 0987 861 697 (월~금 8:00~17:00)"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Who we are"
+msgstr "운영사 정보"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gif2box is run by Brand K Vina Co., Ltd."
+msgstr "Gif2box는 Brand K Vina 유한회사가 운영합니다"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Company"
+msgstr "회사명"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Business registration"
+msgstr "사업자 등록 번호"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Address"
+msgstr "주소"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Email"
+msgstr "이메일"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Ready to find the perfect gift?"
+msgstr "딱 맞는 선물을 찾아볼까요?"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Every set is ready to give. Pick the occasion, we take care of the rest."
+msgstr "모든 세트는 바로 선물할 수 있습니다. 순간만 고르세요, 나머지는 Gif2box가 준비합니다."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Read our gift guides"
+msgstr "선물 가이드 읽기"

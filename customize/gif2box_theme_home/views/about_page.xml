@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The "About Us" page (/ve-chung-toi).
+
+        It answers what a first-time visitor is really asking: what is a gift
+        set, and why buy one rather than the items? So it is laid out as the
+        path to buying one: the promise, the idea, how it works, a set for each
+        occasion, why trust the shop, who runs it, and a way in at the end.
+
+        The page record keeps its URL, menu and SEO settings; its view only
+        calls this template (`Website._gif2box_setup_about_page`). Being code,
+        the page is edited here and translated in `i18n/*.po`, not in the
+        website editor.
+
+        Every claim is the shop's own: delivery times and the free-shipping
+        threshold are those of the shipping policy page, the brands those in
+        the catalogue. Returns are deliberately not promised: the return policy
+        excludes gift products.
+
+        Static labels are block elements of their own, so each is a plain
+        term for translators rather than a sentence wrapped round markup.
+    -->
+    <template id="about_us_content" name="About Us content">
+        <t t-set="g2b_gift_url" t-value="'/shop/category/gift-38'"/>
+        <t t-set="g2b_life_url" t-value="'/shop/category/34'"/>
+
+        <!-- ============================ Hero ============================ -->
+        <section class="o_g2b_about_hero">
+            <div class="container">
+                <div class="o_g2b_about_hero_grid">
+                    <div class="o_g2b_about_hero_text">
+                        <div class="o_g2b_about_eyebrow">About Gif2box</div>
+                        <h1 class="o_g2b_about_h1">Gifts for little ones, ready to give</h1>
+                        <p class="o_g2b_about_lead">Gif2box brings together authentic Korean baby feeding and care essentials in gift sets for every milestone: chosen with care, boxed with love, delivered ready to hand over.</p>
+                        <div class="o_g2b_about_actions">
+                            <a t-att-href="g2b_gift_url" class="o_g2b_about_btn o_g2b_about_btn_primary">
+                                <div>Choose a gift box</div>
+                                <i class="fa fa-arrow-right" aria-hidden="true"/>
+                            </a>
+                            <a t-att-href="g2b_life_url" class="o_g2b_about_btn o_g2b_about_btn_ghost">
+                                <div>Browse single items</div>
+                            </a>
+                        </div>
+                        <ul class="o_g2b_about_chips">
+                            <li><div>Authentic Korean brands</div></li>
+                            <li><div>Free shipping from 500,000₫</div></li>
+                            <li><div>Delivered nationwide</div></li>
+                        </ul>
+                    </div>
+                    <div class="o_g2b_about_hero_art" aria-hidden="true">
+                        <img src="/web/image/21377-2db5bf0b/g2b-home-gift-banner.png" alt=""
+                             width="640" height="640" fetchpriority="high"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================== The idea ========================== -->
+        <section class="o_g2b_about_section">
+            <div class="container">
+                <header class="o_g2b_about_head o_g2b_about_head_center">
+                    <div class="o_g2b_about_eyebrow">The idea</div>
+                    <h2 class="o_g2b_about_h2">One box, everything the occasion needs</h2>
+                    <p class="o_g2b_about_sub">Choosing a present for a newborn or a first birthday can take hours: which brand is safe, which pieces go together, what the family will really use. A Gif2box gift set answers all of it at once: a complete, coordinated set of everyday essentials, in one box, for less than buying each piece.</p>
+                </header>
+                <ul class="o_g2b_about_cards">
+                    <li class="o_g2b_about_card">
+                        <span class="o_g2b_about_icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+                        </span>
+                        <h3 class="o_g2b_about_h3">Curated for the moment</h3>
+                        <p>Each set is built around a milestone, from welcoming a newborn to a first birthday, with pieces the family will actually use every day.</p>
+                    </li>
+                    <li class="o_g2b_about_card">
+                        <span class="o_g2b_about_icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+                        </span>
+                        <h3 class="o_g2b_about_h3">Boxed and ready to give</h3>
+                        <p>Sets come in a gift box, so they go from the doorstep straight into your hands, with no wrapping to sort out.</p>
+                    </li>
+                    <li class="o_g2b_about_card">
+                        <span class="o_g2b_about_icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                        </span>
+                        <h3 class="o_g2b_about_h3">Better value than buying separately</h3>
+                        <p>A set costs less than its items bought one by one, and every set's page shows exactly how much you save.</p>
+                    </li>
+                    <li class="o_g2b_about_card">
+                        <span class="o_g2b_about_icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                        </span>
+                        <h3 class="o_g2b_about_h3">Safe materials, authentic brands</h3>
+                        <p>Platinum silicone, PPSU and 304 stainless steel, from Korean brands such as Firgi, Le Made and Standard145.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========================= How it works ======================= -->
+        <section class="o_g2b_about_section o_g2b_about_section_tint">
+            <div class="container">
+                <header class="o_g2b_about_head o_g2b_about_head_center">
+                    <div class="o_g2b_about_eyebrow">How it works</div>
+                    <h2 class="o_g2b_about_h2">A gift sorted in four steps</h2>
+                </header>
+                <ol class="o_g2b_about_steps">
+                    <li class="o_g2b_about_step">
+                        <h3 class="o_g2b_about_h3">Pick the occasion</h3>
+                        <p>A newborn, a first birthday, a baby starting solids, or simply a thoughtful present.</p>
+                    </li>
+                    <li class="o_g2b_about_step">
+                        <h3 class="o_g2b_about_h3">Choose a gift box</h3>
+                        <p>Open a set to see every item inside, with its picture and its price on its own.</p>
+                    </li>
+                    <li class="o_g2b_about_step">
+                        <h3 class="o_g2b_about_h3">Pick colours and options</h3>
+                        <p>Where an item comes in several colours, choose yours as you add the set to your cart.</p>
+                    </li>
+                    <li class="o_g2b_about_step">
+                        <h3 class="o_g2b_about_h3">Receive it, ready to give</h3>
+                        <p>Delivered in 1–2 working days in central Hanoi and Ho Chi Minh City, 2–5 working days elsewhere.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ========================== Occasions ========================= -->
+        <t t-set="g2b_occasions" t-value="website._gif2box_about_occasions()"/>
+        <section t-if="g2b_occasions" class="o_g2b_about_section">
+            <div class="container">
+                <header class="o_g2b_about_head">
+                    <div>
+                        <div class="o_g2b_about_eyebrow">Gift ideas</div>
+                        <h2 class="o_g2b_about_h2">A set for every occasion</h2>
+                    </div>
+                    <a t-att-href="g2b_gift_url" class="o_g2b_about_link">
+                        <div>See all gift boxes</div>
+                        <i class="fa fa-arrow-right" aria-hidden="true"/>
+                    </a>
+                </header>
+                <ul class="o_g2b_about_occasions">
+                    <li t-foreach="g2b_occasions" t-as="occasion">
+                        <a t-att-href="occasion['product'].website_url" class="o_g2b_about_occasion">
+                            <div class="o_g2b_about_occasion_media">
+                                <img t-att-src="website.image_url(occasion['product'], 'image_512')"
+                                     t-att-alt="occasion['product'].name" width="512" height="512" loading="lazy" decoding="async"/>
+                            </div>
+                            <div class="o_g2b_about_occasion_body">
+                                <t t-if="occasion['key'] == 'newborn'"><div class="o_g2b_about_occasion_tag">Welcoming a newborn</div></t>
+                                <t t-elif="occasion['key'] == 'birthday'"><div class="o_g2b_about_occasion_tag">First birthday</div></t>
+                                <t t-elif="occasion['key'] == 'kitchen'"><div class="o_g2b_about_occasion_tag">Starting solids</div></t>
+                                <t t-elif="occasion['key'] == 'growing'"><div class="o_g2b_about_occasion_tag">Growing up together</div></t>
+                                <h3 class="o_g2b_about_occasion_name" t-out="occasion['product'].name"/>
+                                <div class="o_g2b_about_occasion_price" t-out="occasion['price']"
+                                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========================= Why Gif2box ======================== -->
+        <section class="o_g2b_about_section o_g2b_about_section_tint">
+            <div class="container">
+                <div class="o_g2b_about_why">
+                    <div class="o_g2b_about_why_text">
+                        <div class="o_g2b_about_eyebrow">Why Gif2box</div>
+                        <h2 class="o_g2b_about_h2">Thoughtful gifts you can give with confidence</h2>
+                        <p class="o_g2b_about_sub">We only carry what we would give ourselves: products from Korean brands parents already trust, made from materials meant for a baby's mouth and hands.</p>
+                    </div>
+                    <ul class="o_g2b_about_facts">
+                        <li>
+                            <div class="o_g2b_about_fact_title">Authentic products</div>
+                            <div>Genuine products from the Korean brands we carry, never imitations.</div>
+                        </li>
+                        <li>
+                            <div class="o_g2b_about_fact_title">Baby-grade materials</div>
+                            <div>Platinum silicone, PPSU and 304 stainless steel, safe for little ones.</div>
+                        </li>
+                        <li>
+                            <div class="o_g2b_about_fact_title">Free shipping from 500,000₫</div>
+                            <div>On orders of 500,000₫ or more, nationwide. See the shipping policy for details.</div>
+                        </li>
+                        <li>
+                            <div class="o_g2b_about_fact_title">Here to help</div>
+                            <div>Hotline 0987 861 697, Monday to Friday, 8:00 to 17:00.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================== Company =========================== -->
+        <section class="o_g2b_about_section">
+            <div class="container">
+                <div class="o_g2b_about_company">
+                    <div class="o_g2b_about_eyebrow">Who we are</div>
+                    <h2 class="o_g2b_about_h2">Gif2box is run by Brand K Vina Co., Ltd.</h2>
+                    <dl class="o_g2b_about_company_list">
+                        <div><dt>Company</dt><dd>CÔNG TY TNHH BRAND K VINA</dd></div>
+                        <div><dt>Business registration</dt><dd>3301659169</dd></div>
+                        <div><dt>Address</dt><dd>Tầng 3, Lô C299 Khu đô thị Phú Mỹ Thượng, Phường Mỹ Thượng, Thành phố Huế, Việt Nam</dd></div>
+                        <div><dt>Email</dt><dd><a href="mailto:sales@brandkorea.vn">sales@brandkorea.vn</a></dd></div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== Call to action ====================== -->
+        <section class="o_g2b_about_cta">
+            <div class="container">
+                <div class="o_g2b_about_cta_box">
+                    <h2 class="o_g2b_about_h2">Ready to find the perfect gift?</h2>
+                    <p>Every set is ready to give. Pick the occasion, we take care of the rest.</p>
+                    <div class="o_g2b_about_actions o_g2b_about_actions_center">
+                        <a t-att-href="g2b_gift_url" class="o_g2b_about_btn o_g2b_about_btn_light">
+                            <div>Choose a gift box</div>
+                            <i class="fa fa-arrow-right" aria-hidden="true"/>
+                        </a>
+                        <a href="/blog" class="o_g2b_about_btn o_g2b_about_btn_outline_light">
+                            <div>Read our gift guides</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who the shop is, for search engines. -->
+        <script type="application/ld+json" t-out="website._gif2box_about_jsonld()"/>
+    </template>
+
+</odoo>

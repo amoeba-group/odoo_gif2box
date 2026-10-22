@@ -140,3 +140,273 @@ msgstr "%s sản phẩm"
 #, python-format
 msgid "Show %s more"
 msgstr "Xem thêm %s sản phẩm"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "About Gif2box"
+msgstr "Về Gif2box"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gifts for little ones, ready to give"
+msgstr "Quà cho bé, sẵn sàng để trao tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gif2box brings together authentic Korean baby feeding and care essentials in gift sets for every milestone: chosen with care, boxed with love, delivered ready to hand over."
+msgstr "Gif2box tuyển chọn đồ dùng ăn dặm và chăm sóc bé chính hãng Hàn Quốc thành những set quà cho từng cột mốc của bé: chọn lựa kỹ càng, đóng hộp chỉn chu, giao tận tay sẵn sàng để trao tặng."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Choose a gift box"
+msgstr "Chọn hộp quà"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Browse single items"
+msgstr "Xem sản phẩm lẻ"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Authentic Korean brands"
+msgstr "Thương hiệu Hàn Quốc chính hãng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Free shipping from 500,000₫"
+msgstr "Miễn phí vận chuyển từ 500.000₫"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Delivered nationwide"
+msgstr "Giao hàng toàn quốc"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "The idea"
+msgstr "Ý tưởng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "One box, everything the occasion needs"
+msgstr "Một hộp quà, đủ mọi thứ cho dịp đặc biệt"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Choosing a present for a newborn or a first birthday can take hours: which brand is safe, which pieces go together, what the family will really use. A Gif2box gift set answers all of it at once: a complete, coordinated set of everyday essentials, in one box, for less than buying each piece."
+msgstr "Chọn quà cho bé sơ sinh hay bé tròn 1 tuổi có thể mất hàng giờ: thương hiệu nào an toàn, món nào đi cùng nhau, gia đình sẽ thực sự dùng gì. Set quà Gif2box giải quyết tất cả cùng lúc: trọn bộ đồ dùng hằng ngày được phối sẵn, trong một hộp, với giá thấp hơn mua lẻ từng món."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Curated for the moment"
+msgstr "Chọn sẵn theo từng dịp"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Each set is built around a milestone, from welcoming a newborn to a first birthday, with pieces the family will actually use every day."
+msgstr "Mỗi set được xây dựng quanh một cột mốc, từ chào đón bé chào đời đến sinh nhật đầu tiên, với những món gia đình thực sự dùng mỗi ngày."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Boxed and ready to give"
+msgstr "Đóng hộp sẵn để tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Sets come in a gift box, so they go from the doorstep straight into your hands, with no wrapping to sort out."
+msgstr "Set quà được đóng trong hộp quà, nhận hàng là có thể trao tay ngay, không cần lo khâu gói quà."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Better value than buying separately"
+msgstr "Tiết kiệm hơn mua lẻ"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A set costs less than its items bought one by one, and every set's page shows exactly how much you save."
+msgstr "Giá một set thấp hơn tổng giá các món mua lẻ, và trang của từng set ghi rõ bạn tiết kiệm được bao nhiêu."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Safe materials, authentic brands"
+msgstr "Chất liệu an toàn, thương hiệu chính hãng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Platinum silicone, PPSU and 304 stainless steel, from Korean brands such as Firgi, Le Made and Standard145."
+msgstr "Silicone bạch kim, nhựa PPSU và inox 304, từ các thương hiệu Hàn Quốc như Firgi, Le Made và Standard145."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "How it works"
+msgstr "Cách mua"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A gift sorted in four steps"
+msgstr "Chọn quà chỉ với 4 bước"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Pick the occasion"
+msgstr "Chọn dịp tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A newborn, a first birthday, a baby starting solids, or simply a thoughtful present."
+msgstr "Chào đón bé sơ sinh, mừng thôi nôi, bé bắt đầu ăn dặm, hay đơn giản là một món quà ý nghĩa."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Open a set to see every item inside, with its picture and its price on its own."
+msgstr "Mở trang set quà để xem từng món bên trong, kèm hình ảnh và giá mua lẻ."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Pick colours and options"
+msgstr "Chọn màu và tùy chọn"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Where an item comes in several colours, choose yours as you add the set to your cart."
+msgstr "Với món có nhiều màu, bạn chọn màu mình thích ngay khi thêm set vào giỏ hàng."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Receive it, ready to give"
+msgstr "Nhận hàng và trao tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Delivered in 1–2 working days in central Hanoi and Ho Chi Minh City, 2–5 working days elsewhere."
+msgstr "Giao trong 1–2 ngày làm việc tại nội thành Hà Nội và TP. Hồ Chí Minh, 2–5 ngày làm việc ở các tỉnh thành khác."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gift ideas"
+msgstr "Gợi ý quà tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "A set for every occasion"
+msgstr "Set quà cho mọi dịp"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "See all gift boxes"
+msgstr "Xem tất cả hộp quà"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Welcoming a newborn"
+msgstr "Chào đón bé chào đời"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "First birthday"
+msgstr "Mừng thôi nôi"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Starting solids"
+msgstr "Bé tập ăn dặm"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Growing up together"
+msgstr "Cùng bé lớn khôn"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Why Gif2box"
+msgstr "Vì sao chọn Gif2box"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Thoughtful gifts you can give with confidence"
+msgstr "Món quà chu đáo, trao tặng thật an tâm"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "We only carry what we would give ourselves: products from Korean brands parents already trust, made from materials meant for a baby's mouth and hands."
+msgstr "Chúng tôi chỉ chọn những gì chính mình muốn tặng: sản phẩm từ các thương hiệu Hàn Quốc được cha mẹ tin dùng, làm từ chất liệu dành cho miệng và đôi tay nhỏ của bé."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Authentic products"
+msgstr "Sản phẩm chính hãng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Genuine products from the Korean brands we carry, never imitations."
+msgstr "Hàng chính hãng từ các thương hiệu Hàn Quốc mà chúng tôi phân phối, không bán hàng nhái."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Baby-grade materials"
+msgstr "Chất liệu an toàn cho bé"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Platinum silicone, PPSU and 304 stainless steel, safe for little ones."
+msgstr "Silicone bạch kim, nhựa PPSU và inox 304, an toàn cho bé."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "On orders of 500,000₫ or more, nationwide. See the shipping policy for details."
+msgstr "Cho đơn hàng từ 500.000₫ trở lên, trên toàn quốc. Xem chi tiết tại chính sách vận chuyển."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Here to help"
+msgstr "Luôn sẵn sàng hỗ trợ"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Hotline 0987 861 697, Monday to Friday, 8:00 to 17:00."
+msgstr "Hotline 0987 861 697, từ thứ Hai đến thứ Sáu, 8:00 – 17:00."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Who we are"
+msgstr "Về doanh nghiệp"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Gif2box is run by Brand K Vina Co., Ltd."
+msgstr "Gif2box được vận hành bởi Công ty TNHH Brand K Vina"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Company"
+msgstr "Tên công ty"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Business registration"
+msgstr "Mã số doanh nghiệp"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Address"
+msgstr "Địa chỉ"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Email"
+msgstr "Email"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Ready to find the perfect gift?"
+msgstr "Sẵn sàng tìm món quà ưng ý cho bé?"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Every set is ready to give. Pick the occasion, we take care of the rest."
+msgstr "Mỗi set đều sẵn sàng để tặng. Bạn chọn dịp, phần còn lại để Gif2box lo."
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
+msgid "Read our gift guides"
+msgstr "Đọc cẩm nang quà tặng"

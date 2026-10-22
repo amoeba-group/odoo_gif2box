@@ -1,0 +1,632 @@
+///
+/// The About Us page (`views/about_page.xml`).
+///
+/// Laid out as the path to a first gift set: promise, idea, steps,
+/// occasions, trust, company, call to action. Sections alternate white and
+/// a faint tint so each reads as a chapter; the brand coral is kept for what
+/// can be clicked and the teal for headings, as across the shop.
+///
+
+$g2b-about-radius: 1.25rem;
+
+#wrap.o_g2b_about {
+    overflow-x: clip;
+}
+
+// --- Shared type ------------------------------------------------------------
+.o_g2b_about {
+
+    .o_g2b_about_eyebrow {
+        margin-bottom: .5rem;
+        font-size: .75rem;
+        font-weight: 700;
+        line-height: 1.3;
+        color: $g-coral-dark;
+        text-transform: uppercase;
+        letter-spacing: .14em;
+    }
+
+    .o_g2b_about_h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(2rem, calc(1.3rem + 2.6vw), 3.4rem);
+        font-weight: 800;
+        line-height: 1.12;
+        color: $g-title;
+        letter-spacing: -.025em;
+    }
+
+    .o_g2b_about_h2 {
+        margin: 0 0 .75rem;
+        font-size: clamp(1.5rem, calc(1.1rem + 1.4vw), 2.25rem);
+        font-weight: 800;
+        line-height: 1.2;
+        color: $g-title;
+        letter-spacing: -.02em;
+    }
+
+    .o_g2b_about_h3 {
+        margin: 0 0 .45rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.35;
+        color: $g-title;
+    }
+
+    .o_g2b_about_lead {
+        max-width: 34rem;
+        margin: 0 0 1.75rem;
+        font-size: clamp(1rem, calc(.9rem + .4vw), 1.2rem);
+        line-height: 1.65;
+        color: $gray-700;
+    }
+
+    .o_g2b_about_sub {
+        max-width: 44rem;
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: $gray-700;
+    }
+
+    p {
+        line-height: 1.65;
+    }
+
+    ul,
+    ol,
+    dl {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+}
+
+// --- Buttons ------------------------------------------------------------------
+.o_g2b_about {
+
+    .o_g2b_about_actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .75rem;
+    }
+
+    .o_g2b_about_actions_center {
+        justify-content: center;
+    }
+
+    .o_g2b_about_btn {
+        display: inline-flex;
+        gap: .55rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: .75rem 1.6rem;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1.5px solid transparent;
+        border-radius: 2rem;
+        transition: color .15s ease, background-color .15s ease,
+                    border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+
+        .fa {
+            transition: transform .15s ease;
+        }
+
+        &:hover,
+        &:focus-visible {
+            transform: translateY(-1px);
+
+            .fa {
+                transform: translateX(3px);
+            }
+        }
+    }
+
+    .o_g2b_about_btn_primary {
+        color: $white;
+        background-color: $g-coral;
+        box-shadow: 0 .45rem 1.1rem rgba($g-coral, .35);
+
+        &:hover,
+        &:focus-visible {
+            color: $white;
+            background-color: $g-coral-dark;
+            box-shadow: 0 .6rem 1.3rem rgba($g-coral, .42);
+        }
+    }
+
+    .o_g2b_about_btn_ghost {
+        color: $g-title;
+        background-color: $white;
+        border-color: rgba($g-title, .18);
+
+        &:hover,
+        &:focus-visible {
+            color: $g-coral-dark;
+            border-color: $g-coral-dark;
+        }
+    }
+
+    .o_g2b_about_btn_light {
+        color: $g-coral-dark;
+        background-color: $white;
+
+        &:hover,
+        &:focus-visible {
+            color: $g-coral-dark;
+            box-shadow: 0 .6rem 1.3rem rgba($black, .18);
+        }
+    }
+
+    .o_g2b_about_btn_outline_light {
+        color: $white;
+        border-color: rgba($white, .7);
+
+        &:hover,
+        &:focus-visible {
+            color: $g-coral-dark;
+            background-color: $white;
+            border-color: $white;
+        }
+    }
+
+    .o_g2b_about_link {
+        display: inline-flex;
+        gap: .5rem;
+        align-items: center;
+        min-height: 44px;
+        font-weight: 700;
+        color: $g-coral-dark;
+        text-decoration: none;
+        white-space: nowrap;
+
+        .fa {
+            transition: transform .15s ease;
+        }
+
+        &:hover .fa,
+        &:focus-visible .fa {
+            transform: translateX(3px);
+        }
+    }
+}
+
+// --- Hero ---------------------------------------------------------------------
+.o_g2b_about_hero {
+    position: relative;
+    padding: 2.5rem 0 3rem;
+    background:
+        radial-gradient(60rem 30rem at 85% 30%, rgba($g-coral, .16), transparent 60%),
+        linear-gradient(180deg, #FFF8F4 0%, $white 100%);
+
+    @include media-breakpoint-up(lg) {
+        padding: 4.5rem 0 5rem;
+    }
+}
+
+.o_g2b_about_hero_grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+        gap: 3rem;
+    }
+}
+
+.o_g2b_about_hero_art {
+    position: relative;
+    max-width: 30rem;
+    margin-inline: auto;
+
+    // A soft disc behind the cut-out, so the products sit on something.
+    &::before {
+        position: absolute;
+        inset: 8% 6%;
+        content: "";
+        background: radial-gradient(circle at 40% 35%, #FFE2D6, #FFC9B4 70%);
+        border-radius: 50%;
+        filter: blur(.5px);
+    }
+
+    img {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 1.2rem 1.6rem rgba($g-title, .16));
+    }
+}
+
+.o_g2b_about .o_g2b_about_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: 1.75rem;
+
+    li {
+        display: inline-flex;
+        gap: .4rem;
+        align-items: center;
+        padding: .4rem .85rem;
+        font-size: .82rem;
+        font-weight: 600;
+        color: rgba($g-title, .85);
+        background-color: rgba($white, .85);
+        border: 1px solid rgba($g-title, .1);
+        border-radius: 2rem;
+
+        &::before {
+            font-family: FontAwesome;
+            font-weight: 400;
+            color: $g-coral-dark;
+            content: "\f00c"; // check
+        }
+    }
+}
+
+// --- Sections -----------------------------------------------------------------
+.o_g2b_about_section {
+    padding: 3rem 0;
+
+    @include media-breakpoint-up(lg) {
+        padding: 5rem 0;
+    }
+}
+
+.o_g2b_about_section_tint {
+    background-color: #F6FAF9;
+}
+
+.o_g2b_about .o_g2b_about_head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.5rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-up(lg) {
+        margin-bottom: 2.75rem;
+    }
+}
+
+.o_g2b_about .o_g2b_about_head_center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+// --- The idea: benefit cards ------------------------------------------------
+.o_g2b_about .o_g2b_about_cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+.o_g2b_about .o_g2b_about_card {
+    padding: 1.5rem;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .09);
+    border-radius: $g2b-about-radius;
+    box-shadow: 0 .25rem 1rem rgba($g-title, .05);
+    transition: transform .2s ease, box-shadow .2s ease;
+
+    &:hover {
+        box-shadow: 0 .9rem 1.8rem -.6rem rgba($g-title, .18);
+        transform: translateY(-3px);
+    }
+
+    p {
+        margin: 0;
+        font-size: .93rem;
+        color: $gray-700;
+    }
+}
+
+.o_g2b_about .o_g2b_about_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    color: $g-coral-dark;
+    background-color: rgba($g-coral, .12);
+    border-radius: .9rem;
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+// --- How it works: numbered steps -------------------------------------------
+.o_g2b_about .o_g2b_about_steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    counter-reset: g2b-step;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+.o_g2b_about .o_g2b_about_step {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.5rem 4.75rem;
+    background-color: $white;
+    border-radius: $g2b-about-radius;
+    counter-increment: g2b-step;
+
+    &::before {
+        position: absolute;
+        top: 1.4rem;
+        left: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1rem;
+        font-weight: 800;
+        color: $white;
+        content: counter(g2b-step);
+        background: linear-gradient(135deg, $g-coral, $g-coral-dark);
+        border-radius: 50%;
+        box-shadow: 0 .35rem .8rem rgba($g-coral, .35);
+    }
+
+    p {
+        margin: 0;
+        font-size: .93rem;
+        color: $gray-700;
+    }
+
+    // Number above the text where the steps sit four abreast.
+    @include media-breakpoint-up(lg) {
+        padding: 4.5rem 1.5rem 1.5rem;
+    }
+}
+
+// --- Occasions ---------------------------------------------------------------
+.o_g2b_about .o_g2b_about_occasions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+.o_g2b_about .o_g2b_about_occasion {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    background-color: $white;
+    border: 1px solid rgba($g-title, .09);
+    border-radius: $g2b-about-radius;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
+    &:hover,
+    &:focus-visible {
+        border-color: rgba($g-coral, .45);
+        box-shadow: 0 .9rem 1.8rem -.6rem rgba($g-title, .2);
+        transform: translateY(-3px);
+
+        img {
+            transform: scale(1.04);
+        }
+
+        .o_g2b_about_occasion_name {
+            color: $g-coral-dark;
+        }
+    }
+}
+
+.o_g2b_about .o_g2b_about_occasion_media {
+    overflow: hidden;
+    background-color: $gray-100;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+    }
+}
+
+.o_g2b_about .o_g2b_about_occasion_body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: .35rem;
+    padding: .9rem 1rem 1.1rem;
+}
+
+.o_g2b_about .o_g2b_about_occasion_tag {
+    align-self: flex-start;
+    padding: .15rem .6rem;
+    font-size: .72rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+    background-color: rgba($g-coral, .12);
+    border-radius: 2rem;
+}
+
+.o_g2b_about .o_g2b_about_occasion_name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0;
+    overflow: hidden;
+    font-size: .98rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $g-title;
+    transition: color .15s ease;
+}
+
+.o_g2b_about .o_g2b_about_occasion_price {
+    margin-top: auto;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: $g-coral;
+}
+
+// --- Why Gif2box -----------------------------------------------------------------
+.o_g2b_about .o_g2b_about_why {
+    display: grid;
+    gap: 2rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+        gap: 3.5rem;
+        align-items: center;
+    }
+}
+
+.o_g2b_about .o_g2b_about_facts {
+    display: grid;
+    gap: .75rem;
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    li {
+        position: relative;
+        padding: 1.25rem 1.25rem 1.25rem 3.4rem;
+        font-size: .93rem;
+        line-height: 1.6;
+        color: $gray-700;
+        background-color: $white;
+        border-radius: 1rem;
+
+        &::before {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            font-family: FontAwesome;
+            font-size: .75rem;
+            color: $white;
+            content: "\f00c"; // check
+            background-color: $g-coral;
+            border-radius: 50%;
+        }
+    }
+}
+
+.o_g2b_about .o_g2b_about_fact_title {
+    margin-bottom: .2rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+// --- Company ---------------------------------------------------------------------
+.o_g2b_about .o_g2b_about_company {
+    max-width: 52rem;
+    padding: 2rem 1.5rem;
+    margin-inline: auto;
+    text-align: center;
+    border: 1px dashed rgba($g-title, .2);
+    border-radius: $g2b-about-radius;
+
+    @include media-breakpoint-up(md) {
+        padding: 2.5rem;
+    }
+}
+
+.o_g2b_about .o_g2b_about_company_list {
+    display: grid;
+    gap: .9rem;
+    margin-top: 1.25rem;
+    text-align: left;
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    dt {
+        font-size: .75rem;
+        font-weight: 700;
+        color: $gray-600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    dd {
+        margin: .15rem 0 0;
+        font-weight: 600;
+        color: $g-title;
+    }
+
+    a {
+        color: $g-coral-dark;
+    }
+}
+
+// --- Call to action ------------------------------------------------------------
+.o_g2b_about_cta {
+    padding: 0 0 4rem;
+}
+
+.o_g2b_about .o_g2b_about_cta_box {
+    padding: 2.5rem 1.5rem;
+    color: $white;
+    text-align: center;
+    background:
+        radial-gradient(30rem 16rem at 90% 10%, rgba($white, .18), transparent 60%),
+        linear-gradient(135deg, $g-coral 0%, $g-coral-dark 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 1.2rem 2.4rem -1rem rgba($g-coral-dark, .55);
+
+    @include media-breakpoint-up(md) {
+        padding: 3.5rem 2rem;
+    }
+
+    .o_g2b_about_h2 {
+        color: $white;
+    }
+
+    p {
+        max-width: 32rem;
+        margin: 0 auto 1.5rem;
+        color: rgba($white, .92);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_g2b_about * {
+        transition: none !important;
+    }
+}

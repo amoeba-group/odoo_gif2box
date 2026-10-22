@@ -16,10 +16,12 @@
         'views/price_templates.xml',
         'views/product_form_views.xml',
         'views/wishlist_templates.xml',
+        'views/about_page.xml',
         # Last: these read existing records, so everything else is in place by
         # the time they run.
         'data/settings_data.xml',
         'data/menu_data.xml',
+        'data/about_page_data.xml',
         'data/social_share_data.xml',
         'data/combo_contents_data.xml',
     ],
@@ -30,6 +32,7 @@
             'gif2box_theme_home/static/src/scss/footer.scss',
             'gif2box_theme_home/static/src/scss/menu_icons.scss',
             'gif2box_theme_home/static/src/scss/home_sections.scss',
+            'gif2box_theme_home/static/src/scss/about_page.scss',
             'gif2box_theme_home/static/src/scss/product_hover.scss',
             'gif2box_theme_home/static/src/scss/combo_dialog.scss',
             'gif2box_theme_home/static/src/scss/product_dialog.scss',

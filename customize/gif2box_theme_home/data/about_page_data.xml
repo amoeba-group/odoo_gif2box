@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Point the About Us page at `about_us_content` and set its SEO texts
+        (see `Website._gif2box_setup_about_page`). After `menu_data.xml`,
+        which creates the page on a database that has none.
+    -->
+    <function model="website" name="_gif2box_setup_about_page"/>
+</odoo>
