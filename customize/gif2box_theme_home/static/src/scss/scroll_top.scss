@@ -1,0 +1,148 @@
+///
+/// "Back to top" (`views/header_templates.xml`, markup and script).
+///
+/// The chat widget (`#ivy-talktalk-frame`) is a 96px frame in the very
+/// corner with its 56px bubble in the middle, 48px from the right and bottom
+/// edges. The button sits on that same vertical line, just above the frame,
+/// so the two stack as one column. Without the widget it drops to the corner.
+///
+/// Under the header (1030) and anything Bootstrap overlays (menus, the
+/// offcanvas, dialogs), which cover it rather than the other way round.
+///
+
+$g2b-to-top-size: 44px;
+$g2b-to-top-ease: cubic-bezier(.34, 1.56, .64, 1);
+
+.o_g2b_to_top {
+    position: fixed;
+    // Centred on the chat bubble: 48px from the edge, less half the button.
+    right: 48px - $g2b-to-top-size * .5;
+    bottom: 24px;
+    z-index: 1020;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $g2b-to-top-size;
+    height: $g2b-to-top-size;
+    padding: 0;
+    color: $g-coral-dark;
+    cursor: pointer;
+    background-color: rgba($white, .97);
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 .35rem 1rem rgba($g-title, .18);
+    // Hidden: faded, a little lower and smaller. `visibility` waits for the
+    // fade before taking it out of the tab order.
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(.9);
+    transition: opacity .25s ease, transform .3s $g2b-to-top-ease,
+                visibility 0s linear .3s, color .15s ease,
+                background-color .15s ease, box-shadow .15s ease;
+
+    &.o_g2b_to_top_on {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: opacity .25s ease, transform .3s $g2b-to-top-ease,
+                    visibility 0s linear 0s, color .15s ease,
+                    background-color .15s ease, box-shadow .15s ease;
+    }
+
+    &:hover {
+        color: $white;
+        background-color: $g-coral;
+        box-shadow: 0 .5rem 1.2rem rgba($g-coral, .4);
+
+        .o_g2b_to_top_icon {
+            transform: translateY(-2px);
+        }
+
+        .o_g2b_to_top_track {
+            stroke: rgba($white, .35);
+        }
+
+        .o_g2b_to_top_fill {
+            stroke: $white;
+        }
+    }
+
+    &:active {
+        transform: scale(.94);
+    }
+
+    &:focus {
+        outline: 0;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $g-coral;
+        outline-offset: 3px;
+    }
+}
+
+html:has(#ivy-talktalk-frame) .o_g2b_to_top {
+    bottom: 100px;
+}
+
+// The progress ring: starts at twelve o'clock, fills clockwise.
+.o_g2b_to_top_ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform: rotate(-90deg);
+}
+
+.o_g2b_to_top_track,
+.o_g2b_to_top_fill {
+    fill: none;
+    stroke-width: 2.5;
+    transition: stroke .15s ease;
+}
+
+.o_g2b_to_top_track {
+    stroke: rgba($g-coral, .15);
+}
+
+.o_g2b_to_top_fill {
+    stroke: $g-coral;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    stroke-linecap: round;
+}
+
+.o_g2b_to_top_icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    transition: transform .2s ease;
+}
+
+// Not while the page is being edited, nor on paper.
+.editor_enable .o_g2b_to_top {
+    display: none;
+}
+
+@media print {
+    .o_g2b_to_top {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_g2b_to_top,
+    .o_g2b_to_top.o_g2b_to_top_on {
+        transform: none;
+        transition: opacity .2s linear, visibility 0s linear .2s;
+    }
+
+    .o_g2b_to_top.o_g2b_to_top_on {
+        transition: opacity .2s linear, visibility 0s linear 0s;
+    }
+
+    .o_g2b_to_top:hover .o_g2b_to_top_icon {
+        transform: none;
+    }
+}

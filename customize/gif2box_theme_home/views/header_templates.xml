@@ -212,6 +212,102 @@
     </template>
 
     <!--
+        "Back to top", bottom right, on every page: the shop once "show more"
+        has run, the product pages, the blog and the homepage are all long,
+        and on a phone the way back up was a long swipe.
+
+        It stands over the chat bubble, on the same vertical line, so the two
+        read as one column of help in the corner (`scroll_top.scss`). The
+        ring around the arrow fills as the page is scrolled: how far down
+        the visitor is, at a glance. Shown after about a screen of scrolling;
+        without the script below it simply never appears.
+
+        A real `<button>`, labelled, so it is reachable and announced from
+        the keyboard and by screen readers.
+    -->
+    <template id="scroll_top" inherit_id="website.layout" name="Back to top">
+        <xpath expr="//div[@id='wrapwrap']" position="inside">
+            <!-- `o_no_wait_lazy_js`: until its scripts arrive, Odoo holds
+                 back clicks on every button and replays them later; this
+                 one has its own script and works from the start. -->
+            <button type="button" class="o_g2b_to_top o_no_wait_lazy_js"
+                    title="Back to top" aria-label="Back to top">
+                <svg class="o_g2b_to_top_ring" viewBox="0 0 48 48"
+                     aria-hidden="true" focusable="false">
+                    <circle class="o_g2b_to_top_track" cx="24" cy="24" r="22"/>
+                    <circle class="o_g2b_to_top_fill" cx="24" cy="24" r="22" pathLength="100"/>
+                </svg>
+                <svg class="o_g2b_to_top_icon" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                     stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="m5 12 7-7 7 7"/>
+                    <path d="M12 19V5"/>
+                </svg>
+            </button>
+            <!--
+                Inline, as the loader's above, rather than in the bundle: the
+                bundle only runs once the whole page has loaded, 6 to 7 s
+                after opening a category on a phone, and a shopper scrolling
+                before then had no button.
+
+                Shown past about a screen, where the top is no longer a flick
+                away; the ring follows how far down the page the visitor is.
+                Read at most once a frame. A click glides to the top, or jumps
+                there for visitors who asked for less motion, and moves the
+                keyboard focus to the header, so the next Tab carries on from
+                the top rather than from a button that is fading out.
+
+                Written without `&` or `<`, which QWeb would escape.
+            -->
+            <script>
+                (function () {
+                    var button = document.currentScript.previousElementSibling;
+                    if (!button) {
+                        return;
+                    }
+                    var fill = button.querySelector(".o_g2b_to_top_fill");
+                    var queued = false;
+                    function update() {
+                        queued = false;
+                        var doc = document.documentElement;
+                        var y = window.scrollY || doc.scrollTop || 0;
+                        var max = doc.scrollHeight - window.innerHeight;
+                        button.classList.toggle("o_g2b_to_top_on",
+                            y > Math.max(window.innerHeight * 0.8, 400));
+                        // The circle's `pathLength` is 100: the offset is
+                        // what is left to go, in percent.
+                        var done = max > 0 ? Math.min(y / max, 1) : 0;
+                        fill.style.strokeDashoffset = String(100 - done * 100);
+                    }
+                    function queue() {
+                        if (!queued) {
+                            queued = true;
+                            window.requestAnimationFrame(update);
+                        }
+                    }
+                    window.addEventListener("scroll", queue, { passive: true });
+                    window.addEventListener("resize", queue, { passive: true });
+                    queue();
+                    button.addEventListener("click", function () {
+                        var still = window.matchMedia
+                            ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                            : false;
+                        window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" });
+                        // The first control on screen: on a phone the
+                        // desktop menu's links are there but hidden.
+                        var first = Array.prototype.find.call(
+                            document.querySelectorAll("#top a[href], #top button"),
+                            function (el) { return el.getClientRects().length; });
+                        if (first) {
+                            first.focus({ preventScroll: true });
+                        }
+                    });
+                })();
+            </script>
+        </xpath>
+    </template>
+
+    <!--
         The footer rendered the languages as a flat inline list of links, which
         looked broken once each one carried a flag. Deactivating this view makes
         `portal.footer_language_selector` fall back to its default: the same

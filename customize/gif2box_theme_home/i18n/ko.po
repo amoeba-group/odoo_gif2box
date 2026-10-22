@@ -410,3 +410,8 @@ msgstr "모든 세트는 바로 선물할 수 있습니다. 순간만 고르세�
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
 msgid "Read our gift guides"
 msgstr "선물 가이드 읽기"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.scroll_top
+msgid "Back to top"
+msgstr "맨 위로"

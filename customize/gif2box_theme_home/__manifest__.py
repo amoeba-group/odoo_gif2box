@@ -31,6 +31,7 @@
             'gif2box_theme_home/static/src/scss/header.scss',
             'gif2box_theme_home/static/src/scss/footer.scss',
             'gif2box_theme_home/static/src/scss/menu_icons.scss',
+            'gif2box_theme_home/static/src/scss/scroll_top.scss',
             'gif2box_theme_home/static/src/scss/home_sections.scss',
             'gif2box_theme_home/static/src/scss/about_page.scss',
             'gif2box_theme_home/static/src/scss/product_hover.scss',

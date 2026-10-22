@@ -410,3 +410,8 @@ msgstr "Mỗi set đều sẵn sàng để tặng. Bạn chọn dịp, phần c�
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.about_us_content
 msgid "Read our gift guides"
 msgstr "Đọc cẩm nang quà tặng"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.scroll_top
+msgid "Back to top"
+msgstr "Lên đầu trang"
