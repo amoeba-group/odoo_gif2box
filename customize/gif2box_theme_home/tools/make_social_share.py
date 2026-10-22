@@ -24,10 +24,21 @@ INK = (0, 68, 68)
 MUTED = (108, 117, 125)
 
 HEADLINE = ['Đồ ăn dặm & quà tặng cho bé', 'chính hãng Hàn Quốc']
-FOOTNOTE = 'Đổi trả 30 ngày  ·  Giao hàng 2–3 ngày'
+# Only what the shop's policies promise. The first card said "30-day
+# returns, 2-3 day delivery": the return policy gives 7 days, and none for
+# gift products, and delivery takes 1 to 7 working days depending on where.
+FOOTNOTE = 'Hộp quà sẵn sàng để tặng  ·  Giao hàng toàn quốc'
 
-FONT_BOLD = r'C:\Windows\Fonts\segoeuib.ttf'
-FONT_REG = r'C:\Windows\Fonts\segoeui.ttf'
+# Segoe UI where it exists (the card was first drawn on Windows), else
+# Roboto, the site's own text face, as installed in the Odoo image.
+_FONTS = {
+    'bold': [r'C:\Windows\Fonts\segoeuib.ttf',
+             '/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Bold.ttf'],
+    'regular': [r'C:\Windows\Fonts\segoeui.ttf',
+                '/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Regular.ttf'],
+}
+FONT_BOLD = next((f for f in _FONTS['bold'] if os.path.exists(f)), _FONTS['bold'][-1])
+FONT_REG = next((f for f in _FONTS['regular'] if os.path.exists(f)), _FONTS['regular'][-1])
 
 
 def vertical_wash(size, top, bottom):
