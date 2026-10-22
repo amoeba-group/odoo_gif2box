@@ -44,11 +44,27 @@ GIFT_NAMES = {
     'ko_KR': '선물 박스',
 }
 
+LIFE_NAMES = {
+    'en_US': 'Life',
+    'vi_VN': 'Đời sống',
+    'ja_JP': 'ライフ',
+    'ko_KR': '라이프',
+}
+
 BLOG_NAMES = {
     'en_US': 'Blog',
     'vi_VN': 'Blog',
     'ja_JP': 'ブログ',
     'ko_KR': '블로그',
+}
+
+# The shop categories behind Life and Gift Box carry the menu's names, so
+# the page a shopper lands on, its breadcrumb and the category filter all say
+# what the menu said. Their URL part is pinned, so it stays "gift-38" and
+# "life-34" whatever the name and the language.
+CATEGORIES = {
+    34: (LIFE_NAMES, 'life'),
+    38: (GIFT_NAMES, 'gift'),
 }
 
 # The "Policies" dropdown that used to close the bar. It is taken off the
@@ -267,7 +283,8 @@ class Website(models.Model):
 
     @api.model
     def _gif2box_setup_menu(self):
-        """Lay out the top menu: Home, About, Life, Gift Box, Blog.
+        """Lay out the top menu: Home, About, Life, Gift Box, Blog, and name
+        the shop categories behind Life and Gift Box to match.
 
         `@api.model` because `<function>` in a data file passes no ids:
         without it `call_kw` treats this as a multi-record method and fails
@@ -282,6 +299,16 @@ class Website(models.Model):
         """
         for website in self.env['website'].search([]):
             self._gif2box_setup_menu_one(website)
+        self._gif2box_name_categories()
+
+    def _gif2box_name_categories(self):
+        for categ_id, (names, seo_name) in CATEGORIES.items():
+            categ = self.env['product.public.category'].browse(categ_id).exists()
+            if not categ:
+                continue
+            self._gif2box_write_translations(categ, 'name', names)
+            # Written in English only: the other languages fall back to it.
+            categ.with_context(lang='en_US').seo_name = seo_name
 
     def _gif2box_setup_menu_one(self, website):
         env_w = self.env(context=dict(self.env.context, website_id=website.id))
@@ -317,11 +344,12 @@ class Website(models.Model):
             })
         self._gif2box_write_translations(about, 'name', ABOUT_NAMES)
 
-        # --- Gift Box --------------------------------------------------
-        gift = Menu.search(
-            [('website_id', '=', website.id), ('url', '=', GIFT_URL)], limit=1)
-        if gift:
-            self._gif2box_write_translations(gift, 'name', GIFT_NAMES)
+        # --- Life and Gift Box ---------------------------------------------
+        for url, names in ((LIFE_URL, LIFE_NAMES), (GIFT_URL, GIFT_NAMES)):
+            menu = Menu.search(
+                [('website_id', '=', website.id), ('url', '=', url)], limit=1)
+            if menu:
+                self._gif2box_write_translations(menu, 'name', names)
 
         # --- Blog -------------------------------------------------------
         blog = Menu.search(
