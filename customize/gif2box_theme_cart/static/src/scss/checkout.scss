@@ -475,6 +475,24 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
                 color: $g2b-ink;
             }
         }
+
+        // "Includes VAT 35.468 ₫" (`views/cart_templates.xml`): a footnote
+        // to the total, not another figure to add up.
+        .o_g2b_vat_note td {
+            margin-top: -.25rem;
+            font-size: .8rem;
+            color: $gray-600;
+
+            .monetary_field {
+                margin-left: .2rem;
+                font-weight: 500;
+            }
+        }
+
+        // The shipping fee before an address is known.
+        .o_g2b_no_dm {
+            font-style: italic;
+        }
     }
 
     // --- Coupon --------------------------------------------------------

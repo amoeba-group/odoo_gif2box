@@ -25,3 +25,23 @@ msgstr "カート"
 #: code:addons/gif2box_theme_cart/models/website.py:0
 msgid "Proceed to Checkout"
 msgstr "ご購入手続きへ"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Subtotal"
+msgstr "小計"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Shipping fee"
+msgstr "送料"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Calculated at the delivery step"
+msgstr "配送手続きで計算します"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "<span>Includes VAT</span>"
+msgstr "<span>うちVAT</span>"

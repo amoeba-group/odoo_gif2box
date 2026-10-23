@@ -25,3 +25,23 @@ msgstr "장바구니"
 #: code:addons/gif2box_theme_cart/models/website.py:0
 msgid "Proceed to Checkout"
 msgstr "주문하기"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Subtotal"
+msgstr "상품 금액"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Shipping fee"
+msgstr "배송비"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Calculated at the delivery step"
+msgstr "배송 단계에서 계산됩니다"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "<span>Includes VAT</span>"
+msgstr "<span>VAT 포함</span>"

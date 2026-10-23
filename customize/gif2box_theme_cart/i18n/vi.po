@@ -25,3 +25,23 @@ msgstr "Giỏ hàng"
 #: code:addons/gif2box_theme_cart/models/website.py:0
 msgid "Proceed to Checkout"
 msgstr "Tiến hành đặt hàng"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Subtotal"
+msgstr "Tạm tính"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Shipping fee"
+msgstr "Phí vận chuyển"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "Calculated at the delivery step"
+msgstr "Tính ở bước giao hàng"
+
+#. module: gif2box_theme_cart
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_cart.total_tax_included
+msgid "<span>Includes VAT</span>"
+msgstr "<span>Đã bao gồm VAT</span>"

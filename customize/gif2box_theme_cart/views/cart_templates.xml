@@ -112,4 +112,78 @@
         </xpath>
     </template>
 
+    <!--
+        The order summary, as a shopper reads it when prices include VAT.
+
+        Odoo prints the totals the way an invoice does: "Subtotal" before
+        tax, of the products and the delivery together, then "Taxes", then
+        the total. On a website whose every price already includes VAT that
+        reads as three unrelated figures: a 415.000 ₫ product, 52.000 ₫ of
+        delivery, and a "Subtotal" of 431.532 ₫ that matches neither.
+
+        So, with VAT-inclusive prices: the products as priced (Subtotal),
+        the shipping fee, the total, and under it the VAT it includes. The
+        arithmetic is the one a shopper does in their head:
+        415.000 + 52.000 = 467.000.
+
+        The rows Odoo's checkout script updates when the delivery method
+        changes (`checkout.js`, `_updateCartSummary`) keep their ids: the
+        before-tax subtotal stays in the page, hidden, and the taxes row
+        becomes the VAT note. A website showing prices before tax keeps
+        Odoo's rows.
+
+        Before a delivery method is chosen, the shipping fee says where it
+        will be worked out instead of showing a dash.
+    -->
+    <template id="total_tax_included" inherit_id="website_sale.total"
+              name="Order summary with VAT-inclusive prices">
+        <xpath expr="//div[@id='cart_total']/table" position="before">
+            <t t-set="g2b_incl"
+               t-value="website_sale_order.website_id.show_line_subtotals_tax_selection == 'tax_included'"/>
+        </xpath>
+
+        <xpath expr="//tr[@id='order_delivery']" position="before">
+            <tr t-if="g2b_incl" id="order_products_subtotal">
+                <td class="ps-0 pt-0 pb-2 border-0 text-muted" colspan="2">Subtotal</td>
+                <td class="text-end pe-0 pt-0 pb-2 border-0">
+                    <span t-out="website_sale_order.amount_total - website_sale_order.amount_delivery"
+                          class="o_g2b_products_subtotal"
+                          style="white-space: nowrap;"
+                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                </td>
+            </tr>
+        </xpath>
+
+        <xpath expr="//tr[@id='order_delivery']/td[1]" position="replace">
+            <td class="ps-0 pt-0 pb-2 border-0 text-muted" colspan="2">Shipping fee</td>
+        </xpath>
+
+        <xpath expr="//span[@id='message_no_dm_set']" position="replace">
+            <span id="message_no_dm_set"
+                  t-att-class="'d-none' if website_sale_order.carrier_id else 'o_g2b_no_dm small text-muted'">
+                Calculated at the delivery step
+            </span>
+        </xpath>
+
+        <xpath expr="//tr[@id='order_total_untaxed']" position="attributes">
+            <attribute name="t-att-class">'d-none' if g2b_incl else None</attribute>
+        </xpath>
+
+        <xpath expr="//tr[@id='order_total_taxes']" position="attributes">
+            <attribute name="t-if">not g2b_incl</attribute>
+        </xpath>
+
+        <xpath expr="//tr[@id='order_total']" position="after">
+            <tr t-if="g2b_incl" id="order_total_taxes" class="o_g2b_vat_note">
+                <td colspan="3" class="border-0 px-0 pt-0 pb-2 text-end">
+                    <span>Includes VAT</span>
+                    <span t-field="website_sale_order.amount_tax"
+                          class="monetary_field"
+                          style="white-space: nowrap;"
+                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
 </odoo>
