@@ -4,9 +4,12 @@
 /// Line icons that take the label's colour, so they follow its hover and
 /// active states. On hover they lift with a small overshoot, a cue that the
 /// entry is live without moving the label itself. The current page's icon
-/// is filled with a tint of the brand coral. "Gift Box", the shop's main
-/// line, keeps its icon in coral at all times, the one touch of colour in
-/// the bar, so the eye lands on it.
+/// is filled with a tint of the brand coral.
+///
+/// Every icon follows its label, Gift Box's included. It used to stay coral
+/// at all times, to draw the eye to the shop's main line, but coral is what
+/// the current page is marked with, so the entry read as selected on every
+/// page.
 ///
 /// Both menus render the same markup: the desktop bar (`#top_menu`) and the
 /// mobile one (`.top_menu` in the offcanvas).
@@ -36,10 +39,6 @@
 
 .top_menu .nav-link.active .o_g2b_menu_icon {
     fill: rgba($g-coral, .16);
-}
-
-.o_g2b_menu_icon_gift {
-    color: $g-coral;
 }
 
 // The mobile menu: a list, each entry a full-width row, so the icons are

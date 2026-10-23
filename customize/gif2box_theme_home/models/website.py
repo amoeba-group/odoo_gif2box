@@ -403,6 +403,25 @@ class WebsiteMenu(models.Model):
             return 'blog'
         return False
 
+    def _is_active(self):
+        """Odoo's rule, and the Blog entry is active anywhere in the blog.
+
+        Odoo marks an entry active on its own URL only. The Blog entry's is
+        /blog, which redirects to the blog itself (/blog/gif2box-1), with the
+        posts further down, so it was never highlighted on any blog page.
+        """
+        active = super()._is_active()
+        if active or not request or self.child_id:
+            return active
+        if (self.url or '').split('?')[0].rstrip('/') != BLOG_URL:
+            return False
+        path = request.httprequest.path
+        # The language prefix, when the page has one (/en/blog/...).
+        prefix = '/%s/' % request.lang.url_code
+        if path.startswith(prefix):
+            path = path[len(prefix) - 1:]
+        return path == BLOG_URL or path.startswith(BLOG_URL + '/')
+
 
 class WebsiteSocialShare(models.AbstractModel):
     """Mixin hook: adds the sizes of the share card to the page head.
