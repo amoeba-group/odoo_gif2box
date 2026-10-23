@@ -1,0 +1,395 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_delivery_distance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 08:16+0000\n"
+"PO-Revision-Date: 2026-10-23 08:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.free_shipping_bar
+msgid "<span>Add</span>"
+msgstr "<span>Mua thêm</span>"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.product_free_shipping_note
+msgid "<span>Free shipping on orders of</span>"
+msgstr "<span>Miễn phí vận chuyển cho đơn từ</span>"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.free_shipping_bar
+msgid "<span>Your order ships free</span>"
+msgstr "<span>Đơn hàng của bạn được miễn phí vận chuyển</span>"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.product_free_shipping_note
+msgid "<span>and up</span>"
+msgstr "<span>trở lên</span>"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.free_shipping_bar
+msgid "<span>more for free shipping</span>"
+msgstr "<span>để được miễn phí vận chuyển</span>"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_remote_pct
+msgid ""
+"Added for a delivery to a commune (xã) or a special zone (đặc khu, the "
+"islands), outer Hồ Chí Minh City included."
+msgstr "Cộng thêm khi giao đến xã hoặc đặc khu (hải đảo), kể cả các xã ngoại thành TP.HCM."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_fuel_pct
+msgid "Added to every price; the courier's list does not include it."
+msgstr "Cộng vào mọi mức giá; bảng giá của đơn vị vận chuyển chưa bao gồm khoản này."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.constraint,message:gif2box_delivery_distance.constraint_gif2box_delivery_area_code_uniq
+msgid "An area already has this code."
+msgstr "Đã có khu vực dùng mã này."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_price_near
+msgid "Areas closer than the distance limit (column \"Dưới 300 Km\")."
+msgstr "Khu vực trong giới hạn khoảng cách (cột \"Dưới 300 Km\")."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_price_far
+msgid "Areas further than the distance limit (column \"Trên 300 Km\")."
+msgstr "Khu vực xa hơn giới hạn khoảng cách (cột \"Trên 300 Km\")."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_near_km
+msgid ""
+"Areas up to this distance pay the \"under\" price, the others the \"over\" "
+"price."
+msgstr "Khu vực có khoảng cách đến mức này tính giá \"Dưới giới hạn\", còn lại tính giá \"Trên giới hạn\"."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__pricing__distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "By distance"
+msgstr "Theo khoảng cách"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__delivery_carrier__delivery_type__gif2box_distance
+msgid "By distance from the warehouse"
+msgstr "Theo khoảng cách từ kho"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_gif2box_delivery_area__pricing
+msgid ""
+"By distance: under or over the limit set on the delivery method (300 km in "
+"the price list). Inner city and Hà Nội & Đà Nẵng are the price list's own "
+"columns."
+msgstr "Theo khoảng cách: dưới hoặc trên giới hạn đặt ở phương thức giao hàng (300 km trong bảng giá). Nội thành và Hà Nội & Đà Nẵng là các cột riêng của bảng giá."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_gif2box_delivery_area__distance_km
+msgid "By road, from the warehouse to the seat."
+msgstr "Tính theo đường bộ, từ kho đến trung tâm tỉnh lỵ."
+
+#. module: gif2box_delivery_distance
+#. odoo-python
+#: code:addons/gif2box_delivery_distance/models/delivery_carrier.py:0
+msgid ""
+"Choose the province and the ward of the delivery address to see the shipping"
+" fee."
+msgstr "Vui lòng chọn tỉnh/thành và phường/xã của địa chỉ nhận hàng để xem phí vận chuyển."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_price_hub
+msgid "Column \"Hà Nội & Đà Nẵng\"."
+msgstr "Cột \"Hà Nội & Đà Nẵng\"."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_remote_pct
+msgid "Commune & Island Surcharge (%)"
+msgstr "Phụ phí xã & hải đảo (%)"
+
+#. module: gif2box_delivery_distance
+#. odoo-python
+#: code:addons/gif2box_delivery_distance/models/delivery_carrier.py:0
+msgid "Commune or island (xã, đặc khu)"
+msgstr "Xã, đặc khu (hải đảo)"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__create_uid
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__create_date
+msgid "Created on"
+msgstr "Được tạo vào"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model,name:gif2box_delivery_distance.model_gif2box_delivery_area
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_res_country_ward__g2b_area_id
+msgid "Delivery Area"
+msgstr "Khu vực giao hàng"
+
+#. module: gif2box_delivery_distance
+#: model:ir.actions.act_window,name:gif2box_delivery_distance.action_delivery_area
+#: model:ir.ui.menu,name:gif2box_delivery_distance.menu_ecommerce_delivery_area
+#: model:ir.ui.menu,name:gif2box_delivery_distance.menu_sale_delivery_area
+msgid "Delivery Areas"
+msgstr "Khu vực giao hàng"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid "Delivery areas and their distances"
+msgstr "Khu vực giao hàng và khoảng cách"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_near_km
+msgid "Distance Limit (km)"
+msgstr "Giới hạn khoảng cách (km)"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid "Distance Pricing"
+msgstr "Bảng giá theo khoảng cách"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_fuel_pct
+msgid "Fuel Surcharge (%)"
+msgstr "Phụ phí xăng dầu (%)"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_area_count
+msgid "G2B Area Count"
+msgstr "Số khu vực"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__code
+msgid "GSO Code (before 07/2025)"
+msgstr "Mã GSO (trước 07/2025)"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "Group By"
+msgstr "Nhóm theo"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_price_hub
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__pricing__hub
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__zone__hub
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "Hà Nội & Đà Nẵng"
+msgstr "Hà Nội & Đà Nẵng"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_price_inner
+msgid "Hồ Chí Minh City's inner city (column \"Nội thành\")."
+msgstr "Nội thành TP. Hồ Chí Minh (cột \"Nội thành\")."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_price_inner
+msgid "Inner City"
+msgstr "Nội thành"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__pricing__inner
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__zone__inner
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "Inner city"
+msgstr "Nội thành"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__seat
+msgid "Measured To"
+msgstr "Đo đến"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__name
+msgid "Name"
+msgstr "Tên"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.actions.act_window,help:gif2box_delivery_distance.action_delivery_area
+msgid "No delivery area"
+msgstr "Chưa có khu vực giao hàng"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__ward_count
+msgid "Number of Wards"
+msgstr "Số phường/xã"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_price_far
+msgid "Over the Limit"
+msgstr "Trên giới hạn"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__zone__far
+msgid "Over the distance limit"
+msgstr "Trên giới hạn khoảng cách"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__zone
+msgid "Price Column"
+msgstr "Cột giá"
+
+#. module: gif2box_delivery_distance
+#. odoo-python
+#: code:addons/gif2box_delivery_distance/models/delivery_carrier.py:0
+msgid "Price column"
+msgstr "Cột giá"
+
+#. module: gif2box_delivery_distance
+#. odoo-python
+#: code:addons/gif2box_delivery_distance/models/delivery_carrier.py:0
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid "Price list"
+msgstr "Bảng giá"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid ""
+"Price list: Việt Tín, CPN S07/2025, section I, one price per column whatever"
+" the weight (default: the \"500 g to 1 kg\" row). Orders from the free "
+"shipping amount above pay nothing."
+msgstr "Bảng giá: Việt Tín, CPN S07/2025, mục I, mỗi cột một mức giá, không tính theo trọng lượng (mặc định: dòng \"Trên 500 => 1.000 Gram\"). Đơn hàng từ mức miễn phí vận chuyển ở trên không mất phí giao hàng."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_preview
+msgid "Prices Charged"
+msgstr "Giá khách trả"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid "Prices charged to customers"
+msgstr "Giá khách hàng trả"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__pricing
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "Pricing"
+msgstr "Cách tính giá"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__state_id
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_search
+msgid "Province Today"
+msgstr "Tỉnh/thành hiện nay"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__distance_km
+msgid "Road Distance (km)"
+msgstr "Khoảng cách đường bộ (km)"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_rounding
+msgid "Round Up To"
+msgstr "Làm tròn lên đến"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_origin
+msgid "Ships From"
+msgstr "Gửi hàng từ"
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.view_delivery_carrier_form
+msgid "Surcharges"
+msgstr "Phụ phí"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_res_country_ward__g2b_area_id
+msgid ""
+"The area this ward is priced as for delivery: the province it belonged to "
+"before 1 July 2025."
+msgstr "Khu vực dùng để tính phí giao hàng cho phường/xã này: tỉnh mà nó thuộc về trước ngày 1/7/2025."
+
+#. module: gif2box_delivery_distance
+#: model_terms:ir.actions.act_window,help:gif2box_delivery_distance.action_delivery_area
+msgid ""
+"The areas are the provinces as they were before July 2025, with their road "
+"distance from the warehouse. They are created when the module is installed."
+msgstr "Các khu vực là các tỉnh/thành trước tháng 7/2025, kèm khoảng cách đường bộ từ kho. Chúng được tạo khi cài module."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_rounding
+msgid "The fee is rounded up to a multiple of this amount."
+msgstr "Phí được làm tròn lên bội số của số tiền này."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_gif2box_delivery_area__state_id
+msgid "The province or city this area is part of since 1 July 2025."
+msgstr "Tỉnh/thành mà khu vực này thuộc về từ ngày 1/7/2025."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_gif2box_delivery_area__code
+msgid "The province's code in the register in force until 30 June 2025."
+msgstr "Mã tỉnh trong danh mục hành chính áp dụng đến 30/6/2025."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_tax_ids
+msgid ""
+"The taxes of the delivery product, which Odoo adds to the fee like on any "
+"order line. The courier's prices exclude VAT."
+msgstr "Thuế của sản phẩm phí giao hàng, được Odoo cộng vào phí như mọi dòng của đơn hàng. Giá của đơn vị vận chuyển chưa gồm VAT."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_gif2box_delivery_area__seat
+msgid "The town the distance is measured to: the provincial seat."
+msgstr "Nơi đo khoảng cách đến: trung tâm tỉnh lỵ."
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_price_near
+msgid "Under the Limit"
+msgstr "Dưới giới hạn"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields.selection,name:gif2box_delivery_distance.selection__gif2box_delivery_area__zone__near
+msgid "Under the distance limit"
+msgstr "Dưới giới hạn khoảng cách"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_delivery_carrier__g2b_tax_ids
+msgid "VAT on the Fee"
+msgstr "VAT trên phí giao hàng"
+
+#. module: gif2box_delivery_distance
+#. odoo-python
+#: code:addons/gif2box_delivery_distance/models/delivery_carrier.py:0
+msgid "Ward (phường)"
+msgstr "Phường"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,field_description:gif2box_delivery_distance.field_gif2box_delivery_area__ward_ids
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_form
+#: model_terms:ir.ui.view,arch_db:gif2box_delivery_distance.delivery_area_view_list
+msgid "Wards"
+msgstr "Phường/xã"
+
+#. module: gif2box_delivery_distance
+#: model:ir.model.fields,help:gif2box_delivery_distance.field_delivery_carrier__g2b_origin
+msgid ""
+"Where parcels leave from. The distances of the delivery areas are measured "
+"from here."
+msgstr "Nơi gửi hàng đi. Khoảng cách của các khu vực giao hàng được đo từ đây."

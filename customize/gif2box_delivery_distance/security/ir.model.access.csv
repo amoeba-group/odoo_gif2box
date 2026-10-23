@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gif2box_delivery_area_all,gif2box.delivery.area.all,model_gif2box_delivery_area,,1,0,0,0
+access_gif2box_delivery_area_sale_manager,gif2box.delivery.area.sale.manager,model_gif2box_delivery_area,sales_team.group_sale_manager,1,1,0,0
+access_gif2box_delivery_area_system,gif2box.delivery.area.system,model_gif2box_delivery_area,base.group_system,1,1,1,1

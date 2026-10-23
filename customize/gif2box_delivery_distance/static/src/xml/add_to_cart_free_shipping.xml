@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Above "View cart", the step the bar argues for. -->
+    <t t-inherit="website_sale.addToCartNotification" t-inherit-mode="extension">
+        <xpath expr="//a[@href='/shop/cart']" position="before">
+            <div t-if="g2bFreeShipping.html" class="o_g2b_freeship_popup"
+                 t-out="g2bFreeShipping.html"/>
+        </xpath>
+    </t>
+
+</templates>

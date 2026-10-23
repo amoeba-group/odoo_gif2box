@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        How far the cart is from free shipping: "Add 120.000 ₫ more for free
+        shipping", over a bar that fills towards the threshold, with the
+        truck at its end and the threshold under it. Once there: "Your order
+        ships free".
+
+        One template for every place it shows, so they cannot disagree: the
+        cart total (cart page and checkout, below), and the "added to your
+        cart" popup, which fetches it (`controllers/main.py`). The threshold
+        is the delivery method's "Free if order amount is above", and the
+        amount the one Odoo compares to it (`models/website.py`).
+
+        `website` is not among the values of every render (the cart total is
+        re-rendered after each quantity change), hence the fallback.
+    -->
+    <template id="free_shipping_bar" name="Free shipping progress">
+        <t t-set="g2b_site" t-value="website or request.website"/>
+        <t t-set="g2b_fs" t-value="g2b_site and g2b_site._g2b_free_shipping_status(g2b_order)"/>
+        <t t-set="g2b_currency" t-value="g2b_order.currency_id if g2b_order else g2b_site.currency_id"/>
+        <div t-if="g2b_fs"
+             t-attf-class="o_g2b_freeship #{g2b_fs['reached'] and 'o_g2b_freeship_done' or ''}"
+             role="status">
+            <p t-if="not g2b_fs['reached']" class="o_g2b_freeship_text">
+                <span>Add</span>
+                <strong t-out="g2b_fs['remaining']"
+                        t-options="{'widget': 'monetary', 'display_currency': g2b_currency}"/>
+                <span>more for free shipping</span>
+            </p>
+            <p t-else="" class="o_g2b_freeship_text">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                     focusable="false"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>Your order ships free</span>
+            </p>
+            <div class="o_g2b_freeship_row" aria-hidden="true">
+                <div class="o_g2b_freeship_track">
+                    <span t-attf-style="width: {{ g2b_fs['progress'] }}%;"/>
+                </div>
+                <svg class="o_g2b_freeship_truck" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                     stroke-linejoin="round" focusable="false">
+                    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                    <path d="M15 18H9"/>
+                    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+                    <circle cx="17" cy="18" r="2"/>
+                    <circle cx="7" cy="18" r="2"/>
+                </svg>
+            </div>
+            <span class="o_g2b_freeship_goal" aria-hidden="true"
+                  t-out="g2b_fs['threshold']"
+                  t-options="{'widget': 'monetary', 'display_currency': g2b_currency}"/>
+        </div>
+    </template>
+
+    <!--
+        Cart page and checkout. The cart total is re-rendered by Odoo after
+        every quantity change (`website_sale_utils.js` replaces `#cart_total`),
+        so the bar follows the cart without a script of its own. Not on the
+        confirmation page, where the same total sums up an order already
+        placed, nor for an order with nothing to deliver.
+    -->
+    <template id="total_free_shipping" inherit_id="website_sale.total"
+              name="Free shipping progress in the cart total">
+        <xpath expr="//div[@id='cart_total']/table" position="before">
+            <t t-if="website_sale_order.state == 'draft' and website_sale_order._has_deliverable_products()"
+               t-call="gif2box_delivery_distance.free_shipping_bar">
+                <t t-set="g2b_order" t-value="website_sale_order"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!--
+        Product page, under the buy buttons: the threshold only, which is
+        always true. What is left to add belongs where the cart is.
+    -->
+    <template id="product_free_shipping_note" inherit_id="website_sale.product"
+              name="Free shipping note on the product page">
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="after">
+            <t t-set="g2b_threshold" t-value="website._g2b_free_shipping_threshold()"/>
+            <p t-if="g2b_threshold" class="o_g2b_freeship_note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                     focusable="false">
+                    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                    <path d="M15 18H9"/>
+                    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+                    <circle cx="17" cy="18" r="2"/>
+                    <circle cx="7" cy="18" r="2"/>
+                </svg>
+                <span>Free shipping on orders of</span>
+                <strong t-out="g2b_threshold"
+                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <span>and up</span>
+            </p>
+        </xpath>
+    </template>
+
+</odoo>

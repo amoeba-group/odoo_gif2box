@@ -1,0 +1,140 @@
+///
+/// Free shipping: the progress bar (cart total, checkout, the "added to
+/// your cart" popup) and the note on the product page
+/// (`views/free_shipping_templates.xml`).
+///
+/// The brand colours are declared by `gif2box_theme_home`; the defaults
+/// below are the same values, for a site without that theme.
+///
+
+$g-coral: #FD7352 !default;
+$g-coral-dark: #E85A38 !default;
+$g-title: #004444 !default;
+$g2b-freeship-done: #1F8A5B;
+
+.o_g2b_freeship {
+    padding: .8rem .95rem .6rem;
+    margin-bottom: 1rem;
+    background-color: rgba($g-coral, .06);
+    border: 1px solid rgba($g-coral, .22);
+    border-radius: .85rem;
+}
+
+.o_g2b_freeship_text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+    align-items: center;
+    margin: 0 0 .55rem;
+    font-size: .9rem;
+    line-height: 1.4;
+    color: $body-color;
+
+    strong {
+        font-weight: 700;
+        color: $g-coral-dark;
+        white-space: nowrap;
+    }
+
+    svg {
+        flex: 0 0 auto;
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+}
+
+.o_g2b_freeship_row {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.o_g2b_freeship_track {
+    flex: 1 1 auto;
+    height: 6px;
+    overflow: hidden;
+    background-color: rgba($g-coral, .16);
+    border-radius: 6px;
+
+    span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #FF9A6C, $g-coral);
+        border-radius: inherit;
+        transition: width .5s cubic-bezier(.22, .61, .36, 1);
+    }
+}
+
+.o_g2b_freeship_truck {
+    flex: 0 0 auto;
+    width: 1.35rem;
+    height: 1.35rem;
+    color: $g-coral-dark;
+}
+
+.o_g2b_freeship_goal {
+    display: block;
+    margin-top: .15rem;
+    font-size: .72rem;
+    color: $gray-600;
+    text-align: right;
+}
+
+// Reached: the same bar, full and green, and a tick.
+.o_g2b_freeship_done {
+    background-color: rgba($g2b-freeship-done, .07);
+    border-color: rgba($g2b-freeship-done, .25);
+
+    .o_g2b_freeship_text {
+        font-weight: 600;
+        color: $g2b-freeship-done;
+    }
+
+    .o_g2b_freeship_track {
+        background-color: rgba($g2b-freeship-done, .16);
+
+        span {
+            background: $g2b-freeship-done;
+        }
+    }
+
+    .o_g2b_freeship_truck {
+        color: $g2b-freeship-done;
+    }
+}
+
+// The popup is narrow and already busy.
+.o_g2b_freeship_popup .o_g2b_freeship {
+    padding: .65rem .75rem .5rem;
+    margin: .15rem 0 .75rem;
+}
+
+// --- Product page -----------------------------------------------------------
+.o_g2b_freeship_note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    align-items: center;
+    margin: .9rem 0 0;
+    font-size: .9rem;
+    color: $gray-700;
+
+    svg {
+        flex: 0 0 auto;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: .1rem;
+        color: $g-coral-dark;
+    }
+
+    strong {
+        color: $g-coral-dark;
+        white-space: nowrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_g2b_freeship_track span {
+        transition: none;
+    }
+}

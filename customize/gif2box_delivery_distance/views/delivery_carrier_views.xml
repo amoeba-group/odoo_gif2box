@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The price list on the delivery method: one price per column of the
+        courier's list, the surcharges its notes add, and, underneath, what
+        customers are charged in each case, worked out live as the figures
+        are typed.
+    -->
+    <record id="view_delivery_carrier_form" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.gif2box.distance</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='pricing']" position="before">
+                <page string="Distance Pricing" name="g2b_distance"
+                      invisible="delivery_type != 'gif2box_distance'">
+                    <group>
+                        <group string="Price list">
+                            <field name="g2b_origin"/>
+                            <field name="g2b_price_inner" widget="monetary"/>
+                            <field name="g2b_price_near" widget="monetary"/>
+                            <field name="g2b_price_far" widget="monetary"/>
+                            <field name="g2b_price_hub" widget="monetary"/>
+                            <field name="g2b_near_km"/>
+                        </group>
+                        <group string="Surcharges">
+                            <field name="g2b_fuel_pct"/>
+                            <field name="g2b_remote_pct"/>
+                            <field name="g2b_tax_ids" widget="many2many_tags"/>
+                            <field name="g2b_rounding"/>
+                        </group>
+                    </group>
+                    <separator string="Prices charged to customers"/>
+                    <field name="g2b_preview" nolabel="1"/>
+                    <div class="text-muted small mt-2">
+                        Price list: Việt Tín, CPN S07/2025, section I, one price per column whatever the weight (default: the "500 g to 1 kg" row). Orders from the free shipping amount above pay nothing.
+                    </div>
+                    <button name="action_g2b_view_areas" type="object"
+                            class="btn btn-link px-0 mt-2" icon="fa-map-o"
+                            string="Delivery areas and their distances"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
