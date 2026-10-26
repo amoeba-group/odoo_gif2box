@@ -17,6 +17,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "Close"
+msgstr "Đóng"
+
+#. module: gif2box_vn_address
 #: model:ir.model.fields,help:gif2box_vn_address.field_res_country_state__vn_gso_code
 msgid ""
 "Code of the province in the General Statistics Office register, for the "
@@ -39,19 +45,9 @@ msgid "Communes"
 msgstr "Xã"
 
 #. module: gif2box_vn_address
-#: model:ir.model,name:gif2box_vn_address.model_res_partner
-msgid "Contact"
-msgstr ""
-
-#. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__country_id
 msgid "Country"
 msgstr "Quốc gia"
-
-#. module: gif2box_vn_address
-#: model:ir.model,name:gif2box_vn_address.model_res_country_state
-msgid "Country state"
-msgstr ""
 
 #. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__create_uid
@@ -65,6 +61,7 @@ msgstr "Được tạo vào"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Detailed address"
 msgstr "Địa chỉ chi tiết"
 
@@ -86,6 +83,7 @@ msgstr "Mã TCTK"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "House number, street, building, apartment..."
 msgstr "Số nhà, tên đường, tòa nhà, căn hộ..."
 
@@ -110,20 +108,57 @@ msgid "Name"
 msgstr "Tên"
 
 #. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "No result for “%s”"
+msgstr "Không tìm thấy “%s”"
+
+#. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__state_id
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
 msgid "Province / City"
 msgstr "Tỉnh / Thành phố"
 
 #. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a country..."
+msgstr "Tìm quốc gia..."
+
+#. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a province or city..."
+msgstr "Tìm tỉnh, thành phố..."
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a ward or commune..."
+msgstr "Tìm phường, xã..."
+
+#. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "Search..."
+msgstr "Tìm kiếm..."
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Select a province / city first"
 msgstr "Vui lòng chọn tỉnh / thành phố trước"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Select a ward / commune..."
 msgstr "Chọn phường / xã..."
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/controllers/main.py:0
+msgid "Some required fields are empty."
+msgstr "Một số trường bắt buộc vẫn đang để trống."
 
 #. module: gif2box_vn_address
 #: model:ir.model.fields.selection,name:gif2box_vn_address.selection__res_country_ward__division_type__dac_khu
@@ -134,6 +169,11 @@ msgstr "Đặc khu"
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
 msgid "Special zones"
 msgstr "Đặc khu"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Street"
+msgstr "Đường"
 
 #. module: gif2box_vn_address
 #. odoo-python
@@ -165,6 +205,7 @@ msgstr "Phường"
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_partner__ward_id
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_users__ward_id
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.view_partner_form_ward
 msgid "Ward / Commune"
 msgstr "Phường / Xã"
@@ -180,3 +221,15 @@ msgstr "Phường"
 #: model:ir.ui.menu,name:gif2box_vn_address.res_country_ward_menu
 msgid "Wards / Communes"
 msgstr "Phường / Xã"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/models/res_country_state.py:0
+msgid "incl. former %s"
+msgstr "gồm %s cũ"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/models/res_country_state.py:0
+msgid "merged into %s"
+msgstr "đã sáp nhập vào %s"

@@ -1,6 +1,7 @@
 from odoo import _
 from odoo.http import request, route
 
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
@@ -106,3 +107,67 @@ class WebsiteSaleVnAddress(WebsiteSale):
                 "The selected ward or commune is not in the selected province or city."
             ))
         return invalid_fields, missing_fields, error_messages
+
+
+class CustomerPortalVnAddress(CustomerPortal):
+    """The portal's "Your details" form, for a Vietnamese address.
+
+    Odoo's form there knows nothing of wards and lists the 63 provinces of
+    before the 2025 merger. It is given what /shop/address has
+    (`views/portal_templates.xml`): today's provinces, the ward under them,
+    and no "City" or postcode, the ward's name being written into `city`
+    (`ResPartner._vn_fill_from_ward`). The address saved here is the one
+    checkout starts from, and the shipping fee is worked out from its ward.
+    """
+
+    def _get_optional_fields(self):
+        return super()._get_optional_fields() + ['ward_id']
+
+    def details_form_validate(self, data, partner_creation=False):
+        vietnam = request.env.ref('base.vn').sudo()
+        is_vietnam = str(data.get('country_id') or '') == str(vietnam.id)
+        Ward = request.env['res.country.ward'].sudo()
+        ward = state = None
+        if is_vietnam:
+            try:
+                state = request.env['res.country.state'].sudo().browse(int(data.get('state_id') or 0)).exists()
+                ward = Ward.browse(int(data.get('ward_id') or 0)).exists()
+            except ValueError:
+                state, ward = request.env['res.country.state'].sudo(), Ward
+            # `city` is mandatory on this form and hidden for Vietnam: it is
+            # the ward's name, as on /shop/address.
+            if ward:
+                data['city'] = ward.name
+        else:
+            data.pop('ward_id', None)
+
+        error, error_message = super().details_form_validate(data, partner_creation)
+
+        if is_vietnam:
+            if not state:
+                error['state_id'] = 'missing'
+            elif not state.vn_gso_code:
+                error['state_id'] = 'error'
+                error_message.append(_("This province no longer exists after the 2025 merger. Please choose its current province or city."))
+            if not ward:
+                error['ward_id'] = 'missing'
+                # Odoo's own message for the missing city stands for it.
+                error.pop('city', None)
+            elif state and ward.state_id != state:
+                error['ward_id'] = 'error'
+                error_message.append(_(
+                    "The selected ward or commune is not in the selected province or city."
+                ))
+            if error.get('state_id') == 'missing' or error.get('ward_id') == 'missing':
+                message = _('Some required fields are empty.')
+                if message not in error_message:
+                    error_message.append(message)
+        return error, error_message
+
+    def on_account_update(self, values, partner):
+        super().on_account_update(values, partner)
+        try:
+            values['ward_id'] = int(values.get('ward_id') or 0) or False
+        except ValueError:
+            values['ward_id'] = False
+

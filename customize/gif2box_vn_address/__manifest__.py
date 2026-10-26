@@ -17,6 +17,10 @@ them. Districts were abolished.
   merged ones out of the address form. Existing addresses are not touched.
 * Reorders the checkout address form for Vietnam: country, province, ward,
   then one line for the detailed address. Other countries keep Odoo's form.
+* The same on the portal's "Your details" form, which had no ward and still
+  listed the 63 provinces of before the merger.
+* Province, ward and country are picked by typing, accents optional, a
+  province also by the names it absorbed in 2025; full screen on a phone.
 """,
     'author': 'Amoeba',
     'license': 'LGPL-3',
@@ -29,11 +33,15 @@ them. Districts were abolished.
         'data/res.country.ward.csv',
         'views/res_country_ward_views.xml',
         'views/website_sale_templates.xml',
+        'views/portal_templates.xml',
     ],
     'assets': {
         'web.assets_frontend': [
             'gif2box_vn_address/static/src/scss/address_vn.scss',
+            'gif2box_vn_address/static/src/scss/searchable_select.scss',
             'gif2box_vn_address/static/src/js/address_vn.js',
+            'gif2box_vn_address/static/src/js/searchable_select.js',
+            'gif2box_vn_address/static/src/js/portal_address_vn.js',
         ],
     },
     'installable': True,

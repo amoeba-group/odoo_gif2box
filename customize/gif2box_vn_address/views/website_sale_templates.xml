@@ -62,6 +62,8 @@
                  t-att-style="not (country and country.code == 'VN') and 'display: none'">
                 <label class="col-form-label" for="o_ward_id">Ward / Commune</label>
                 <select id="o_ward_id" name="ward_id" class="form-select"
+                        data-g2b-searchable="1"
+                        placeholder="Search a ward or commune..."
                         t-att-disabled="not vn_wards and 'disabled'">
                     <option t-if="vn_wards" value="">Select a ward / commune...</option>
                     <option t-else="" value="">Select a province / city first</option>
@@ -84,6 +86,19 @@
             </div>
         </xpath>
 
+        <!--
+            Province and ward are picked by typing (`searchable_select.js`):
+            34 provinces and up to 168 wards are a long scroll. A province
+            is also found by the names it absorbed in 2025, shown under it.
+        -->
+        <xpath expr="//select[@id='o_state_id']" position="attributes">
+            <attribute name="data-g2b-searchable">1</attribute>
+            <attribute name="placeholder">Search a province or city...</attribute>
+        </xpath>
+        <xpath expr="//select[@id='o_state_id']/t[@t-foreach='country_states']/option" position="attributes">
+            <attribute name="t-att-data-g2b-hint">s._vn_search_hint() or None</attribute>
+            <attribute name="t-att-data-g2b-keywords">s._vn_search_keywords() or None</attribute>
+        </xpath>
         <!-- The country gets the full row; province and ward share the next. -->
         <xpath expr="//div[@id='div_country']" position="attributes">
             <attribute name="class" add="col-lg-12" remove="col-lg-6" separator=" "/>

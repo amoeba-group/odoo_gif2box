@@ -17,6 +17,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "Close"
+msgstr "閉じる"
+
+#. module: gif2box_vn_address
 #: model:ir.model.fields,help:gif2box_vn_address.field_res_country_state__vn_gso_code
 msgid ""
 "Code of the province in the General Statistics Office register, for the "
@@ -39,19 +45,9 @@ msgid "Communes"
 msgstr "社（Xã）"
 
 #. module: gif2box_vn_address
-#: model:ir.model,name:gif2box_vn_address.model_res_partner
-msgid "Contact"
-msgstr ""
-
-#. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__country_id
 msgid "Country"
 msgstr "国"
-
-#. module: gif2box_vn_address
-#: model:ir.model,name:gif2box_vn_address.model_res_country_state
-msgid "Country state"
-msgstr ""
 
 #. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__create_uid
@@ -65,6 +61,7 @@ msgstr "作成日"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Detailed address"
 msgstr "詳細住所"
 
@@ -86,6 +83,7 @@ msgstr "統計総局コード"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "House number, street, building, apartment..."
 msgstr "番地、通り名、建物名、部屋番号など"
 
@@ -110,20 +108,57 @@ msgid "Name"
 msgstr "名称"
 
 #. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "No result for “%s”"
+msgstr "「%s」に一致する結果はありません"
+
+#. module: gif2box_vn_address
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_country_ward__state_id
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
 msgid "Province / City"
 msgstr "省・市"
 
 #. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a country..."
+msgstr "国を検索..."
+
+#. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a province or city..."
+msgstr "省・市を検索..."
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Search a ward or commune..."
+msgstr "坊・社を検索..."
+
+#. module: gif2box_vn_address
+#. odoo-javascript
+#: code:addons/gif2box_vn_address/static/src/js/searchable_select.js:0
+msgid "Search..."
+msgstr "検索..."
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Select a province / city first"
 msgstr "先に省・市を選択してください"
 
 #. module: gif2box_vn_address
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 msgid "Select a ward / commune..."
 msgstr "坊・社を選択..."
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/controllers/main.py:0
+msgid "Some required fields are empty."
+msgstr "埋められていない必須項目があります。"
 
 #. module: gif2box_vn_address
 #: model:ir.model.fields.selection,name:gif2box_vn_address.selection__res_country_ward__division_type__dac_khu
@@ -134,6 +169,11 @@ msgstr "特別区（Đặc khu）"
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.res_country_ward_view_search
 msgid "Special zones"
 msgstr "特別区（Đặc khu）"
+
+#. module: gif2box_vn_address
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
+msgid "Street"
+msgstr "町名番地"
 
 #. module: gif2box_vn_address
 #. odoo-python
@@ -165,6 +205,7 @@ msgstr "坊（Phường）"
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_partner__ward_id
 #: model:ir.model.fields,field_description:gif2box_vn_address.field_res_users__ward_id
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.address_vn
+#: model_terms:ir.ui.view,arch_db:gif2box_vn_address.portal_details_vn
 #: model_terms:ir.ui.view,arch_db:gif2box_vn_address.view_partner_form_ward
 msgid "Ward / Commune"
 msgstr "坊・社（Phường / Xã）"
@@ -180,3 +221,15 @@ msgstr "坊（Phường）"
 #: model:ir.ui.menu,name:gif2box_vn_address.res_country_ward_menu
 msgid "Wards / Communes"
 msgstr "坊・社（Phường / Xã）"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/models/res_country_state.py:0
+msgid "incl. former %s"
+msgstr "旧%sを含む"
+
+#. module: gif2box_vn_address
+#. odoo-python
+#: code:addons/gif2box_vn_address/models/res_country_state.py:0
+msgid "merged into %s"
+msgstr "%sに統合"

@@ -1,7 +1,7 @@
 import re
 import unicodedata
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 # "Phường", "Xã", "Đặc khu", and the "TP" Odoo puts in front of four of the
 # centrally-run cities. Sorting on what follows them is what makes a long
@@ -50,6 +50,17 @@ class ResCountryWard(models.Model):
     _sql_constraints = [
         ('code_uniq', 'unique(code)', 'Each ward has its own GSO code.'),
     ]
+
+    @api.model
+    def _vn_portal_wards(self, state_id, partner):
+        """The wards of the province on the portal's details form: the one
+        posted when the form came back with an error, else the contact's."""
+        try:
+            state = self.env['res.country.state'].browse(int(state_id)) if state_id else partner.state_id
+        except (TypeError, ValueError):
+            state = partner.state_id
+        state = state.sudo().exists()
+        return state.ward_ids._sorted_for_display() if state.vn_gso_code else self.browse()
 
     def _sorted_for_display(self):
         return self.sorted(key=lambda ward: vn_sort_key(ward.name))
