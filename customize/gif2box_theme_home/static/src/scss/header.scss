@@ -714,6 +714,72 @@ header#top {
         }
     }
 
+    // In the desktop menu bar: a pill, the twin of the order lookup beside
+    // it (`gif2box_order_tracking`, `.o_g2b_nav_track`) -- same height,
+    // type and icon disc -- in solid coral where that one is tinted. The
+    // markup's `h-100` and `rounded-0` utilities are `!important`, hence
+    // the overrides. The phone's menu panel keeps the full-width block.
+    #o_main_nav > div.border-top {
+
+        .btn_cta {
+            gap: .55rem;
+            align-self: center;
+            height: 2.6rem !important;
+            padding: 0 1.25rem 0 .3rem !important;
+            font-size: .85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .02em;
+            white-space: nowrap;
+            border-width: 1.5px;
+            border-radius: 2rem !important;
+            box-shadow: 0 .35rem 1rem rgba($g-coral, .25);
+            transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+
+            &::before {
+                display: inline-flex;
+                flex: 0 0 auto;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                font-size: .95rem;
+                color: $g-coral;
+                background-color: $white;
+                border-radius: 50%;
+            }
+
+            &:hover,
+            &:focus {
+                text-decoration: none;
+                box-shadow: 0 .45rem 1.2rem rgba($g-coral, .35);
+
+                &::before {
+                    color: $g-coral-dark;
+                }
+            }
+
+            // Smaller with the bar below `xl`, as the lookup pill is.
+            @include media-breakpoint-down(xl) {
+                height: 2.25rem !important;
+                padding: 0 1.05rem 0 .25rem !important;
+                font-size: .78rem;
+
+                &::before {
+                    width: 1.7rem;
+                    height: 1.7rem;
+                    font-size: .8rem;
+                }
+            }
+        }
+
+        // The pill sits in the middle of the bar, not stretched over it.
+        .s_text_block > .container {
+            display: flex;
+            align-items: center;
+        }
+    }
+
     // =================================================================
     // Tablet and below: Odoo swaps the desktop navbar for `o_header_mobile`
     // at the `lg` breakpoint, so this styles that one.

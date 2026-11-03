@@ -789,12 +789,53 @@ $g2b-step-icon-compact: 2.25rem;
 // --- Header: the lookup links ----------------------------------------------
 //
 // `header_track_nav_link`, `header_track_link`. Picked out from the menu on
-// purpose: in the desktop menu bar a tinted coral pill, with the truck in a
-// filled disc that rings three times after the page loads and then rests;
-// solid coral on hover, like the "Contact us" block beside it. On a phone,
-// the truck in the top bar is coral on a coral tint, where the cart and
-// the wishlist beside it are plain, and the menu panel has an outlined
-// button over the coral "Contact us".
+// purpose: in the desktop menu bar a tinted coral pill, the twin of the
+// solid "Contact us" pill beside it (`gif2box_theme_home`), solid coral on
+// hover. On a phone, the truck in the top bar is coral on a coral tint,
+// where the cart and the wishlist beside it are plain, and the menu panel
+// has an outlined button over the coral "Contact us".
+//
+// The truck drives: it rocks on its wheels while the road's dashes run
+// back under it. In the pill, the disc and the road are `::before` and the
+// truck is `::after` laid over it, so that it moves on its own; in the
+// phone's bar the road is the button's background and the truck its icon.
+// Font Awesome's truck faces left; it is mirrored to face the label, the
+// way the tracking page's own truck goes. Still for anyone who asks their
+// system for less motion.
+
+// A truck on an uneven road: two bumps, a short one and a soft one.
+@keyframes o_g2b_truck_rock {
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(-1.5px);
+    }
+
+    70% {
+        transform: translateY(-.75px);
+    }
+}
+
+// The dashes run right to left, so the truck, facing right, goes forward.
+@keyframes o_g2b_road {
+    from {
+        background-position-x: 0;
+    }
+
+    to {
+        background-position-x: -.6rem;
+    }
+}
+
+// A dashed line, .6rem a dash and its gap, for the road.
+@function g2b-road($color) {
+    @return linear-gradient(90deg, $color 0 55%, transparent 55% 100%);
+}
+
 header#top {
 
     .o_g2b_nav_track_item {
@@ -804,11 +845,15 @@ header#top {
     }
 
     .o_g2b_nav_track {
+        --g2b-disc: 2rem;
+        --g2b-pad: .3rem;
+
+        position: relative;
         display: inline-flex;
         gap: .55rem;
         align-items: center;
         height: 2.6rem;
-        padding: 0 1.15rem 0 .3rem;
+        padding: 0 1.15rem 0 var(--g2b-pad);
         font-size: .85rem;
         font-weight: 700;
         color: $g-coral-dark;
@@ -821,24 +866,43 @@ header#top {
         border-radius: 2rem;
         transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
 
+        // The disc, and the road across its lower part.
         &::before {
-            display: inline-flex;
             flex: 0 0 auto;
+            width: var(--g2b-disc);
+            height: var(--g2b-disc);
+            content: "";
+            background-color: $g-coral;
+            background-image: g2b-road(rgba($white, .85));
+            background-repeat: repeat-x;
+            background-position: 0 calc(var(--g2b-disc) * .775);
+            background-size: .6rem 2px;
+            border-radius: 50%;
+            animation: o_g2b_road .45s linear infinite;
+            transition: background-color .15s ease;
+        }
+
+        // The truck, over the disc and just above the road.
+        &::after {
+            position: absolute;
+            top: 50%;
+            left: var(--g2b-pad);
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
-            height: 2rem;
+            width: var(--g2b-disc);
+            height: var(--g2b-disc);
+            margin-top: calc(var(--g2b-disc) / -2 - 2px);
             font-family: FontAwesome;
-            font-size: .9rem;
+            font-size: calc(var(--g2b-disc) * .45);
             font-weight: 400;
             line-height: 1;
             color: $white;
             text-transform: none;
             content: "\f0d1"; // truck
-            background-color: $g-coral;
-            border-radius: 50%;
-            animation: o_g2b_pulse 2s ease-out .8s 3;
-            transition: color .15s ease, background-color .15s ease;
+            scale: -1 1;
+            animation: o_g2b_truck_rock .6s linear infinite;
+            transition: color .15s ease;
         }
 
         &:hover,
@@ -850,13 +914,23 @@ header#top {
             box-shadow: 0 .35rem 1rem rgba($g-coral, .3);
 
             &::before {
-                color: $g-coral;
                 background-color: $white;
+                background-image: g2b-road(rgba($g-coral, .7));
+            }
+
+            &::after {
+                color: $g-coral;
             }
         }
 
-        // The menu items step down below `xl`; this follows them.
+        // The menu items step down below `xl`, and the bar with them; the
+        // pill follows, so that it keeps a margin above and below.
         @include media-breakpoint-down(xl) {
+            --g2b-disc: 1.7rem;
+            --g2b-pad: .25rem;
+
+            height: 2.25rem;
+            padding-right: .95rem;
             font-size: .78rem;
         }
     }
@@ -864,14 +938,21 @@ header#top {
     // The phone's top bar: the truck stands apart from the cart beside it.
     .o_header_mobile .o_g2b_track_link .o_navlink_background_hover {
         background-color: rgba($g-coral, .12);
+        background-image: g2b-road(rgba($g-coral, .55));
+        background-repeat: repeat-x;
+        background-position: 0 1.75rem;
+        background-size: .6rem 2px;
+        animation: o_g2b_road .45s linear infinite;
 
         .fa {
             color: $g-coral;
+            scale: -1 1;
+            animation: o_g2b_truck_rock .6s linear infinite;
         }
     }
 
     // The phone's menu panel: same width, height and alignment as the
-    // "Contact us" button under it.
+    // "Contact us" button under it, the truck back in line with the label.
     .o_navbar_mobile {
 
         .o_g2b_nav_track_item {
@@ -895,9 +976,17 @@ header#top {
             &::before {
                 width: auto;
                 height: auto;
-                color: inherit;
+                font-family: FontAwesome;
+                font-weight: 400;
+                line-height: 1;
+                content: "\f0d1"; // truck
+                scale: -1 1;
                 background: none;
                 animation: none;
+            }
+
+            &::after {
+                content: none;
             }
 
             &:hover,
@@ -907,11 +996,19 @@ header#top {
                 box-shadow: none;
 
                 &::before {
-                    color: inherit;
                     background: none;
                 }
             }
         }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    header#top .o_g2b_nav_track::before,
+    header#top .o_g2b_nav_track::after,
+    header#top .o_g2b_track_link .o_navlink_background_hover,
+    header#top .o_g2b_track_link .fa {
+        animation: none !important;
     }
 }
 
@@ -1155,7 +1252,6 @@ header#top {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    header#top .o_g2b_nav_track::before,
     .o_g2b_home_track_dot {
         animation: none !important;
     }
