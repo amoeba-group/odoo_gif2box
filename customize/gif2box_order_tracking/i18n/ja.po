@@ -1,0 +1,466 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_order_tracking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-03 04:03+0000\n"
+"PO-Revision-Date: 2026-11-03 04:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,body_html:gif2box_order_tracking.mail_template_order_delivered
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n"
+"    <p style=\"margin: 0 0 12px;\">Hello <t t-out=\"object.partner_id.name or ''\"/>,</p>\n"
+"    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #1F8A5B;\">Your gift has been delivered.</p>\n"
+"    <p style=\"margin: 0 0 20px;\">The recipient has received your order.</p>\n"
+"    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Order</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Recipient</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"object.g2b_delivered_at\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Delivered on</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"format_datetime(object.g2b_delivered_at, tz=object._g2b_tz(), dt_format='HH:mm, dd/MM/yyyy')\"/>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p style=\"margin: 0 0 28px;\">\n"
+"        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">See your order</a>\n"
+"    </p>\n"
+"    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">Thank you for choosing Gif2box.</p>\n"
+"</div>\n"
+"            "
+msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n    <p style=\"margin: 0 0 12px;\"><t t-out=\"object.partner_id.name or ''\"/> 様</p>\n    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #1F8A5B;\">ギフトのお届けが完了しました。</p>\n    <p style=\"margin: 0 0 20px;\">受取人様がお受け取りになりました。</p>\n    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">注文番号</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n        </tr>\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d;\">受取人</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n        </tr>\n        <tr t-if=\"object.g2b_delivered_at\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">配達日時</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"format_datetime(object.g2b_delivered_at, tz=object._g2b_tz(), dt_format='HH:mm, dd/MM/yyyy')\"/>\n        </tr>\n    </table>\n    <p style=\"margin: 0 0 28px;\">\n        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">ご注文を見る</a>\n    </p>\n    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">Gif2boxをご利用いただきありがとうございます。</p>\n</div>\n            "
+
+#. module: gif2box_order_tracking
+#: model:mail.template,body_html:gif2box_order_tracking.mail_template_order_shipped
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n"
+"    <t t-set=\"ship\" t-value=\"object._g2b_shipment()\"/>\n"
+"    <t t-set=\"eta\" t-value=\"object._g2b_eta()\"/>\n"
+"    <p style=\"margin: 0 0 12px;\">Hello <t t-out=\"object.partner_id.name or ''\"/>,</p>\n"
+"    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #004444;\">Your gift is on its way.</p>\n"
+"    <p style=\"margin: 0 0 20px;\">We have handed it to the courier, who is taking it to the recipient.</p>\n"
+"    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Order</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Recipient</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"ship['carrier']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Courier</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['carrier']\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"ship['reference']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Tracking number</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['reference']\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"eta and eta['from']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Expected delivery</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\">\n"
+"                <t t-out=\"format_date(eta['from'], date_format='EEE dd/MM')\"/><t t-if=\"eta['to'] != eta['from']\"> – <t t-out=\"format_date(eta['to'], date_format='EEE dd/MM')\"/></t>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p style=\"margin: 0 0 28px;\">\n"
+"        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">Track your order</a>\n"
+"    </p>\n"
+"    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">You will get another email once the gift has been delivered.</p>\n"
+"</div>\n"
+"            "
+msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n    <t t-set=\"ship\" t-value=\"object._g2b_shipment()\"/>\n    <t t-set=\"eta\" t-value=\"object._g2b_eta()\"/>\n    <p style=\"margin: 0 0 12px;\"><t t-out=\"object.partner_id.name or ''\"/> 様</p>\n    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #004444;\">ギフトを発送しました。</p>\n    <p style=\"margin: 0 0 20px;\">配送業者に引き渡し、受取人様へお届けしています。</p>\n    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">注文番号</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n        </tr>\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d;\">受取人</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n        </tr>\n        <tr t-if=\"ship['carrier']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">配送業者</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['carrier']\"/>\n        </tr>\n        <tr t-if=\"ship['reference']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">追跡番号</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['reference']\"/>\n        </tr>\n        <tr t-if=\"eta and eta['from']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">お届け予定</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\">\n                <t t-out=\"format_date(eta['from'], date_format='EEE dd/MM')\"/><t t-if=\"eta['to'] != eta['from']\"> – <t t-out=\"format_date(eta['to'], date_format='EEE dd/MM')\"/></t>\n            </td>\n        </tr>\n    </table>\n    <p style=\"margin: 0 0 28px;\">\n        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">注文状況を見る</a>\n    </p>\n    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">お届けが完了しましたら、改めてメールでお知らせします。</p>\n</div>\n            "
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.copy_button
+msgid "<span class=\"o_g2b_copy_done\">Copied</span>"
+msgstr "<span class=\"o_g2b_copy_done\">コピーしました</span>"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "<span>Call</span>"
+msgstr "<span>電話</span>"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "<span>days after it leaves us</span>"
+msgstr "<span>日（発送後）</span>"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Awaiting payment"
+msgstr "支払い待ち"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__preparing
+msgid "Being prepared"
+msgstr "準備中"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Breadcrumb"
+msgstr "パンくずリスト"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__cancelled
+msgid "Cancelled"
+msgstr "キャンセル"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Cash on delivery"
+msgstr "代金引換"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Checked, boxed and wrapped with care."
+msgstr "丁寧に検品・箱詰め・ラッピングします。"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__confirmed
+msgid "Confirmed"
+msgstr "確認済み"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Contact us"
+msgstr "お問い合わせ"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Copy"
+msgstr "コピー"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Copy tracking link"
+msgstr "追跡リンクをコピー"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_delivery_carrier__g2b_courier_name
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Courier"
+msgstr "配送業者"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__delivered
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "Delivered"
+msgstr "配達完了"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivered on"
+msgstr "配達日時"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivering to"
+msgstr "お届け先"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.portal_order_tracking
+msgid "Delivery"
+msgstr "配送"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivery time"
+msgstr "お届け目安"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid ""
+"Enter your order number and the phone number or email used to order, or the "
+"recipient's."
+msgstr "注文番号と、ご注文時（または受取人）の電話番号かメールアドレスを入力してください。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Expected delivery"
+msgstr "お届け予定"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Follow it on the courier's website"
+msgstr "配送業者のサイトで確認"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+msgid "Follow your order"
+msgstr "注文の状況"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Gift being prepared"
+msgstr "ギフトを準備中"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Handed to %s"
+msgstr "%sに引き渡し済み"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Handed to the courier."
+msgstr "配送業者に引き渡しました。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Home"
+msgstr "ホーム"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "If this is a mistake, please contact us."
+msgstr "お心当たりがない場合はお問い合わせください。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "In this order"
+msgstr "ご注文の商品"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+msgid ""
+"Keep this link: it shows where your order is at any time, without an "
+"account."
+msgstr "このリンクを保存すると、アカウントなしでいつでも注文の状況を確認できます。"
+
+#. module: gif2box_order_tracking
+#: model:ir.actions.server,name:gif2box_order_tracking.action_sale_order_mark_delivered
+#: model:ir.actions.server,name:gif2box_order_tracking.action_stock_picking_mark_delivered
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_picking_form
+msgid "Mark as delivered"
+msgstr "配達完了にする"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Need help?"
+msgstr "お困りですか？"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid ""
+"No order matches these details. Check the order number (it looks like "
+"S00084) and the phone number or email."
+msgstr "該当する注文が見つかりません。注文番号（例：S00084）と電話番号またはメールアドレスをご確認ください。"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__shipping
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "On its way"
+msgstr "配送中"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Order"
+msgstr "注文"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Order number"
+msgstr "注文番号"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Order placed"
+msgstr "ご注文受付"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Paid"
+msgstr "支払い済み"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Paid with %s"
+msgstr "%sで支払い済み"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Payment"
+msgstr "お支払い"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Phone number or email"
+msgstr "電話番号またはメールアドレス"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__placed
+msgid "Placed"
+msgstr "受付済み"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Received by %s"
+msgstr "%s様が受け取りました"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Received."
+msgstr "受け取り済みです。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Recipient"
+msgstr "受取人"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Sent on"
+msgstr "発送日時"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Shipping"
+msgstr "配送情報"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Shipping fee"
+msgstr "送料"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tell us your order number and we will look into it."
+msgstr "注文番号をお知らせいただければ、すぐに確認いたします。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Thank you for choosing Gif2box."
+msgstr "Gif2boxをご利用いただきありがとうございます。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "The courier is taking it to the recipient."
+msgstr "配送業者が受取人様へお届けしています。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "The order number is on the order confirmation page and in our emails."
+msgstr "注文番号はご注文完了ページとメールに記載されています。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "This order has been cancelled"
+msgstr "このご注文はキャンセルされました"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Too many attempts. Please try again in a few minutes, or contact us."
+msgstr "試行回数が多すぎます。数分後にもう一度お試しいただくか、お問い合わせください。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Total"
+msgstr "合計"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Track"
+msgstr "確認する"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.portal_order_tracking
+msgid "Track your order"
+msgstr "注文を追跡"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_sale_order__g2b_tracking_state
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "Tracking Status"
+msgstr "注文状況"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tracking number"
+msgstr "追跡番号"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid ""
+"We are checking, boxing and wrapping it. You will be told when it leaves us."
+msgstr "ただいま検品・箱詰め・ラッピング中です。発送時にお知らせします。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "We have received your order"
+msgstr "ご注文を承りました"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "We have received your order."
+msgstr "ご注文を承りました。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "We will confirm it shortly."
+msgstr "まもなく確認いたします。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift has been delivered"
+msgstr "ギフトのお届けが完了しました"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,subject:gif2box_order_tracking.mail_template_order_delivered
+msgid "Your gift has been delivered ({{ object.name }})"
+msgstr "ギフトのお届けが完了しました（{{ object.name }}）"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift is being prepared"
+msgstr "ギフトを準備しています"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift is on its way"
+msgstr "ギフトを配送中です"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,subject:gif2box_order_tracking.mail_template_order_shipped
+msgid "Your order {{ object.name }} is on its way"
+msgstr "ご注文 {{ object.name }} を発送しました"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Your recent orders"
+msgstr "最近のご注文"

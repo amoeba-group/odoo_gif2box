@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        On the order: where it stands for the customer, the button the shop
+        presses when the courier reports the parcel received (which emails
+        the buyer), and the customer's tracking page, to look at or to send
+        its link by chat.
+    -->
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.gif2box.tracking</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_g2b_mark_delivered" type="object" class="btn-primary"
+                        string="Mark as delivered" icon="fa-check-circle"
+                        invisible="g2b_tracking_state != 'shipping'"
+                        confirm="Mark this order as delivered to the recipient? The buyer will be emailed."/>
+                <button name="action_g2b_open_tracking" type="object"
+                        string="Tracking page" icon="fa-external-link"
+                        invisible="state not in ('sale', 'cancel')"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <field name="g2b_tracking_state" widget="badge"
+                       invisible="state not in ('sale', 'cancel')"
+                       decoration-info="g2b_tracking_state in ('confirmed', 'preparing')"
+                       decoration-warning="g2b_tracking_state == 'shipping'"
+                       decoration-success="g2b_tracking_state == 'delivered'"
+                       decoration-danger="g2b_tracking_state == 'cancelled'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.list.gif2box.tracking</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="before">
+                <field name="g2b_tracking_state" widget="badge" optional="show"
+                       decoration-info="g2b_tracking_state in ('confirmed', 'preparing')"
+                       decoration-warning="g2b_tracking_state == 'shipping'"
+                       decoration-success="g2b_tracking_state == 'delivered'"
+                       decoration-danger="g2b_tracking_state == 'cancelled'"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Filters for the day's work: what to pack, what is out with the
+         courier (to check against its report). -->
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">sale.order.search.gif2box.tracking</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="g2b_preparing" string="To prepare"
+                        domain="[('g2b_tracking_state', 'in', ('confirmed', 'preparing'))]"/>
+                <filter name="g2b_shipping" string="On its way"
+                        domain="[('g2b_tracking_state', '=', 'shipping')]"/>
+                <filter name="g2b_delivered" string="Delivered"
+                        domain="[('g2b_tracking_state', '=', 'delivered')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="g2b_group_tracking" string="Tracking Status"
+                            context="{'group_by': 'g2b_tracking_state'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The two emails the buyer gets about delivery, sent by
+        `SaleOrder._g2b_notify` and kept in the order's chatter: when the
+        parcel leaves (the last delivery order is validated), and when it
+        has been delivered ("Mark as delivered").
+
+        Same shape for both: what happened in one line, the facts in a
+        small table (order, recipient, courier, tracking number or the
+        delivery time), and one button to the tracking page. Inline styles
+        only: most email clients drop stylesheets.
+
+        noupdate: the shop may reword them in Settings > Email Templates.
+    -->
+    <data noupdate="1">
+
+        <record id="mail_template_order_shipped" model="mail.template">
+            <field name="name">Gif2box: order on its way</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Your order {{ object.name }} is on its way</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="description">Sent to the buyer when the parcel leaves the warehouse.</field>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;">
+    <t t-set="ship" t-value="object._g2b_shipment()"/>
+    <t t-set="eta" t-value="object._g2b_eta()"/>
+    <p style="margin: 0 0 12px;">Hello <t t-out="object.partner_id.name or ''"/>,</p>
+    <p style="margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #004444;">Your gift is on its way.</p>
+    <p style="margin: 0 0 20px;">We have handed it to the courier, who is taking it to the recipient.</p>
+    <table cellpadding="0" cellspacing="0" style="width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;">
+        <tr>
+            <td style="padding: 6px 0; color: #6c757d; width: 45%;">Order</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="object.name"/>
+        </tr>
+        <tr>
+            <td style="padding: 6px 0; color: #6c757d;">Recipient</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="object.partner_shipping_id.name or ''"/>
+        </tr>
+        <tr t-if="ship['carrier']">
+            <td style="padding: 6px 0; color: #6c757d;">Courier</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="ship['carrier']"/>
+        </tr>
+        <tr t-if="ship['reference']">
+            <td style="padding: 6px 0; color: #6c757d;">Tracking number</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="ship['reference']"/>
+        </tr>
+        <tr t-if="eta and eta['from']">
+            <td style="padding: 6px 0; color: #6c757d;">Expected delivery</td>
+            <td style="padding: 6px 0; font-weight: 600;">
+                <t t-out="format_date(eta['from'], date_format='EEE dd/MM')"/><t t-if="eta['to'] != eta['from']"> – <t t-out="format_date(eta['to'], date_format='EEE dd/MM')"/></t>
+            </td>
+        </tr>
+    </table>
+    <p style="margin: 0 0 28px;">
+        <a t-att-href="object._g2b_tracking_url(absolute=True)"
+           style="display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;">Track your order</a>
+    </p>
+    <p style="margin: 0; color: #6c757d; font-size: 13px;">You will get another email once the gift has been delivered.</p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_order_delivered" model="mail.template">
+            <field name="name">Gif2box: gift delivered</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Your gift has been delivered ({{ object.name }})</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="description">Sent to the buyer when the order is marked as delivered.</field>
+            <field name="body_html" type="html">
+<div style="margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;">
+    <p style="margin: 0 0 12px;">Hello <t t-out="object.partner_id.name or ''"/>,</p>
+    <p style="margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #1F8A5B;">Your gift has been delivered.</p>
+    <p style="margin: 0 0 20px;">The recipient has received your order.</p>
+    <table cellpadding="0" cellspacing="0" style="width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;">
+        <tr>
+            <td style="padding: 6px 0; color: #6c757d; width: 45%;">Order</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="object.name"/>
+        </tr>
+        <tr>
+            <td style="padding: 6px 0; color: #6c757d;">Recipient</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="object.partner_shipping_id.name or ''"/>
+        </tr>
+        <tr t-if="object.g2b_delivered_at">
+            <td style="padding: 6px 0; color: #6c757d;">Delivered on</td>
+            <td style="padding: 6px 0; font-weight: 600;" t-out="format_datetime(object.g2b_delivered_at, tz=object._g2b_tz(), dt_format='HH:mm, dd/MM/yyyy')"/>
+        </tr>
+    </table>
+    <p style="margin: 0 0 28px;">
+        <a t-att-href="object._g2b_tracking_url(absolute=True)"
+           style="display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;">See your order</a>
+    </p>
+    <p style="margin: 0; color: #6c757d; font-size: 13px;">Thank you for choosing Gif2box.</p>
+</div>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

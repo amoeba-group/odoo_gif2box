@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- On a validated delivery order: "Mark as delivered", and when. -->
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.gif2box.tracking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_g2b_mark_delivered" type="object" class="btn-primary"
+                        string="Mark as delivered" icon="fa-check-circle"
+                        invisible="state != 'done' or picking_type_code != 'outgoing' or g2b_delivered_at"
+                        confirm="Mark this parcel as delivered to the recipient? The buyer will be emailed."/>
+            </xpath>
+            <xpath expr="//field[@name='date_done']" position="after">
+                <field name="g2b_delivered_at" invisible="not g2b_delivered_at"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- The courier's "Cancel" next to the tracking number calls the
+         carrier's API, which a distance-priced method does not have. -->
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.carrier.gif2box.tracking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='cancel_shipment']" position="attributes">
+                <attribute name="invisible">not carrier_tracking_ref or delivery_type in ['fixed', 'base_on_rule', 'gif2box_distance'] or not delivery_type or state != 'done'</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- The hotline on the tracking page's help card: the footer's customer
+         support number. Editable in Settings > Technical > System Parameters;
+         empty, the company's phone is used. -->
+    <record id="param_support_phone" model="ir.config_parameter">
+        <field name="key">gif2box_order_tracking.support_phone</field>
+        <field name="value">0987861697</field>
+    </record>
+
+</odoo>

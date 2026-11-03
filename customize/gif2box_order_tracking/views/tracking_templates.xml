@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =================================================================
+         Pieces
+         ================================================================= -->
+
+    <!-- One icon per step (Lucide, inlined: they take the step's colour). -->
+    <template id="step_icon" name="Order tracking: step icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <t t-if="g2b_key == 'placed'">
+                <rect width="8" height="4" x="8" y="2" rx="1"/>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <path d="m9 14 2 2 4-4"/>
+            </t>
+            <t t-elif="g2b_key == 'confirmed'">
+                <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
+                <path d="m9 12 2 2 4-4"/>
+            </t>
+            <t t-elif="g2b_key == 'preparing'">
+                <rect x="3" y="8" width="18" height="4" rx="1"/>
+                <path d="M12 8v13"/>
+                <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+                <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+            </t>
+            <t t-elif="g2b_key == 'shipping'">
+                <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+                <path d="M15 18H9"/>
+                <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/>
+                <circle cx="17" cy="18" r="2"/>
+                <circle cx="7" cy="18" r="2"/>
+            </t>
+            <t t-elif="g2b_key == 'delivered'">
+                <path d="m16 16 2 2 4-4"/>
+                <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/>
+                <path d="m7.5 4.27 9 5.15"/>
+                <path d="M3.29 7 12 12l8.71-5"/>
+                <path d="M12 22V12"/>
+            </t>
+            <t t-elif="g2b_key == 'cancelled'">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="m15 9-6 6"/>
+                <path d="m9 9 6 6"/>
+            </t>
+        </svg>
+    </template>
+
+    <!--
+        The five steps. Horizontal from `md`, a vertical timeline on a phone.
+        `g2b_compact`: titles only, for the confirmation and portal pages.
+    -->
+    <template id="tracking_steps" name="Order tracking: steps">
+        <t t-set="g2b_tz" t-value="order._g2b_tz()"/>
+        <ol t-attf-class="o_g2b_steps #{g2b_compact and 'o_g2b_steps_compact' or ''}">
+            <li t-foreach="order._g2b_tracking_steps()" t-as="step"
+                t-attf-class="o_g2b_step o_g2b_step_#{step['status']}"
+                t-att-aria-current="step['status'] == 'current' and 'step' or None">
+                <span class="o_g2b_step_icon">
+                    <t t-call="gif2box_order_tracking.step_icon">
+                        <t t-set="g2b_key" t-value="step['key']"/>
+                    </t>
+                </span>
+                <span class="o_g2b_step_body">
+                    <span class="o_g2b_step_title" t-out="step['title']"/>
+                    <span t-if="step['date']" class="o_g2b_step_date"
+                          t-out="step['date']"
+                          t-options="{'widget': 'datetime', 'format': 'HH:mm · dd/MM', 'tz_name': g2b_tz}"/>
+                    <span t-if="not g2b_compact and step['status'] != 'todo' and step['note']"
+                          class="o_g2b_step_note" t-out="step['note']"/>
+                </span>
+            </li>
+        </ol>
+    </template>
+
+    <!-- What the order's state means, in a sentence, with its icon. -->
+    <template id="tracking_headline" name="Order tracking: headline">
+        <t t-set="g2b_state" t-value="order.g2b_tracking_state"/>
+        <div t-attf-class="o_g2b_track_headline o_g2b_track_headline_#{g2b_state}">
+            <span class="o_g2b_track_headline_icon">
+                <t t-call="gif2box_order_tracking.step_icon">
+                    <t t-set="g2b_key" t-value="g2b_state if g2b_state in ('placed', 'shipping', 'delivered', 'cancelled') else 'preparing'"/>
+                </t>
+            </span>
+            <div>
+                <t t-if="g2b_state == 'placed'">
+                    <h2 class="o_g2b_track_headline_title">We have received your order</h2>
+                    <p class="o_g2b_track_headline_text">We will confirm it shortly.</p>
+                </t>
+                <t t-elif="g2b_state in ('confirmed', 'preparing')">
+                    <h2 class="o_g2b_track_headline_title">Your gift is being prepared</h2>
+                    <p class="o_g2b_track_headline_text">We are checking, boxing and wrapping it. You will be told when it leaves us.</p>
+                </t>
+                <t t-elif="g2b_state == 'shipping'">
+                    <h2 class="o_g2b_track_headline_title">Your gift is on its way</h2>
+                    <p class="o_g2b_track_headline_text">The courier is taking it to the recipient.</p>
+                </t>
+                <t t-elif="g2b_state == 'delivered'">
+                    <h2 class="o_g2b_track_headline_title">Your gift has been delivered</h2>
+                    <p class="o_g2b_track_headline_text">Thank you for choosing Gif2box.</p>
+                </t>
+                <t t-else="">
+                    <h2 class="o_g2b_track_headline_title">This order has been cancelled</h2>
+                    <p class="o_g2b_track_headline_text">If this is a mistake, please contact us.</p>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <!-- A value with a "Copy" button beside it. -->
+    <template id="copy_button" name="Order tracking: copy button">
+        <button type="button" class="o_g2b_copy" t-att-data-g2b-copy="g2b_value">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect width="14" height="14" x="8" y="8" rx="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            <span class="o_g2b_copy_idle" t-out="g2b_label"/>
+            <span class="o_g2b_copy_done">Copied</span>
+        </button>
+    </template>
+
+    <!-- =================================================================
+         The tracking page: /order/track/<id>?access_token=...
+         ================================================================= -->
+    <template id="order_track_page" name="Order tracking page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Track your order</t>
+            <t t-set="head"><meta name="robots" content="noindex, nofollow"/></t>
+            <t t-set="g2b_tz" t-value="order._g2b_tz()"/>
+            <t t-set="g2b_state" t-value="order.g2b_tracking_state"/>
+            <t t-set="g2b_ship" t-value="order._g2b_shipment()"/>
+            <t t-set="g2b_eta" t-value="order._g2b_eta()"/>
+            <t t-set="g2b_pay" t-value="order._g2b_payment()"/>
+            <t t-set="g2b_recipient" t-value="order.partner_shipping_id"/>
+            <t t-set="g2b_phone" t-value="request.env['ir.config_parameter'].sudo().get_param('gif2box_order_tracking.support_phone') or website.company_id.phone"/>
+            <div id="wrap" class="o_g2b_track">
+                <div class="container">
+                    <nav class="o_g2b_track_crumbs" aria-label="Breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/order/track">Track your order</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" t-out="order.name"/>
+                        </ol>
+                    </nav>
+
+                    <header class="o_g2b_track_head">
+                        <div>
+                            <p class="o_g2b_track_eyebrow">Order</p>
+                            <h1 class="o_g2b_track_ref" t-out="order.name"/>
+                            <p class="o_g2b_track_meta">
+                                <span t-out="order.date_order"
+                                      t-options="{'widget': 'datetime', 'format': 'HH:mm, dd/MM/yyyy', 'tz_name': g2b_tz}"/>
+                                <span class="o_g2b_dot" aria-hidden="true">·</span>
+                                <span t-out="order.amount_total"
+                                      t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                            </p>
+                        </div>
+                        <t t-call="gif2box_order_tracking.copy_button">
+                            <t t-set="g2b_value" t-value="tracking_url"/>
+                            <t t-set="g2b_label">Copy tracking link</t>
+                        </t>
+                    </header>
+
+                    <section t-attf-class="o_g2b_card o_g2b_track_status o_g2b_track_status_#{g2b_state}">
+                        <t t-call="gif2box_order_tracking.tracking_headline"/>
+                        <dl class="o_g2b_track_facts">
+                            <div t-if="g2b_recipient">
+                                <dt>Recipient</dt>
+                                <dd t-out="g2b_recipient.name"/>
+                            </div>
+                            <div t-if="g2b_state == 'delivered'">
+                                <dt>Delivered on</dt>
+                                <dd t-out="order.g2b_delivered_at"
+                                    t-options="{'widget': 'datetime', 'format': 'HH:mm, dd/MM/yyyy', 'tz_name': g2b_tz}"/>
+                            </div>
+                            <div t-elif="g2b_eta and g2b_eta['from']">
+                                <dt>Expected delivery</dt>
+                                <dd>
+                                    <span t-out="g2b_eta['from']" t-options="{'widget': 'date', 'format': 'EEE dd/MM'}"/>
+                                    <t t-if="g2b_eta['to'] != g2b_eta['from']">
+                                        <span aria-hidden="true">–</span>
+                                        <span t-out="g2b_eta['to']" t-options="{'widget': 'date', 'format': 'EEE dd/MM'}"/>
+                                    </t>
+                                </dd>
+                            </div>
+                            <div t-elif="g2b_eta">
+                                <dt>Delivery time</dt>
+                                <dd>
+                                    <span t-out="g2b_eta['low'] == g2b_eta['high'] and g2b_eta['low'] or '%s–%s' % (g2b_eta['low'], g2b_eta['high'])"/>
+                                    <span>days after it leaves us</span>
+                                </dd>
+                            </div>
+                        </dl>
+                        <t t-if="g2b_state != 'cancelled'" t-call="gif2box_order_tracking.tracking_steps"/>
+                    </section>
+
+                    <div class="row g-4">
+                        <div class="col-lg-7">
+                            <!-- The parcel -->
+                            <section t-if="g2b_state in ('shipping', 'delivered')" class="o_g2b_card">
+                                <h2 class="o_g2b_card_title">Shipping</h2>
+                                <dl class="o_g2b_rows">
+                                    <div t-if="g2b_ship['carrier']">
+                                        <dt>Courier</dt>
+                                        <dd t-out="g2b_ship['carrier']"/>
+                                    </div>
+                                    <div t-if="g2b_ship['reference']">
+                                        <dt>Tracking number</dt>
+                                        <dd class="o_g2b_rows_ref">
+                                            <strong t-out="g2b_ship['reference']"/>
+                                            <t t-call="gif2box_order_tracking.copy_button">
+                                                <t t-set="g2b_value" t-value="g2b_ship['reference']"/>
+                                                <t t-set="g2b_label">Copy</t>
+                                            </t>
+                                        </dd>
+                                    </div>
+                                    <div t-if="order.g2b_shipped_at">
+                                        <dt>Sent on</dt>
+                                        <dd t-out="order.g2b_shipped_at"
+                                            t-options="{'widget': 'datetime', 'format': 'HH:mm, dd/MM/yyyy', 'tz_name': g2b_tz}"/>
+                                    </div>
+                                </dl>
+                                <a t-if="g2b_ship['url']" t-att-href="g2b_ship['url']" target="_blank"
+                                   rel="noopener" class="o_g2b_btn o_g2b_btn_ghost o_g2b_btn_sm">Follow it on the courier's website</a>
+                            </section>
+
+                            <!-- The products -->
+                            <section class="o_g2b_card">
+                                <h2 class="o_g2b_card_title">In this order</h2>
+                                <ul class="o_g2b_items">
+                                    <li t-foreach="order._g2b_display_lines()" t-as="item" class="o_g2b_item">
+                                        <img t-att-src="item['image']" t-att-alt="item['name']" class="o_g2b_item_img"
+                                             loading="lazy" width="64" height="64"/>
+                                        <div class="o_g2b_item_body">
+                                            <p class="o_g2b_item_name" t-out="item['name']"/>
+                                            <p t-if="item['items']" class="o_g2b_item_sub" t-out="', '.join(item['items'])"/>
+                                            <p class="o_g2b_item_qty">× <t t-out="int(item['qty']) if item['qty'] == int(item['qty']) else item['qty']"/></p>
+                                        </div>
+                                        <span class="o_g2b_item_price" t-out="item['price']"
+                                              t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                    </li>
+                                </ul>
+                                <dl class="o_g2b_rows o_g2b_totals">
+                                    <div>
+                                        <dt>Shipping fee</dt>
+                                        <dd t-out="order._g2b_delivery_amount()"
+                                            t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                    </div>
+                                    <div class="o_g2b_totals_total">
+                                        <dt>Total</dt>
+                                        <dd t-out="order.amount_total"
+                                            t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                    </div>
+                                </dl>
+                            </section>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <section t-if="g2b_recipient" class="o_g2b_card">
+                                <h2 class="o_g2b_card_title">Delivering to</h2>
+                                <p class="o_g2b_person" t-out="g2b_recipient.name"/>
+                                <p t-if="g2b_recipient.phone or g2b_recipient.mobile" class="o_g2b_muted"
+                                   t-out="order._g2b_mask_phone(g2b_recipient.phone or g2b_recipient.mobile)"/>
+                                <div class="o_g2b_address" t-out="g2b_recipient"
+                                     t-options="{'widget': 'contact', 'fields': ['address'], 'no_marker': True}"/>
+                            </section>
+
+                            <section class="o_g2b_card">
+                                <h2 class="o_g2b_card_title">Payment</h2>
+                                <p t-attf-class="o_g2b_pay o_g2b_pay_#{g2b_pay[1]}">
+                                    <span class="o_g2b_pay_dot" aria-hidden="true"/>
+                                    <span t-out="g2b_pay[0]"/>
+                                </p>
+                            </section>
+
+                            <section class="o_g2b_card o_g2b_help">
+                                <h2 class="o_g2b_card_title">Need help?</h2>
+                                <p class="o_g2b_muted">Tell us your order number and we will look into it.</p>
+                                <div class="o_g2b_help_actions">
+                                    <a t-if="g2b_phone" t-attf-href="tel:#{g2b_phone.replace(' ', '')}" class="o_g2b_btn o_g2b_btn_sm">
+                                        <span>Call</span> <t t-out="g2b_phone"/>
+                                    </a>
+                                    <a href="/contactus" class="o_g2b_btn o_g2b_btn_ghost o_g2b_btn_sm">Contact us</a>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- =================================================================
+         The lookup: /order/track
+         ================================================================= -->
+    <template id="order_track_lookup" name="Order tracking lookup">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Track your order</t>
+            <div id="wrap" class="o_g2b_track o_g2b_track_lookup">
+                <div class="container">
+                    <div class="o_g2b_lookup_card o_g2b_card">
+                        <span class="o_g2b_lookup_icon" aria-hidden="true">
+                            <t t-call="gif2box_order_tracking.step_icon">
+                                <t t-set="g2b_key" t-value="'shipping'"/>
+                            </t>
+                        </span>
+                        <h1 class="o_g2b_lookup_title">Track your order</h1>
+                        <p class="o_g2b_muted">Enter your order number and the phone number or email used to order, or the recipient's.</p>
+
+                        <div t-if="error == 'not_found'" class="alert alert-warning" role="alert">
+                            No order matches these details. Check the order number (it looks like S00084) and the phone number or email.
+                        </div>
+                        <div t-if="error == 'wait'" class="alert alert-warning" role="alert">
+                            Too many attempts. Please try again in a few minutes, or contact us.
+                        </div>
+
+                        <form action="/order/track" method="post" class="o_g2b_lookup_form">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="mb-3">
+                                <label class="form-label" for="g2b_order_ref">Order number</label>
+                                <input type="text" class="form-control" id="g2b_order_ref" name="order_ref"
+                                       t-att-value="order_ref" placeholder="S00084" required="required"
+                                       autocapitalize="characters" autocomplete="off"/>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="g2b_contact">Phone number or email</label>
+                                <input type="text" class="form-control" id="g2b_contact" name="contact"
+                                       t-att-value="contact" placeholder="0901 234 567" required="required"
+                                       autocomplete="tel"/>
+                            </div>
+                            <button type="submit" class="o_g2b_btn w-100">Track</button>
+                        </form>
+                        <p class="o_g2b_lookup_hint">The order number is on the order confirmation page and in our emails.</p>
+                    </div>
+
+                    <div t-if="recent_orders" class="o_g2b_card o_g2b_recent">
+                        <h2 class="o_g2b_card_title">Your recent orders</h2>
+                        <ul class="o_g2b_recent_list">
+                            <li t-foreach="recent_orders" t-as="recent">
+                                <a t-att-href="recent._g2b_tracking_url()" class="o_g2b_recent_link">
+                                    <span class="o_g2b_recent_ref" t-out="recent.name"/>
+                                    <span class="o_g2b_muted" t-out="recent.date_order" t-options="{'widget': 'date'}"/>
+                                    <span t-attf-class="o_g2b_badge o_g2b_badge_#{recent.g2b_tracking_state}" t-field="recent.g2b_tracking_state"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- =================================================================
+         Elsewhere: confirmation page, portal order
+         ================================================================= -->
+
+    <!--
+        Right after "Thank you for your order": where the order goes from
+        here, and the link to follow it. The link matters all the more as it
+        is the one a guest keeps: no account, and the emails may be their
+        only other way back.
+    -->
+    <template id="confirmation_tracking" inherit_id="website_sale.confirmation"
+              name="Order tracking on the confirmation page">
+        <xpath expr="//div[@id='oe_structure_website_sale_confirmation_1']" position="before">
+            <section t-if="order.state in ('sale', 'sent')" class="o_g2b_card o_g2b_confirm_track">
+                <div class="o_g2b_confirm_track_head">
+                    <h2 class="o_g2b_card_title mb-0">Follow your order</h2>
+                    <a t-att-href="order._g2b_tracking_url()" class="o_g2b_btn o_g2b_btn_sm">Track your order</a>
+                </div>
+                <t t-call="gif2box_order_tracking.tracking_steps">
+                    <t t-set="g2b_compact" t-value="True"/>
+                </t>
+                <p class="o_g2b_muted small mb-0">Keep this link: it shows where your order is at any time, without an account.</p>
+            </section>
+        </xpath>
+    </template>
+
+    <!-- The order in the portal (/my/orders/...), above its details. -->
+    <template id="portal_order_tracking" inherit_id="sale.sale_order_portal_content"
+              name="Order tracking on the portal order">
+        <xpath expr="//div[@id='informations']" position="before">
+            <section t-if="sale_order.state in ('sale', 'cancel') and report_type != 'pdf'"
+                     class="o_g2b_card o_g2b_confirm_track">
+                <t t-set="order" t-value="sale_order"/>
+                <div class="o_g2b_confirm_track_head">
+                    <h2 class="o_g2b_card_title mb-0">Delivery</h2>
+                    <a t-att-href="sale_order._g2b_tracking_url()" class="o_g2b_btn o_g2b_btn_sm">Track your order</a>
+                </div>
+                <t t-if="sale_order.g2b_tracking_state != 'cancelled'" t-call="gif2box_order_tracking.tracking_steps">
+                    <t t-set="g2b_compact" t-value="True"/>
+                </t>
+            </section>
+        </xpath>
+    </template>
+
+</odoo>

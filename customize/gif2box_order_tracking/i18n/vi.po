@@ -1,0 +1,592 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_order_tracking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-03 04:03+0000\n"
+"PO-Revision-Date: 2026-11-03 04:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/stock_picking.py:0
+msgid ""
+"%(count)s order(s) marked as delivered: %(names)s. The buyers have been "
+"emailed."
+msgstr "%(count)s đơn đã được đánh dấu giao thành công: %(names)s. Đã gửi email cho người mua."
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/stock_picking.py:0
+msgid "%s delivery order(s) marked as delivered."
+msgstr "Đã đánh dấu %s phiếu giao hàng là giao thành công."
+
+#. module: gif2box_order_tracking
+#: model:mail.template,body_html:gif2box_order_tracking.mail_template_order_delivered
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n"
+"    <p style=\"margin: 0 0 12px;\">Hello <t t-out=\"object.partner_id.name or ''\"/>,</p>\n"
+"    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #1F8A5B;\">Your gift has been delivered.</p>\n"
+"    <p style=\"margin: 0 0 20px;\">The recipient has received your order.</p>\n"
+"    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Order</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Recipient</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"object.g2b_delivered_at\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Delivered on</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"format_datetime(object.g2b_delivered_at, tz=object._g2b_tz(), dt_format='HH:mm, dd/MM/yyyy')\"/>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p style=\"margin: 0 0 28px;\">\n"
+"        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">See your order</a>\n"
+"    </p>\n"
+"    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">Thank you for choosing Gif2box.</p>\n"
+"</div>\n"
+"            "
+msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n    <p style=\"margin: 0 0 12px;\">Xin chào <t t-out=\"object.partner_id.name or ''\"/>,</p>\n    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #1F8A5B;\">Quà của bạn đã được giao thành công.</p>\n    <p style=\"margin: 0 0 20px;\">Người nhận đã nhận được quà của bạn.</p>\n    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Đơn hàng</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n        </tr>\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d;\">Người nhận</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n        </tr>\n        <tr t-if=\"object.g2b_delivered_at\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">Giao lúc</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"format_datetime(object.g2b_delivered_at, tz=object._g2b_tz(), dt_format='HH:mm, dd/MM/yyyy')\"/>\n        </tr>\n    </table>\n    <p style=\"margin: 0 0 28px;\">\n        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">Xem đơn hàng</a>\n    </p>\n    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">Cảm ơn bạn đã chọn Gif2box.</p>\n</div>\n            "
+
+#. module: gif2box_order_tracking
+#: model:mail.template,body_html:gif2box_order_tracking.mail_template_order_shipped
+msgid ""
+"<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n"
+"    <t t-set=\"ship\" t-value=\"object._g2b_shipment()\"/>\n"
+"    <t t-set=\"eta\" t-value=\"object._g2b_eta()\"/>\n"
+"    <p style=\"margin: 0 0 12px;\">Hello <t t-out=\"object.partner_id.name or ''\"/>,</p>\n"
+"    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #004444;\">Your gift is on its way.</p>\n"
+"    <p style=\"margin: 0 0 20px;\">We have handed it to the courier, who is taking it to the recipient.</p>\n"
+"    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Order</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n"
+"        </tr>\n"
+"        <tr>\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Recipient</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"ship['carrier']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Courier</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['carrier']\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"ship['reference']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Tracking number</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['reference']\"/>\n"
+"        </tr>\n"
+"        <tr t-if=\"eta and eta['from']\">\n"
+"            <td style=\"padding: 6px 0; color: #6c757d;\">Expected delivery</td>\n"
+"            <td style=\"padding: 6px 0; font-weight: 600;\">\n"
+"                <t t-out=\"format_date(eta['from'], date_format='EEE dd/MM')\"/><t t-if=\"eta['to'] != eta['from']\"> – <t t-out=\"format_date(eta['to'], date_format='EEE dd/MM')\"/></t>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </table>\n"
+"    <p style=\"margin: 0 0 28px;\">\n"
+"        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">Track your order</a>\n"
+"    </p>\n"
+"    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">You will get another email once the gift has been delivered.</p>\n"
+"</div>\n"
+"            "
+msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; color: #212529;\">\n    <t t-set=\"ship\" t-value=\"object._g2b_shipment()\"/>\n    <t t-set=\"eta\" t-value=\"object._g2b_eta()\"/>\n    <p style=\"margin: 0 0 12px;\">Xin chào <t t-out=\"object.partner_id.name or ''\"/>,</p>\n    <p style=\"margin: 0 0 4px; font-size: 18px; font-weight: 700; color: #004444;\">Quà của bạn đang trên đường giao.</p>\n    <p style=\"margin: 0 0 20px;\">Chúng tôi đã giao quà cho đơn vị vận chuyển, quà đang trên đường đến người nhận.</p>\n    <table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; max-width: 480px; margin: 0 0 24px; border-collapse: collapse; font-size: 14px;\">\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d; width: 45%;\">Đơn hàng</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.name\"/>\n        </tr>\n        <tr>\n            <td style=\"padding: 6px 0; color: #6c757d;\">Người nhận</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"object.partner_shipping_id.name or ''\"/>\n        </tr>\n        <tr t-if=\"ship['carrier']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">Đơn vị vận chuyển</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['carrier']\"/>\n        </tr>\n        <tr t-if=\"ship['reference']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">Mã vận đơn</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\" t-out=\"ship['reference']\"/>\n        </tr>\n        <tr t-if=\"eta and eta['from']\">\n            <td style=\"padding: 6px 0; color: #6c757d;\">Dự kiến giao</td>\n            <td style=\"padding: 6px 0; font-weight: 600;\">\n                <t t-out=\"format_date(eta['from'], date_format='EEE dd/MM')\"/><t t-if=\"eta['to'] != eta['from']\"> – <t t-out=\"format_date(eta['to'], date_format='EEE dd/MM')\"/></t>\n            </td>\n        </tr>\n    </table>\n    <p style=\"margin: 0 0 28px;\">\n        <a t-att-href=\"object._g2b_tracking_url(absolute=True)\" style=\"display: inline-block; padding: 12px 28px; font-weight: 600; color: #ffffff; text-decoration: none; background-color: #FD7352; border-radius: 24px;\">Theo dõi đơn hàng</a>\n    </p>\n    <p style=\"margin: 0; color: #6c757d; font-size: 13px;\">Bạn sẽ nhận thêm một email khi quà được giao thành công.</p>\n</div>\n            "
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.copy_button
+msgid "<span class=\"o_g2b_copy_done\">Copied</span>"
+msgstr "<span class=\"o_g2b_copy_done\">Đã sao chép</span>"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "<span>Call</span>"
+msgstr "<span>Gọi</span>"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "<span>days after it leaves us</span>"
+msgstr "<span>ngày sau khi gửi hàng</span>"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Awaiting payment"
+msgstr "Chờ thanh toán"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__preparing
+msgid "Being prepared"
+msgstr "Đang chuẩn bị"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Breadcrumb"
+msgstr "Đường dẫn"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__cancelled
+msgid "Cancelled"
+msgstr "Đã huỷ"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Cash on delivery"
+msgstr "Thanh toán khi nhận hàng (COD)"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Checked, boxed and wrapped with care."
+msgstr "Kiểm tra, đóng hộp và gói quà cẩn thận."
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__confirmed
+msgid "Confirmed"
+msgstr "Đã xác nhận"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Contact us"
+msgstr "Liên hệ"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Copy"
+msgstr "Sao chép"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Copy tracking link"
+msgstr "Sao chép link theo dõi"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_delivery_carrier__g2b_courier_name
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Courier"
+msgstr "Đơn vị vận chuyển"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__delivered
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "Delivered"
+msgstr "Giao thành công"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_sale_order__g2b_delivered_at
+msgid "Delivered On"
+msgstr "Ngày giao thành công"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivered on"
+msgstr "Giao lúc"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_stock_picking__g2b_delivered_at
+msgid "Delivered to Recipient"
+msgstr "Giao thành công cho người nhận"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivering to"
+msgstr "Giao đến"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.portal_order_tracking
+msgid "Delivery"
+msgstr "Giao hàng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Delivery time"
+msgstr "Thời gian giao"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid ""
+"Enter your order number and the phone number or email used to order, or the "
+"recipient's."
+msgstr "Nhập mã đơn hàng và số điện thoại hoặc email đã dùng khi đặt hàng (của người mua hoặc người nhận)."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Expected delivery"
+msgstr "Dự kiến giao"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Follow it on the courier's website"
+msgstr "Tra cứu trên trang đơn vị vận chuyển"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+msgid "Follow your order"
+msgstr "Theo dõi đơn hàng"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_stock_picking__g2b_shipped_notified
+msgid "G2B Shipped Notified"
+msgstr "Đã báo gửi hàng"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,name:gif2box_order_tracking.mail_template_order_delivered
+msgid "Gif2box: gift delivered"
+msgstr "Gif2box: quà đã giao thành công"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,name:gif2box_order_tracking.mail_template_order_shipped
+msgid "Gif2box: order on its way"
+msgstr "Gif2box: đơn hàng đang được giao"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Gift being prepared"
+msgstr "Đang chuẩn bị quà"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "Group By"
+msgstr "Nhóm theo"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Handed to %s"
+msgstr "Đã giao cho %s"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Handed to the courier."
+msgstr "Đã giao cho đơn vị vận chuyển."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Home"
+msgstr "Trang chủ"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "If this is a mistake, please contact us."
+msgstr "Nếu có nhầm lẫn, vui lòng liên hệ với chúng tôi."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "In this order"
+msgstr "Sản phẩm trong đơn"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+msgid ""
+"Keep this link: it shows where your order is at any time, without an "
+"account."
+msgstr "Hãy lưu lại link này: bạn có thể xem đơn hàng đang ở đâu bất cứ lúc nào, không cần tài khoản."
+
+#. module: gif2box_order_tracking
+#: model:ir.actions.server,name:gif2box_order_tracking.action_sale_order_mark_delivered
+#: model:ir.actions.server,name:gif2box_order_tracking.action_stock_picking_mark_delivered
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_picking_form
+msgid "Mark as delivered"
+msgstr "Đã giao thành công"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_order_form
+msgid ""
+"Mark this order as delivered to the recipient? The buyer will be emailed."
+msgstr "Xác nhận đơn hàng đã giao thành công cho người nhận? Người mua sẽ nhận được email thông báo."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_picking_form
+msgid ""
+"Mark this parcel as delivered to the recipient? The buyer will be emailed."
+msgstr "Xác nhận kiện hàng đã giao thành công cho người nhận? Người mua sẽ nhận được email thông báo."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Need help?"
+msgstr "Cần hỗ trợ?"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "No email address on the customer: the \"%s\" notification was not sent."
+msgstr "Khách hàng chưa có email: chưa gửi được thông báo \"%s\"."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid ""
+"No order matches these details. Check the order number (it looks like "
+"S00084) and the phone number or email."
+msgstr "Không tìm thấy đơn hàng khớp với thông tin này. Vui lòng kiểm tra mã đơn hàng (dạng S00084) và số điện thoại hoặc email."
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__shipping
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "On its way"
+msgstr "Đang giao hàng"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/stock_picking.py:0
+msgid ""
+"Only delivery orders that have been validated (shipped) and not yet marked "
+"as delivered can be marked as delivered."
+msgstr "Chỉ có thể đánh dấu giao thành công cho phiếu giao hàng đã xác nhận xuất kho và chưa được đánh dấu."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Order"
+msgstr "Đơn hàng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Order number"
+msgstr "Mã đơn hàng"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Order placed"
+msgstr "Đặt hàng thành công"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Paid"
+msgstr "Đã thanh toán"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Paid with %s"
+msgstr "Đã thanh toán qua %s"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Phone number or email"
+msgstr "Số điện thoại hoặc email"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__placed
+msgid "Placed"
+msgstr "Đã đặt hàng"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Received by %s"
+msgstr "%s đã nhận quà"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "Received."
+msgstr "Đã nhận quà."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Recipient"
+msgstr "Người nhận"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Sent on"
+msgstr "Gửi lúc"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,description:gif2box_order_tracking.mail_template_order_delivered
+msgid "Sent to the buyer when the order is marked as delivered."
+msgstr "Gửi cho người mua khi đơn được đánh dấu giao thành công."
+
+#. module: gif2box_order_tracking
+#: model:mail.template,description:gif2box_order_tracking.mail_template_order_shipped
+msgid "Sent to the buyer when the parcel leaves the warehouse."
+msgstr "Gửi cho người mua khi hàng rời kho."
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_sale_order__g2b_shipped_at
+msgid "Shipped On"
+msgstr "Ngày gửi hàng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Shipping"
+msgstr "Vận chuyển"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Shipping fee"
+msgstr "Phí vận chuyển"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tell us your order number and we will look into it."
+msgstr "Cho chúng tôi biết mã đơn hàng, chúng tôi sẽ kiểm tra ngay."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Thank you for choosing Gif2box."
+msgstr "Cảm ơn bạn đã chọn Gif2box."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "The courier is taking it to the recipient."
+msgstr "Đơn vị vận chuyển đang mang quà đến người nhận."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "The order number is on the order confirmation page and in our emails."
+msgstr "Mã đơn hàng có trên trang đặt hàng thành công và trong email của chúng tôi."
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid ""
+"There is nothing to mark as delivered: an order is delivered once its "
+"delivery orders have been validated (shipped)."
+msgstr "Chưa có gì để đánh dấu giao thành công: đơn hàng chỉ được giao sau khi phiếu giao hàng đã được xác nhận xuất kho."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "This order has been cancelled"
+msgstr "Đơn hàng đã bị huỷ"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "To prepare"
+msgstr "Cần chuẩn bị"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Too many attempts. Please try again in a few minutes, or contact us."
+msgstr "Bạn đã thử quá nhiều lần. Vui lòng thử lại sau vài phút hoặc liên hệ với chúng tôi."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Total"
+msgstr "Tổng cộng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Track"
+msgstr "Tra cứu"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.portal_order_tracking
+msgid "Track your order"
+msgstr "Theo dõi đơn hàng"
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,field_description:gif2box_order_tracking.field_sale_order__g2b_tracking_state
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+msgid "Tracking Status"
+msgstr "Tình trạng đơn hàng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tracking number"
+msgstr "Mã vận đơn"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_order_form
+msgid "Tracking page"
+msgstr "Trang theo dõi"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid ""
+"We are checking, boxing and wrapping it. You will be told when it leaves us."
+msgstr "Chúng tôi đang kiểm tra, đóng hộp và gói quà. Bạn sẽ được thông báo khi quà được gửi đi."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "We have received your order"
+msgstr "Chúng tôi đã nhận được đơn hàng"
+
+#. module: gif2box_order_tracking
+#. odoo-python
+#: code:addons/gif2box_order_tracking/models/sale_order.py:0
+msgid "We have received your order."
+msgstr "Chúng tôi đã nhận được đơn hàng của bạn."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "We will confirm it shortly."
+msgstr "Chúng tôi sẽ xác nhận trong thời gian sớm nhất."
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,help:gif2box_order_tracking.field_stock_picking__g2b_delivered_at
+msgid ""
+"When the recipient received the parcel, as the courier reported it. Set with"
+" \"Mark as delivered\"; the buyer is emailed then."
+msgstr "Thời điểm người nhận nhận được hàng, theo báo cáo của đơn vị vận chuyển. Được đặt bằng nút \"Đã giao thành công\"; người mua nhận email khi đó."
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,help:gif2box_order_tracking.field_sale_order__g2b_tracking_state
+msgid ""
+"Where the order stands for the customer, as the tracking page shows it: on "
+"its way once its delivery orders are validated, delivered once they are "
+"marked as delivered."
+msgstr "Tình trạng đơn hàng như khách thấy trên trang theo dõi: \"Đang giao\" khi phiếu giao hàng đã xuất kho, \"Giao thành công\" khi được đánh dấu đã giao."
+
+#. module: gif2box_order_tracking
+#: model:ir.model.fields,help:gif2box_order_tracking.field_delivery_carrier__g2b_courier_name
+msgid ""
+"Who actually carries the parcels, as the customer is told on the tracking "
+"page and in the emails (\"Handed to Việt Tín\"). Empty, the delivery "
+"method's name is used."
+msgstr "Đơn vị thực sự vận chuyển kiện hàng, hiển thị cho khách trên trang theo dõi và trong email (\"Đã giao cho Việt Tín\"). Để trống thì dùng tên phương thức giao hàng."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift has been delivered"
+msgstr "Quà đã được giao thành công"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,subject:gif2box_order_tracking.mail_template_order_delivered
+msgid "Your gift has been delivered ({{ object.name }})"
+msgstr "Quà đã được giao thành công ({{ object.name }})"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift is being prepared"
+msgstr "Quà đang được chuẩn bị"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.tracking_headline
+msgid "Your gift is on its way"
+msgstr "Quà đang trên đường giao"
+
+#. module: gif2box_order_tracking
+#: model:mail.template,subject:gif2box_order_tracking.mail_template_order_shipped
+msgid "Your order {{ object.name }} is on its way"
+msgstr "Đơn hàng {{ object.name }} đang được giao"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Your recent orders"
+msgstr "Đơn hàng gần đây"
