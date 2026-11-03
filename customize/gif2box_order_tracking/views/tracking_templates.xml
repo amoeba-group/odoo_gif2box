@@ -441,4 +441,62 @@
         </xpath>
     </template>
 
+    <!-- =================================================================
+         Homepage
+         ================================================================= -->
+
+    <!--
+        A band right under the hero: what tracking shows (the five steps,
+        drawn with a parcel on its way) and one way in, the whole card
+        being the link to the lookup form.
+
+        Placed after the hero's own block, outside `#wrap`, like the hero:
+        code, not page content, so the website editor leaves it alone and
+        it is translated with the module. It shows whether or not a hero
+        banner is active.
+
+        Every piece of text sits alone in its own element, so each is a
+        plain string for the translators; the steps reuse the tracking
+        status names.
+    -->
+    <template id="home_track_section" inherit_id="gif2box_hero_banner.hero_banner_layout"
+              name="Order tracking on the homepage">
+        <xpath expr="//t[@t-call='gif2box_hero_banner.hero_banner']/.." position="after">
+            <section t-if="website and website._gif2box_is_homepage(main_object)" class="o_g2b_home_track">
+                <div class="container">
+                    <a href="/order/track" class="o_g2b_home_track_card"
+                       aria-labelledby="o_g2b_home_track_title o_g2b_home_track_cta">
+                        <div class="o_g2b_home_track_icon" aria-hidden="true">
+                            <t t-call="gif2box_order_tracking.step_icon">
+                                <t t-set="g2b_key" t-value="'shipping'"/>
+                            </t>
+                        </div>
+                        <div class="o_g2b_home_track_text">
+                            <p class="o_g2b_home_track_eyebrow">Order tracking</p>
+                            <h2 id="o_g2b_home_track_title" class="o_g2b_home_track_title">Where is your gift right now?</h2>
+                            <p class="o_g2b_home_track_desc">See every step, from your order to the recipient's hands. All it takes is your order number and phone number.</p>
+                        </div>
+                        <ol class="o_g2b_home_track_steps" aria-hidden="true">
+                            <t t-foreach="[('placed', 'is-done'), ('confirmed', 'is-done'), ('preparing', 'is-done'), ('shipping', 'is-current'), ('delivered', '')]" t-as="g2b_step">
+                                <li t-att-class="g2b_step[1]">
+                                    <div class="o_g2b_home_track_dot">
+                                        <t t-call="gif2box_order_tracking.step_icon">
+                                            <t t-set="g2b_key" t-value="g2b_step[0]"/>
+                                        </t>
+                                    </div>
+                                    <div t-if="g2b_step[0] == 'placed'" class="o_g2b_home_track_label">Placed</div>
+                                    <div t-elif="g2b_step[0] == 'confirmed'" class="o_g2b_home_track_label">Confirmed</div>
+                                    <div t-elif="g2b_step[0] == 'preparing'" class="o_g2b_home_track_label">Being prepared</div>
+                                    <div t-elif="g2b_step[0] == 'shipping'" class="o_g2b_home_track_label">On its way</div>
+                                    <div t-else="" class="o_g2b_home_track_label">Delivered</div>
+                                </li>
+                            </t>
+                        </ol>
+                        <div id="o_g2b_home_track_cta" class="o_g2b_home_track_cta">Track now</div>
+                    </a>
+                </div>
+            </section>
+        </xpath>
+    </template>
+
 </odoo>

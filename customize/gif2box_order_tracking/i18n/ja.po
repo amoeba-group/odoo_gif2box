@@ -108,6 +108,7 @@ msgstr "支払い待ち"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__preparing
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Being prepared"
 msgstr "準備中"
 
@@ -137,6 +138,7 @@ msgstr "丁寧に検品・箱詰め・ラッピングします。"
 #. odoo-python
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__confirmed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Confirmed"
 msgstr "確認済み"
 
@@ -166,6 +168,7 @@ msgstr "配送業者"
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__delivered
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Delivered"
 msgstr "配達完了"
 
@@ -281,6 +284,7 @@ msgstr "該当する注文が見つかりません。注文番号（例：S00084
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__shipping
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "On its way"
 msgstr "配送中"
 
@@ -324,6 +328,7 @@ msgstr "電話番号またはメールアドレス"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__placed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Placed"
 msgstr "受付済み"
 
@@ -471,3 +476,23 @@ msgstr "ご注文 {{ object.name }} を発送しました"
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
 msgid "Your recent orders"
 msgstr "最近のご注文"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Order tracking"
+msgstr "注文追跡"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Where is your gift right now?"
+msgstr "ギフトは今どこ？"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "See every step, from your order to the recipient's hands. All it takes is your order number and phone number."
+msgstr "ご注文から受取人様のお手元に届くまで、一つひとつのステップを確認できます。注文番号と電話番号だけでOKです。"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Track now"
+msgstr "今すぐ確認"

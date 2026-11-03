@@ -122,6 +122,7 @@ msgstr "Chờ thanh toán"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__preparing
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Being prepared"
 msgstr "Đang chuẩn bị"
 
@@ -151,6 +152,7 @@ msgstr "Kiểm tra, đóng hộp và gói quà cẩn thận."
 #. odoo-python
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__confirmed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Confirmed"
 msgstr "Đã xác nhận"
 
@@ -180,6 +182,7 @@ msgstr "Đơn vị vận chuyển"
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__delivered
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Delivered"
 msgstr "Giao thành công"
 
@@ -343,6 +346,7 @@ msgstr "Không tìm thấy đơn hàng khớp với thông tin này. Vui lòng k
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__shipping
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "On its way"
 msgstr "Đang giao hàng"
 
@@ -394,6 +398,7 @@ msgstr "Số điện thoại hoặc email"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__placed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Placed"
 msgstr "Đã đặt hàng"
 
@@ -597,3 +602,23 @@ msgstr "Đơn hàng {{ object.name }} đang được giao"
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
 msgid "Your recent orders"
 msgstr "Đơn hàng gần đây"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Order tracking"
+msgstr "Theo dõi đơn hàng"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Where is your gift right now?"
+msgstr "Quà của bạn đang ở đâu?"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "See every step, from your order to the recipient's hands. All it takes is your order number and phone number."
+msgstr "Xem từng bước, từ lúc đặt hàng đến khi quà tới tay người nhận. Chỉ cần mã đơn hàng và số điện thoại."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Track now"
+msgstr "Tra cứu ngay"

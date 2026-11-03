@@ -26,7 +26,7 @@ Order tracking for the shop
     'author': 'Amoeba',
     'license': 'LGPL-3',
     'depends': ['website_sale', 'sale_stock', 'stock_delivery', 'gif2box_delivery_distance',
-                'gif2box_sale_order_flow'],
+                'gif2box_sale_order_flow', 'gif2box_hero_banner'],
     'data': [
         'data/config_data.xml',
         'data/mail_templates.xml',

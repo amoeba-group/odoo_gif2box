@@ -108,6 +108,7 @@ msgstr "결제 대기"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__preparing
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Being prepared"
 msgstr "준비 중"
 
@@ -137,6 +138,7 @@ msgstr "꼼꼼하게 검수하고 포장합니다."
 #. odoo-python
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__confirmed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Confirmed"
 msgstr "주문 확인"
 
@@ -166,6 +168,7 @@ msgstr "택배사"
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__delivered
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Delivered"
 msgstr "배송 완료"
 
@@ -281,6 +284,7 @@ msgstr "일치하는 주문이 없습니다. 주문 번호(예: S00084)와 전�
 #: code:addons/gif2box_order_tracking/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__shipping
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.view_sales_order_filter
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "On its way"
 msgstr "배송 중"
 
@@ -324,6 +328,7 @@ msgstr "전화번호 또는 이메일"
 
 #. module: gif2box_order_tracking
 #: model:ir.model.fields.selection,name:gif2box_order_tracking.selection__sale_order__g2b_tracking_state__placed
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Placed"
 msgstr "접수"
 
@@ -471,3 +476,23 @@ msgstr "주문 {{ object.name }} 배송이 시작되었습니다"
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
 msgid "Your recent orders"
 msgstr "최근 주문"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Order tracking"
+msgstr "주문 추적"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Where is your gift right now?"
+msgstr "선물이 지금 어디쯤 왔을까요?"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "See every step, from your order to the recipient's hands. All it takes is your order number and phone number."
+msgstr "주문부터 받는 분께 도착할 때까지 모든 단계를 확인하세요. 주문 번호와 전화번호만 있으면 됩니다."
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
+msgid "Track now"
+msgstr "지금 조회하기"
