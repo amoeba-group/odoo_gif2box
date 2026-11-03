@@ -27,8 +27,13 @@ class Gif2boxOrderTracking(CustomerPortal):
     def order_track_lookup(self, order_ref='', contact='', **kw):
         """Find an order by its number and the buyer's or the recipient's
         phone or email, and go to its tracking page. Signed-in customers
-        also see their recent orders."""
-        values = {'order_ref': order_ref, 'contact': contact, 'error': False}
+        find their phone (or email) already filled in, and see their
+        recent orders."""
+        values = {'order_ref': order_ref, 'contact': contact, 'contact_prefilled': False, 'error': False}
+        if not contact and not request.env.user._is_public():
+            partner = request.env.user.partner_id
+            values['contact'] = partner.phone or partner.mobile or partner.email or ''
+            values['contact_prefilled'] = bool(values['contact'])
         if request.httprequest.method == 'POST':
             if self._g2b_too_many_failures():
                 values['error'] = 'wait'

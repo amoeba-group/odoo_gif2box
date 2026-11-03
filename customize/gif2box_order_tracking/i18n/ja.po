@@ -207,6 +207,11 @@ msgid "Follow it on the courier's website"
 msgstr "配送業者のサイトで確認"
 
 #. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Filled in from your account."
+msgstr "アカウントの情報を入力済みです。"
+
+#. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
 msgid "Follow your order"
 msgstr "注文の状況"

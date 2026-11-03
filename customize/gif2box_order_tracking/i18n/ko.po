@@ -207,6 +207,11 @@ msgid "Follow it on the courier's website"
 msgstr "택배사 사이트에서 조회"
 
 #. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
+msgid "Filled in from your account."
+msgstr "계정 정보로 미리 입력했습니다."
+
+#. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
 msgid "Follow your order"
 msgstr "주문 현황"

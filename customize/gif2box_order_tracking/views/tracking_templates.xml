@@ -327,7 +327,8 @@
                                 <label class="form-label" for="g2b_contact">Phone number or email</label>
                                 <input type="text" class="form-control" id="g2b_contact" name="contact"
                                        t-att-value="contact" placeholder="0901 234 567" required="required"
-                                       autocomplete="tel"/>
+                                       autocomplete="tel" t-att-aria-describedby="contact_prefilled and 'g2b_contact_prefilled'"/>
+                                <div t-if="contact_prefilled" id="g2b_contact_prefilled" class="form-text">Filled in from your account.</div>
                             </div>
                             <button type="submit" class="o_g2b_btn w-100">Track</button>
                         </form>
