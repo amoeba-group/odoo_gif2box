@@ -395,4 +395,49 @@
         </xpath>
     </template>
 
+    <!--
+        The lookup form, one tap away on a phone: an icon in the bar, next to
+        the cart, where a customer looks first (the footer link is a long
+        scroll down). Placed in the cart link's template so that it takes the
+        classes the bar gives the cart, and outside its `t-nocache` block:
+        nothing in it varies from one visitor to another.
+
+        `d-lg-none`: the cart template also renders in the desktop header,
+        where the labelled link below takes over. An icon there would crowd
+        the centred search box once a signed-in name sits in the same row.
+    -->
+    <template id="header_track_link" inherit_id="website_sale.header_cart_link"
+              name="Order lookup in the header">
+        <xpath expr="//t[@t-nocache]" position="before">
+            <li t-attf-class="o_g2b_track_link d-lg-none #{_item_class}">
+                <a href="/order/track" t-attf-class="#{_link_class}" title="Track your order" aria-label="Track your order">
+                    <div t-attf-class="#{_icon_wrap_class}">
+                        <i t-if="_icon" class="fa fa-truck fa-stack"/>
+                    </div>
+                    <span t-if="_text" t-attf-class="#{_text_class}">Track your order</span>
+                </a>
+            </li>
+        </xpath>
+    </template>
+
+    <!--
+        The lookup form, spelled out, beside the header's call to action: in
+        the desktop menu bar, right of the menu, and in the phone's menu
+        panel, above the "Contact us" button. Extending the call to action
+        rather than one header layout keeps it in place whichever header
+        the site picks: every layout and the panel render that template.
+
+        The truck is drawn in CSS (`order_tracking.scss`), so the link's
+        only content is its label, translated as a plain string. No active
+        state: the header is cached per website, not per page.
+    -->
+    <template id="header_track_nav_link" inherit_id="website.header_call_to_action"
+              name="Order lookup beside the call to action">
+        <xpath expr="//li" position="before">
+            <li t-attf-class="o_g2b_nav_track_item #{_item_class}">
+                <a href="/order/track" class="o_g2b_nav_track">Track your order</a>
+            </li>
+        </xpath>
+    </template>
+
 </odoo>

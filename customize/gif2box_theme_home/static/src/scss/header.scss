@@ -271,7 +271,8 @@ header#top {
         // the viewport. At 450px it came to zero -- they met exactly, and any
         // longer account name would have pushed the group underneath. 420px,
         // with the account name capped above, keeps that gap positive in the
-        // worst case.
+        // worst case. Mind it before adding anything to the group: the order
+        // lookup sits in the menu bar below for that reason.
         @media (min-width: 1400px) {
             position: absolute;
             top: 50%;
@@ -731,6 +732,13 @@ header#top {
         .navbar-brand.logo {
             order: 2;
             margin-right: auto !important;
+            // Sized from the logo file (1920px wide) rather than the 40px-high
+            // image shown, the link claimed some 70px more than the image and
+            // pushed the burger off screen. Allowed to shrink, it gives the
+            // room back; `object-fit` keeps the image whole if it must shrink
+            // further.
+            flex: 0 1 auto;
+            min-width: 0;
 
             img {
                 height: $g-logo-h-sm !important;
@@ -740,6 +748,8 @@ header#top {
 
         // Cart, wishlist, language and the burger are all `<li>` inside this
         // list, not siblings of the logo, so the ordering has to happen here.
+        // The order lookup (`gif2box_order_tracking`) has no order of its
+        // own and so leads the row, just before the cart.
         .o_header_mobile_buttons_wrap {
             order: 3;
             flex-wrap: nowrap;
@@ -764,6 +774,13 @@ header#top {
         .o_navlink_background_hover {
             width: 2.3rem;
             height: 2.3rem;
+
+            // The smallest phones (320px): logo, three icons, the flag and
+            // the burger only fit in one row at this size.
+            @media (max-width: 359.98px) {
+                width: 2rem;
+                height: 2rem;
+            }
         }
 
         .dropdown-toggle {
@@ -774,7 +791,7 @@ header#top {
             color: $body-color;
         }
 
-        // On phones the label does not fit next to five controls, so only the
+        // On phones the label does not fit next to six controls, so only the
         // flag is shown. Tablets, which also use this bar, keep the label.
         @include media-breakpoint-down(md) {
             .js_language_selector .dropdown-toggle {

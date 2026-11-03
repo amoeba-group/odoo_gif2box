@@ -494,6 +494,8 @@ msgstr "Tra cứu"
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.confirmation_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.header_track_link
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.header_track_nav_link
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_lookup
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.portal_order_tracking

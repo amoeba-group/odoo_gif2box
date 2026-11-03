@@ -785,3 +785,77 @@ $g2b-step-icon-compact: 2.25rem;
         animation: none;
     }
 }
+
+// --- Header: the lookup link beside the call to action -----------------------
+//
+// `header_track_nav_link`. In the desktop menu bar it is set like the menu
+// items to its left -- uppercase, same size and weight -- with the truck in
+// coral; in the phone's menu panel it is an outlined button over the coral
+// "Contact us", the panel's two ways to get help side by side.
+header#top {
+
+    .o_g2b_nav_track_item {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .o_g2b_nav_track {
+        display: inline-flex;
+        gap: .45rem;
+        align-items: center;
+        padding: 0 1.1rem;
+        font-size: .9rem;
+        font-weight: 500;
+        color: $body-color;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: .01em;
+        white-space: nowrap;
+        transition: color .15s ease;
+
+        &::before {
+            font-family: FontAwesome;
+            font-size: 1.05em;
+            font-weight: 400;
+            line-height: 1;
+            color: $g-coral;
+            text-transform: none;
+            content: "\f0d1"; // truck
+        }
+
+        &:hover,
+        &:focus {
+            color: $g-coral;
+        }
+
+        // The menu items step down below `xl`; this follows them.
+        @include media-breakpoint-down(xl) {
+            padding-inline: .75rem;
+            font-size: .8rem;
+        }
+    }
+
+    // Same width, height and alignment as the "Contact us" button under it.
+    .o_navbar_mobile {
+
+        .o_g2b_nav_track {
+            width: 100%;
+            padding: .3rem 1.4rem;
+            font-size: .95rem;
+            font-weight: 600;
+            color: $g-coral;
+            text-transform: none;
+            border: 1.5px solid $g-coral;
+
+            &:hover,
+            &:focus {
+                color: $white;
+                background-color: $g-coral;
+
+                &::before {
+                    color: inherit;
+                }
+            }
+        }
+    }
+}
