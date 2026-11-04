@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The thank-you page, after an order (/shop/confirmation).
+
+        First what the customer came to see: the order went through, its
+        number, and the way to follow it (with its link to keep). Then where
+        it stands (payment, the delivery steps, when it should arrive), the
+        thank-you card that goes in the box, where it goes, and what was
+        ordered.
+
+        It replaces the page's whole content, Odoo's and what other modules
+        added to it (`gif2box_order_tracking`'s steps, which are here
+        again; `website_event_sale`'s tickets, unused by this shop). Kept from
+        Odoo: the `oe_website_sale_tx_status` element and its data, from
+        which `website_sale_tracking.js` reports the purchase to the
+        analytics, under an `oe_website_sale` ancestor; the drop zones of
+        the editor; the invitation to create an account.
+    -->
+    <template id="confirmation" inherit_id="website_sale.confirmation" name="Gif2box thank-you page" priority="90">
+        <xpath expr="//t[@t-call='website_sale.checkout_layout']" position="replace">
+            <t t-call="website.layout">
+                <t t-set="additional_title">Thank you</t>
+                <t t-set="g2b_tz" t-value="order._g2b_tz()"/>
+                <t t-set="tx_sudo" t-value="order.get_portal_last_transaction()"/>
+                <t t-set="g2b_pay" t-value="order._g2b_payment()"/>
+                <t t-set="g2b_eta" t-value="order._g2b_eta()"/>
+                <t t-set="g2b_ship" t-value="order._g2b_shipment()"/>
+                <t t-set="g2b_recipient" t-value="order.partner_shipping_id"/>
+                <t t-set="g2b_self_gift" t-value="order._g2b_recipient_is_buyer()"/>
+                <t t-set="g2b_texts" t-value="order._g2b_thank_you_texts()"/>
+                <t t-set="g2b_track_url" t-value="order._g2b_tracking_url()"/>
+                <t t-set="g2b_invite" t-value="request.env['res.users']._get_signup_invitation_scope() == 'b2c' and request.website.is_public_user()"/>
+
+                <div id="wrap" class="oe_website_sale o_g2b_ty">
+                    <div class="container o_g2b_ty_container">
+
+                        <section class="o_g2b_ty_hero">
+                            <div class="o_g2b_ty_badge" aria-hidden="true">
+                                <svg viewBox="0 0 52 52" class="o_g2b_ty_check">
+                                    <circle class="o_g2b_ty_check_ring" cx="26" cy="26" r="24" fill="none"/>
+                                    <path class="o_g2b_ty_check_tick" fill="none" d="M15 27.5l7.5 7.5L37.5 19"/>
+                                </svg>
+                                <span class="o_g2b_ty_confetti"><span/><span/><span/><span/><span/><span/><span/><span/><span/><span/></span>
+                            </div>
+                            <p class="o_g2b_ty_eyebrow">
+                                <span>Order</span>
+                                <span t-out="order.name"/>
+                                <span aria-hidden="true">·</span>
+                                <span t-out="order.date_order"
+                                      t-options="{'widget': 'datetime', 'format': 'HH:mm, dd/MM/yyyy', 'tz_name': g2b_tz}"/>
+                            </p>
+                            <h1 class="o_g2b_ty_title" t-out="g2b_texts['title']"/>
+                            <p class="o_g2b_ty_lead" t-out="g2b_texts['lead']"/>
+                            <div class="o_g2b_ty_actions">
+                                <a t-att-href="g2b_track_url" class="o_g2b_ty_btn">
+                                    <span>Track your order</span>
+                                </a>
+                                <t t-call="gif2box_order_tracking.copy_button">
+                                    <t t-set="g2b_value" t-value="order.get_base_url() + g2b_track_url"/>
+                                    <t t-set="g2b_label">Copy tracking link</t>
+                                    <t t-set="g2b_copied">Link copied!</t>
+                                </t>
+                            </div>
+                            <p class="o_g2b_ty_keep">Keep this link: it shows where your order is at any time, no account needed.</p>
+                        </section>
+
+                        <div class="oe_structure clearfix" id="oe_structure_website_sale_confirmation_1"/>
+
+                        <div class="o_g2b_ty_grid">
+                            <div class="o_g2b_ty_col">
+
+                                <!-- Where it stands -->
+                                <section class="o_g2b_ty_card">
+                                    <h2 class="o_g2b_ty_h2">Where your order stands</h2>
+                                    <div t-attf-class="o_g2b_ty_pay o_g2b_ty_pay_#{g2b_pay[1]}">
+                                        <span class="o_g2b_ty_pay_dot" aria-hidden="true"/>
+                                        <span t-out="g2b_pay[0]"/>
+                                        <strong class="o_g2b_ty_pay_amount" t-out="order.amount_total"
+                                                t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                    </div>
+                                    <div t-if="tx_sudo.state == 'pending' and tx_sudo.provider_id.sudo().pending_msg"
+                                         class="o_g2b_ty_pay_msg" t-out="tx_sudo.provider_id.sudo().pending_msg"/>
+                                    <div t-if="tx_sudo.state == 'cancel' and tx_sudo.provider_id.sudo().cancel_msg"
+                                         class="o_g2b_ty_pay_msg o_g2b_ty_pay_msg_warn" t-out="tx_sudo.provider_id.sudo().cancel_msg"/>
+                                    <t t-call="gif2box_order_tracking.tracking_steps">
+                                        <t t-set="g2b_compact" t-value="True"/>
+                                    </t>
+                                    <p t-if="g2b_eta" class="o_g2b_ty_eta">
+                                        <span class="o_g2b_ty_eta_label">Delivery</span>
+                                        <t t-if="g2b_eta['from']">
+                                            <span t-out="g2b_eta['from']" t-options="{'widget': 'date', 'format': 'EEE dd/MM'}"/>
+                                            <t t-if="g2b_eta['to'] != g2b_eta['from']">
+                                                <span>–</span>
+                                                <span t-out="g2b_eta['to']" t-options="{'widget': 'date', 'format': 'EEE dd/MM'}"/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-out="g2b_eta['low'] == g2b_eta['high'] and g2b_eta['low'] or '%s–%s' % (g2b_eta['low'], g2b_eta['high'])"/>
+                                            <span>days after it leaves us</span>
+                                        </t>
+                                    </p>
+                                </section>
+
+                                <!-- The card in the box -->
+                                <section t-if="not g2b_self_gift and g2b_recipient" class="o_g2b_ty_card o_g2b_ty_note">
+                                    <span class="o_g2b_ty_note_icon" aria-hidden="true">💌</span>
+                                    <div>
+                                        <h2 class="o_g2b_ty_h2">A thank-you card goes in the box</h2>
+                                        <p class="o_g2b_ty_muted mb-0" t-out="g2b_texts['card']"/>
+                                    </div>
+                                </section>
+
+                                <!-- Where it goes -->
+                                <section class="o_g2b_ty_card">
+                                    <h2 class="o_g2b_ty_h2">Delivery</h2>
+                                    <dl class="o_g2b_ty_rows">
+                                        <div t-if="g2b_recipient">
+                                            <dt>Recipient</dt>
+                                            <dd>
+                                                <strong t-out="g2b_recipient.name"/>
+                                                <span t-if="g2b_recipient.phone or g2b_recipient.mobile" class="o_g2b_ty_muted d-block"
+                                                      t-out="g2b_recipient.phone or g2b_recipient.mobile"/>
+                                            </dd>
+                                        </div>
+                                        <div t-if="g2b_recipient">
+                                            <dt>Address</dt>
+                                            <dd t-out="g2b_recipient"
+                                                t-options="{'widget': 'contact', 'fields': ['address'], 'no_marker': True, 'separator': ', '}"/>
+                                        </div>
+                                        <div t-if="g2b_ship['carrier']">
+                                            <dt>Courier</dt>
+                                            <dd t-out="g2b_ship['carrier']"/>
+                                        </div>
+                                        <div t-if="tx_sudo.provider_id">
+                                            <dt>Payment</dt>
+                                            <dd t-out="tx_sudo.provider_id.name"/>
+                                        </div>
+                                        <div t-if="order.partner_id.email">
+                                            <dt>Ordered by</dt>
+                                            <dd>
+                                                <span t-out="order.partner_id.name"/>
+                                                <span class="o_g2b_ty_muted d-block" t-out="order.partner_id.email"/>
+                                            </dd>
+                                        </div>
+                                    </dl>
+                                </section>
+
+                                <!-- A guest: an account to find it again -->
+                                <section t-if="g2b_invite" class="o_g2b_ty_card o_g2b_ty_signup">
+                                    <div>
+                                        <h2 class="o_g2b_ty_h2">Save your details for next time</h2>
+                                        <p class="o_g2b_ty_muted mb-0">With an account, all your gifts are in one place, and the next one is ordered in a moment.</p>
+                                    </div>
+                                    <a role="button" class="o_g2b_ty_btn o_g2b_ty_btn_ghost"
+                                       t-att-href="order.partner_id.signup_prepare() and order.partner_id.with_context(relative_url=True)._get_signup_url()">Create an account</a>
+                                </section>
+                            </div>
+
+                            <!-- What was ordered -->
+                            <aside class="o_g2b_ty_col">
+                                <section class="o_g2b_ty_card o_g2b_ty_summary">
+                                    <h2 class="o_g2b_ty_h2">Your order</h2>
+                                    <ul class="o_g2b_ty_items">
+                                        <li t-foreach="order._g2b_display_lines()" t-as="item" class="o_g2b_ty_item">
+                                            <span class="o_g2b_ty_item_media">
+                                                <img t-att-src="item['image']" t-att-alt="item['name']" width="64" height="64" loading="lazy"/>
+                                                <span class="o_g2b_ty_item_qty"
+                                                      t-out="int(item['qty']) if item['qty'] == int(item['qty']) else item['qty']"/>
+                                            </span>
+                                            <span class="o_g2b_ty_item_body">
+                                                <span class="o_g2b_ty_item_name" t-out="item['name']"/>
+                                                <span t-if="item['items']" class="o_g2b_ty_item_sub" t-out="', '.join(item['items'])"/>
+                                            </span>
+                                            <span class="o_g2b_ty_item_price" t-out="item['price']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                        </li>
+                                    </ul>
+                                    <dl class="o_g2b_ty_totals">
+                                        <div>
+                                            <dt>Shipping fee</dt>
+                                            <dd>
+                                                <t t-set="g2b_fee" t-value="order._g2b_delivery_amount()"/>
+                                                <span t-if="g2b_fee" t-out="g2b_fee"
+                                                      t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                                <span t-else="" class="o_g2b_ty_free">Free</span>
+                                            </dd>
+                                        </div>
+                                        <div class="o_g2b_ty_total">
+                                            <dt>Total</dt>
+                                            <dd t-out="order.amount_total"
+                                                t-options="{'widget': 'monetary', 'display_currency': order.currency_id}"/>
+                                        </div>
+                                    </dl>
+                                    <a href="/shop/print" target="_blank" class="o_g2b_ty_print">Print the order</a>
+                                </section>
+                                <a href="/shop" class="o_g2b_ty_btn o_g2b_ty_btn_ghost o_g2b_ty_shop">Keep shopping</a>
+                            </aside>
+                        </div>
+
+                        <div class="oe_structure mt-3" id="oe_structure_website_sale_confirmation_2"/>
+                        <div class="oe_structure" id="oe_structure_website_sale_confirmation_3"/>
+
+                        <!-- Read by `website_sale_tracking.js`, which reports the purchase. -->
+                        <div class="oe_website_sale_tx_status d-none" t-att-data-order-id="order.id"
+                             t-att-data-order-tracking-info="json.dumps(order_tracking_info)"/>
+                        <input t-if="website.plausible_shared_key" type="hidden" class="js_plausible_push"
+                               data-event-name="Shop"
+                               t-attf-data-event-params='{"CTA": "Order Confirmed", "amount": "#{"%3s-%3s" % (max(0, round(order.amount_total/100)*100 - 50), round(order.amount_total/100)*100 + 50)}"}'/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

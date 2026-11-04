@@ -3,31 +3,10 @@
 
     <!--
         Where the buyer finds the way to review, and what the recipient
-        said: the list of orders ("Review" on each order that has left), the
-        order itself in the portal, and its tracking page (the link in the
-        emails, for those without an account).
+        said: the order itself in the portal, and its tracking page (the
+        link in the emails, for those without an account). The list of
+        orders shows it on each order's card (`gif2box_portal`).
     -->
-
-    <!-- My orders: a column with the button, or the stars once reviewed. -->
-    <template id="portal_my_orders_review" inherit_id="sale.portal_my_orders" name="Orders: review">
-        <xpath expr="//thead/tr/th[last()]" position="after">
-            <th class="text-end o_g2b_rv_col">Review</th>
-        </xpath>
-        <xpath expr="//t[@t-foreach='orders']/tr/td[last()]" position="after">
-            <td class="text-end o_g2b_rv_col">
-                <t t-set="g2b_rs" t-value="order._g2b_review_status()"/>
-                <a t-if="g2b_rs and g2b_rs['state'] == 'todo'"
-                   t-att-href="order._g2b_buyer_review_url(g2b_rs['line'])"
-                   class="o_g2b_rv_pill">Review</a>
-                <a t-elif="g2b_rs" t-att-href="order._g2b_buyer_review_url()" class="o_g2b_rv_pill_done"
-                   title="Your review">
-                    <t t-call="gif2box_review.stars">
-                        <t t-set="g2b_value" t-value="g2b_rs['rating']"/>
-                    </t>
-                </a>
-            </td>
-        </xpath>
-    </template>
 
     <!--
         The panel: each gift with the buyer's review or the button to write

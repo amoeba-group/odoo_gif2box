@@ -1,0 +1,570 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 09:23+0000\n"
+"PO-Revision-Date: 2026-11-04 09:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid ""
+"%s will find a thank-you card in the box. By scanning its QR code, they can "
+"send you a thank-you note: you will read it on your order."
+msgstr "%s sẽ thấy một tấm thiệp cảm ơn trong hộp quà. Khi quét mã QR trên thiệp, người nhận có thể gửi lời cảm ơn đến bạn: bạn sẽ đọc được ngay trong đơn hàng."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid ""
+"<span class=\"o_g2b_acc_link_card_body\">\n"
+"                    <span class=\"o_g2b_acc_link_card_title\">Password</span>\n"
+"                    <span class=\"o_g2b_acc_muted\">Change the password you sign in with.</span>\n"
+"                </span>"
+msgstr "<span class=\"o_g2b_acc_link_card_body\">\n                    <span class=\"o_g2b_acc_link_card_title\">Mật khẩu</span>\n                    <span class=\"o_g2b_acc_muted\">Đổi mật khẩu dùng để đăng nhập.</span>\n                </span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid ""
+"<span class=\"o_g2b_acc_nudge_icon\" aria-hidden=\"true\">💌</span>\n"
+"                        <span class=\"o_g2b_acc_nudge_body\">\n"
+"                            <span class=\"o_g2b_acc_nudge_title\">How did your gift go?</span>\n"
+"                            <span class=\"o_g2b_acc_nudge_text\">A minute to rate it helps others choose a gift for someone they love.</span>\n"
+"                        </span>\n"
+"                        <span class=\"o_g2b_acc_nudge_cta\">Write a review</span>"
+msgstr "<span class=\"o_g2b_acc_nudge_icon\" aria-hidden=\"true\">💌</span>\n                        <span class=\"o_g2b_acc_nudge_body\">\n                            <span class=\"o_g2b_acc_nudge_title\">Món quà của bạn thế nào?</span>\n                            <span class=\"o_g2b_acc_nudge_text\">Một phút đánh giá giúp người khác chọn được món quà ý nghĩa cho người thân yêu.</span>\n                        </span>\n                        <span class=\"o_g2b_acc_nudge_cta\">Viết đánh giá</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Orders</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">Đơn hàng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">To review</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">Chờ đánh giá</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Under way</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">Đang xử lý</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Wishlist</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">Yêu thích</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">Delivered on</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">Đã giao</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">Expected</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">Dự kiến giao</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">To</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">Giao tới</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_total_label\">Total</span>"
+msgstr "<span class=\"o_g2b_oc_total_label\">Tổng cộng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span class=\"o_g2b_ty_eta_label\">Delivery</span>"
+msgstr "<span class=\"o_g2b_ty_eta_label\">Dự kiến giao</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Account details</span>"
+msgstr "<span>Thông tin tài khoản</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup
+msgid "<span>Already have an account?</span>"
+msgstr "<span>Bạn đã có tài khoản?</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Change my password</span>"
+msgstr "<span>Đổi mật khẩu</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Contact us</span>"
+msgstr "<span>Liên hệ với chúng tôi</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Edit</span>"
+msgstr "<span>Sửa</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "<span>Keep shopping</span>"
+msgstr "<span>Tiếp tục mua sắm</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Log out</span>"
+msgstr "<span>Đăng xuất</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>My orders</span>"
+msgstr "<span>Đơn hàng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>Order</span>"
+msgstr "<span>Đơn hàng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Overview</span>"
+msgstr "<span>Tổng quan</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span>Review</span>"
+msgstr "<span>Đánh giá</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>See all</span>"
+msgstr "<span>Xem tất cả</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Track an order</span>"
+msgstr "<span>Tra cứu đơn hàng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>Track your order</span>"
+msgstr "<span>Theo dõi đơn hàng</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Wishlist</span>"
+msgstr "<span>Yêu thích</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>days after it leaves us</span>"
+msgstr "<span>ngày kể từ khi gửi đi</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "A thank-you card goes in the box"
+msgstr "Trong hộp quà có thiệp cảm ơn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid "Account details"
+msgstr "Thông tin tài khoản"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Address"
+msgstr "Địa chỉ"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "All"
+msgstr "Tất cả"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "At a glance"
+msgstr "Tóm tắt"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Being prepared"
+msgstr "Đang chuẩn bị"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Cancelled"
+msgstr "Đã huỷ"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Check out in a moment with your saved address"
+msgstr "Thanh toán nhanh với địa chỉ đã lưu"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Choose a new password"
+msgstr "Đặt mật khẩu mới"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Choose your password"
+msgstr "Đặt mật khẩu của bạn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Copy tracking link"
+msgstr "Sao chép link theo dõi"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Courier"
+msgstr "Đơn vị vận chuyển"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Create a password"
+msgstr "Tạo mật khẩu"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "Create an account"
+msgstr "Tạo tài khoản"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Create your account"
+msgstr "Tạo tài khoản"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Delivered"
+msgstr "Đã giao"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Delivery"
+msgstr "Giao hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Details"
+msgstr "Chi tiết"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Email"
+msgstr "Email"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Enter your email: we will send you a link to choose a new one."
+msgstr "Nhập email của bạn: chúng mình sẽ gửi link để bạn đặt mật khẩu mới."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "Filter orders"
+msgstr "Lọc đơn hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid "Find a gift"
+msgstr "Chọn quà ngay"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Follow every gift all the way to its recipient"
+msgstr "Theo dõi từng món quà đến tận tay người nhận"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Forgot your password?"
+msgstr "Quên mật khẩu?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Free"
+msgstr "Miễn phí"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Full name"
+msgstr "Họ và tên"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "Hello,"
+msgstr "Xin chào,"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Hide password"
+msgstr "Ẩn mật khẩu"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "It takes a minute, and all your gifts are then in one place."
+msgstr "Chỉ mất một phút, và mọi món quà của bạn sẽ ở cùng một nơi."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Keep shopping"
+msgstr "Tiếp tục mua sắm"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Keep the gifts you love in your wishlist"
+msgstr "Lưu những món quà bạn thích vào danh sách yêu thích"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid ""
+"Keep this link: it shows where your order is at any time, no account needed."
+msgstr "Hãy lưu lại link này: bạn có thể xem đơn hàng đang ở đâu bất cứ lúc nào, không cần tài khoản."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Link copied!"
+msgstr "Đã sao chép link!"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Little boxes, big smiles"
+msgstr "Hộp quà nhỏ, nụ cười lớn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "My account"
+msgstr "Tài khoản của tôi"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.tracking_breadcrumb
+msgid "My orders"
+msgstr "Đơn hàng của tôi"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "Need help?"
+msgstr "Bạn cần hỗ trợ?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "New to Gif2box?"
+msgstr "Lần đầu đến với Gif2box?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "No orders here"
+msgstr "Không có đơn hàng nào ở mục này"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid "No orders yet"
+msgstr "Bạn chưa có đơn hàng nào"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "On its way"
+msgstr "Đang giao"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "One last step and your account is ready."
+msgstr "Chỉ còn một bước nữa là tài khoản của bạn sẵn sàng."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Ordered by"
+msgstr "Người đặt"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Print the order"
+msgstr "In đơn hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Read the thank-you notes your recipients send you"
+msgstr "Đọc lời cảm ơn người nhận gửi đến bạn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "Recent orders"
+msgstr "Đơn hàng gần đây"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Recipient"
+msgstr "Người nhận"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Save your details for next time"
+msgstr "Lưu thông tin cho lần sau"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "See all my orders"
+msgstr "Xem tất cả đơn hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Shipping fee"
+msgstr "Phí vận chuyển"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Show password"
+msgstr "Hiện mật khẩu"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup
+msgid "Sign in"
+msgstr "Đăng nhập"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Sign in to follow your gifts and check out faster."
+msgstr "Đăng nhập để theo dõi quà và thanh toán nhanh hơn."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Thank you"
+msgstr "Cảm ơn bạn"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Thank you!"
+msgstr "Cảm ơn bạn!"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Thank you, %s!"
+msgstr "Cảm ơn %s!"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Then sign in with it."
+msgstr "Sau đó đăng nhập bằng mật khẩu mới."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Total"
+msgstr "Tổng cộng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Track"
+msgstr "Theo dõi"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.tracking_breadcrumb
+msgid "Track your order"
+msgstr "Theo dõi đơn hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Type it again"
+msgstr "Nhập lại mật khẩu"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "We are here from 8:00 to 17:00, Monday to Friday."
+msgstr "Chúng mình hỗ trợ từ 8:00 đến 17:00, thứ Hai đến thứ Sáu."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Welcome back"
+msgstr "Chào mừng bạn trở lại"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid ""
+"When you send a gift, it shows here, and you can follow it all the way to "
+"its recipient."
+msgstr "Khi bạn gửi quà, đơn hàng sẽ hiện ở đây và bạn có thể theo dõi đến tận tay người nhận."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Where your order stands"
+msgstr "Tình trạng đơn hàng"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid ""
+"With an account, all your gifts are in one place, and the next one is "
+"ordered in a moment."
+msgstr "Có tài khoản, mọi món quà của bạn ở cùng một nơi, và lần đặt sau chỉ mất một lát."
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Your gift for %s is in good hands: we are getting it ready with care."
+msgstr "Gif2box đã nhận đơn và đang chuẩn bị món quà gửi %s thật chu đáo."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid "Your name, how to reach you, and the address your orders start from."
+msgstr "Tên, cách liên lạc và địa chỉ mặc định khi bạn đặt hàng."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Your order"
+msgstr "Đơn hàng của bạn"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Your order is in good hands: we are getting it ready with care."
+msgstr "Gif2box đã nhận đơn và đang chuẩn bị thật chu đáo cho bạn."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "Your password"
+msgstr "Mật khẩu của bạn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Your review"
+msgstr "Đánh giá của bạn"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "and %s more"
+msgstr "và %s sản phẩm khác"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "e.g. Nguyễn Minh Anh"
+msgstr "vd: Nguyễn Minh Anh"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.reset_password
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "you@example.com"
+msgstr "ban@email.com"

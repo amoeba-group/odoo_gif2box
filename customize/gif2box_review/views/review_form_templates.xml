@@ -288,7 +288,7 @@
                                 <a href="/shop" class="o_g2b_rvf_btn">Send a gift to someone too</a>
                             </t>
                             <t t-else="">
-                                <a t-att-href="g2b_order.get_portal_url()" class="o_g2b_rvf_btn o_g2b_rvf_btn_ghost">Back to my order</a>
+                                <a t-att-href="g2b_order._g2b_tracking_url()" class="o_g2b_rvf_btn o_g2b_rvf_btn_ghost">Back to my order</a>
                                 <a href="/shop" class="o_g2b_rvf_btn">Keep shopping</a>
                             </t>
                         </div>

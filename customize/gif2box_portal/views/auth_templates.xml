@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Sign in, sign up, forgotten password: one card on a warm page, its
+        title saying which of the three it is; on a computer, the brand
+        beside it with what an account is for. The forms are Odoo's own
+        (their fields, their checks, two-factor sign-in after them), given
+        clearer labels and a button to show the password (`auth.js`).
+
+        Each page names itself with `g2b_auth`, set inside its call to the
+        layout, which reads it before the form.
+    -->
+    <template id="login_layout" inherit_id="web.login_layout" name="Gif2box sign-in layout" priority="30">
+        <xpath expr="//div[hasclass('oe_website_login_container')]" position="replace">
+            <t t-set="head">
+                <t t-out="head or ''"/>
+                <t t-call-assets="gif2box_portal.assets_auth" t-css="false" defer_load="True"/>
+            </t>
+            <div id="wrap" class="o_g2b_auth">
+                <div class="o_g2b_auth_shell">
+                    <aside class="o_g2b_auth_side">
+                        <div class="o_g2b_auth_side_art" aria-hidden="true">
+                            <t t-call="gif2box_review.gift_art"/>
+                        </div>
+                        <div class="o_g2b_auth_side_title">Little boxes, big smiles</div>
+                        <ul class="o_g2b_auth_perks">
+                            <li>Follow every gift all the way to its recipient</li>
+                            <li>Read the thank-you notes your recipients send you</li>
+                            <li>Keep the gifts you love in your wishlist</li>
+                            <li>Check out in a moment with your saved address</li>
+                        </ul>
+                    </aside>
+                    <section class="o_g2b_auth_card">
+                        <header t-if="g2b_auth" class="o_g2b_auth_head">
+                            <t t-if="g2b_auth == 'signup' and token and not invalid_token">
+                                <h1 class="o_g2b_auth_title">Choose your password</h1>
+                                <p class="o_g2b_auth_lead">One last step and your account is ready.</p>
+                            </t>
+                            <t t-elif="g2b_auth == 'signup'">
+                                <h1 class="o_g2b_auth_title">Create your account</h1>
+                                <p class="o_g2b_auth_lead">It takes a minute, and all your gifts are then in one place.</p>
+                            </t>
+                            <t t-elif="g2b_auth == 'reset' and token and not invalid_token">
+                                <h1 class="o_g2b_auth_title">Choose a new password</h1>
+                                <p class="o_g2b_auth_lead">Then sign in with it.</p>
+                            </t>
+                            <t t-elif="g2b_auth == 'reset'">
+                                <h1 class="o_g2b_auth_title">Forgot your password?</h1>
+                                <p class="o_g2b_auth_lead">Enter your email: we will send you a link to choose a new one.</p>
+                            </t>
+                            <t t-else="">
+                                <h1 class="o_g2b_auth_title">Welcome back</h1>
+                                <p class="o_g2b_auth_lead">Sign in to follow your gifts and check out faster.</p>
+                            </t>
+                        </header>
+                        <div class="oe_website_login_container o_g2b_auth_body">
+                            <t t-out="0"/>
+                        </div>
+                        <!-- The password button's labels, for `auth.js`. -->
+                        <div class="d-none" data-g2b-msg="show">Show password</div>
+                        <div class="d-none" data-g2b-msg="hide">Hide password</div>
+                    </section>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Sign in -->
+    <template id="login" inherit_id="web.login" name="Gif2box sign in" priority="30">
+        <xpath expr="//t[@t-call='web.login_layout']" position="inside">
+            <t t-set="g2b_auth" t-value="'login'"/>
+        </xpath>
+        <xpath expr="//input[@name='login']" position="attributes">
+            <attribute name="placeholder">you@example.com</attribute>
+            <attribute name="inputmode">email</attribute>
+            <attribute name="autocomplete">username email</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//input[@name='password']" position="attributes">
+            <attribute name="placeholder">Your password</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_login_buttons')]//button[@type='submit']" position="attributes">
+            <attribute name="class">btn btn-primary o_g2b_auth_submit</attribute>
+        </xpath>
+        <!-- "Don't have an account?": a way in, not a small link. -->
+        <xpath expr="//p[a[contains(@t-attf-href, '/web/signup')]]" position="replace">
+            <div t-if="signup_enabled" class="o_g2b_auth_alt">
+                <div class="o_g2b_auth_or">New to Gif2box?</div>
+                <a t-attf-href="/web/signup?{{ keep_query() }}" class="o_g2b_auth_btn_ghost">Create an account</a>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Sign up, and the password of an invitation -->
+    <template id="signup" inherit_id="auth_signup.signup" name="Gif2box sign up" priority="30">
+        <xpath expr="//t[@t-call='web.login_layout']" position="inside">
+            <t t-set="g2b_auth" t-value="'signup'"/>
+        </xpath>
+        <xpath expr="//button[@type='submit']" position="attributes">
+            <attribute name="class">btn btn-primary o_g2b_auth_submit</attribute>
+        </xpath>
+        <xpath expr="//a[contains(@t-attf-href, '/web/login')]" position="replace">
+            <div class="o_g2b_auth_switch">
+                <span>Already have an account?</span>
+                <a t-attf-href="/web/login?{{ keep_query() }}">Sign in</a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="signup_fields" inherit_id="auth_signup.fields" name="Gif2box sign-up fields" priority="30">
+        <xpath expr="//input[@name='login']" position="attributes">
+            <attribute name="placeholder">you@example.com</attribute>
+            <attribute name="inputmode">email</attribute>
+            <attribute name="autocomplete">email</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//label[@for='login']" position="replace">
+            <label for="login" class="form-label">Email</label>
+        </xpath>
+        <xpath expr="//input[@name='name']" position="attributes">
+            <attribute name="placeholder">e.g. Nguyễn Minh Anh</attribute>
+            <attribute name="autocomplete">name</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//label[@for='name']" position="replace">
+            <label for="name" class="form-label">Full name</label>
+        </xpath>
+        <xpath expr="//input[@name='password']" position="attributes">
+            <attribute name="autocomplete">new-password</attribute>
+            <attribute name="placeholder">Create a password</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//label[@for='password']" position="attributes">
+            <attribute name="class">form-label</attribute>
+        </xpath>
+        <xpath expr="//input[@name='confirm_password']" position="attributes">
+            <attribute name="autocomplete">new-password</attribute>
+            <attribute name="placeholder">Type it again</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//label[@for='confirm_password']" position="attributes">
+            <attribute name="class">form-label</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('field-password')]" position="attributes">
+            <attribute name="class">mb-3 field-password</attribute>
+        </xpath>
+    </template>
+
+    <!-- Forgotten password -->
+    <template id="reset_password" inherit_id="auth_signup.reset_password" name="Gif2box reset password" priority="30">
+        <xpath expr="//t[@t-call='web.login_layout']" position="inside">
+            <t t-set="g2b_auth" t-value="'reset'"/>
+        </xpath>
+        <xpath expr="//input[@name='login']" position="attributes">
+            <attribute name="placeholder">you@example.com</attribute>
+            <attribute name="inputmode">email</attribute>
+            <attribute name="autocomplete">email</attribute>
+            <attribute name="class">form-control o_g2b_auth_input</attribute>
+        </xpath>
+        <xpath expr="//label[@for='login']" position="attributes">
+            <attribute name="class">form-label</attribute>
+        </xpath>
+        <xpath expr="//button[@type='submit']" position="attributes">
+            <attribute name="class">btn btn-primary o_g2b_auth_submit</attribute>
+        </xpath>
+    </template>
+
+</odoo>

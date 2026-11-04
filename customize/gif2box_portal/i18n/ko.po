@@ -1,0 +1,570 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 09:23+0000\n"
+"PO-Revision-Date: 2026-11-04 09:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid ""
+"%s will find a thank-you card in the box. By scanning its QR code, they can "
+"send you a thank-you note: you will read it on your order."
+msgstr "%s님은 상자 안에서 감사 카드를 발견하게 돼요. QR 코드를 스캔하면 당신에게 감사 메시지를 보낼 수 있고, 주문 내역에서 읽을 수 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid ""
+"<span class=\"o_g2b_acc_link_card_body\">\n"
+"                    <span class=\"o_g2b_acc_link_card_title\">Password</span>\n"
+"                    <span class=\"o_g2b_acc_muted\">Change the password you sign in with.</span>\n"
+"                </span>"
+msgstr "<span class=\"o_g2b_acc_link_card_body\">\n                    <span class=\"o_g2b_acc_link_card_title\">비밀번호</span>\n                    <span class=\"o_g2b_acc_muted\">로그인 비밀번호를 변경해요.</span>\n                </span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid ""
+"<span class=\"o_g2b_acc_nudge_icon\" aria-hidden=\"true\">💌</span>\n"
+"                        <span class=\"o_g2b_acc_nudge_body\">\n"
+"                            <span class=\"o_g2b_acc_nudge_title\">How did your gift go?</span>\n"
+"                            <span class=\"o_g2b_acc_nudge_text\">A minute to rate it helps others choose a gift for someone they love.</span>\n"
+"                        </span>\n"
+"                        <span class=\"o_g2b_acc_nudge_cta\">Write a review</span>"
+msgstr "<span class=\"o_g2b_acc_nudge_icon\" aria-hidden=\"true\">💌</span>\n                        <span class=\"o_g2b_acc_nudge_body\">\n                            <span class=\"o_g2b_acc_nudge_title\">선물은 어떠셨나요?</span>\n                            <span class=\"o_g2b_acc_nudge_text\">1분이면 다른 분들의 선물 고르기에 큰 도움이 돼요.</span>\n                        </span>\n                        <span class=\"o_g2b_acc_nudge_cta\">리뷰 쓰기</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Orders</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">주문</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">To review</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">리뷰 대기</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Under way</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">진행 중</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span class=\"o_g2b_acc_stat_label\">Wishlist</span>"
+msgstr "<span class=\"o_g2b_acc_stat_label\">위시리스트</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">Delivered on</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">배송 완료</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">Expected</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">도착 예정</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_meta_label\">To</span>"
+msgstr "<span class=\"o_g2b_oc_meta_label\">받는 분</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span class=\"o_g2b_oc_total_label\">Total</span>"
+msgstr "<span class=\"o_g2b_oc_total_label\">합계</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span class=\"o_g2b_ty_eta_label\">Delivery</span>"
+msgstr "<span class=\"o_g2b_ty_eta_label\">도착 예정</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Account details</span>"
+msgstr "<span>계정 정보</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup
+msgid "<span>Already have an account?</span>"
+msgstr "<span>이미 계정이 있으신가요?</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Change my password</span>"
+msgstr "<span>비밀번호 변경</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Contact us</span>"
+msgstr "<span>문의하기</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Edit</span>"
+msgstr "<span>수정</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "<span>Keep shopping</span>"
+msgstr "<span>계속 쇼핑하기</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Log out</span>"
+msgstr "<span>로그아웃</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>My orders</span>"
+msgstr "<span>주문 내역</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>Order</span>"
+msgstr "<span>주문</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Overview</span>"
+msgstr "<span>개요</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "<span>Review</span>"
+msgstr "<span>리뷰</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>See all</span>"
+msgstr "<span>전체 보기</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "<span>Track an order</span>"
+msgstr "<span>주문 조회</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>Track your order</span>"
+msgstr "<span>주문 추적</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "<span>Wishlist</span>"
+msgstr "<span>위시리스트</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "<span>days after it leaves us</span>"
+msgstr "<span>일 (발송 후)</span>"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "A thank-you card goes in the box"
+msgstr "상자에 감사 카드가 들어가요"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid "Account details"
+msgstr "계정 정보"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Address"
+msgstr "주소"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "All"
+msgstr "전체"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "At a glance"
+msgstr "한눈에 보기"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Being prepared"
+msgstr "준비 중"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Cancelled"
+msgstr "취소됨"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Check out in a moment with your saved address"
+msgstr "저장된 주소로 빠르게 결제"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Choose a new password"
+msgstr "새 비밀번호 설정"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Choose your password"
+msgstr "비밀번호 설정"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Copy tracking link"
+msgstr "추적 링크 복사"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Courier"
+msgstr "택배사"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Create a password"
+msgstr "비밀번호 만들기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "Create an account"
+msgstr "계정 만들기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Create your account"
+msgstr "계정 만들기"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "Delivered"
+msgstr "배송 완료"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Delivery"
+msgstr "배송 정보"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Details"
+msgstr "상세"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Email"
+msgstr "이메일"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Enter your email: we will send you a link to choose a new one."
+msgstr "이메일을 입력하시면 새 비밀번호를 설정할 수 있는 링크를 보내 드려요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "Filter orders"
+msgstr "주문 필터"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid "Find a gift"
+msgstr "선물 찾기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Follow every gift all the way to its recipient"
+msgstr "선물이 도착할 때까지 추적"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Forgot your password?"
+msgstr "비밀번호를 잊으셨나요?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Free"
+msgstr "무료"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Full name"
+msgstr "이름"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+msgid "Hello,"
+msgstr "안녕하세요,"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Hide password"
+msgstr "비밀번호 숨기기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "It takes a minute, and all your gifts are then in one place."
+msgstr "1분이면 끝나요. 모든 선물을 한곳에서 볼 수 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Keep shopping"
+msgstr "계속 쇼핑하기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Keep the gifts you love in your wishlist"
+msgstr "마음에 드는 선물을 위시리스트에 저장"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid ""
+"Keep this link: it shows where your order is at any time, no account needed."
+msgstr "이 링크를 저장해 두세요. 계정 없이도 언제든 주문 상태를 확인할 수 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Link copied!"
+msgstr "링크를 복사했어요!"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Little boxes, big smiles"
+msgstr "작은 상자, 큰 미소"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "My account"
+msgstr "내 계정"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.tracking_breadcrumb
+msgid "My orders"
+msgstr "주문 내역"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "Need help?"
+msgstr "도움이 필요하신가요?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "New to Gif2box?"
+msgstr "Gif2box가 처음이신가요?"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "No orders here"
+msgstr "해당하는 주문이 없어요"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid "No orders yet"
+msgstr "아직 주문이 없어요"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/controllers/main.py:0
+msgid "On its way"
+msgstr "배송 중"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "One last step and your account is ready."
+msgstr "한 단계만 더 하면 계정이 준비돼요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Ordered by"
+msgstr "주문하신 분"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Payment"
+msgstr "결제"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Print the order"
+msgstr "주문서 인쇄"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Read the thank-you notes your recipients send you"
+msgstr "받는 분이 보낸 감사 메시지 읽기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "Recent orders"
+msgstr "최근 주문"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Recipient"
+msgstr "받는 분"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Save your details for next time"
+msgstr "다음을 위해 정보 저장"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+msgid "See all my orders"
+msgstr "모든 주문 보기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Shipping fee"
+msgstr "배송비"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Show password"
+msgstr "비밀번호 보기"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup
+msgid "Sign in"
+msgstr "로그인"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Sign in to follow your gifts and check out faster."
+msgstr "로그인하고 선물을 추적하고 더 빠르게 결제하세요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Thank you"
+msgstr "감사합니다"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Thank you!"
+msgstr "감사합니다!"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Thank you, %s!"
+msgstr "%s님, 감사합니다!"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Then sign in with it."
+msgstr "그다음 새 비밀번호로 로그인하세요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Total"
+msgstr "합계"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Track"
+msgstr "추적"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.tracking_breadcrumb
+msgid "Track your order"
+msgstr "주문 추적"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "Type it again"
+msgstr "다시 입력"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.account_home
+msgid "We are here from 8:00 to 17:00, Monday to Friday."
+msgstr "월~금 8:00~17:00에 도와드려요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
+msgid "Welcome back"
+msgstr "다시 오신 걸 환영해요"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.orders_empty
+msgid ""
+"When you send a gift, it shows here, and you can follow it all the way to "
+"its recipient."
+msgstr "선물을 보내면 여기에 표시되고, 받는 분께 도착할 때까지 추적할 수 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Where your order stands"
+msgstr "주문 상태"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid ""
+"With an account, all your gifts are in one place, and the next one is "
+"ordered in a moment."
+msgstr "계정이 있으면 모든 선물을 한곳에서 보고, 다음 주문도 금방 끝나요."
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Your gift for %s is in good hands: we are getting it ready with care."
+msgstr "%s님께 보낼 선물은 저희가 정성껏 준비하고 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.portal_my_details
+msgid "Your name, how to reach you, and the address your orders start from."
+msgstr "이름, 연락처, 주문 시 기본 주소예요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.confirmation
+msgid "Your order"
+msgstr "주문 내역"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "Your order is in good hands: we are getting it ready with care."
+msgstr "주문하신 상품을 정성껏 준비하고 있어요."
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+msgid "Your password"
+msgstr "비밀번호"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.order_card
+msgid "Your review"
+msgstr "내 리뷰"
+
+#. module: gif2box_portal
+#. odoo-python
+#: code:addons/gif2box_portal/models/sale_order.py:0
+msgid "and %s more"
+msgstr "외 %s개"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "e.g. Nguyễn Minh Anh"
+msgstr "예: 김민지"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.login
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.reset_password
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.signup_fields
+msgid "you@example.com"
+msgstr "you@example.com"
