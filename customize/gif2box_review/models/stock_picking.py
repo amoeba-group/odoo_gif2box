@@ -11,4 +11,7 @@ class StockPicking(models.Model):
 
     def action_g2b_print_thank_cards(self):
         self.sale_id.order_line._g2b_ensure_review_code()
-        return self.env.ref('gif2box_review.action_report_thank_card_picking').report_action(self)
+        action = self.env.ref('gif2box_review.action_report_thank_card_picking').report_action(self)
+        # A preview first: see `SaleOrder.action_g2b_print_thank_cards`.
+        action['report_type'] = 'qweb-html'
+        return action

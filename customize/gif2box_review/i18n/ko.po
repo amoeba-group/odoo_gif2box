@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0-20260817\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-04 07:57+0000\n"
-"PO-Revision-Date: 2026-11-04 07:57+0000\n"
+"POT-Creation-Date: 2026-11-04 09:48+0000\n"
+"PO-Revision-Date: 2026-11-04 09:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
@@ -391,7 +391,6 @@ msgstr "Gif2box의 답변"
 #. module: gif2box_review
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__comment
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__review_id
-#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
 msgid "Review"
 msgstr "리뷰"
@@ -694,11 +693,6 @@ msgstr "선물한 분께 보내는 메시지는 공개되지 않아요."
 #: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
 msgid "Your rating, words, name and photos will be shown on the product page."
 msgstr "별점, 후기, 이름, 사진은 상품 페이지에 표시돼요."
-
-#. module: gif2box_review
-#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
-msgid "Your review"
-msgstr "내 리뷰"
 
 #. module: gif2box_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.review_page

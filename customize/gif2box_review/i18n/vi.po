@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0-20260817\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-04 07:57+0000\n"
-"PO-Revision-Date: 2026-11-04 07:57+0000\n"
+"POT-Creation-Date: 2026-11-04 09:48+0000\n"
+"PO-Revision-Date: 2026-11-04 09:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "MIME-Version: 1.0\n"
@@ -87,6 +87,11 @@ msgstr "<span class=\"o_stat_text\">Đơn hàng</span>"
 #: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
 msgid "<span>All</span>"
 msgstr "<span>Tất cả</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_preview_bar
+msgid "<span>Cards:</span>"
+msgstr "<span>Số thiệp:</span>"
 
 #. module: gif2box_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
@@ -213,6 +218,14 @@ msgid "Carefully packed"
 msgstr "Đóng gói cẩn thận"
 
 #. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_preview_bar
+msgid ""
+"Check the names and the message, then download the PDF. Print it at 100% "
+"(actual size): on A6 card stock, or on A4 paper and cut along the dashed "
+"lines."
+msgstr "Kiểm tra tên và lời nhắn, rồi tải PDF. Khi in, chọn tỉ lệ 100% (kích thước thực): in trên giấy cứng khổ A6, hoặc in trên giấy A4 rồi cắt theo đường nét đứt."
+
+#. module: gif2box_review
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__color
 msgid "Colour"
 msgstr "Màu"
@@ -269,6 +282,16 @@ msgstr "Khám phá Gif2box"
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__display_name
 msgid "Display Name"
 msgstr "Tên hiển thị"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_preview_bar
+msgid "Download PDF (4 per A4 sheet)"
+msgstr "Tải PDF (4 thiệp/tờ A4)"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_preview_bar
+msgid "Download PDF (A6)"
+msgstr "Tải PDF (khổ A6)"
 
 #. module: gif2box_review
 #: model:gif2box.review.tag,name:gif2box_review.tag_buyer_easy
@@ -704,6 +727,11 @@ msgid "Point it at the code, then tap the link"
 msgstr "Hướng vào mã QR rồi chạm vào đường link hiện ra"
 
 #. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_preview_bar
+msgid "Preview of the thank-you card"
+msgstr "Xem trước thiệp cảm ơn"
+
+#. module: gif2box_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.view_order_form
 #: model_terms:ir.ui.view,arch_db:gif2box_review.view_picking_form
 msgid ""
@@ -794,7 +822,6 @@ msgstr "Phản hồi từ Gif2box"
 #. module: gif2box_review
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__comment
 #: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__review_id
-#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
 msgid "Review"
 msgstr "Đánh giá"
@@ -1282,11 +1309,6 @@ msgstr "Lời nhắn gửi người tặng được giữ riêng tư."
 #: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
 msgid "Your rating, words, name and photos will be shown on the product page."
 msgstr "Số sao, nội dung, tên và ảnh của bạn sẽ hiển thị trên trang sản phẩm."
-
-#. module: gif2box_review
-#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
-msgid "Your review"
-msgstr "Đánh giá của bạn"
 
 #. module: gif2box_review
 #: model_terms:ir.ui.view,arch_db:gif2box_review.review_page

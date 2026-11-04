@@ -151,9 +151,36 @@
         </div>
     </template>
 
+    <!--
+        Above the cards in the preview (the report shown as HTML, from the
+        "Thank-you card" button), never in the PDF: what to check, how to
+        print, and the PDF in either size.
+    -->
+    <template id="thank_card_preview_bar" name="Thank-you card: preview bar">
+        <t t-set="g2b_ids" t-value="','.join(str(i) for i in docs.ids)"/>
+        <t t-set="g2b_file" t-value="'-'.join(docs.mapped('name')).replace('/', '-')[:60]"/>
+        <div class="o_g2b_tc_preview_bar">
+            <div class="o_g2b_tc_preview_info">
+                <div class="o_g2b_tc_preview_title">Preview of the thank-you card</div>
+                <div class="o_g2b_tc_preview_text">Check the names and the message, then download the PDF. Print it at 100% (actual size): on A6 card stock, or on A4 paper and cut along the dashed lines.</div>
+                <div class="o_g2b_tc_preview_count">
+                    <span>Cards:</span>
+                    <strong t-out="len(g2b_cards)"/>
+                </div>
+            </div>
+            <div t-if="g2b_cards" class="o_g2b_tc_preview_actions">
+                <a t-attf-href="/report/pdf/#{g2b_reports[0]}/#{g2b_ids}" t-att-download="'thiep-cam-on-%s-A6.pdf' % g2b_file"
+                   class="o_g2b_tc_preview_btn">Download PDF (A6)</a>
+                <a t-attf-href="/report/pdf/#{g2b_reports[1]}/#{g2b_ids}" t-att-download="'thiep-cam-on-%s-A4.pdf' % g2b_file"
+                   class="o_g2b_tc_preview_btn o_g2b_tc_preview_btn_ghost">Download PDF (4 per A4 sheet)</a>
+            </div>
+        </div>
+    </template>
+
     <template id="thank_card_pages" name="Thank-you card pages">
         <t t-call="web.html_container">
             <t t-set="g2b_cards" t-value="docs._g2b_thank_cards()"/>
+            <t t-if="report_type == 'html'" t-call="gif2box_review.thank_card_preview_bar"/>
             <t t-set="g2b_lang" t-value="g2b_cards and g2b_cards[0]['lang'] or docs.env.lang"/>
             <t t-set="g2b_per_page" t-value="4 if g2b_sheet else 1"/>
             <t t-foreach="range(0, len(g2b_cards), g2b_per_page)" t-as="g2b_start">
@@ -169,24 +196,28 @@
     <template id="report_thank_card">
         <t t-call="gif2box_review.thank_card_pages">
             <t t-set="g2b_sheet" t-value="False"/>
+            <t t-set="g2b_reports" t-value="('gif2box_review.report_thank_card', 'gif2box_review.report_thank_card_sheet')"/>
         </t>
     </template>
 
     <template id="report_thank_card_sheet">
         <t t-call="gif2box_review.thank_card_pages">
             <t t-set="g2b_sheet" t-value="True"/>
+            <t t-set="g2b_reports" t-value="('gif2box_review.report_thank_card', 'gif2box_review.report_thank_card_sheet')"/>
         </t>
     </template>
 
     <template id="report_thank_card_picking">
         <t t-call="gif2box_review.thank_card_pages">
             <t t-set="g2b_sheet" t-value="False"/>
+            <t t-set="g2b_reports" t-value="('gif2box_review.report_thank_card_picking', 'gif2box_review.report_thank_card_picking_sheet')"/>
         </t>
     </template>
 
     <template id="report_thank_card_picking_sheet">
         <t t-call="gif2box_review.thank_card_pages">
             <t t-set="g2b_sheet" t-value="True"/>
+            <t t-set="g2b_reports" t-value="('gif2box_review.report_thank_card_picking', 'gif2box_review.report_thank_card_picking_sheet')"/>
         </t>
     </template>
 

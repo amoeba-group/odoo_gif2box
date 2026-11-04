@@ -356,3 +356,92 @@ $tc-display: 'G2B Baloo', 'Roboto', 'Noto Sans CJK JP', 'Noto Sans CJK KR', sans
     letter-spacing: .1mm;
     color: $tc-blue;
 }
+
+// --- The preview (HTML, in the backend's report view) --------------------------
+body.o_body_html:has(.o_g2b_tc_page) {
+    background: #ECEEF0;
+}
+
+// An A6 card is small on a screen: shown larger, sharp all the same (vector).
+.o_body_html .o_g2b_tc_page:not(.o_g2b_tc_page_sheet) {
+    margin-top: 0;
+    zoom: 1.4;
+}
+
+.o_g2b_tc_preview_bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 900px;
+    padding: 16px 20px;
+    margin: 16px auto 20px;
+    font-family: $tc-body;
+    color: $tc-ink;
+    background: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+}
+
+.o_g2b_tc_preview_info {
+    flex: 1 1 360px;
+}
+
+.o_g2b_tc_preview_title {
+    margin-bottom: 4px;
+    font-family: $tc-display;
+    font-size: 18px;
+    font-weight: 700;
+    color: $tc-teal;
+}
+
+.o_g2b_tc_preview_text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: $tc-muted;
+}
+
+.o_g2b_tc_preview_count {
+    margin-top: 6px;
+    font-size: 13px;
+
+    strong {
+        margin-left: 4px;
+        color: $tc-coral-dark;
+    }
+}
+
+.o_g2b_tc_preview_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.o_g2b_tc_preview_btn {
+    display: inline-block;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+    background: $tc-coral;
+    border: 1.5px solid $tc-coral;
+    border-radius: 20px;
+
+    &:hover {
+        color: #FFFFFF;
+        background: $tc-coral-dark;
+        border-color: $tc-coral-dark;
+    }
+}
+
+.o_g2b_tc_preview_btn_ghost {
+    color: $tc-coral-dark;
+    background: #FFFFFF;
+
+    &:hover {
+        color: #FFFFFF;
+        background: $tc-coral;
+    }
+}

@@ -233,8 +233,13 @@ class SaleOrder(models.Model):
     # --- Backend actions ---------------------------------------------------
 
     def action_g2b_print_thank_cards(self):
+        """The cards, to look at before printing: Odoo's report view, which
+        shows the report in the page with its Print button (the PDF), and
+        the preview's own buttons for either size."""
         self.order_line._g2b_ensure_review_code()
-        return self.env.ref('gif2box_review.action_report_thank_card').report_action(self)
+        action = self.env.ref('gif2box_review.action_report_thank_card').report_action(self)
+        action['report_type'] = 'qweb-html'
+        return action
 
     def action_g2b_view_reviews(self):
         self.ensure_one()
