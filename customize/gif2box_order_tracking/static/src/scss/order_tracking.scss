@@ -141,6 +141,7 @@ $g2b-step-icon-compact: 2.25rem;
 }
 
 .o_g2b_copy {
+    position: relative;
     display: inline-flex;
     flex: 0 0 auto;
     gap: .35rem;
@@ -171,21 +172,81 @@ $g2b-step-icon-compact: 2.25rem;
         outline-offset: 2px;
     }
 
-    .o_g2b_copy_done {
+    .o_g2b_copy_check,
+    .o_g2b_copy_ok {
         display: none;
     }
 
+    // Copied: green, a tick for the copy icon, "Copied" for the label, and
+    // the tooltip above (`order_tracking.js` sets the class for 2.5s).
     &.is-copied {
         color: $g2b-done-green;
-        border-color: rgba($g2b-done-green, .45);
+        background-color: rgba($g2b-done-green, .08);
+        border-color: rgba($g2b-done-green, .5);
 
+        .o_g2b_copy_icon,
         .o_g2b_copy_idle {
             display: none;
         }
 
-        .o_g2b_copy_done {
+        .o_g2b_copy_check {
             display: inline;
         }
+
+        .o_g2b_copy_ok {
+            display: inline;
+        }
+
+        .o_g2b_copy_tip {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+}
+
+// The tooltip: a dark bubble with a tick, centred over the button, its
+// arrow pointing down at it. Hidden with `visibility` rather than
+// `display`, so that it can fade, and so that it stays out of the
+// button's accessible name until it shows.
+.o_g2b_copy_tip {
+    position: absolute;
+    bottom: calc(100% + .55rem);
+    left: 50%;
+    z-index: 5;
+    display: inline-flex;
+    gap: .35rem;
+    align-items: center;
+    padding: .4rem .7rem;
+    font-size: .78rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $white;
+    white-space: nowrap;
+    pointer-events: none;
+    visibility: hidden;
+    background-color: $g-title;
+    border-radius: .5rem;
+    box-shadow: 0 .4rem 1rem rgba($black, .18);
+    opacity: 0;
+    transform: translate(-50%, .3rem);
+    transition: opacity .15s ease, transform .15s ease, visibility .15s;
+
+    &::before {
+        font-family: FontAwesome;
+        font-weight: 400;
+        color: #7FD8A8;
+        content: "\f00c"; // check
+    }
+
+    &::after {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -.3rem;
+        content: "";
+        border: .3rem solid transparent;
+        border-top-color: $g-title;
     }
 }
 

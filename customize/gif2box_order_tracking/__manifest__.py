@@ -39,7 +39,15 @@ Order tracking for the shop
     'assets': {
         'web.assets_frontend': [
             'gif2box_order_tracking/static/src/scss/order_tracking.scss',
+        ],
+        # The copy buttons must answer as soon as the page shows, before the
+        # lazily loaded bundle: see `order_tracking.js`. Taken back out of
+        # the lazy bundle, which includes the minimal one, as `website` does.
+        'web.assets_frontend_minimal': [
             'gif2box_order_tracking/static/src/js/order_tracking.js',
+        ],
+        'web.assets_frontend_lazy': [
+            ('remove', 'gif2box_order_tracking/static/src/js/order_tracking.js'),
         ],
     },
     'installable': True,

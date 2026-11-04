@@ -87,8 +87,8 @@ msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; c
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.copy_button
-msgid "<span class=\"o_g2b_copy_done\">Copied</span>"
-msgstr "<span class=\"o_g2b_copy_done\">복사됨</span>"
+msgid "<span class=\"o_g2b_copy_ok\">Copied</span>"
+msgstr "<span class=\"o_g2b_copy_ok\">복사됨</span>"
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
@@ -496,3 +496,13 @@ msgstr "주문부터 받는 분께 도착할 때까지 모든 단계를 확인�
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Track now"
 msgstr "지금 조회하기"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Link copied!"
+msgstr "링크를 복사했습니다"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tracking number copied!"
+msgstr "운송장 번호를 복사했습니다"

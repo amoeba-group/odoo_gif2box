@@ -87,8 +87,8 @@ msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; c
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.copy_button
-msgid "<span class=\"o_g2b_copy_done\">Copied</span>"
-msgstr "<span class=\"o_g2b_copy_done\">コピーしました</span>"
+msgid "<span class=\"o_g2b_copy_ok\">Copied</span>"
+msgstr "<span class=\"o_g2b_copy_ok\">コピーしました</span>"
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
@@ -496,3 +496,13 @@ msgstr "ご注文から受取人様のお手元に届くまで、一つひとつ
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Track now"
 msgstr "今すぐ確認"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Link copied!"
+msgstr "リンクをコピーしました"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tracking number copied!"
+msgstr "追跡番号をコピーしました"

@@ -101,8 +101,8 @@ msgstr "<div style=\"margin: 0; padding: 0; font-size: 14px; line-height: 1.6; c
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.copy_button
-msgid "<span class=\"o_g2b_copy_done\">Copied</span>"
-msgstr "<span class=\"o_g2b_copy_done\">Đã sao chép</span>"
+msgid "<span class=\"o_g2b_copy_ok\">Copied</span>"
+msgstr "<span class=\"o_g2b_copy_ok\">Đã sao chép</span>"
 
 #. module: gif2box_order_tracking
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
@@ -622,3 +622,13 @@ msgstr "Xem từng bước, từ lúc đặt hàng đến khi quà tới tay ng�
 #: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.home_track_section
 msgid "Track now"
 msgstr "Tra cứu ngay"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Link copied!"
+msgstr "Đã sao chép link!"
+
+#. module: gif2box_order_tracking
+#: model_terms:ir.ui.view,arch_db:gif2box_order_tracking.order_track_page
+msgid "Tracking number copied!"
+msgstr "Đã sao chép mã vận đơn!"
