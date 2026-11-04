@@ -415,3 +415,8 @@ msgstr "선물 가이드 읽기"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.scroll_top
 msgid "Back to top"
 msgstr "맨 위로"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.home_product_row
+msgid "Carousel"
+msgstr "슬라이드 형식"

@@ -16,6 +16,12 @@
  *
  * Sold-out products are left out of both rows; see `_getRpcParameters`.
  *
+ * The server renders both rows into the page (`models/ir_ui_view.py`), so
+ * that the products show with it rather than once this script has loaded
+ * and asked for them. The snippet takes those cards as its data instead of
+ * fetching them again (`_fetchData`), and keeps a rail where the shopper
+ * had already swiped it when it renders them over.
+ *
  * The rail adds, below the products:
  * - previous / next arrows for a mouse, hidden when there is nothing to scroll;
  * - a closing "View all" card, worded like the section's own header link;
@@ -29,6 +35,7 @@
  * up in the page's stored content.
  */
 
+import { markup } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import DynamicSnippet from "@website/snippets/s_dynamic_snippet/000";
 
@@ -234,6 +241,23 @@ class ProductRail {
 
 DynamicSnippet.include({
     /**
+     * The cards the server put in the page, when it did: the same as the
+     * request would return. Not in the editor, which wants its sample cards
+     * and has emptied the snippet by then anyway.
+     *
+     * @override
+     */
+    async _fetchData() {
+        const row = !this.editableMode && this.el.classList.contains("o_g2b_home_products")
+            && this.el.querySelector(".dynamic_snippet_template > .o_g2b_ssr .s_dynamic_snippet_row");
+        if (row) {
+            this.data = [...row.children].map((col) => markup(col.innerHTML));
+            return;
+        }
+        return this._super(...arguments);
+    },
+
+    /**
      * In-stock products only: these rows are there to sell. The server fills
      * the row past the sold-out ones (`models/website_snippet_filter.py`).
      *
@@ -268,7 +292,14 @@ DynamicSnippet.include({
     _renderContent() {
         this._g2bRail?.destroy();
         this._g2bRail = null;
+        // Rendered over the server's cards, a rail swiped in the meantime
+        // would jump back to its first one.
+        const scrolled = this.el.querySelector(".dynamic_snippet_template .s_dynamic_snippet_row")?.scrollLeft;
         this._super(...arguments);
+        if (scrolled) {
+            this.el.querySelector(".dynamic_snippet_template .s_dynamic_snippet_row")
+                ?.scrollTo({ left: scrolled, behavior: "instant" });
+        }
         if (this.el.classList.contains("o_g2b_home_rail") && this.data?.length) {
             this._g2bRail = new ProductRail(this.el, { autoplay: !this.editableMode });
         }

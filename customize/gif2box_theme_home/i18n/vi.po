@@ -415,3 +415,8 @@ msgstr "Đọc cẩm nang quà tặng"
 #: model_terms:ir.ui.view,arch_db:gif2box_theme_home.scroll_top
 msgid "Back to top"
 msgstr "Lên đầu trang"
+
+#. module: gif2box_theme_home
+#: model_terms:ir.ui.view,arch_db:gif2box_theme_home.home_product_row
+msgid "Carousel"
+msgstr "Băng chuyền"

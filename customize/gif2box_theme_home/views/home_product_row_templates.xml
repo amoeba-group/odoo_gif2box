@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        A homepage product row rendered with the page
+        (`models/ir_ui_view.py`): the markup of Odoo's own carousel template
+        for dynamic snippets (`website.s_dynamic_snippet.carousel`, in
+        `s_dynamic_snippet_carousel/000.xml`), on one slide, so that the
+        stylesheet lays it out exactly as it does the one the script renders.
+
+        `o_g2b_ssr` tells the script that the cards are already here.
+    -->
+    <template id="home_product_row" name="Homepage product row">
+        <div t-att-id="g2b_row_id" class="carousel slide o_g2b_ssr" data-bs-interval="0">
+            <div class="carousel-inner row w-100 mx-auto" role="listbox" aria-label="Carousel">
+                <div class="carousel-item active" role="option">
+                    <div class="s_dynamic_snippet_row row g-3">
+                        <t t-foreach="g2b_items" t-as="g2b_item">
+                            <div t-att-class="g2b_col_class"><t t-out="g2b_item"/></div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

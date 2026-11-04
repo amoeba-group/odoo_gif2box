@@ -13,6 +13,7 @@
         'views/header_templates.xml',
         'views/product_templates.xml',
         'views/product_card_templates.xml',
+        'views/home_product_row_templates.xml',
         'views/price_templates.xml',
         'views/product_form_views.xml',
         'views/wishlist_templates.xml',

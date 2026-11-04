@@ -1,4 +1,5 @@
 from . import ir_http
+from . import ir_ui_view
 from . import product_template
 from . import product_product
 from . import product_name_search
