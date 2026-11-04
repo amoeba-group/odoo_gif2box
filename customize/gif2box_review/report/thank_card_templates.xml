@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The thank-you card in the gift box, A6 landscape.
+
+        Left, on a cream panel: who the gift is for and who it is from, a
+        thank-you to the giver for choosing Gif2box and to the recipient
+        for opening it, signed by the giver and the shop together. Right,
+        on white: the QR code, large, in a scan frame, with three steps and
+        the address to type for those who cannot scan.
+
+        Laid out in millimetres, with absolute positions: wkhtmltopdf's old
+        WebKit has no flexbox or grid, and the card has one size. Styles in
+        `thank_card.scss` (report assets); names that sit inside a sentence
+        are put in by `sale.order._g2b_card_texts`, so that the sentence is
+        one translatable whole.
+    -->
+
+    <template id="thank_card_art" name="Thank-you card: gift box">
+        <svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="93" rx="30" ry="4" fill="#F7D9C9"/>
+            <rect x="18" y="46" width="64" height="44" rx="7" fill="#FD7352"/>
+            <rect x="23" y="51" width="5" height="28" rx="2.5" fill="#FFFFFF" fill-opacity=".28"/>
+            <rect x="13" y="34" width="74" height="16" rx="5" fill="#FF9474"/>
+            <rect x="44" y="34" width="12" height="16" fill="#FFD166"/>
+            <path d="M50 34 C 40 15, 21 19, 29 30 C 33 35, 43 35.5, 50 34 Z" fill="#FFD166"/>
+            <path d="M50 34 C 60 15, 79 19, 71 30 C 67 35, 57 35.5, 50 34 Z" fill="#FFD166"/>
+            <path d="M50 34 C 44 25, 33 24, 34 29.5 C 36 32.5, 44 33.5, 50 34 Z" fill="#F7B733"/>
+            <path d="M50 34 C 56 25, 67 24, 66 29.5 C 64 32.5, 56 33.5, 50 34 Z" fill="#F7B733"/>
+            <circle cx="50" cy="33.5" r="4.6" fill="#F5A623"/>
+            <ellipse cx="39" cy="64" rx="3.1" ry="3.7" fill="#3A2323"/>
+            <ellipse cx="61" cy="64" rx="3.1" ry="3.7" fill="#3A2323"/>
+            <circle cx="40.1" cy="62.6" r="1.1" fill="#FFFFFF"/>
+            <circle cx="62.1" cy="62.6" r="1.1" fill="#FFFFFF"/>
+            <ellipse cx="30.5" cy="71.5" rx="5" ry="3" fill="#FFB3B3"/>
+            <ellipse cx="69.5" cy="71.5" rx="5" ry="3" fill="#FFB3B3"/>
+            <path d="M45 70 Q 50 76 55 70" fill="none" stroke="#3A2323" stroke-width="2.2" stroke-linecap="round"/>
+            <path transform="translate(78 8) scale(.62)" fill="#FF8FA3"
+                  d="M12 21s-7.5-4.6-9.6-9.4C.9 7.9 3.3 4 7 4c2.1 0 3.6 1.1 5 3 1.4-1.9 2.9-3 5-3 3.7 0 6.1 3.9 4.6 7.6C19.5 16.4 12 21 12 21z"/>
+            <path transform="translate(90 26) scale(.34)" fill="#FFAE86"
+                  d="M12 21s-7.5-4.6-9.6-9.4C.9 7.9 3.3 4 7 4c2.1 0 3.6 1.1 5 3 1.4-1.9 2.9-3 5-3 3.7 0 6.1 3.9 4.6 7.6C19.5 16.4 12 21 12 21z"/>
+            <path transform="translate(6 10) scale(1.1)" fill="#8EC5FF"
+                  d="M5 0 C5.6 3.4 6.6 4.4 10 5 C6.6 5.6 5.6 6.6 5 10 C4.4 6.6 3.4 5.6 0 5 C3.4 4.4 4.4 3.4 5 0Z"/>
+            <path transform="translate(1 27) scale(.6)" fill="#FFD166"
+                  d="M5 0 C5.6 3.4 6.6 4.4 10 5 C6.6 5.6 5.6 6.6 5 10 C4.4 6.6 3.4 5.6 0 5 C3.4 4.4 4.4 3.4 5 0Z"/>
+        </svg>
+    </template>
+
+    <!-- Confetti on the cream panel, in the panel's millimetres, kept clear of the text. -->
+    <template id="thank_card_confetti" name="Thank-you card: confetti">
+        <svg class="o_g2b_tc_confetti" viewBox="0 0 140 97" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="3.6" cy="21" r="1.1" fill="#FD7352"/>
+            <circle cx="82.5" cy="45" r=".9" fill="#FFD166"/>
+            <circle cx="3.4" cy="62" r="1" fill="#8EC5FF"/>
+            <circle cx="47" cy="93.4" r=".9" fill="#FFAE86"/>
+            <circle cx="78" cy="93" r="1.2" fill="#FF8FA3"/>
+            <circle cx="36" cy="3.2" r=".8" fill="#1E8BFF"/>
+            <rect x="22" y="2" width="3.2" height="1.3" rx=".6" fill="#FFD166" transform="rotate(24 23.6 2.6)"/>
+            <rect x="3" y="80" width="3.2" height="1.3" rx=".6" fill="#FD7352" transform="rotate(-32 4.6 80.6)"/>
+            <rect x="82" y="64" width="3" height="1.2" rx=".6" fill="#8EC5FF" transform="rotate(48 83.5 64.6)"/>
+            <rect x="60" y="94" width="3" height="1.2" rx=".6" fill="#FFD166" transform="rotate(-16 61.5 94.6)"/>
+            <path transform="translate(81 77) scale(.17)" fill="#FF8FA3"
+                  d="M12 21s-7.5-4.6-9.6-9.4C.9 7.9 3.3 4 7 4c2.1 0 3.6 1.1 5 3 1.4-1.9 2.9-3 5-3 3.7 0 6.1 3.9 4.6 7.6C19.5 16.4 12 21 12 21z"/>
+        </svg>
+    </template>
+
+    <!-- The scan frame's four corners, around the QR code. -->
+    <template id="thank_card_scan_frame" name="Thank-you card: scan frame">
+        <svg class="o_g2b_tc_frame" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#FD7352" stroke-width="1" stroke-linecap="round">
+                <path d="M1 7 V3.5 A2.5 2.5 0 0 1 3.5 1 H7"/>
+                <path d="M35 1 H38.5 A2.5 2.5 0 0 1 41 3.5 V7"/>
+                <path d="M41 35 V38.5 A2.5 2.5 0 0 1 38.5 41 H35"/>
+                <path d="M7 41 H3.5 A2.5 2.5 0 0 1 1 38.5 V35"/>
+            </g>
+        </svg>
+    </template>
+
+    <!-- One card, at (g2b_x, g2b_y) mm on its page. -->
+    <template id="thank_card" name="Thank-you card">
+        <div class="o_g2b_tc" t-attf-style="left: #{g2b_x}mm; top: #{g2b_y}mm;">
+            <div class="o_g2b_tc_panel">
+                <t t-call="gif2box_review.thank_card_confetti"/>
+
+                <img t-if="card['logo']" class="o_g2b_tc_logo" t-att-src="card['logo']" alt="Gif2box"/>
+                <div class="o_g2b_tc_art">
+                    <t t-call="gif2box_review.thank_card_art"/>
+                </div>
+
+                <div class="o_g2b_tc_flow">
+                    <div class="o_g2b_tc_greeting" t-out="card['greeting']"/>
+                    <div class="o_g2b_tc_headline">A little box of love, just for you</div>
+                    <div class="o_g2b_tc_message" t-out="card['message']"/>
+                    <div class="o_g2b_tc_sign_label">With love,</div>
+                    <div class="o_g2b_tc_sign" t-out="card['signature']"/>
+                </div>
+
+                <div class="o_g2b_tc_footer">
+                    <span class="o_g2b_tc_footer_host" t-out="card['host']"/>
+                    <t t-if="card['phone']">
+                        <span class="o_g2b_tc_footer_dot">•</span>
+                        <span class="o_g2b_tc_footer_label">Hotline</span>
+                        <span class="o_g2b_tc_footer_phone" t-out="card['phone']"/>
+                    </t>
+                </div>
+
+                <div class="o_g2b_tc_qr_panel">
+                    <div class="o_g2b_tc_pill">Takes just a minute</div>
+                    <div class="o_g2b_tc_qr_title" t-out="card['qr_title']"/>
+                    <div class="o_g2b_tc_qr_wrap">
+                        <t t-call="gif2box_review.thank_card_scan_frame"/>
+                        <div class="o_g2b_tc_qr"><t t-out="card['qr']"/></div>
+                    </div>
+                    <div class="o_g2b_tc_steps">
+                        <div class="o_g2b_tc_step">
+                            <div class="o_g2b_tc_step_no">1</div>
+                            <div class="o_g2b_tc_step_text">Open the camera or Zalo on your phone</div>
+                        </div>
+                        <div class="o_g2b_tc_step">
+                            <div class="o_g2b_tc_step_no">2</div>
+                            <div class="o_g2b_tc_step_text">Point it at the code, then tap the link</div>
+                        </div>
+                        <div class="o_g2b_tc_step">
+                            <div class="o_g2b_tc_step_no">3</div>
+                            <div class="o_g2b_tc_step_text">Rate it, write a few words, add photos if you like</div>
+                        </div>
+                    </div>
+                    <div class="o_g2b_tc_url">
+                        <div class="o_g2b_tc_url_label">Or go to</div>
+                        <div class="o_g2b_tc_url_value" t-out="card['short_url']"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- A page: one card (A6), or up to four with the lines to cut along (A4). -->
+    <template id="thank_card_page" name="Thank-you card page">
+        <div t-attf-class="article o_g2b_tc_page #{'o_g2b_tc_page_sheet' if g2b_sheet else ''}"
+             t-att-data-oe-lang="g2b_lang">
+            <t t-foreach="g2b_page_cards" t-as="card">
+                <t t-set="g2b_x" t-value="(card_index % 2) * 148.5 if g2b_sheet else 0"/>
+                <t t-set="g2b_y" t-value="(card_index // 2) * 105 if g2b_sheet else 0"/>
+                <t t-call="gif2box_review.thank_card"/>
+            </t>
+            <t t-if="g2b_sheet">
+                <div class="o_g2b_tc_cut o_g2b_tc_cut_v"/>
+                <div class="o_g2b_tc_cut o_g2b_tc_cut_h"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="thank_card_pages" name="Thank-you card pages">
+        <t t-call="web.html_container">
+            <t t-set="g2b_cards" t-value="docs._g2b_thank_cards()"/>
+            <t t-set="g2b_lang" t-value="g2b_cards and g2b_cards[0]['lang'] or docs.env.lang"/>
+            <t t-set="g2b_per_page" t-value="4 if g2b_sheet else 1"/>
+            <t t-foreach="range(0, len(g2b_cards), g2b_per_page)" t-as="g2b_start">
+                <t t-set="g2b_page_cards" t-value="g2b_cards[g2b_start:g2b_start + g2b_per_page]"/>
+                <t t-call="gif2box_review.thank_card_page" t-lang="g2b_lang"/>
+            </t>
+            <div t-if="not g2b_cards" class="article o_g2b_tc_empty">
+                <p>There is no gift to print a card for: the order is cancelled, or it has no products.</p>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_thank_card">
+        <t t-call="gif2box_review.thank_card_pages">
+            <t t-set="g2b_sheet" t-value="False"/>
+        </t>
+    </template>
+
+    <template id="report_thank_card_sheet">
+        <t t-call="gif2box_review.thank_card_pages">
+            <t t-set="g2b_sheet" t-value="True"/>
+        </t>
+    </template>
+
+    <template id="report_thank_card_picking">
+        <t t-call="gif2box_review.thank_card_pages">
+            <t t-set="g2b_sheet" t-value="False"/>
+        </t>
+    </template>
+
+    <template id="report_thank_card_picking_sheet">
+        <t t-call="gif2box_review.thank_card_pages">
+            <t t-set="g2b_sheet" t-value="True"/>
+        </t>
+    </template>
+
+</odoo>

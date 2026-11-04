@@ -1,0 +1,416 @@
+///
+/// Reviews, shared: the stars, one review as the product page shows it,
+/// the small pills that lead to the review form, and the photo viewer.
+///
+/// The brand colours are declared by `gif2box_theme_home`; the defaults
+/// are the same values.
+///
+
+$g-coral: #FD7352 !default;
+$g-coral-dark: #E85A38 !default;
+$g-title: #004444 !default;
+$g-blue: #0B88FD !default;
+
+$g2b-star-on: #FFB400;
+$g2b-star-off: #E3E6EA;
+$g2b-ink: #2E3A3A;
+$g2b-muted: #6F7B7B;
+$g2b-line: #EFE8E2;
+$g2b-cream: #FFF7F1;
+$g2b-recipient: #12857A;
+
+// A rounded star (Lucide), as a mask.
+$g2b-star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z'/%3E%3C/svg%3E");
+
+@font-face {
+    font-family: 'G2B Baloo';
+    font-weight: 700;
+    font-display: swap;
+    src: url('/gif2box_review/static/fonts/Baloo2-700.woff2') format('woff2');
+}
+
+// --- Stars -------------------------------------------------------------------
+// Five stars on one element: a bar filled to `--g2b-fill`, seen through a
+// mask of five stars. Each tile is a little wider than its star: the gap.
+.o_g2b_stars {
+    --g2b-star: 1rem;
+    --g2b-tile: calc(var(--g2b-star) * 1.12);
+
+    display: inline-block;
+    flex: none;
+    width: calc(var(--g2b-tile) * 5 - var(--g2b-star) * .12);
+    height: var(--g2b-star);
+    vertical-align: -.15em;
+    background: linear-gradient(90deg, $g2b-star-on var(--g2b-fill, 0%), $g2b-star-off var(--g2b-fill, 0%));
+    -webkit-mask-image: $g2b-star-mask;
+    mask-image: $g2b-star-mask;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-size: var(--g2b-tile) var(--g2b-star);
+    mask-size: var(--g2b-tile) var(--g2b-star);
+}
+
+.o_g2b_stars_md {
+    --g2b-star: 1.3rem;
+}
+
+.o_g2b_stars_lg {
+    --g2b-star: 1.75rem;
+}
+
+// --- Pills: "Review", "Write a review", "Edit" ---------------------------------
+.o_g2b_rv_pill,
+.o_g2b_rv_pill_ghost {
+    display: inline-flex;
+    gap: .35rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.25rem;
+    padding: .35rem 1rem;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $white;
+    white-space: nowrap;
+    text-decoration: none;
+    background: $g-coral;
+    border: 1.5px solid $g-coral;
+    border-radius: 2rem;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        text-decoration: none;
+        background: $g-coral-dark;
+        border-color: $g-coral-dark;
+    }
+
+    &:active {
+        transform: scale(.97);
+    }
+}
+
+.o_g2b_rv_pill::before {
+    font-family: FontAwesome;
+    font-size: .8em;
+    content: "\f005";
+}
+
+.o_g2b_rv_pill_ghost {
+    color: $g-coral-dark;
+    background: $white;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background: $g-coral;
+    }
+}
+
+.o_g2b_rv_pill_done {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: .25rem .5rem;
+    text-decoration: none;
+    border-radius: 2rem;
+
+    &:hover {
+        background: $g2b-cream;
+    }
+}
+
+.o_g2b_rv_col {
+    white-space: nowrap;
+}
+
+// --- One review ----------------------------------------------------------------
+.o_g2b_rv {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $g2b-line;
+
+    &:first-child {
+        padding-top: .25rem;
+    }
+}
+
+.o_g2b_rv_head {
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+}
+
+.o_g2b_rv_avatar {
+    display: inline-flex;
+    flex: 0 0 2.6rem;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: rgba($black, .62);
+    border-radius: 50%;
+}
+
+.o_g2b_rv_who {
+    min-width: 0;
+}
+
+.o_g2b_rv_name_row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .5rem;
+    align-items: center;
+}
+
+.o_g2b_rv_name {
+    font-weight: 700;
+    color: $g2b-ink;
+}
+
+.o_g2b_rv_badge {
+    display: inline-flex;
+    gap: .25rem;
+    align-items: center;
+    padding: .1rem .55rem;
+    font-size: .72rem;
+    font-weight: 600;
+    line-height: 1.5;
+    border-radius: 1rem;
+
+    &::before {
+        font-size: .85em;
+    }
+}
+
+.o_g2b_rv_badge_buyer {
+    color: #B5431F;
+    background: #FFEDE6;
+
+    &::before {
+        content: "🎁";
+    }
+}
+
+.o_g2b_rv_badge_recipient {
+    color: #0E6B62;
+    background: #E2F5F1;
+
+    &::before {
+        content: "💝";
+    }
+}
+
+.o_g2b_rv_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .6rem;
+    align-items: center;
+    margin-top: .2rem;
+    font-size: .8rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rv_verified {
+    display: inline-flex;
+    gap: .25rem;
+    align-items: center;
+    color: #1F8A5B;
+
+    &::before {
+        font-family: FontAwesome;
+        content: "\f058";
+    }
+}
+
+.o_g2b_rv_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    padding: 0;
+    margin: .8rem 0 0;
+    list-style: none;
+}
+
+.o_g2b_rv_tag {
+    display: inline-flex;
+    gap: .3rem;
+    align-items: center;
+    padding: .2rem .65rem;
+    font-size: .8rem;
+    color: $g2b-ink;
+    background: $g2b-cream;
+    border: 1px solid #FBE3D6;
+    border-radius: 1rem;
+}
+
+.o_g2b_rv_comment_wrap {
+    margin-top: .7rem;
+}
+
+.o_g2b_rv_comment {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    line-height: 1.6;
+    color: $g2b-ink;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+
+    .is-open > & {
+        display: block;
+    }
+}
+
+.o_g2b_rv_readmore {
+    padding: 0;
+    margin-top: .3rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: $g-coral-dark;
+    background: none;
+    border: 0;
+
+    .o_g2b_rv_readmore_less,
+    .is-open > & .o_g2b_rv_readmore_more {
+        display: none;
+    }
+
+    .is-open > & .o_g2b_rv_readmore_less {
+        display: block;
+    }
+}
+
+.o_g2b_rv_photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .8rem;
+}
+
+.o_g2b_rv_photo {
+    flex: none;
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 0;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: $g2b-cream;
+    border: 0;
+    border-radius: .75rem;
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .25s ease;
+    }
+
+    &:hover img {
+        transform: scale(1.06);
+    }
+
+    &:focus-visible {
+        outline: 2px solid $g-coral;
+        outline-offset: 2px;
+    }
+}
+
+.o_g2b_rv_reply {
+    padding: .75rem 1rem;
+    margin-top: .9rem;
+    background: #F6F8F8;
+    border-left: 3px solid $g-coral;
+    border-radius: 0 .75rem .75rem 0;
+}
+
+.o_g2b_rv_reply_title {
+    margin-bottom: .2rem;
+    font-size: .8rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rv_reply_text {
+    margin: 0;
+    font-size: .9rem;
+    line-height: 1.55;
+    white-space: pre-line;
+}
+
+// --- Photo viewer ------------------------------------------------------------------
+.o_g2b_lightbox {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
+    margin: 0;
+    color: $white;
+    background: transparent;
+    border: 0;
+
+    &::backdrop {
+        background: rgba(10, 20, 20, .9);
+    }
+
+    &[open] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .o_g2b_lightbox_img {
+        max-width: unquote("min(92vw, 1100px)");
+        max-height: 82vh;
+        object-fit: contain;
+        border-radius: .75rem;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .4);
+    }
+
+    .o_g2b_lightbox_btn {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 1.4rem;
+        line-height: 1;
+        color: $white;
+        background: rgba(255, 255, 255, .14);
+        border: 0;
+        border-radius: 50%;
+
+        &:hover {
+            background: rgba(255, 255, 255, .28);
+        }
+    }
+
+    .o_g2b_lightbox_close {
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .o_g2b_lightbox_prev {
+        left: 1rem;
+    }
+
+    .o_g2b_lightbox_next {
+        right: 1rem;
+    }
+
+    .o_g2b_lightbox_count {
+        position: absolute;
+        bottom: 1.25rem;
+        left: 50%;
+        font-size: .9rem;
+        opacity: .8;
+        transform: translateX(-50%);
+    }
+}

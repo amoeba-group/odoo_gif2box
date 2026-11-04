@@ -1,0 +1,730 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_review
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 07:57+0000\n"
+"PO-Revision-Date: 2026-11-04 07:57+0000\n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"%(giver)s picked this gift with all their heart and asked us to bring it to "
+"you. Thank you, %(giver)s, for trusting Gif2box with your love, and thank "
+"you for opening this box with a smile!"
+msgstr "%(giver)sさんが心を込めてこのギフトを選び、Gif2boxにお届けを託してくださいました。%(giver)sさん、大切な想いを託してくださりありがとうございます。そして、笑顔でこの箱を開けてくれたあなたにも、ありがとう！"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/product_template.py:0
+msgid "%s reviews"
+msgstr "%s件のレビュー"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/product_template.py:0
+msgid "1 review"
+msgstr "1件のレビュー"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_add_label\">Add</span>"
+msgstr "<span class=\"o_g2b_rvf_add_label\">追加</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_submit_busy\">Sending...</span>"
+msgstr "<span class=\"o_g2b_rvf_submit_busy\">送信中...</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_switch_hint_label\">Shown as</span>"
+msgstr "<span class=\"o_g2b_rvf_switch_hint_label\">表示名:</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_switch_label\">Hide my name</span>"
+msgstr "<span class=\"o_g2b_rvf_switch_label\">名前を隠す</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "<span class=\"o_g2b_rvp_mine_label\">Your review</span>"
+msgstr "<span class=\"o_g2b_rvp_mine_label\">あなたのレビュー</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>All</span>"
+msgstr "<span>すべて</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>Gift givers</span>"
+msgstr "<span>贈った人</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>Gift recipients</span>"
+msgstr "<span>受け取った人</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>With photos</span>"
+msgstr "<span>写真あり</span>"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A Gif2box customer"
+msgstr "Gif2boxのお客様"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A gift from %s, with love"
+msgstr "%sさんからの心を込めたギフト"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "A little box of love, just for you"
+msgstr "あなただけに、愛をこめた小さな箱"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "A note for you"
+msgstr "あなたへのメッセージ"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A thank-you note to %s"
+msgstr "%sさんへのお礼メッセージ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Add photos"
+msgstr "写真を追加"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_on_time
+msgid "Arrived on time"
+msgstr "時間通りに届いた"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Back to my order"
+msgstr "注文に戻る"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_wrapping
+msgid "Beautifully wrapped"
+msgstr "ラッピングが素敵"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_careful
+msgid "Carefully packed"
+msgstr "丁寧な梱包"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Contact us"
+msgstr "お問い合わせ"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid "Dear %s,"
+msgstr "%sさんへ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Discover Gif2box"
+msgstr "Gif2boxを見てみる"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_easy
+msgid "Easy to order"
+msgstr "注文が簡単"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "Edit"
+msgstr "編集"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Edit my review"
+msgstr "レビューを編集"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid ""
+"Every review comes from a real order: its buyer, or the recipient who "
+"scanned the card in the box."
+msgstr "すべてのレビューは実際の注文から。購入者本人か、箱の中のカードを読み取った受取人によるものです。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Filter reviews"
+msgstr "レビューを絞り込む"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "From the people who gave this gift, and the people who received it."
+msgstr "このギフトを贈った人と、受け取った人の声です。"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__review_type__buyer
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Gift giver"
+msgstr "贈った人"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review_tag__review_type__buyer
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Gift givers"
+msgstr "贈った人"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__review_type__recipient
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Gift recipient"
+msgstr "受け取った人"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review_tag__review_type__recipient
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Gift recipients"
+msgstr "受け取った人"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Gifts in this order"
+msgstr "この注文のギフト"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Go to Gif2box"
+msgstr "Gif2boxへ"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_quality
+msgid "Great quality"
+msgstr "品質がいい"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Happy"
+msgstr "満足"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid "Hello there,"
+msgstr "こんにちは"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Hello!"
+msgstr "こんにちは！"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_helpful
+msgid "Helpful support"
+msgstr "対応が親切"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Hi %s!"
+msgstr "%sさん、こんにちは！"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"How did choosing and ordering go? How did they react when the gift arrived?"
+msgstr "ギフト選びと注文はスムーズでしたか？届いたとき、相手はどんな反応でしたか？"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"How did it feel to open it? Rate it, and send %s a thank-you note: it only "
+"takes a minute."
+msgstr "箱を開けたときの気持ちはいかがでしたか？評価して、%sさんにお礼のメッセージを送りましょう。1分で終わります。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"How did it go? Your review helps others choose a gift for someone they love."
+msgstr "いかがでしたか？あなたのレビューが、大切な人へのギフト選びの参考になります。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "How do you like your gift?"
+msgstr "ギフトはいかがでしたか？"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "How was giving it? Tell others in a minute."
+msgstr "ギフトを贈ってみていかがでしたか？1分で共有できます。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "How was giving this gift?"
+msgstr "ギフトを贈った体験はいかがでしたか？"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "How was your experience?"
+msgstr "体験はいかがでしたか？"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "It will show on the website once the shop has read it."
+msgstr "ショップが確認した後、サイトに表示されます。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "It's okay"
+msgstr "ふつう"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Keep shopping"
+msgstr "買い物を続ける"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Love it!"
+msgstr "大満足！"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_review_items
+msgid "No reviews match this filter yet."
+msgstr "この条件に合うレビューはまだありません。"
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_reviews
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "No reviews yet"
+msgstr "まだレビューはありません"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Not satisfied"
+msgstr "いまいち"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Only %s will see it, on their order. It is never shown on the website."
+msgstr "このメッセージは%sさんだけが注文ページで見られます。サイトには公開されません。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Open the camera or Zalo on your phone"
+msgstr "スマホのカメラかZaloを開く"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Optional"
+msgstr "任意"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Or go to"
+msgstr "またはこちらへ"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Order %s"
+msgstr "ご注文 %s"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Please wait a few minutes"
+msgstr "数分お待ちください"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Point it at the code, then tap the link"
+msgstr "コードに向けて、表示されたリンクをタップ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Rate it, write a few words, add photos if you like"
+msgstr "星をつけて、ひとこと。写真もどうぞ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Read more"
+msgstr "もっと見る"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Remove this photo"
+msgstr "この写真を削除"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Reply from Gif2box"
+msgstr "Gif2boxからの返信"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__comment
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__review_id
+#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Review"
+msgstr "レビュー"
+
+#. module: gif2box_review
+#: model:ir.actions.act_window,name:gif2box_review.action_reviews
+#: model:ir.model.fields,field_description:gif2box_review.field_product_product__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_product_template__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order_line__g2b_review_ids
+#: model:ir.ui.menu,name:gif2box_review.menu_reviews
+#: model:ir.ui.menu,name:gif2box_review.menu_reviews_root
+#: model:ir.ui.menu,name:gif2box_review.menu_sale_reviews
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_list
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Reviews"
+msgstr "レビュー"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid ""
+"Reviews here come from real orders only: from the people who gave this gift,"
+" and from the people who received it, by scanning the QR code on the thank-"
+"you card in the box."
+msgstr "ここに載るのは実際の注文からのレビューだけです。このギフトを贈った人と、箱の中のサンクスカードのQRコードを読み取った受取人が書いています。"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_safe
+msgid "Safe for my baby"
+msgstr "赤ちゃんに安心"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Save my review"
+msgstr "レビューを保存"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid ""
+"Scan the QR code on the card again, or check the address you typed: it is "
+"printed under the code."
+msgstr "カードのQRコードをもう一度読み取るか、入力したアドレスを確認してください。アドレスはコードの下に印刷されています。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Scan to say thank you\n"
+"and share how you feel"
+msgstr "スキャンして\nお礼と感想を送る"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Scan to share\n"
+"how you feel"
+msgstr "スキャンして\n感想を送る"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Send a gift to someone too"
+msgstr "大切な人にギフトを贈る"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Send my review"
+msgstr "レビューを送信"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Show less"
+msgstr "閉じる"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_review_items
+msgid "Show more reviews"
+msgstr "さらにレビューを見る"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_box
+msgid "Such a cute box"
+msgstr "箱がかわいい"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_card
+msgid "Sweet thank-you card"
+msgstr "かわいいサンクスカード"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Takes just a minute"
+msgstr "たった1分"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tap a star to give your rating."
+msgstr "星をタップして評価してください。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tap a star to rate"
+msgstr "星をタップして評価"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Tell us how you like it: it only takes a minute."
+msgstr "ギフトの感想を教えてください。1分で終わります。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tell us more"
+msgstr "感想をくわしく"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Thank you for choosing Gif2box to treat yourself. We packed this box with "
+"all the care we would give our own family, and we hope it brings you a big "
+"smile!"
+msgstr "ご自分へのご褒美にGif2boxを選んでいただき、ありがとうございます。家族に贈るような気持ちで丁寧にお包みしました。たくさんの笑顔が届きますように！"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Thank you so much for the gift, %s! ..."
+msgstr "%sさん、素敵なギフトをありがとう！..."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Thank you so much!"
+msgstr "本当にありがとうございます！"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "The box, or a photo the recipient sent you."
+msgstr "箱の写真や、相手から届いた写真など。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"The box, the gift, or you with it: a photo makes a review twice as lovely."
+msgstr "箱やギフト、ギフトと一緒のあなた。写真があるとレビューがもっと素敵になります。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "The recipient received the gift and said"
+msgstr "受け取った方からのひとこと"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid ""
+"There have been too many tries from this device. Try again in a few minutes."
+msgstr "この端末からの試行回数が多すぎます。数分後にもう一度お試しください。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid ""
+"There is a thank-you card in the box. When the recipient scans its QR code, "
+"they can rate the gift and send you a thank-you note: you will find it here."
+msgstr "箱の中にサンクスカードが入っています。受け取った方がQRコードを読み取ると、ギフトを評価してあなたにお礼のメッセージを送れます。メッセージはここに表示されます。"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_loved
+msgid "They loved it"
+msgstr "相手がとても喜んだ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "This file could not be read as a photo."
+msgstr "このファイルは写真として読み込めませんでした。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"This file could not be read as a photo: %s. Please choose a JPEG or PNG "
+"photo."
+msgstr "写真を読み込めませんでした: %s。JPEGかPNGの写真を選んでください。"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "This photo is too large: %s. Please choose one under 15 MB."
+msgstr "写真が大きすぎます: %s。15MB未満の写真を選んでください。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Verified gift"
+msgstr "受け取り済み"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Verified purchase"
+msgstr "購入済み"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Very disappointed"
+msgstr "とても残念"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "View photo"
+msgstr "写真を見る"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "We could not find this gift"
+msgstr "このギフトが見つかりませんでした"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_surprise
+msgid "What a lovely surprise"
+msgstr "うれしいサプライズ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "What did you feel when you opened the box? What did you like best?"
+msgstr "箱を開けたとき、どう感じましたか？一番気に入ったところは？"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "What stood out?"
+msgstr "良かったところは？"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "With love,"
+msgstr "心を込めて"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_value
+msgid "Worth the price"
+msgstr "価格以上の価値"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "Write a review"
+msgstr "レビューを書く"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "You can add up to %s photos."
+msgstr "写真は%s枚まで追加できます。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "You have added the most photos a review can have."
+msgstr "追加できる写真の上限に達しました。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "You have shared your review"
+msgstr "レビューを投稿しました"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Your Gif2box gift has arrived"
+msgstr "Gif2boxのギフトが届きました"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"Your gift to %s: how did it go? Your review helps others choose a gift for "
+"someone they love."
+msgstr "%sさんへのギフトはいかがでしたか？あなたのレビューが、大切な人へのギフト選びの参考になります。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your name, as shown with the review"
+msgstr "レビューに表示する名前"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Your note is on its way to %s."
+msgstr "メッセージは%sさんに届けられます。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your note to the giver stays private."
+msgstr "贈り主へのメッセージは公開されません。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your rating, words, name and photos will be shown on the product page."
+msgstr "評価・コメント・お名前・写真は商品ページに表示されます。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
+msgid "Your review"
+msgstr "あなたのレビュー"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review could not be sent. Check your connection and try again."
+msgstr "レビューを送信できませんでした。接続を確認して、もう一度お試しください。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"Your review helps others choose a gift for someone they love. Thank you for "
+"gifting with Gif2box."
+msgstr "あなたのレビューが、大切な人へのギフト選びの参考になります。Gif2boxでギフトを贈っていただき、ありがとうございます。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review is about"
+msgstr "レビューするギフト"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"Your review means a lot to the whole Gif2box team. We hope your gift brings "
+"you joy every day."
+msgstr "あなたのレビューはGif2boxチームの大きな励みになります。ギフトが毎日の喜びになりますように。"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review will show on the website once the shop has read it."
+msgstr "ショップが確認した後、サイトに表示されます。"

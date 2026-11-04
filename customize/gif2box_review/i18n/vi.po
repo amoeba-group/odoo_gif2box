@@ -1,0 +1,1330 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_review
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 07:57+0000\n"
+"PO-Revision-Date: 2026-11-04 07:57+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"%(giver)s picked this gift with all their heart and asked us to bring it to "
+"you. Thank you, %(giver)s, for trusting Gif2box with your love, and thank "
+"you for opening this box with a smile!"
+msgstr "%(giver)s đã chọn món quà này bằng cả trái tim và nhờ Gif2box mang đến tận tay bạn. Cảm ơn %(giver)s đã tin tưởng gửi gắm yêu thương qua Gif2box, và cảm ơn bạn đã đón nhận hộp quà bằng nụ cười thật tươi!"
+
+#. module: gif2box_review
+#. odoo-javascript
+#: code:addons/gif2box_review/static/src/js/rating_stars_field.js:0
+msgid "%s out of 5 stars"
+msgstr "%s trên 5 sao"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "%s photo(s)."
+msgstr "%s ảnh."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/product_template.py:0
+msgid "%s reviews"
+msgstr "%s đánh giá"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/product_template.py:0
+msgid "1 review"
+msgstr "1 đánh giá"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "3 stars or fewer"
+msgstr "Từ 3 sao trở xuống"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_add_label\">Add</span>"
+msgstr "<span class=\"o_g2b_rvf_add_label\">Thêm ảnh</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_submit_busy\">Sending...</span>"
+msgstr "<span class=\"o_g2b_rvf_submit_busy\">Đang gửi...</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_switch_hint_label\">Shown as</span>"
+msgstr "<span class=\"o_g2b_rvf_switch_hint_label\">Hiển thị là</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "<span class=\"o_g2b_rvf_switch_label\">Hide my name</span>"
+msgstr "<span class=\"o_g2b_rvf_switch_label\">Ẩn tên của tôi</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "<span class=\"o_g2b_rvp_mine_label\">Your review</span>"
+msgstr "<span class=\"o_g2b_rvp_mine_label\">Đánh giá của bạn</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "<span class=\"o_stat_text\">Order</span>"
+msgstr "<span class=\"o_stat_text\">Đơn hàng</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>All</span>"
+msgstr "<span>Tất cả</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>Gift givers</span>"
+msgstr "<span>Người tặng</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>Gift recipients</span>"
+msgstr "<span>Người nhận</span>"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "<span>With photos</span>"
+msgstr "<span>Có hình ảnh</span>"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A Gif2box customer"
+msgstr "Khách hàng Gif2box"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A gift from %s, with love"
+msgstr "Món quà yêu thương từ %s"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "A little box of love, just for you"
+msgstr "Một chút yêu thương, gửi riêng đến bạn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "A note for you"
+msgstr "Lời nhắn gửi bạn"
+
+#. module: gif2box_review
+#: model:ir.model.constraint,message:gif2box_review.constraint_gif2box_review_rating_range
+msgid "A rating is from 1 to 5 stars."
+msgstr "Số sao phải từ 1 đến 5."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "A review can have at most %s photos."
+msgstr "Mỗi đánh giá có tối đa %s ảnh."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "A thank-you note to %s"
+msgstr "Lời cảm ơn gửi %s"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "About"
+msgstr "Đánh giá về"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__active
+msgid "Active"
+msgstr "Đang dùng"
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_review_tags
+msgid "Add a highlight"
+msgstr "Thêm điểm nổi bật"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Add photos"
+msgstr "Thêm hình ảnh"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__source__shop
+msgid "Added by the shop"
+msgstr "Do shop thêm"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "All"
+msgstr "Tất cả"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_res_config_settings__g2b_review_moderate
+msgid "Approve Reviews First"
+msgstr "Duyệt đánh giá trước khi hiển thị"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_on_time
+msgid "Arrived on time"
+msgstr "Giao đúng hẹn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Back to my order"
+msgstr "Quay lại đơn hàng"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_wrapping
+msgid "Beautifully wrapped"
+msgstr "Gói quà đẹp"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review_tag__review_type__both
+msgid "Both"
+msgstr "Cả hai"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "By gift givers"
+msgstr "Của người tặng quà"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "By gift recipients"
+msgstr "Của người nhận quà"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_careful
+msgid "Carefully packed"
+msgstr "Đóng gói cẩn thận"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__color
+msgid "Colour"
+msgstr "Màu"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__partner_id
+msgid "Contact"
+msgstr "Liên hệ"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Contact us"
+msgstr "Liên hệ"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__create_uid
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__create_uid
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__create_uid
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__create_date
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__create_date
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__create_date
+msgid "Created on"
+msgstr "Được tạo vào"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+msgid "Customer reviews"
+msgstr "Đánh giá của khách hàng"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__review_date
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Date"
+msgstr "Ngày"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid "Dear %s,"
+msgstr "Gửi %s thân mến,"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Discover Gif2box"
+msgstr "Khám phá Gif2box"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__display_name
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__display_name
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_easy
+msgid "Easy to order"
+msgstr "Đặt hàng dễ dàng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "Edit"
+msgstr "Sửa"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Edit my review"
+msgstr "Sửa đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__edited_date
+msgid "Edited by the Customer On"
+msgstr "Khách sửa lần cuối lúc"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__icon
+msgid "Emoji"
+msgstr "Biểu tượng cảm xúc"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid ""
+"Every review comes from a real order: its buyer, or the recipient who "
+"scanned the card in the box."
+msgstr "Mọi đánh giá đều đến từ đơn hàng thật: của chính người mua, hoặc của người nhận đã quét mã trên thiệp trong hộp quà."
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__name
+msgid "File Name"
+msgstr "Tên tệp"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Filter reviews"
+msgstr "Lọc đánh giá"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+msgid ""
+"From gift givers (their orders) and from recipients (the QR code of the "
+"thank-you card)"
+msgstr "Từ người tặng quà (trong đơn hàng của họ) và từ người nhận quà (mã QR trên thiệp cảm ơn)"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "From the people who gave this gift, and the people who received it."
+msgstr "Từ những người đã tặng món quà này và những người đã nhận được nó."
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__review_type__buyer
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Gift giver"
+msgstr "Người tặng quà"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__review_type
+msgid ""
+"Gift giver: the customer who ordered, about giving this gift. Gift "
+"recipient: the person who received it, from the QR code of the thank-you "
+"card in the box."
+msgstr "Người tặng quà: khách đã đặt hàng, đánh giá trải nghiệm tặng món quà này. Người nhận quà: người đã nhận được quà, đánh giá qua mã QR trên thiệp cảm ơn trong hộp."
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review_tag__review_type__buyer
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Gift givers"
+msgstr "Người tặng quà"
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_reviews
+msgid ""
+"Gift givers review their order from \"My orders\" once it has left. Recipients\n"
+"                scan the QR code of the thank-you card in the box: print the cards from the order\n"
+"                or the delivery order (\"Thank-you card\")."
+msgstr "Người tặng quà đánh giá đơn hàng của mình trong \"Đơn hàng của tôi\" khi đơn đã được gửi đi. Người nhận quà quét mã QR trên thiệp cảm ơn trong hộp: in thiệp từ đơn bán hàng hoặc phiếu giao hàng (nút \"Thiệp cảm ơn\")."
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__review_type__recipient
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Gift recipient"
+msgstr "Người nhận quà"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review_tag__review_type__recipient
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "Gift recipients"
+msgstr "Người nhận quà"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Gifts in this order"
+msgstr "Các món quà trong đơn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Go to Gif2box"
+msgstr "Đến Gif2box"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_quality
+msgid "Great quality"
+msgstr "Chất lượng tuyệt vời"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Group By"
+msgstr "Nhóm theo"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Happy"
+msgstr "Hài lòng"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid "Hello there,"
+msgstr "Gửi bạn thân mến,"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Hello!"
+msgstr "Xin chào!"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_helpful
+msgid "Helpful support"
+msgstr "Tư vấn nhiệt tình"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Hi %s!"
+msgstr "Chào %s!"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_kanban
+msgid "Hidden"
+msgstr "Đã ẩn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Hidden or waiting"
+msgstr "Đã ẩn hoặc chờ duyệt"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__is_anonymous
+msgid "Hide Name"
+msgstr "Ẩn tên"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Hide from the website"
+msgstr "Ẩn khỏi website"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__name
+msgid "Highlight"
+msgstr "Điểm nổi bật"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__tag_ids
+#: model:ir.ui.menu,name:gif2box_review.menu_review_tags
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_tag_list
+msgid "Highlights"
+msgstr "Điểm nổi bật"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Highlights..."
+msgstr "Điểm nổi bật..."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"How did choosing and ordering go? How did they react when the gift arrived?"
+msgstr "Chọn quà và đặt hàng có dễ dàng không? Người nhận phản ứng thế nào khi nhận được quà?"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"How did it feel to open it? Rate it, and send %s a thank-you note: it only "
+"takes a minute."
+msgstr "Bạn cảm thấy thế nào khi mở hộp quà? Hãy chấm điểm và gửi lời cảm ơn tới %s nhé, chỉ mất 1 phút thôi."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"How did it go? Your review helps others choose a gift for someone they love."
+msgstr "Mọi thứ thế nào? Đánh giá của bạn sẽ giúp người khác chọn được món quà ý nghĩa cho người thân yêu."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "How do you like your gift?"
+msgstr "Bạn thấy món quà thế nào?"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "How was giving it? Tell others in a minute."
+msgstr "Trải nghiệm tặng quà thế nào? Chia sẻ chỉ trong 1 phút."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "How was giving this gift?"
+msgstr "Trải nghiệm tặng quà của bạn thế nào?"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "How was your experience?"
+msgstr "Trải nghiệm của bạn thế nào?"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__image_1920
+msgid "Image"
+msgstr "Hình ảnh"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_sale_order_line__g2b_review_code
+msgid ""
+"In the QR code of the thank-you card: opens the page where the recipient "
+"reviews this gift."
+msgstr "Nằm trong mã QR của thiệp cảm ơn: mở trang để người nhận đánh giá món quà này."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "It will show on the website once the shop has read it."
+msgstr "Đánh giá sẽ hiển thị trên website sau khi shop xem xong."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "It's okay"
+msgstr "Bình thường"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Keep shopping"
+msgstr "Tiếp tục mua sắm"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__write_uid
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__write_uid
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__write_date
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__write_date
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Love it!"
+msgstr "Tuyệt vời, rất thích!"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Month"
+msgstr "Tháng"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__author_name
+msgid "Name"
+msgstr "Tên"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "New review by %(who)s: %(stars)s"
+msgstr "Đánh giá mới của %(who)s: %(stars)s"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_kanban
+msgid "No photo"
+msgstr "Không có ảnh"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_review_items
+msgid "No reviews match this filter yet."
+msgstr "Chưa có đánh giá nào phù hợp với bộ lọc này."
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_reviews
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid "No reviews yet"
+msgstr "Chưa có đánh giá nào"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Not replied to"
+msgstr "Chưa phản hồi"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Not satisfied"
+msgstr "Chưa hài lòng"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__thanks_note
+msgid "Note to the Gift Giver"
+msgstr "Lời nhắn gửi người tặng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Note to the giver"
+msgstr "Lời nhắn gửi người tặng"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Note to the giver:"
+msgstr "Lời nhắn gửi người tặng:"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__image_count
+msgid "Number of Photos"
+msgstr "Số ảnh"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_product_product__g2b_review_count
+#: model:ir.model.fields,field_description:gif2box_review.field_product_template__g2b_review_count
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order__g2b_review_count
+msgid "Number of Reviews"
+msgstr "Số đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_product_product__g2b_rating_avg
+#: model:ir.model.fields,help:gif2box_review.field_product_template__g2b_rating_avg
+msgid "Of the published reviews."
+msgstr "Tính trên các đánh giá đang hiển thị."
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_res_config_settings__g2b_review_moderate
+msgid ""
+"Off: a review shows on the product page as soon as it is written; the shop "
+"can still hide it. On: it waits until the shop publishes it."
+msgstr "Tắt: đánh giá hiện trên trang sản phẩm ngay khi được gửi, shop vẫn có thể ẩn đi. Bật: đánh giá chờ shop duyệt rồi mới hiển thị."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+msgid ""
+"Off: reviews show as soon as they are written, and you can hide one at any time.\n"
+"                        On: each waits for you to publish it."
+msgstr "Tắt: đánh giá hiển thị ngay khi khách gửi, bạn có thể ẩn bất kỳ lúc nào. Bật: mỗi đánh giá chờ bạn duyệt rồi mới hiển thị."
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__review_type
+msgid "Offered To"
+msgstr "Dành cho"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Only %s will see it, on their order. It is never shown on the website."
+msgstr "Chỉ %s nhìn thấy lời nhắn này trong đơn hàng của họ, không hiển thị công khai trên website."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Open the camera or Zalo on your phone"
+msgstr "Mở Camera hoặc Zalo trên điện thoại"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Optional"
+msgstr "Không bắt buộc"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Or go to"
+msgstr "Hoặc truy cập"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__order_id
+msgid "Order"
+msgstr "Đơn hàng"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Order %s"
+msgstr "Đơn hàng %s"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__order_line_id
+msgid "Order Line"
+msgstr "Dòng đơn hàng"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__source__order
+msgid "Order history"
+msgstr "Lịch sử đơn hàng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_kanban
+msgid "Photo"
+msgstr "Ảnh"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__image_ids
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_list
+msgid "Photos"
+msgstr "Ảnh"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "Please wait a few minutes"
+msgstr "Vui lòng đợi vài phút"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Point it at the code, then tap the link"
+msgstr "Hướng vào mã QR rồi chạm vào đường link hiện ra"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_picking_form
+msgid ""
+"Print the card that goes in the box, with the QR code the recipient scans to"
+" leave a review."
+msgstr "In thiệp đặt vào hộp quà, có mã QR để người nhận quét và để lại đánh giá."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Private: shown to the buyer on their order, never on the product page."
+msgstr "Riêng tư: chỉ người mua thấy trong đơn hàng của họ, không bao giờ hiện trên trang sản phẩm."
+
+#. module: gif2box_review
+#: model:ir.model,name:gif2box_review.model_product_template
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__product_tmpl_id
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Product"
+msgstr "Sản phẩm"
+
+#. module: gif2box_review
+#: model:ir.model,name:gif2box_review.model_gif2box_review
+msgid "Product Review"
+msgstr "Đánh giá sản phẩm"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Publish"
+msgstr "Hiển thị"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__is_published
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Published"
+msgstr "Đang hiển thị"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_product_product__g2b_rating_count
+#: model:ir.model.fields,field_description:gif2box_review.field_product_template__g2b_rating_count
+msgid "Published Reviews"
+msgstr "Đánh giá đang hiển thị"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Rate it, write a few words, add photos if you like"
+msgstr "Chấm sao, viết vài dòng và thêm ảnh nếu bạn thích"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__rating
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Rating"
+msgstr "Số sao"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__rating_label
+msgid "Rating Label"
+msgstr "Mức đánh giá"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Read more"
+msgstr "Xem thêm"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order_line__g2b_review_code
+msgid "Recipient Review Code"
+msgstr "Mã đánh giá của người nhận"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Remove this photo"
+msgstr "Xoá ảnh này"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_list
+msgid "Replied"
+msgstr "Đã phản hồi"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__reply_date
+msgid "Replied On"
+msgstr "Phản hồi lúc"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Reply from Gif2box"
+msgstr "Phản hồi từ Gif2box"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__comment
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__review_id
+#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Review"
+msgstr "Đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__review_count
+msgid "Review Count"
+msgstr "Số lượt đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model,name:gif2box_review.model_gif2box_review_tag
+msgid "Review Highlight"
+msgstr "Điểm nổi bật của đánh giá"
+
+#. module: gif2box_review
+#: model:ir.actions.act_window,name:gif2box_review.action_review_tags
+msgid "Review Highlights"
+msgstr "Điểm nổi bật của đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model,name:gif2box_review.model_gif2box_review_image
+msgid "Review Photo"
+msgstr "Ảnh đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_product_product__g2b_rating_avg
+#: model:ir.model.fields,field_description:gif2box_review.field_product_template__g2b_rating_avg
+msgid "Review Rating"
+msgstr "Điểm đánh giá"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Review edited by %(who)s: %(stars)s"
+msgstr "Đánh giá được %(who)s sửa: %(stars)s"
+
+#. module: gif2box_review
+#: model:ir.actions.act_window,name:gif2box_review.action_reviews
+#: model:ir.model.fields,field_description:gif2box_review.field_product_product__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_product_template__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order__g2b_review_ids
+#: model:ir.model.fields,field_description:gif2box_review.field_sale_order_line__g2b_review_ids
+#: model:ir.ui.menu,name:gif2box_review.menu_reviews
+#: model:ir.ui.menu,name:gif2box_review.menu_reviews_root
+#: model:ir.ui.menu,name:gif2box_review.menu_sale_reviews
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:gif2box_review.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_list
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Reviews"
+msgstr "Đánh giá"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+msgid ""
+"Reviews here come from real orders only: from the people who gave this gift,"
+" and from the people who received it, by scanning the QR code on the thank-"
+"you card in the box."
+msgstr "Đánh giá ở đây chỉ đến từ đơn hàng thật: từ những người đã tặng món quà này, và từ người nhận quà khi quét mã QR trên thiệp cảm ơn trong hộp."
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_safe
+msgid "Safe for my baby"
+msgstr "An toàn cho bé"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Save my review"
+msgstr "Lưu đánh giá"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid ""
+"Scan the QR code on the card again, or check the address you typed: it is "
+"printed under the code."
+msgstr "Bạn thử quét lại mã QR trên thiệp, hoặc kiểm tra địa chỉ đã nhập: địa chỉ được in ngay dưới mã."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Scan to say thank you\n"
+"and share how you feel"
+msgstr "Quét mã để gửi lời cảm ơn\n& chia sẻ cảm nhận"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Scan to share\n"
+"how you feel"
+msgstr "Quét mã để chia sẻ\ncảm nhận của bạn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Send a gift to someone too"
+msgstr "Gửi tặng một món quà cho người thương"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Send my review"
+msgstr "Gửi đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_image__sequence
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review_tag__sequence
+msgid "Sequence"
+msgstr "Thứ tự"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__reply
+msgid "Shop Reply"
+msgstr "Phản hồi của shop"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Shop reply"
+msgstr "Phản hồi của shop"
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_review_tags
+msgid ""
+"Short phrases reviewers tap instead of typing, like \"Beautifully wrapped\"."
+msgstr "Các cụm từ ngắn để khách chạm chọn thay vì gõ, ví dụ \"Gói quà đẹp\"."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Show less"
+msgstr "Thu gọn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_review_items
+msgid "Show more reviews"
+msgstr "Xem thêm đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__display_author
+msgid "Shown As"
+msgstr "Hiển thị là"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review_tag__icon
+msgid "Shown before the highlight, like 🎁."
+msgstr "Hiện trước điểm nổi bật, ví dụ 🎁."
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__is_published
+msgid "Shown on the product page."
+msgstr "Hiện trên trang sản phẩm."
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__is_anonymous
+msgid "Shown on the website as initials, like \"N***h\"."
+msgstr "Trên website chỉ hiện chữ cái đầu và cuối, ví dụ \"N***h\"."
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__reply
+msgid "Shown under the review on the product page."
+msgstr "Hiện bên dưới đánh giá trên trang sản phẩm."
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__source
+msgid "Source"
+msgstr "Nguồn"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_box
+msgid "Such a cute box"
+msgstr "Hộp quà xinh xắn"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_card
+msgid "Sweet thank-you card"
+msgstr "Thiệp cảm ơn dễ thương"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "Takes just a minute"
+msgstr "Chỉ mất 1 phút thôi"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tap a star to give your rating."
+msgstr "Bạn hãy chạm vào ngôi sao để chấm điểm nhé."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tap a star to rate"
+msgstr "Chạm vào ngôi sao để chấm điểm"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Tell us how you like it: it only takes a minute."
+msgstr "Hãy cho chúng mình biết bạn thích món quà thế nào nhé, chỉ mất 1 phút thôi."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Tell us more"
+msgstr "Chia sẻ thêm cảm nhận"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid ""
+"Thank them, or answer a concern. Shown under the review on the product page."
+msgstr "Cảm ơn khách, hoặc giải đáp thắc mắc. Hiện bên dưới đánh giá trên trang sản phẩm."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/sale_order.py:0
+msgid ""
+"Thank you for choosing Gif2box to treat yourself. We packed this box with "
+"all the care we would give our own family, and we hope it brings you a big "
+"smile!"
+msgstr "Cảm ơn bạn đã chọn Gif2box để tự thưởng cho mình. Chúng mình đã gói hộp quà này chu đáo như gửi cho chính người thân, mong rằng nó sẽ mang đến cho bạn thật nhiều niềm vui!"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Thank you so much for the gift, %s! ..."
+msgstr "Cảm ơn %s nhiều lắm vì món quà này! ..."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Thank you so much!"
+msgstr "Cảm ơn bạn rất nhiều!"
+
+#. module: gif2box_review
+#: model:ir.model.fields.selection,name:gif2box_review.selection__gif2box_review__source__card
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_order_form
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_picking_form
+msgid "Thank-you card"
+msgstr "Thiệp cảm ơn"
+
+#. module: gif2box_review
+#: model:ir.actions.report,name:gif2box_review.action_report_thank_card
+#: model:ir.actions.report,name:gif2box_review.action_report_thank_card_picking
+msgid "Thank-you card (A6)"
+msgstr "Thiệp cảm ơn (A6)"
+
+#. module: gif2box_review
+#: model:ir.actions.report,name:gif2box_review.action_report_thank_card_picking_sheet
+#: model:ir.actions.report,name:gif2box_review.action_report_thank_card_sheet
+msgid "Thank-you cards (4 per A4 sheet)"
+msgstr "Thiệp cảm ơn (4 thiệp/tờ A4)"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "The box, or a photo the recipient sent you."
+msgstr "Ảnh hộp quà, hoặc ảnh người nhận gửi cho bạn."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"The box, the gift, or you with it: a photo makes a review twice as lovely."
+msgstr "Hộp quà, món quà, hay chính bạn bên món quà: một tấm ảnh làm đánh giá thêm đáng yêu gấp đôi."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "The recipient received the gift and said"
+msgstr "Người nhận đã nhận quà và nhắn rằng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid ""
+"There have been too many tries from this device. Try again in a few minutes."
+msgstr "Thiết bị này đã thử quá nhiều lần. Bạn vui lòng thử lại sau vài phút."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid ""
+"There is a thank-you card in the box. When the recipient scans its QR code, "
+"they can rate the gift and send you a thank-you note: you will find it here."
+msgstr "Trong hộp quà có một tấm thiệp cảm ơn. Khi người nhận quét mã QR trên thiệp, họ có thể chấm điểm món quà và gửi lời cảm ơn đến bạn: bạn sẽ thấy lời nhắn ngay tại đây."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card_pages
+msgid ""
+"There is no gift to print a card for: the order is cancelled, or it has no "
+"products."
+msgstr "Không có món quà nào để in thiệp: đơn hàng đã bị huỷ hoặc không có sản phẩm."
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_loved
+msgid "They loved it"
+msgstr "Người nhận rất thích"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "This file could not be read as a photo."
+msgstr "Không đọc được tệp này dưới dạng ảnh."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"This file could not be read as a photo: %s. Please choose a JPEG or PNG "
+"photo."
+msgstr "Không đọc được ảnh: %s. Bạn vui lòng chọn ảnh JPEG hoặc PNG."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "This photo is too large: %s. Please choose one under 15 MB."
+msgstr "Ảnh quá lớn: %s. Bạn vui lòng chọn ảnh dưới 15 MB."
+
+#. module: gif2box_review
+#: model:ir.model.constraint,message:gif2box_review.constraint_gif2box_review_line_type_uniq
+msgid "This product of this order already has a review of this kind."
+msgstr "Sản phẩm này của đơn hàng đã có đánh giá loại này."
+
+#. module: gif2box_review
+#: model:ir.model.constraint,message:gif2box_review.constraint_sale_order_line_g2b_review_code_uniq
+msgid "Two order lines cannot share a review code."
+msgstr "Hai dòng đơn hàng không được dùng chung mã đánh giá."
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__product_id
+msgid "Variant"
+msgstr "Biến thể"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__verified
+msgid "Verified"
+msgstr "Đã xác thực"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Verified gift"
+msgstr "Đã nhận quà"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "Verified purchase"
+msgstr "Đã mua hàng"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/models/review.py:0
+msgid "Very disappointed"
+msgstr "Rất thất vọng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.product_reviews_section
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_item
+msgid "View photo"
+msgstr "Xem ảnh"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.gift_not_found
+msgid "We could not find this gift"
+msgstr "Không tìm thấy món quà này"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_recipient_surprise
+msgid "What a lovely surprise"
+msgstr "Bất ngờ và cảm động"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "What did you feel when you opened the box? What did you like best?"
+msgstr "Bạn cảm thấy thế nào khi mở hộp quà? Bạn thích nhất điều gì?"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "What stood out?"
+msgstr "Điều gì làm bạn ấn tượng?"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__thanks_note
+msgid ""
+"What the recipient wrote to the person who sent the gift. Never shown on the"
+" product page: only the buyer sees it, on their order."
+msgstr "Những gì người nhận viết cho người đã tặng quà. Không bao giờ hiện trên trang sản phẩm: chỉ người mua thấy, trong đơn hàng của họ."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "What they wrote..."
+msgstr "Nội dung khách viết..."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_form
+msgid "Who"
+msgstr "Người viết"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "With a note to the giver"
+msgstr "Có lời nhắn gửi người tặng"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.thank_card
+msgid "With love,"
+msgstr "Thương mến,"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "With photos"
+msgstr "Có hình ảnh"
+
+#. module: gif2box_review
+#: model:gif2box.review.tag,name:gif2box_review.tag_buyer_value
+msgid "Worth the price"
+msgstr "Đáng đồng tiền"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.order_review_panel
+msgid "Write a review"
+msgstr "Viết đánh giá"
+
+#. module: gif2box_review
+#: model:ir.model.fields,field_description:gif2box_review.field_gif2box_review__review_type
+msgid "Written By"
+msgstr "Người viết"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.view_review_search
+msgid "Written by"
+msgstr "Người viết"
+
+#. module: gif2box_review
+#: model:ir.model.fields,help:gif2box_review.field_gif2box_review__verified
+msgid ""
+"Written from a real order: by its buyer, or with the code of its thank-you "
+"card."
+msgstr "Được viết từ đơn hàng thật: bởi người mua, hoặc bằng mã trên thiệp cảm ơn của đơn."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "You can add up to %s photos."
+msgstr "Bạn có thể thêm tối đa %s ảnh."
+
+#. module: gif2box_review
+#: model_terms:ir.actions.act_window,help:gif2box_review.action_reviews
+msgid "You can also add a review here, for one sent by chat or email."
+msgstr "Bạn cũng có thể tự thêm đánh giá ở đây, ví dụ đánh giá khách gửi qua chat hoặc email."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "You have added the most photos a review can have."
+msgstr "Bạn đã thêm đủ số ảnh tối đa cho một đánh giá."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "You have shared your review"
+msgstr "Bạn đã gửi đánh giá"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Your Gif2box gift has arrived"
+msgstr "Món quà Gif2box của bạn đã đến rồi!"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid ""
+"Your gift to %s: how did it go? Your review helps others choose a gift for "
+"someone they love."
+msgstr "Món quà bạn gửi tới %s thế nào rồi? Đánh giá của bạn sẽ giúp người khác chọn được món quà ý nghĩa cho người thân yêu."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your name, as shown with the review"
+msgstr "Tên hiển thị cùng đánh giá"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "Your note is on its way to %s."
+msgstr "Lời cảm ơn của bạn đang trên đường đến với %s."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your note to the giver stays private."
+msgstr "Lời nhắn gửi người tặng được giữ riêng tư."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your rating, words, name and photos will be shown on the product page."
+msgstr "Số sao, nội dung, tên và ảnh của bạn sẽ hiển thị trên trang sản phẩm."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.portal_my_orders_review
+msgid "Your review"
+msgstr "Đánh giá của bạn"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review could not be sent. Check your connection and try again."
+msgstr "Chưa gửi được đánh giá. Bạn kiểm tra kết nối mạng rồi thử lại nhé."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"Your review helps others choose a gift for someone they love. Thank you for "
+"gifting with Gif2box."
+msgstr "Đánh giá của bạn sẽ giúp người khác chọn được món quà ý nghĩa cho người thân yêu. Cảm ơn bạn đã tặng quà cùng Gif2box."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review is about"
+msgstr "Đánh giá cho sản phẩm"
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid ""
+"Your review means a lot to the whole Gif2box team. We hope your gift brings "
+"you joy every day."
+msgstr "Đánh giá của bạn rất có ý nghĩa với cả đội ngũ Gif2box. Chúc bạn thật nhiều niềm vui cùng món quà mỗi ngày."
+
+#. module: gif2box_review
+#: model_terms:ir.ui.view,arch_db:gif2box_review.review_page
+msgid "Your review will show on the website once the shop has read it."
+msgstr "Đánh giá của bạn sẽ hiển thị trên website sau khi shop xem xong."
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "the gift giver"
+msgstr "người tặng quà"
+
+#. module: gif2box_review
+#. odoo-python
+#: code:addons/gif2box_review/controllers/main.py:0
+msgid "the recipient"
+msgstr "người nhận quà"

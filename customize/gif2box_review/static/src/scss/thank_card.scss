@@ -1,0 +1,358 @@
+///
+/// The thank-you card (`report/thank_card_templates.xml`), as wkhtmltopdf
+/// prints it: A6 landscape, everything in millimetres and placed
+/// absolutely, no flexbox, no grid, no custom properties (its WebKit has
+/// none of them). The fonts are TrueType, the only format it reliably
+/// reads; all three are under the SIL Open Font License
+/// (`static/fonts/OFL-*.txt`).
+///
+
+@font-face {
+    font-family: 'G2B Baloo';
+    font-weight: 700;
+    src: url('/gif2box_review/static/fonts/Baloo2-700.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'G2B Baloo';
+    font-weight: 800;
+    src: url('/gif2box_review/static/fonts/Baloo2-800.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'G2B Quicksand';
+    font-weight: 500;
+    src: url('/gif2box_review/static/fonts/Quicksand-500.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'G2B Quicksand';
+    font-weight: 600;
+    src: url('/gif2box_review/static/fonts/Quicksand-600.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'G2B Quicksand';
+    font-weight: 700;
+    src: url('/gif2box_review/static/fonts/Quicksand-700.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'G2B Script';
+    font-weight: 700;
+    src: url('/gif2box_review/static/fonts/DancingScript-700.ttf') format('truetype');
+}
+
+$tc-coral: #FD7352;
+$tc-coral-dark: #E85A38;
+$tc-teal: #004444;
+$tc-blue: #0D5BB5;
+$tc-ink: #34403F;
+$tc-muted: #7D8988;
+$tc-cream: #FFF6EE;
+$tc-peach: #FFE2D6;
+
+// Fonts for the scripts the brand fonts lack (Japanese, Korean), last.
+$tc-body: 'G2B Quicksand', 'Roboto', 'Noto Sans CJK JP', 'Noto Sans CJK KR', sans-serif;
+$tc-display: 'G2B Baloo', 'Roboto', 'Noto Sans CJK JP', 'Noto Sans CJK KR', sans-serif;
+
+// --- Pages -----------------------------------------------------------------
+
+.o_g2b_tc_page {
+    position: relative;
+    width: 148mm;
+    height: 105mm;
+    overflow: hidden;
+    background: #FFFFFF;
+}
+
+.o_g2b_tc_page_sheet {
+    width: 297mm;
+    height: 210mm;
+}
+
+// In the PDF each page is a document of its own: pinned to its corner,
+// clear of the body's padding.
+.o_body_pdf .o_g2b_tc_page {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+// The HTML preview stacks the pages.
+.o_body_html .o_g2b_tc_page {
+    margin: 0 auto 8mm;
+    box-shadow: 0 1mm 4mm rgba(0, 0, 0, .12);
+}
+
+.o_g2b_tc_cut {
+    position: absolute;
+    border: 0 dashed #A9B3B3;
+}
+
+.o_g2b_tc_cut_v {
+    top: 0;
+    left: 148.25mm;
+    width: 0;
+    height: 210mm;
+    border-left-width: .3mm;
+}
+
+.o_g2b_tc_cut_h {
+    top: 105mm;
+    left: 0;
+    width: 297mm;
+    height: 0;
+    border-top-width: .3mm;
+}
+
+.o_g2b_tc_empty {
+    padding: 20mm;
+    font-family: $tc-body;
+    font-size: 12pt;
+    color: $tc-ink;
+}
+
+// --- The card --------------------------------------------------------------
+
+.o_g2b_tc {
+    position: absolute;
+    width: 148mm;
+    height: 105mm;
+    font-family: $tc-body;
+    color: $tc-ink;
+    background: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+}
+
+// The cream panel, inset by 4 mm: the white border is what a printer that
+// cannot print to the edge leaves out, and what the scissors cut through.
+.o_g2b_tc_panel {
+    position: absolute;
+    top: 4mm;
+    left: 4mm;
+    width: 140mm;
+    height: 97mm;
+    background: $tc-cream;
+    border-radius: 6mm;
+}
+
+.o_g2b_tc_confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140mm;
+    height: 97mm;
+}
+
+.o_g2b_tc_logo {
+    position: absolute;
+    top: 6.5mm;
+    left: 7mm;
+    height: 6.6mm;
+}
+
+.o_g2b_tc_art {
+    position: absolute;
+    top: 1.5mm;
+    left: 57mm;
+    width: 23mm;
+    height: 23mm;
+}
+
+.o_g2b_tc_flow {
+    position: absolute;
+    top: 24.5mm;
+    left: 7mm;
+    width: 73mm;
+}
+
+.o_g2b_tc_greeting {
+    margin-bottom: .8mm;
+    font-size: 9.4pt;
+    font-weight: 700;
+    line-height: 1.25;
+    color: $tc-coral-dark;
+}
+
+.o_g2b_tc_headline {
+    width: 64mm;
+    margin-bottom: 2.4mm;
+    font-family: $tc-display;
+    font-size: 17pt;
+    font-weight: 800;
+    line-height: 1.02;
+    color: $tc-teal;
+}
+
+.o_g2b_tc_message {
+    margin-bottom: 2.6mm;
+    font-size: 7.9pt;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $tc-ink;
+}
+
+.o_g2b_tc_sign_label {
+    font-size: 6.8pt;
+    font-weight: 600;
+    color: $tc-muted;
+}
+
+.o_g2b_tc_sign {
+    font-family: 'G2B Script', $tc-body;
+    font-size: 14pt;
+    font-weight: 700;
+    line-height: 1.15;
+    color: $tc-coral-dark;
+}
+
+.o_g2b_tc_footer {
+    position: absolute;
+    top: 88.6mm;
+    left: 7mm;
+    width: 76mm;
+    font-size: 6.2pt;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $tc-muted;
+}
+
+.o_g2b_tc_footer_host {
+    color: $tc-blue;
+}
+
+.o_g2b_tc_footer_dot {
+    margin: 0 1.2mm;
+    color: $tc-coral;
+}
+
+// --- The QR side -----------------------------------------------------------
+
+.o_g2b_tc_qr_panel {
+    position: absolute;
+    top: 5mm;
+    left: 85mm;
+    width: 50mm;
+    height: 87mm;
+    background: #FFFFFF;
+    border: .3mm solid #FFD6C6;
+    border-radius: 5mm;
+}
+
+.o_g2b_tc_pill {
+    position: absolute;
+    top: -2.5mm;
+    left: 8mm;
+    width: 34mm;
+    height: 5mm;
+    font-size: 6.2pt;
+    font-weight: 700;
+    line-height: 5mm;
+    color: #FFFFFF;
+    text-align: center;
+    background: $tc-coral;
+    border-radius: 2.5mm;
+}
+
+.o_g2b_tc_qr_title {
+    position: absolute;
+    top: 4.6mm;
+    left: 3mm;
+    width: 44mm;
+    font-family: $tc-display;
+    font-size: 8.6pt;
+    font-weight: 700;
+    line-height: 1.12;
+    color: $tc-teal;
+    text-align: center;
+    white-space: pre-line;
+}
+
+.o_g2b_tc_qr_wrap {
+    position: absolute;
+    top: 13.2mm;
+    left: 6mm;
+    width: 38mm;
+    height: 38mm;
+}
+
+.o_g2b_tc_frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 38mm;
+    height: 38mm;
+}
+
+.o_g2b_tc_qr {
+    position: absolute;
+    top: 2.4mm;
+    left: 2.4mm;
+    width: 33.2mm;
+    height: 33.2mm;
+
+    svg {
+        display: block;
+        width: 33.2mm;
+        height: 33.2mm;
+    }
+}
+
+.o_g2b_tc_steps {
+    position: absolute;
+    top: 53.4mm;
+    left: 4.2mm;
+    width: 42mm;
+}
+
+.o_g2b_tc_step {
+    position: relative;
+    min-height: 4.4mm;
+    padding-left: 6mm;
+    margin-bottom: 1.3mm;
+}
+
+.o_g2b_tc_step_no {
+    position: absolute;
+    top: -.2mm;
+    left: 0;
+    width: 4.2mm;
+    height: 4.2mm;
+    font-family: $tc-display;
+    font-size: 6.6pt;
+    font-weight: 700;
+    line-height: 4.5mm;
+    color: $tc-coral-dark;
+    text-align: center;
+    background: $tc-peach;
+    border-radius: 2.1mm;
+}
+
+.o_g2b_tc_step_text {
+    font-size: 6.8pt;
+    font-weight: 600;
+    line-height: 1.3;
+    color: $tc-ink;
+}
+
+.o_g2b_tc_url {
+    position: absolute;
+    top: 78.4mm;
+    left: 3mm;
+    width: 44mm;
+    text-align: center;
+}
+
+.o_g2b_tc_url_label {
+    font-size: 5.8pt;
+    font-weight: 600;
+    color: $tc-muted;
+}
+
+.o_g2b_tc_url_value {
+    font-size: 7.2pt;
+    font-weight: 700;
+    letter-spacing: .1mm;
+    color: $tc-blue;
+}

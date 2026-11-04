@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- On a delivery order of a sale: the card is packed with the parcel. -->
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.gif2box.review</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="sale_id" invisible="1"/>
+                <button name="action_g2b_print_thank_cards" type="object"
+                        string="Thank-you card" icon="fa-heart"
+                        invisible="not sale_id or picking_type_code != 'outgoing' or state == 'cancel'"
+                        help="Print the card that goes in the box, with the QR code the recipient scans to leave a review."/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

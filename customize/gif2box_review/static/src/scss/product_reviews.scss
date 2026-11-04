@@ -1,0 +1,370 @@
+///
+/// The reviews on the product page (`views/product_review_templates.xml`):
+/// the stars under the title, then the section below the description.
+/// Summary on the left from `lg`, stacked above the list on a phone.
+///
+
+$g-coral: #FD7352 !default;
+$g-coral-dark: #E85A38 !default;
+$g-title: #004444 !default;
+
+// --- Under the title ---------------------------------------------------------
+.o_g2b_rv_inline {
+    display: inline-flex;
+    gap: .4rem;
+    align-items: center;
+    margin: -.25rem 0 .75rem;
+    font-size: .9rem;
+    color: $g2b-ink;
+    text-decoration: none;
+
+    &:hover .o_g2b_rv_inline_count {
+        color: $g-coral-dark;
+        text-decoration: underline;
+    }
+}
+
+.o_g2b_rv_inline_avg {
+    font-weight: 700;
+}
+
+.o_g2b_rv_inline_count {
+    color: $g2b-muted;
+}
+
+// --- The section -------------------------------------------------------------
+.o_g2b_rvs {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    scroll-margin-top: 5rem;
+}
+
+.o_g2b_rvs_head {
+    margin-bottom: 1.5rem;
+}
+
+.o_g2b_rvs_title {
+    margin: 0 0 .25rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvs_sub {
+    margin: 0;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_layout {
+    display: grid;
+    gap: 1.75rem;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(17rem, 21rem) minmax(0, 1fr);
+        gap: 3rem;
+        align-items: start;
+    }
+}
+
+// --- Summary -------------------------------------------------------------------
+.o_g2b_rvs_summary {
+    padding: 1.25rem;
+    background: $g2b-cream;
+    border-radius: 1.25rem;
+
+    @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 6rem;
+    }
+}
+
+.o_g2b_rvs_score {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.o_g2b_rvs_avg {
+    font-family: 'G2B Baloo', $font-family-base;
+    font-size: 3.25rem;
+    font-weight: 700;
+    line-height: 1;
+    color: $g-title;
+}
+
+.o_g2b_rvs_count {
+    margin-top: .3rem;
+    font-size: .9rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_bars {
+    padding: 0;
+    margin: 0 0 1rem;
+    list-style: none;
+}
+
+.o_g2b_rvs_bar {
+    display: grid;
+    grid-template-columns: .9rem .9rem minmax(0, 1fr) 2rem;
+    gap: .4rem;
+    align-items: center;
+    width: 100%;
+    padding: .2rem .35rem;
+    font-size: .85rem;
+    color: $g2b-ink;
+    text-align: left;
+    background: none;
+    border: 0;
+    border-radius: .5rem;
+    transition: background-color .15s ease;
+
+    &:not(:disabled):hover,
+    &.is-on {
+        background: rgba($g-coral, .1);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: .55;
+    }
+}
+
+.o_g2b_rvs_bar_label {
+    font-weight: 600;
+    text-align: right;
+}
+
+.o_g2b_rvs_bar_star {
+    font-size: .8rem;
+    color: $g2b-star-on;
+}
+
+.o_g2b_rvs_bar_track {
+    height: .5rem;
+    overflow: hidden;
+    background: #F1E4DA;
+    border-radius: 1rem;
+}
+
+.o_g2b_rvs_bar_fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #FFC53D, $g2b-star-on);
+    border-radius: 1rem;
+}
+
+.o_g2b_rvs_bar_n {
+    color: $g2b-muted;
+    text-align: right;
+}
+
+.o_g2b_rvs_split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+    margin-bottom: 1rem;
+}
+
+.o_g2b_rvs_split_item {
+    padding: .75rem;
+    background: $white;
+    border-radius: 1rem;
+
+    &.is-empty {
+        opacity: .6;
+    }
+}
+
+.o_g2b_rvs_split_icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.o_g2b_rvs_split_label {
+    margin: .35rem 0 .15rem;
+    font-size: .8rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_split_value {
+    display: flex;
+    gap: .2rem;
+    align-items: baseline;
+}
+
+.o_g2b_rvs_split_avg {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $g2b-ink;
+}
+
+.o_g2b_rvs_split_star {
+    color: $g2b-star-on;
+}
+
+.o_g2b_rvs_split_n {
+    font-size: .8rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_trust {
+    display: flex;
+    gap: .5rem;
+    align-items: flex-start;
+    font-size: .8rem;
+    line-height: 1.5;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_trust_icon {
+    display: inline-flex;
+    flex: 0 0 1.25rem;
+    align-items: center;
+    justify-content: center;
+    height: 1.25rem;
+    font-size: .7rem;
+    font-weight: 700;
+    color: $white;
+    background: #1F8A5B;
+    border-radius: 50%;
+}
+
+// --- Photos, filters, list -------------------------------------------------------
+.o_g2b_rvs_photos {
+    display: flex;
+    gap: .5rem;
+    padding-bottom: .25rem;
+    margin-bottom: 1.1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .o_g2b_rvs_photo {
+        scroll-snap-align: start;
+    }
+}
+
+.o_g2b_rvs_filters {
+    display: flex;
+    gap: .5rem;
+    padding-bottom: .25rem;
+    margin-bottom: .75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.o_g2b_rvs_chip {
+    display: inline-flex;
+    flex: none;
+    gap: .4rem;
+    align-items: center;
+    min-height: 2.4rem;
+    padding: .35rem .95rem;
+    font-size: .875rem;
+    font-weight: 600;
+    color: $g2b-ink;
+    background: $white;
+    border: 1.5px solid #E7E0DA;
+    border-radius: 2rem;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+
+    &:hover {
+        border-color: $g-coral;
+    }
+
+    &.is-on {
+        color: $white;
+        background: $g-coral;
+        border-color: $g-coral;
+
+        .o_g2b_rvs_chip_n {
+            color: $g-coral-dark;
+            background: $white;
+        }
+    }
+}
+
+.o_g2b_rvs_chip_n {
+    min-width: 1.4rem;
+    padding: 0 .35rem;
+    font-size: .75rem;
+    line-height: 1.4rem;
+    color: $g2b-muted;
+    text-align: center;
+    background: #F4EFEA;
+    border-radius: 1rem;
+}
+
+.o_g2b_rvs_list {
+    transition: opacity .2s ease;
+
+    &[aria-busy="true"] {
+        pointer-events: none;
+        opacity: .45;
+    }
+}
+
+.o_g2b_rvs_none {
+    padding: 1.5rem 0;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvs_more_wrap {
+    padding-top: 1.25rem;
+    text-align: center;
+}
+
+.o_g2b_rvs_more {
+    min-height: 2.75rem;
+    padding: .5rem 1.5rem;
+    font-weight: 600;
+    color: $g-coral-dark;
+    background: $white;
+    border: 1.5px solid $g-coral;
+    border-radius: 2rem;
+
+    &:hover {
+        color: $white;
+        background: $g-coral;
+    }
+}
+
+// --- No reviews yet ------------------------------------------------------------------
+.o_g2b_rvs_empty {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    max-width: 44rem;
+    padding: 1.25rem 1.5rem;
+    background: $g2b-cream;
+    border-radius: 1.25rem;
+}
+
+.o_g2b_rvs_empty_art {
+    flex: 0 0 4.5rem;
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.o_g2b_rvs_empty_title {
+    margin-bottom: .2rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvs_empty_text {
+    margin: 0;
+    font-size: .9rem;
+    line-height: 1.55;
+    color: $g2b-muted;
+}

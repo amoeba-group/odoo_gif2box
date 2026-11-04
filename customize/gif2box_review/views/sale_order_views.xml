@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        On the order: the thank-you card to print and pack with the gift
+        (one per gift, its QR code opening the recipient's review page),
+        and the order's reviews.
+    -->
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.gif2box.review</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_g2b_print_thank_cards" type="object"
+                        string="Thank-you card" icon="fa-heart"
+                        invisible="state != 'sale'"
+                        help="Print the card that goes in the box, with the QR code the recipient scans to leave a review."/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_g2b_view_reviews" type="object" class="oe_stat_button"
+                        icon="fa-star" invisible="not g2b_review_count">
+                    <field name="g2b_review_count" widget="statinfo" string="Reviews"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

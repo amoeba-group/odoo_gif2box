@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The thank-you card is A6 landscape, 148 x 105 mm, printed on card
+        stock one to a page, or four to an A4 sheet on an office printer and
+        cut along the dashed lines. No margins: the card's own white border
+        is what a printer may not reach.
+    -->
+    <record id="paperformat_thank_card_a6" model="report.paperformat">
+        <field name="name">Thank-you card (A6 landscape)</field>
+        <field name="format">custom</field>
+        <field name="page_width">148</field>
+        <field name="page_height">105</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_thank_card_a4" model="report.paperformat">
+        <field name="name">Thank-you cards (4 on A4)</field>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">96</field>
+    </record>
+
+    <!--
+        One report per model and size: a report is found by its template's
+        name, so two reports on different models cannot share one.
+    -->
+    <record id="action_report_thank_card" model="ir.actions.report">
+        <field name="name">Thank-you card (A6)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gif2box_review.report_thank_card</field>
+        <field name="report_file">gif2box_review.report_thank_card</field>
+        <field name="print_report_name">'Thiep cam on - %s' % object.name</field>
+        <field name="paperformat_id" ref="paperformat_thank_card_a6"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_thank_card_sheet" model="ir.actions.report">
+        <field name="name">Thank-you cards (4 per A4 sheet)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gif2box_review.report_thank_card_sheet</field>
+        <field name="report_file">gif2box_review.report_thank_card_sheet</field>
+        <field name="print_report_name">'Thiep cam on A4 - %s' % object.name</field>
+        <field name="paperformat_id" ref="paperformat_thank_card_a4"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_thank_card_picking" model="ir.actions.report">
+        <field name="name">Thank-you card (A6)</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gif2box_review.report_thank_card_picking</field>
+        <field name="report_file">gif2box_review.report_thank_card_picking</field>
+        <field name="print_report_name">'Thiep cam on - %s' % (object.origin or object.name)</field>
+        <field name="paperformat_id" ref="paperformat_thank_card_a6"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_thank_card_picking_sheet" model="ir.actions.report">
+        <field name="name">Thank-you cards (4 per A4 sheet)</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gif2box_review.report_thank_card_picking_sheet</field>
+        <field name="report_file">gif2box_review.report_thank_card_picking_sheet</field>
+        <field name="print_report_name">'Thiep cam on A4 - %s' % (object.origin or object.name)</field>
+        <field name="paperformat_id" ref="paperformat_thank_card_a4"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

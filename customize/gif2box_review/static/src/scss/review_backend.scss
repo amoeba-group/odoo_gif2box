@@ -1,0 +1,71 @@
+// Backend: the star widget, the review kanban card, the photos on the form.
+
+.o_g2b_rating_stars {
+    display: inline-flex;
+    gap: .1rem;
+    align-items: center;
+    white-space: nowrap;
+
+    .o_g2b_rating_star {
+        color: #D5D9DD;
+        line-height: 1;
+        text-decoration: none;
+    }
+
+    .o_g2b_rating_star_on {
+        color: #FFB400;
+    }
+
+    &.o_g2b_rating_stars_edit .o_g2b_rating_star:hover {
+        transform: scale(1.15);
+    }
+}
+
+.o_g2b_rv_stars_lg .o_g2b_rating_stars {
+    gap: .3rem;
+    font-size: 1.7rem;
+}
+
+.o_g2b_rv_list_comment {
+    max-width: 28rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o_g2b_rv_kanban {
+    .o_g2b_rv_kanban_photo {
+        display: flex;
+        flex: 0 0 6.5rem;
+        align-items: center;
+        justify-content: center;
+        width: 6.5rem;
+        min-height: 6.5rem;
+        overflow: hidden;
+        background: #FFF3EC;
+    }
+
+    .o_g2b_rv_kanban_nophoto {
+        font-size: 2rem;
+        color: #FDB9A6;
+    }
+
+    .o_g2b_rv_kanban_comment {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.o_g2b_rv_images {
+    .o_kanban_renderer {
+        --KanbanRecord-width: 9rem;
+    }
+
+    .o_g2b_rv_image_card img {
+        width: 100%;
+        height: 9rem;
+        object-fit: cover;
+    }
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Where the buyer finds the way to review, and what the recipient
+        said: the list of orders ("Review" on each order that has left), the
+        order itself in the portal, and its tracking page (the link in the
+        emails, for those without an account).
+    -->
+
+    <!-- My orders: a column with the button, or the stars once reviewed. -->
+    <template id="portal_my_orders_review" inherit_id="sale.portal_my_orders" name="Orders: review">
+        <xpath expr="//thead/tr/th[last()]" position="after">
+            <th class="text-end o_g2b_rv_col">Review</th>
+        </xpath>
+        <xpath expr="//t[@t-foreach='orders']/tr/td[last()]" position="after">
+            <td class="text-end o_g2b_rv_col">
+                <t t-set="g2b_rs" t-value="order._g2b_review_status()"/>
+                <a t-if="g2b_rs and g2b_rs['state'] == 'todo'"
+                   t-att-href="order._g2b_buyer_review_url(g2b_rs['line'])"
+                   class="o_g2b_rv_pill">Review</a>
+                <a t-elif="g2b_rs" t-att-href="order._g2b_buyer_review_url()" class="o_g2b_rv_pill_done"
+                   title="Your review">
+                    <t t-call="gif2box_review.stars">
+                        <t t-set="g2b_value" t-value="g2b_rs['rating']"/>
+                    </t>
+                </a>
+            </td>
+        </xpath>
+    </template>
+
+    <!--
+        The panel: each gift with the buyer's review or the button to write
+        it, then what the recipient said, with their note to the buyer; or,
+        before that, what the card in the box lets the recipient do.
+    -->
+    <template id="order_review_panel" name="Order: reviews panel">
+        <t t-set="g2b_can_review" t-value="order._g2b_buyer_can_review()"/>
+        <t t-set="g2b_recipient_reviews" t-value="order._g2b_recipient_reviews()"/>
+        <t t-set="g2b_self_gift" t-value="order._g2b_recipient_is_buyer()"/>
+        <section t-if="g2b_can_review or g2b_recipient_reviews" class="o_g2b_rvp">
+            <div class="o_g2b_rvp_head">
+                <h2 class="o_g2b_rvp_title">Reviews</h2>
+            </div>
+
+            <ul t-if="g2b_can_review" class="o_g2b_rvp_lines">
+                <li t-foreach="order._g2b_gift_lines()" t-as="g2b_gl" class="o_g2b_rvp_line">
+                    <t t-set="g2b_mine" t-value="g2b_gl._g2b_review('buyer')"/>
+                    <img t-att-src="g2b_gl._g2b_image_url('image_128')" alt="" class="o_g2b_rvp_img" width="56" height="56" loading="lazy"/>
+                    <div class="o_g2b_rvp_body">
+                        <div class="o_g2b_rvp_name" t-out="g2b_gl.name_short or g2b_gl.product_id.name"/>
+                        <div t-if="g2b_mine" class="o_g2b_rvp_mine">
+                            <t t-call="gif2box_review.stars">
+                                <t t-set="g2b_value" t-value="g2b_mine.rating"/>
+                            </t>
+                            <span class="o_g2b_rvp_mine_label">Your review</span>
+                        </div>
+                        <div t-else="" class="o_g2b_rvp_ask">How was giving it? Tell others in a minute.</div>
+                    </div>
+                    <a t-if="g2b_mine" t-att-href="order._g2b_buyer_review_url(g2b_gl)" class="o_g2b_rv_pill_ghost">Edit</a>
+                    <a t-else="" t-att-href="order._g2b_buyer_review_url(g2b_gl)" class="o_g2b_rv_pill">Write a review</a>
+                </li>
+            </ul>
+
+            <div t-foreach="g2b_recipient_reviews" t-as="g2b_rr" class="o_g2b_rvp_recipient">
+                <div class="o_g2b_rvp_recipient_head">
+                    <span class="o_g2b_rvp_recipient_icon" aria-hidden="true">💝</span>
+                    <div>
+                        <div class="o_g2b_rvp_recipient_title">The recipient received the gift and said</div>
+                        <div class="o_g2b_rvp_recipient_meta">
+                            <t t-call="gif2box_review.stars">
+                                <t t-set="g2b_value" t-value="g2b_rr.rating"/>
+                            </t>
+                            <span class="o_g2b_rvp_recipient_name" t-out="g2b_rr.author_name"/>
+                        </div>
+                    </div>
+                </div>
+                <p t-if="g2b_rr.comment" class="o_g2b_rvp_recipient_comment" t-out="g2b_rr.comment"/>
+                <div t-if="g2b_rr.image_ids" class="o_g2b_rvp_recipient_photos">
+                    <img t-foreach="g2b_rr.image_ids" t-as="g2b_ri"
+                         t-att-src="'data:image/jpeg;base64,%s' % (g2b_ri.image_128 or b'').decode()"
+                         alt="" width="64" height="64"/>
+                </div>
+                <div t-if="g2b_rr.thanks_note" class="o_g2b_rvp_letter">
+                    <div class="o_g2b_rvp_letter_title">A note for you</div>
+                    <p class="o_g2b_rvp_letter_text" t-out="g2b_rr.thanks_note"/>
+                </div>
+            </div>
+
+            <p t-if="g2b_can_review and not g2b_recipient_reviews and not g2b_self_gift" class="o_g2b_rvp_hint">
+                There is a thank-you card in the box. When the recipient scans its QR code, they can rate the gift and send you a thank-you note: you will find it here.
+            </p>
+        </section>
+    </template>
+
+    <!-- The order in the portal, under the delivery steps. -->
+    <template id="portal_order_review" inherit_id="sale.sale_order_portal_content" name="Order: reviews">
+        <xpath expr="//div[@id='informations']" position="before">
+            <t t-if="report_type != 'pdf' and sale_order.state == 'sale'">
+                <t t-set="order" t-value="sale_order"/>
+                <t t-call="gif2box_review.order_review_panel"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- The tracking page, under the status. -->
+    <template id="tracking_review" inherit_id="gif2box_order_tracking.order_track_page" name="Tracking: reviews">
+        <xpath expr="//t[@t-call='gif2box_order_tracking.tracking_headline']/.." position="after">
+            <t t-if="order.state == 'sale'" t-call="gif2box_review.order_review_panel"/>
+        </xpath>
+    </template>
+
+</odoo>

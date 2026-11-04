@@ -1,0 +1,1237 @@
+///
+/// The review page (`views/review_form_templates.xml`), phone first: one
+/// column of white cards on a warm background, large tap targets, the
+/// send button held at the bottom of the screen. And the reviews panel
+/// on the order and its tracking page (`views/portal_templates.xml`).
+///
+
+$g-coral: #FD7352 !default;
+$g-coral-dark: #E85A38 !default;
+$g-title: #004444 !default;
+
+$g2b-rvf-radius: 1.25rem;
+$g2b-rvf-shadow: 0 .25rem 1.25rem rgba(120, 70, 40, .07);
+
+@keyframes o_g2b_star_pop {
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.28) rotate(-8deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes o_g2b_shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    20%, 60% {
+        transform: translateX(-6px);
+    }
+
+    40%, 80% {
+        transform: translateX(6px);
+    }
+}
+
+@keyframes o_g2b_float {
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-6px) rotate(2deg);
+    }
+}
+
+@keyframes o_g2b_heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.18);
+    }
+
+    30% {
+        transform: scale(.96);
+    }
+
+    45% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes o_g2b_burst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(.4);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--a)) translateY(-7.5rem) scale(1);
+    }
+}
+
+@keyframes o_g2b_rise {
+    from {
+        opacity: 0;
+        transform: translateY(.75rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// --- Page --------------------------------------------------------------------------
+.o_g2b_rvf {
+    min-height: 70vh;
+    padding: 1.25rem 0 2rem;
+    background: linear-gradient(180deg, #FFF1E8 0, #FFF8F3 18rem, $white 40rem);
+}
+
+.o_g2b_rvf_shell {
+    max-width: 36rem;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+.o_g2b_rvf_hero {
+    padding: .5rem .5rem 1.25rem;
+    text-align: center;
+}
+
+.o_g2b_rvf_hero_art {
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: 0 auto .25rem;
+    animation: o_g2b_float 3.2s ease-in-out infinite;
+}
+
+.o_g2b_rvf_eyebrow {
+    margin: 0 0 .2rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+}
+
+.o_g2b_rvf_title {
+    margin: 0 0 .5rem;
+    font-family: 'G2B Baloo', $font-family-base;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: $g-title;
+    text-wrap: balance;
+}
+
+.o_g2b_rvf_lead {
+    max-width: 30rem;
+    margin: 0 auto;
+    line-height: 1.55;
+    color: $g2b-muted;
+    text-wrap: pretty;
+}
+
+// --- Which gift ----------------------------------------------------------------------
+.o_g2b_rvf_tabs {
+    display: flex;
+    gap: .5rem;
+    padding-bottom: .25rem;
+    margin-bottom: .75rem;
+    overflow-x: auto;
+}
+
+.o_g2b_rvf_tab {
+    display: inline-flex;
+    flex: none;
+    gap: .5rem;
+    align-items: center;
+    max-width: 15rem;
+    padding: .35rem .75rem .35rem .35rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: $g2b-ink;
+    text-decoration: none;
+    background: $white;
+    border: 1.5px solid transparent;
+    border-radius: 2rem;
+    box-shadow: $g2b-rvf-shadow;
+
+    img {
+        flex: none;
+        width: 2.25rem;
+        height: 2.25rem;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &.is-current {
+        border-color: $g-coral;
+    }
+
+    &.is-done::after {
+        font-family: FontAwesome;
+        color: #1F8A5B;
+        content: "\f058";
+    }
+}
+
+.o_g2b_rvf_product {
+    display: flex;
+    gap: .85rem;
+    align-items: center;
+    padding: .75rem;
+    margin-bottom: 1rem;
+    background: $white;
+    border-radius: $g2b-rvf-radius;
+    box-shadow: $g2b-rvf-shadow;
+}
+
+.o_g2b_rvf_product_img {
+    flex: none;
+    width: 4.25rem;
+    height: 4.25rem;
+    object-fit: cover;
+    background: $g2b-cream;
+    border-radius: .9rem;
+}
+
+.o_g2b_rvf_product_body {
+    min-width: 0;
+}
+
+.o_g2b_rvf_product_label {
+    font-size: .78rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvf_product_name {
+    display: -webkit-box;
+    overflow: hidden;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $g2b-ink;
+    text-decoration: none;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+a.o_g2b_rvf_product_name:hover {
+    color: $g-coral-dark;
+}
+
+// --- Cards & questions -------------------------------------------------------------------
+.o_g2b_rvf_card {
+    min-width: 0;
+    padding: 1.15rem 1.15rem 1.25rem;
+    margin: 0 0 .85rem;
+    background: $white;
+    border: 0;
+    border-radius: $g2b-rvf-radius;
+    box-shadow: $g2b-rvf-shadow;
+    animation: o_g2b_rise .35s ease both;
+}
+
+.o_g2b_rvf_card_title {
+    margin: 0 0 .75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvf_q {
+    display: flex;
+    gap: .5rem;
+    align-items: baseline;
+    justify-content: space-between;
+    // A legend floated, as Bootstrap does: inside its card, not on the
+    // fieldset's border.
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 .65rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: $g2b-ink;
+}
+
+.o_g2b_rvf_q_center {
+    justify-content: center;
+    text-align: center;
+}
+
+.o_g2b_rvf_opt {
+    flex: none;
+    font-size: .75rem;
+    font-weight: 500;
+    color: #9AA4A4;
+}
+
+.o_g2b_rvf_help {
+    margin: -.35rem 0 .75rem;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvf_private::before {
+    margin-right: .3rem;
+    font-family: FontAwesome;
+    color: #9AA4A4;
+    content: "\f023";
+}
+
+.o_g2b_rvf_muted {
+    margin: .75rem 0 0;
+    font-size: .85rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvf_hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+// --- Stars -----------------------------------------------------------------------------------
+.o_g2b_rvf_rating {
+    text-align: center;
+
+    &.has-error .o_g2b_rvf_stars {
+        animation: o_g2b_shake .4s ease;
+    }
+}
+
+.o_g2b_rvf_face {
+    height: 3.4rem;
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+
+    span {
+        display: none;
+    }
+
+    &:not([data-g2b-rating]) .o_g2b_rvf_face_0,
+    &[data-g2b-rating="1"] .o_g2b_rvf_face_1,
+    &[data-g2b-rating="2"] .o_g2b_rvf_face_2,
+    &[data-g2b-rating="3"] .o_g2b_rvf_face_3,
+    &[data-g2b-rating="4"] .o_g2b_rvf_face_4,
+    &[data-g2b-rating="5"] .o_g2b_rvf_face_5 {
+        display: inline-block;
+        animation: o_g2b_star_pop .35s ease;
+    }
+}
+
+.o_g2b_rvf_stars {
+    display: inline-flex;
+    gap: .35rem;
+    justify-content: center;
+    margin: .35rem 0 .2rem;
+}
+
+.o_g2b_rvf_star {
+    position: relative;
+    display: inline-flex;
+    width: 3.1rem;
+    height: 3.1rem;
+    padding: .2rem;
+    cursor: pointer;
+    border-radius: .75rem;
+    -webkit-tap-highlight-color: transparent;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        fill: #E6E8EC;
+        transition: fill .15s ease;
+    }
+
+    &.is-on svg,
+    &.is-hover svg {
+        fill: $g2b-star-on;
+    }
+
+    &.is-pop svg {
+        animation: o_g2b_star_pop .35s ease;
+    }
+
+    &:has(.o_g2b_rvf_star_input:focus-visible) {
+        outline: 2px solid $g-coral;
+        outline-offset: 1px;
+    }
+}
+
+.o_g2b_rvf_star_input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+// Without the script, the checked star at least.
+.o_g2b_rvf_form:not(.o_g2b_rvf_live) .o_g2b_rvf_star:has(input:checked) svg {
+    fill: $g2b-star-on;
+}
+
+.o_g2b_rvf_rating_label {
+    min-height: 1.6rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+}
+
+.o_g2b_rvf_rating_hint {
+    font-weight: 500;
+    color: #9AA4A4;
+}
+
+.o_g2b_rvf_error {
+    font-size: .875rem;
+    font-weight: 600;
+    color: #C62F2F;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.o_g2b_rvf_error_rating {
+    margin-top: .25rem;
+}
+
+// --- Highlights ------------------------------------------------------------------------------
+.o_g2b_rvf_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.o_g2b_rvf_chip {
+    position: relative;
+    display: inline-flex;
+    gap: .35rem;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: .4rem .9rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: $g2b-ink;
+    cursor: pointer;
+    user-select: none;
+    background: $white;
+    border: 1.5px solid #E9E2DC;
+    border-radius: 2rem;
+    transition: background-color .15s ease, border-color .15s ease, transform .1s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &:active {
+        transform: scale(.96);
+    }
+
+    &.is-on,
+    &:has(input:checked) {
+        color: #A8401E;
+        background: #FFF0EA;
+        border-color: $g-coral;
+    }
+
+    &:has(input:focus-visible) {
+        outline: 2px solid $g-coral;
+        outline-offset: 2px;
+    }
+}
+
+.o_g2b_rvf_chip_icon {
+    font-size: 1.05rem;
+}
+
+// --- Words -------------------------------------------------------------------------------------
+.o_g2b_rvf_textarea,
+.o_g2b_rvf_input {
+    display: block;
+    width: 100%;
+    padding: .8rem .95rem;
+    font-size: 1rem; // 16 px: below, iOS zooms the page on focus
+    line-height: 1.55;
+    color: $g2b-ink;
+    background: #FFFCFA;
+    border: 1.5px solid #EDE4DD;
+    border-radius: .9rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+
+    &::placeholder {
+        color: #A9B1B1;
+    }
+
+    &:focus {
+        background-color: $white;
+        border-color: $g-coral;
+        outline: 0;
+        box-shadow: 0 0 0 .25rem rgba($g-coral, .15);
+    }
+}
+
+.o_g2b_rvf_textarea {
+    min-height: 7rem;
+    resize: vertical;
+}
+
+.o_g2b_rvf_counter {
+    margin-top: .3rem;
+    font-size: .75rem;
+    color: #A9B1B1;
+    text-align: right;
+}
+
+// A sheet of writing paper for the note.
+.o_g2b_rvf_note {
+    background: linear-gradient(180deg, #FFF6F0, $white 70%);
+}
+
+.o_g2b_rvf_letter {
+    min-height: 8.5rem;
+    padding-top: .75rem;
+    line-height: 2rem;
+    background-color: #FFFDF9;
+    background-image: repeating-linear-gradient(180deg, transparent 0, transparent calc(2rem - 1px), #F6DCCF calc(2rem - 1px), #F6DCCF 2rem);
+    background-attachment: local;
+    background-position: 0 .75rem;
+}
+
+// --- Photos ----------------------------------------------------------------------------------------
+.o_g2b_rvf_thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+    gap: .6rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.o_g2b_rvf_thumb {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: $g2b-cream;
+    border-radius: .9rem;
+    animation: o_g2b_rise .25s ease both;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &.is-loading::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .6) 50%, transparent 70%) $g2b-cream;
+        background-size: 200% 100%;
+        content: "";
+        animation: o_g2b_shimmer 1.1s linear infinite;
+    }
+}
+
+@keyframes o_g2b_shimmer {
+    to {
+        background-position: -200% 0;
+    }
+}
+
+.o_g2b_rvf_thumb_x {
+    position: absolute;
+    top: .3rem;
+    right: .3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: $white;
+    background: rgba(20, 30, 30, .6);
+    border: 0;
+    border-radius: 50%;
+    backdrop-filter: blur(2px);
+}
+
+.o_g2b_rvf_add_item {
+    aspect-ratio: 1;
+}
+
+.o_g2b_rvf_add {
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    color: $g-coral-dark;
+    cursor: pointer;
+    background: #FFF6F1;
+    border: 1.5px dashed #FBB49D;
+    border-radius: .9rem;
+    transition: background-color .15s ease;
+
+    &:hover {
+        background: #FFEDE4;
+    }
+
+    &:has(input:focus-visible) {
+        outline: 2px solid $g-coral;
+        outline-offset: 2px;
+    }
+
+    svg {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .is-full & {
+        display: none;
+    }
+}
+
+.o_g2b_rvf_file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.o_g2b_rvf_add_label {
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.o_g2b_rvf_add_count {
+    font-size: .7rem;
+    color: #C9866F;
+}
+
+.o_g2b_rvf_photos .o_g2b_rvf_error {
+    margin-top: .6rem;
+}
+
+// --- Name ------------------------------------------------------------------------------------------
+.o_g2b_rvf_switch {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    margin: .85rem 0 0;
+    cursor: pointer;
+}
+
+.o_g2b_rvf_switch_input {
+    position: absolute;
+    opacity: 0;
+}
+
+.o_g2b_rvf_switch_ui {
+    position: relative;
+    flex: none;
+    width: 2.75rem;
+    height: 1.6rem;
+    background: #DCE0E3;
+    border-radius: 1rem;
+    transition: background-color .2s ease;
+
+    &::after {
+        position: absolute;
+        top: .2rem;
+        left: .2rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        background: $white;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+        content: "";
+        transition: transform .2s ease;
+    }
+
+    .o_g2b_rvf_switch_input:checked + & {
+        background: $g-coral;
+
+        &::after {
+            transform: translateX(1.15rem);
+        }
+    }
+
+    .o_g2b_rvf_switch_input:focus-visible + & {
+        outline: 2px solid $g-coral;
+        outline-offset: 2px;
+    }
+}
+
+.o_g2b_rvf_switch_text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+
+.o_g2b_rvf_switch_label {
+    font-weight: 600;
+}
+
+.o_g2b_rvf_switch_hint {
+    display: flex;
+    gap: .3rem;
+    font-size: .8rem;
+    color: $g2b-muted;
+}
+
+// The send button is held at the bottom of the screen: keep what the
+// browser scrolls to (a field being typed in) clear of it, and lift the
+// chat bubble and "back to top" above it, which would otherwise sit on
+// the button's right end.
+html:has(.o_g2b_rvf:not(.is-sent) .o_g2b_rvf_form) {
+    scroll-padding-bottom: 6.5rem;
+
+    #ivy-talktalk-frame {
+        bottom: 4.75rem !important;
+    }
+
+    .amb_chat_providers_container {
+        bottom: 5.5rem !important;
+    }
+
+    .o_g2b_to_top {
+        bottom: 11rem !important;
+    }
+}
+
+.o_g2b_rvf_rating > .o_g2b_rvf_face,
+.o_g2b_rvf_card > legend + * {
+    clear: left;
+}
+
+// --- Send --------------------------------------------------------------------------------------------
+.o_g2b_rvf_submit_bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    padding: .75rem 0 calc(.75rem + env(safe-area-inset-bottom));
+    margin: 0 -.25rem;
+    background: linear-gradient(180deg, rgba($white, 0), $white .9rem);
+
+    .o_g2b_rvf_error {
+        margin-bottom: .5rem;
+        text-align: center;
+    }
+}
+
+.o_g2b_rvf_btn {
+    position: relative;
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: .7rem 1.5rem;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $white;
+    text-decoration: none;
+    background: $g-coral;
+    border: 1.5px solid $g-coral;
+    border-radius: 2rem;
+    transition: background-color .15s ease, transform .1s ease, box-shadow .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        text-decoration: none;
+        background: $g-coral-dark;
+        border-color: $g-coral-dark;
+    }
+
+    &:active {
+        transform: scale(.98);
+    }
+}
+
+.o_g2b_rvf_btn_ghost {
+    color: $g-coral-dark;
+    background: $white;
+
+    &:hover,
+    &:focus-visible {
+        color: $white;
+        background: $g-coral;
+    }
+}
+
+.o_g2b_rvf_submit {
+    width: 100%;
+    min-height: 3.4rem;
+    font-size: 1.05rem;
+    box-shadow: 0 .5rem 1.25rem rgba($g-coral, .35);
+
+    &:disabled {
+        cursor: progress;
+        opacity: 1;
+    }
+}
+
+.o_g2b_rvf_submit_label {
+    position: relative;
+}
+
+.o_g2b_rvf_submit_busy,
+.is-busy .o_g2b_rvf_submit_idle {
+    display: none;
+}
+
+.is-busy .o_g2b_rvf_submit_busy {
+    display: inline;
+}
+
+.o_g2b_rvf_submit_progress {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--g2b-progress, 0%);
+    background: rgba(255, 255, 255, .22);
+    transition: width .2s ease;
+}
+
+.o_g2b_rvf_fineprint {
+    margin: .25rem 0 0;
+    font-size: .75rem;
+    line-height: 1.45;
+    color: #9AA4A4;
+    text-align: center;
+}
+
+.o_g2b_rvf_fineprint_note {
+    margin-top: .1rem;
+}
+
+.o_g2b_rvf_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    justify-content: center;
+    margin-top: 1.25rem;
+
+    .o_g2b_rvf_btn {
+        flex: 1 1 12rem;
+    }
+}
+
+// --- Done, sent, lost ------------------------------------------------------------------------------
+.o_g2b_rvf_done {
+    text-align: center;
+
+    .o_g2b_rv_tags {
+        justify-content: center;
+    }
+}
+
+.o_g2b_rvf_done_badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: .5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $white;
+    background: #1F8A5B;
+    border-radius: 50%;
+}
+
+.o_g2b_rvf_done_rating {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    align-items: center;
+}
+
+.o_g2b_rvf_done_label {
+    font-weight: 700;
+    color: $g-coral-dark;
+}
+
+.o_g2b_rvf_done_comment {
+    margin: .9rem 0 0;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.o_g2b_rvf_done_photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    justify-content: center;
+    margin-top: .9rem;
+
+    img {
+        width: 4.5rem;
+        height: 4.5rem;
+        object-fit: cover;
+        border-radius: .75rem;
+    }
+}
+
+.o_g2b_rvf_letter_view {
+    padding: .9rem 1rem;
+    margin-top: 1rem;
+    text-align: left;
+    background: #FFF6F0;
+    border-radius: 1rem;
+
+    p {
+        margin: .25rem 0 0;
+        white-space: pre-line;
+    }
+}
+
+.o_g2b_rvf_letter_view_title {
+    font-size: .8rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+}
+
+.o_g2b_rvf_success {
+    position: relative;
+    display: none;
+    padding: 2rem 1.25rem 1.5rem;
+    text-align: center;
+    outline: 0;
+
+    &.is-shown {
+        display: block;
+    }
+}
+
+.o_g2b_rvf_success_heart {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto .75rem;
+    color: $g-coral;
+    animation: o_g2b_heartbeat 1.4s ease-in-out .3s infinite;
+}
+
+.o_g2b_rvf_burst {
+    position: absolute;
+    top: 4.25rem;
+    left: 50%;
+    width: 0;
+    height: 0;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: .8rem;
+        height: .8rem;
+        opacity: 0;
+        animation: o_g2b_burst 1.1s ease-out .1s both;
+
+        &::before {
+            display: block;
+            font-size: .9rem;
+            line-height: 1;
+            content: "♥";
+        }
+
+        @for $i from 1 through 12 {
+            &:nth-child(#{$i}) {
+                --a: #{$i * 30}deg;
+                color: nth((#FD7352, #FFB400, #FF8FA3, #1E8BFF, #12857A, #FFAE86), ($i % 6) + 1);
+                animation-delay: #{.05s + ($i % 4) * .06s};
+            }
+        }
+    }
+}
+
+.o_g2b_rvf_success_title {
+    margin: 0 0 .5rem;
+    font-family: 'G2B Baloo', $font-family-base;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvf_success_text {
+    margin: 0 auto;
+    max-width: 26rem;
+    line-height: 1.6;
+    color: $g2b-ink;
+}
+
+.o_g2b_rvf_success_note {
+    display: inline-block;
+    padding: .5rem 1rem;
+    margin: 1rem 0 0;
+    font-weight: 600;
+    color: #A8401E;
+    background: #FFF0EA;
+    border-radius: 2rem;
+
+    &::before {
+        margin-right: .35rem;
+        content: "💌";
+    }
+}
+
+.o_g2b_rvf_lost {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+// The page once sent: only the thank-you.
+.o_g2b_rvf.is-sent {
+    .o_g2b_rvf_form,
+    .o_g2b_rvf_lead,
+    .o_g2b_rvf_product {
+        display: none;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .o_g2b_rvf {
+        padding-top: 2rem;
+    }
+
+    .o_g2b_rvf_title {
+        font-size: 2rem;
+    }
+
+    .o_g2b_rvf_card {
+        padding: 1.5rem 1.6rem 1.6rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_g2b_rvf_hero_art,
+    .o_g2b_rvf_success_heart,
+    .o_g2b_rvf_burst span,
+    .o_g2b_rvf_card,
+    .o_g2b_rvf_star.is-pop svg {
+        animation: none !important;
+    }
+}
+
+// =================================================================================================
+// The reviews panel on the order and on its tracking page
+// =================================================================================================
+.o_g2b_rvp {
+    padding: 1.25rem;
+    margin: 0 0 1.5rem;
+    background: $white;
+    border: 1px solid $g2b-line;
+    border-radius: 1.25rem;
+    box-shadow: $g2b-rvf-shadow;
+}
+
+.o_g2b_rvp_title {
+    margin: 0 0 .85rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvp_lines {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.o_g2b_rvp_line {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: .5rem .85rem;
+    align-items: center;
+    padding: .65rem 0;
+
+    > a {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+
+        > a {
+            grid-column: auto;
+        }
+    }
+
+    & + & {
+        border-top: 1px solid $g2b-line;
+    }
+}
+
+.o_g2b_rvp_img {
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    background: $g2b-cream;
+    border-radius: .8rem;
+}
+
+.o_g2b_rvp_body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_g2b_rvp_name {
+    display: -webkit-box;
+    overflow: hidden;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $g2b-ink;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.o_g2b_rvp_mine {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-top: .2rem;
+    font-size: .8rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvp_ask {
+    margin-top: .15rem;
+    font-size: .85rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvp_recipient {
+    padding: 1rem;
+    margin-top: .85rem;
+    background: linear-gradient(135deg, #EAF8F4, #FFF6F0);
+    border-radius: 1rem;
+}
+
+.o_g2b_rvp_recipient_head {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+}
+
+.o_g2b_rvp_recipient_icon {
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.o_g2b_rvp_recipient_title {
+    font-weight: 700;
+    color: $g-title;
+}
+
+.o_g2b_rvp_recipient_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+    margin-top: .15rem;
+    font-size: .85rem;
+    color: $g2b-muted;
+}
+
+.o_g2b_rvp_recipient_comment {
+    margin: .75rem 0 0;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.o_g2b_rvp_recipient_photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-top: .75rem;
+
+    img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: .7rem;
+    }
+}
+
+.o_g2b_rvp_letter {
+    position: relative;
+    padding: .9rem 1rem .9rem 1.1rem;
+    margin-top: .85rem;
+    background: #FFFDF9;
+    background-image: repeating-linear-gradient(180deg, transparent 0, transparent calc(1.8rem - 1px), #F6DCCF calc(1.8rem - 1px), #F6DCCF 1.8rem);
+    border-left: 3px solid $g-coral;
+    border-radius: .25rem .9rem .9rem .25rem;
+}
+
+.o_g2b_rvp_letter_title {
+    font-size: .8rem;
+    font-weight: 700;
+    color: $g-coral-dark;
+
+    &::before {
+        margin-right: .3rem;
+        content: "💌";
+    }
+}
+
+.o_g2b_rvp_letter_text {
+    margin: .2rem 0 0;
+    font-size: .95rem;
+    line-height: 1.8rem;
+    white-space: pre-line;
+}
+
+.o_g2b_rvp_hint {
+    padding: .75rem .9rem;
+    margin: .85rem 0 0;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: $g2b-muted;
+    background: $g2b-cream;
+    border-radius: .9rem;
+
+    &::before {
+        margin-right: .35rem;
+        content: "💌";
+    }
+}
+
+// On the tracking page the panel sits between two of its cards.
+.o_g2b_track .o_g2b_rvp {
+    margin-top: 1.25rem;
+}

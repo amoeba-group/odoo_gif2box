@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Stars: one element, the five stars a mask over a bar filled to the
+        rating (`review_common.scss`), so that 4.3 shows as four stars and
+        a third. `g2b_value` 0 to 5; `g2b_stars_class` for the size.
+    -->
+    <template id="stars" name="Reviews: stars">
+        <span t-attf-class="o_g2b_stars #{g2b_stars_class or ''}" role="img"
+              t-att-aria-label="'%s/5' % (('%.1f' % g2b_value).rstrip('0').rstrip('.'))"
+              t-attf-style="--g2b-fill: #{round(min(max(g2b_value or 0, 0), 5) * 20, 1)}%;"/>
+    </template>
+
+    <!-- One review, on the product page. -->
+    <template id="review_item" name="Reviews: one review">
+        <article class="o_g2b_rv" itemprop="review" itemscope="itemscope" itemtype="https://schema.org/Review">
+            <header class="o_g2b_rv_head">
+                <span class="o_g2b_rv_avatar" aria-hidden="true"
+                      t-attf-style="background-color: #{review._g2b_avatar_colour()};"
+                      t-out="review._g2b_initial()"/>
+                <div class="o_g2b_rv_who">
+                    <div class="o_g2b_rv_name_row">
+                        <span class="o_g2b_rv_name" itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person">
+                            <span itemprop="name" t-out="review.display_author"/>
+                        </span>
+                        <span t-if="review.review_type == 'buyer'" class="o_g2b_rv_badge o_g2b_rv_badge_buyer">Gift giver</span>
+                        <span t-else="" class="o_g2b_rv_badge o_g2b_rv_badge_recipient">Gift recipient</span>
+                    </div>
+                    <div class="o_g2b_rv_meta">
+                        <span itemprop="reviewRating" itemscope="itemscope" itemtype="https://schema.org/Rating">
+                            <meta itemprop="ratingValue" t-att-content="review.rating"/>
+                            <meta itemprop="bestRating" content="5"/>
+                            <t t-call="gif2box_review.stars">
+                                <t t-set="g2b_value" t-value="review.rating"/>
+                            </t>
+                        </span>
+                        <time class="o_g2b_rv_date" itemprop="datePublished"
+                              t-att-datetime="review.review_date.date().isoformat()"
+                              t-out="review.review_date" t-options="{'widget': 'date'}"/>
+                        <t t-if="review.verified">
+                            <span t-if="review.review_type == 'buyer'" class="o_g2b_rv_verified">Verified purchase</span>
+                            <span t-else="" class="o_g2b_rv_verified">Verified gift</span>
+                        </t>
+                    </div>
+                </div>
+            </header>
+
+            <ul t-if="review.tag_ids" class="o_g2b_rv_tags">
+                <li t-foreach="review.tag_ids" t-as="tag" class="o_g2b_rv_tag">
+                    <span t-if="tag.icon" class="o_g2b_rv_tag_icon" aria-hidden="true" t-out="tag.icon"/>
+                    <span t-out="tag.name"/>
+                </li>
+            </ul>
+
+            <div t-if="review.comment" class="o_g2b_rv_comment_wrap">
+                <p class="o_g2b_rv_comment" itemprop="reviewBody" t-out="review.comment"/>
+                <button type="button" class="o_g2b_rv_readmore d-none">
+                    <div class="o_g2b_rv_readmore_more">Read more</div>
+                    <div class="o_g2b_rv_readmore_less">Show less</div>
+                </button>
+            </div>
+
+            <div t-if="review.image_ids" class="o_g2b_rv_photos" t-att-data-g2b-gallery="'review-%s' % review.id">
+                <t t-foreach="review._g2b_images_for_web()" t-as="g2b_img">
+                    <button type="button" class="o_g2b_rv_photo" t-att-data-g2b-full="g2b_img[1]"
+                            aria-label="View photo">
+                        <img t-att-src="g2b_img[0]" alt="" loading="lazy" decoding="async" width="96" height="96"/>
+                    </button>
+                </t>
+            </div>
+
+            <div t-if="review.reply" class="o_g2b_rv_reply">
+                <div class="o_g2b_rv_reply_title">Reply from Gif2box</div>
+                <p class="o_g2b_rv_reply_text" t-out="review.reply"/>
+            </div>
+        </article>
+    </template>
+
+    <!-- A page of reviews: the first with the product page, the next ones fetched. -->
+    <template id="product_review_items" name="Reviews: a page of reviews">
+        <t t-foreach="g2b_reviews" t-as="review">
+            <t t-call="gif2box_review.review_item"/>
+        </t>
+        <p t-if="g2b_empty" class="o_g2b_rvs_none">No reviews match this filter yet.</p>
+        <div t-if="g2b_more" class="o_g2b_rvs_more_wrap">
+            <button type="button" class="o_g2b_rvs_more" t-att-data-next="g2b_next" t-att-data-kind="g2b_kind">
+                Show more reviews
+            </button>
+        </div>
+    </template>
+
+    <!-- The gift box with a face, as on the thank-you card: the review pages reuse it. -->
+    <template id="gift_art" name="Reviews: gift box">
+        <t t-call="gif2box_review.thank_card_art"/>
+    </template>
+
+</odoo>

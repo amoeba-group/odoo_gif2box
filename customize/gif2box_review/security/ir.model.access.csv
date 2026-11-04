@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_review_salesman,gif2box.review salesman,model_gif2box_review,sales_team.group_sale_salesman,1,1,1,1
+access_review_website,gif2box.review website editor,model_gif2box_review,website.group_website_designer,1,1,1,1
+access_review_user,gif2box.review employee,model_gif2box_review,base.group_user,1,0,0,0
+access_review_portal,gif2box.review portal,model_gif2box_review,base.group_portal,1,0,0,0
+access_review_public,gif2box.review public,model_gif2box_review,base.group_public,1,0,0,0
+access_review_image_salesman,gif2box.review.image salesman,model_gif2box_review_image,sales_team.group_sale_salesman,1,1,1,1
+access_review_image_website,gif2box.review.image website editor,model_gif2box_review_image,website.group_website_designer,1,1,1,1
+access_review_image_user,gif2box.review.image employee,model_gif2box_review_image,base.group_user,1,0,0,0
+access_review_image_portal,gif2box.review.image portal,model_gif2box_review_image,base.group_portal,1,0,0,0
+access_review_image_public,gif2box.review.image public,model_gif2box_review_image,base.group_public,1,0,0,0
+access_review_tag_salesman,gif2box.review.tag salesman,model_gif2box_review_tag,sales_team.group_sale_salesman,1,1,1,1
+access_review_tag_website,gif2box.review.tag website editor,model_gif2box_review_tag,website.group_website_designer,1,1,1,1
+access_review_tag_user,gif2box.review.tag employee,model_gif2box_review_tag,base.group_user,1,0,0,0
+access_review_tag_portal,gif2box.review.tag portal,model_gif2box_review_tag,base.group_portal,1,0,0,0
+access_review_tag_public,gif2box.review.tag public,model_gif2box_review_tag,base.group_public,1,0,0,0

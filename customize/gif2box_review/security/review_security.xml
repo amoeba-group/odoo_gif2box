@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Visitors and customers see published reviews only, and their photos.
+        A review is written through the review pages, which check the order
+        (or the card's code) themselves.
+    -->
+    <record id="rule_review_published" model="ir.rule">
+        <field name="name">Reviews: published only, on the website</field>
+        <field name="model_id" ref="model_gif2box_review"/>
+        <field name="domain_force">[('is_published', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_review_image_published" model="ir.rule">
+        <field name="name">Review photos: of published reviews only, on the website</field>
+        <field name="model_id" ref="model_gif2box_review_image"/>
+        <field name="domain_force">[('review_id.is_published', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public')), (4, ref('base.group_portal'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>

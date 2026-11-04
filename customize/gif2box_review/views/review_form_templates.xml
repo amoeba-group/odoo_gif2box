@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The review page, for both kinds of reviewer: the recipient who
+        scanned the card in the box (/gift/<code>), and the buyer, from the
+        order (/my/orders/<id>/review).
+
+        Built for a phone held in one hand, by someone who did not plan to
+        write a review: a greeting that says what this is about, the gift
+        they are reviewing, then one question per block, the first a row of
+        large stars. Everything after the stars is optional and says so.
+        The send button stays at the bottom of the screen.
+
+        A plain form that works without the script; `review_form.js`
+        (loaded on these pages only) adds the live stars, shrinks the
+        photos before sending them, shows the upload's progress, and the
+        thank-you without leaving the page.
+    -->
+    <template id="review_page" name="Review page">
+        <t t-call="website.layout">
+            <t t-set="additional_title" t-value="g2b_text['title']"/>
+            <t t-set="head">
+                <meta name="robots" content="noindex, nofollow"/>
+                <t t-call-assets="gif2box_review.assets_review_form" t-css="false" defer_load="True"/>
+            </t>
+            <t t-set="g2b_recipient_page" t-value="g2b_type == 'recipient'"/>
+            <t t-set="g2b_note_allowed" t-value="g2b_recipient_page and not g2b_self_gift and g2b_giver"/>
+            <t t-set="g2b_show_form" t-value="not g2b_submitted and (not g2b_review or g2b_editing)"/>
+            <t t-set="g2b_f" t-value="g2b_form or {}"/>
+            <t t-set="g2b_rating" t-value="g2b_f.get('rating') or (g2b_review.rating if g2b_review else 0)"/>
+            <t t-set="g2b_checked_tags" t-value="g2b_f.get('tag_ids') or (g2b_review.tag_ids.ids if g2b_review else [])"/>
+
+            <div id="wrap" t-attf-class="o_g2b_rvf o_g2b_rvf_#{g2b_type}">
+                <div class="o_g2b_rvf_shell">
+
+                    <header class="o_g2b_rvf_hero">
+                        <div class="o_g2b_rvf_hero_art" aria-hidden="true">
+                            <t t-call="gif2box_review.gift_art"/>
+                        </div>
+                        <p class="o_g2b_rvf_eyebrow" t-out="g2b_text['eyebrow']"/>
+                        <h1 class="o_g2b_rvf_title" t-out="g2b_text['title']"/>
+                        <p class="o_g2b_rvf_lead" t-out="g2b_text['lead']"/>
+                    </header>
+
+                    <!-- Which gift: a tab per gift when an order has several. -->
+                    <nav t-if="g2b_lines and len(g2b_lines) &gt; 1" class="o_g2b_rvf_tabs" aria-label="Gifts in this order">
+                        <a t-foreach="g2b_lines" t-as="g2b_tab"
+                           t-att-href="g2b_order._g2b_buyer_review_url(g2b_tab)"
+                           t-attf-class="o_g2b_rvf_tab #{'is-current' if g2b_tab == g2b_line else ''} #{'is-done' if g2b_tab._g2b_review('buyer') else ''}"
+                           t-att-aria-current="'page' if g2b_tab == g2b_line else None">
+                            <img t-att-src="g2b_tab._g2b_image_url('image_128')" alt="" width="40" height="40"/>
+                            <span t-out="g2b_tab.name_short or g2b_tab.product_id.name"/>
+                        </a>
+                    </nav>
+
+                    <div class="o_g2b_rvf_product">
+                        <img t-att-src="g2b_product_image" alt="" class="o_g2b_rvf_product_img" width="72" height="72"/>
+                        <div class="o_g2b_rvf_product_body">
+                            <div class="o_g2b_rvf_product_label">Your review is about</div>
+                            <a t-if="g2b_product_url" t-att-href="g2b_product_url" class="o_g2b_rvf_product_name"
+                               target="_blank" rel="noopener" t-out="g2b_product_name"/>
+                            <div t-else="" class="o_g2b_rvf_product_name" t-out="g2b_product_name"/>
+                        </div>
+                    </div>
+
+                    <!-- Already reviewed: what they wrote, and a way to change it. -->
+                    <section t-if="g2b_review and not g2b_editing and not g2b_submitted" class="o_g2b_rvf_card o_g2b_rvf_done">
+                        <div class="o_g2b_rvf_done_badge" aria-hidden="true">✓</div>
+                        <h2 class="o_g2b_rvf_card_title">You have shared your review</h2>
+                        <div class="o_g2b_rvf_done_rating">
+                            <t t-call="gif2box_review.stars">
+                                <t t-set="g2b_value" t-value="g2b_review.rating"/>
+                                <t t-set="g2b_stars_class" t-value="'o_g2b_stars_lg'"/>
+                            </t>
+                            <span class="o_g2b_rvf_done_label" t-out="g2b_review.rating_label"/>
+                        </div>
+                        <ul t-if="g2b_review.tag_ids" class="o_g2b_rv_tags">
+                            <li t-foreach="g2b_review.tag_ids" t-as="tag" class="o_g2b_rv_tag">
+                                <span t-if="tag.icon" aria-hidden="true" t-out="tag.icon"/>
+                                <span t-out="tag.name"/>
+                            </li>
+                        </ul>
+                        <p t-if="g2b_review.comment" class="o_g2b_rvf_done_comment" t-out="g2b_review.comment"/>
+                        <div t-if="g2b_kept_images" class="o_g2b_rvf_done_photos">
+                            <img t-foreach="g2b_kept_images" t-as="g2b_img" t-att-src="g2b_img[1]" alt="" width="72" height="72"/>
+                        </div>
+                        <div t-if="g2b_review.thanks_note" class="o_g2b_rvf_letter_view">
+                            <div class="o_g2b_rvf_letter_view_title" t-out="g2b_text.get('note_title')"/>
+                            <p t-out="g2b_review.thanks_note"/>
+                        </div>
+                        <p t-if="not g2b_review.is_published" class="o_g2b_rvf_muted">
+                            Your review will show on the website once the shop has read it.
+                        </p>
+                        <div class="o_g2b_rvf_actions">
+                            <a t-att-href="g2b_action + ('&amp;' if '?' in g2b_action else '?') + 'edit=1'"
+                               class="o_g2b_rvf_btn o_g2b_rvf_btn_ghost">Edit my review</a>
+                            <a href="/shop" class="o_g2b_rvf_btn">Discover Gif2box</a>
+                        </div>
+                    </section>
+
+                    <form t-if="g2b_show_form" class="o_g2b_rvf_form" method="post" enctype="multipart/form-data"
+                          t-att-action="g2b_action" novalidate="novalidate"
+                          t-att-data-max-images="g2b_max_images">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="ajax" value="0"/>
+                        <div class="o_g2b_rvf_hp" aria-hidden="true">
+                            <label for="g2b_company">Company</label>
+                            <input id="g2b_company" type="text" name="g2b_company" tabindex="-1" autocomplete="off"/>
+                        </div>
+
+                        <!-- 1. The stars -->
+                        <fieldset t-attf-class="o_g2b_rvf_card o_g2b_rvf_rating #{'has-error' if g2b_errors.get('rating') else ''}">
+                            <legend class="o_g2b_rvf_q o_g2b_rvf_q_center">
+                                <div t-if="g2b_recipient_page" class="o_g2b_rvf_q_text">How do you like your gift?</div>
+                                <div t-else="" class="o_g2b_rvf_q_text">How was your experience?</div>
+                            </legend>
+                            <div class="o_g2b_rvf_face" aria-hidden="true"
+                                 t-att-data-g2b-rating="g2b_rating or None">
+                                <span class="o_g2b_rvf_face_0">✨</span>
+                                <span class="o_g2b_rvf_face_1">😞</span>
+                                <span class="o_g2b_rvf_face_2">😕</span>
+                                <span class="o_g2b_rvf_face_3">🙂</span>
+                                <span class="o_g2b_rvf_face_4">😊</span>
+                                <span class="o_g2b_rvf_face_5">😍</span>
+                            </div>
+                            <div class="o_g2b_rvf_stars" role="radiogroup" aria-labelledby="g2b_rating_label">
+                                <label t-foreach="[1, 2, 3, 4, 5]" t-as="g2b_n"
+                                       t-attf-class="o_g2b_rvf_star #{'is-on' if g2b_n &lt;= g2b_rating else ''}"
+                                       t-att-data-label="g2b_labels[g2b_n]">
+                                    <input type="radio" name="rating" t-att-value="g2b_n" class="o_g2b_rvf_star_input"
+                                           t-att-checked="'checked' if g2b_n == g2b_rating else None"
+                                           t-att-aria-label="g2b_labels[g2b_n]"/>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                        <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+                                    </svg>
+                                </label>
+                            </div>
+                            <div id="g2b_rating_label" class="o_g2b_rvf_rating_label" aria-live="polite">
+                                <div t-if="g2b_rating" class="o_g2b_rvf_rating_text" t-out="g2b_labels[g2b_rating]"/>
+                                <div t-else="" class="o_g2b_rvf_rating_text o_g2b_rvf_rating_hint">Tap a star to rate</div>
+                            </div>
+                            <div class="o_g2b_rvf_error o_g2b_rvf_error_rating" role="alert"
+                                 t-out="g2b_errors.get('rating') or ''"/>
+                            <div class="o_g2b_rvf_msg d-none" data-g2b-msg="rating">Tap a star to give your rating.</div>
+                        </fieldset>
+
+                        <!-- 2. Highlights -->
+                        <fieldset t-if="g2b_tags" class="o_g2b_rvf_card">
+                            <legend class="o_g2b_rvf_q">
+                                <div class="o_g2b_rvf_q_text">What stood out?</div>
+                                <div class="o_g2b_rvf_opt">Optional</div>
+                            </legend>
+                            <div class="o_g2b_rvf_chips">
+                                <label t-foreach="g2b_tags" t-as="tag"
+                                       t-attf-class="o_g2b_rvf_chip #{'is-on' if tag.id in g2b_checked_tags else ''}">
+                                    <input type="checkbox" name="tag_ids" t-att-value="tag.id"
+                                           t-att-checked="'checked' if tag.id in g2b_checked_tags else None"/>
+                                    <span t-if="tag.icon" class="o_g2b_rvf_chip_icon" aria-hidden="true" t-out="tag.icon"/>
+                                    <span t-out="tag.name"/>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <!-- 3. In their words -->
+                        <div class="o_g2b_rvf_card">
+                            <label for="g2b_comment" class="o_g2b_rvf_q">
+                                <div class="o_g2b_rvf_q_text">Tell us more</div>
+                                <div class="o_g2b_rvf_opt">Optional</div>
+                            </label>
+                            <textarea t-if="g2b_recipient_page" id="g2b_comment" name="comment" rows="4"
+                                      class="o_g2b_rvf_textarea" t-att-maxlength="g2b_max_comment"
+                                      placeholder="What did you feel when you opened the box? What did you like best?"
+                                      t-out="g2b_f.get('comment') or (g2b_review.comment if g2b_review else '')"/>
+                            <textarea t-else="" id="g2b_comment" name="comment" rows="4"
+                                      class="o_g2b_rvf_textarea" t-att-maxlength="g2b_max_comment"
+                                      placeholder="How did choosing and ordering go? How did they react when the gift arrived?"
+                                      t-out="g2b_f.get('comment') or (g2b_review.comment if g2b_review else '')"/>
+                            <div class="o_g2b_rvf_counter" aria-hidden="true">
+                                <span class="o_g2b_rvf_counter_n">0</span><span>/</span><span t-out="g2b_max_comment"/>
+                            </div>
+                        </div>
+
+                        <!-- 4. Photos -->
+                        <div t-attf-class="o_g2b_rvf_card o_g2b_rvf_photos #{'has-error' if g2b_errors.get('images') else ''}">
+                            <div class="o_g2b_rvf_q">
+                                <div class="o_g2b_rvf_q_text">Add photos</div>
+                                <div class="o_g2b_rvf_opt">Optional</div>
+                            </div>
+                            <p t-if="g2b_recipient_page" class="o_g2b_rvf_help">The box, the gift, or you with it: a photo makes a review twice as lovely.</p>
+                            <p t-else="" class="o_g2b_rvf_help">The box, or a photo the recipient sent you.</p>
+                            <ul class="o_g2b_rvf_thumbs">
+                                <li t-foreach="g2b_kept_images" t-as="g2b_img" class="o_g2b_rvf_thumb">
+                                    <img t-att-src="g2b_img[1]" alt=""/>
+                                    <input type="hidden" name="keep_image_ids" t-att-value="g2b_img[0]"/>
+                                    <button type="button" class="o_g2b_rvf_thumb_x" aria-label="Remove this photo">×</button>
+                                </li>
+                                <li class="o_g2b_rvf_add_item">
+                                    <label class="o_g2b_rvf_add">
+                                        <input type="file" name="images" accept="image/*" multiple="multiple"
+                                               class="o_g2b_rvf_file"/>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                                            <circle cx="12" cy="13" r="3"/>
+                                        </svg>
+                                        <span class="o_g2b_rvf_add_label">Add</span>
+                                        <span class="o_g2b_rvf_add_count">
+                                            <span class="o_g2b_rvf_add_n" t-out="len(g2b_kept_images)"/><span>/</span><span t-out="g2b_max_images"/>
+                                        </span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="o_g2b_rvf_error" role="alert" t-out="g2b_errors.get('images') or ''"/>
+                            <div class="o_g2b_rvf_msg d-none" data-g2b-msg="max">You have added the most photos a review can have.</div>
+                            <div class="o_g2b_rvf_msg d-none" data-g2b-msg="unreadable">This file could not be read as a photo.</div>
+                            <div class="o_g2b_rvf_msg d-none" data-g2b-msg="remove">Remove this photo</div>
+                        </div>
+
+                        <!-- 5. For the recipient: a private note to whoever sent the gift -->
+                        <div t-if="g2b_note_allowed" class="o_g2b_rvf_card o_g2b_rvf_note">
+                            <label for="g2b_note" class="o_g2b_rvf_q">
+                                <div class="o_g2b_rvf_q_text"><span aria-hidden="true">💌 </span><t t-out="g2b_text['note_title']"/></div>
+                                <div class="o_g2b_rvf_opt">Optional</div>
+                            </label>
+                            <p class="o_g2b_rvf_help o_g2b_rvf_private" t-out="g2b_text['note_help']"/>
+                            <textarea id="g2b_note" name="thanks_note" rows="4" class="o_g2b_rvf_textarea o_g2b_rvf_letter"
+                                      t-att-maxlength="g2b_max_note" t-att-placeholder="g2b_text['note_placeholder']"
+                                      t-out="g2b_f.get('thanks_note') or (g2b_review.thanks_note if g2b_review else '')"/>
+                        </div>
+
+                        <!-- 6. The name shown with the review -->
+                        <div class="o_g2b_rvf_card o_g2b_rvf_name">
+                            <label for="g2b_name" class="o_g2b_rvf_q">
+                                <div class="o_g2b_rvf_q_text">Your name, as shown with the review</div>
+                            </label>
+                            <input id="g2b_name" type="text" name="author_name" class="o_g2b_rvf_input"
+                                   t-att-maxlength="60" autocomplete="name"
+                                   t-att-value="g2b_f.get('author_name') or (g2b_review.author_name if g2b_review else g2b_default_name)"/>
+                            <label class="o_g2b_rvf_switch">
+                                <input type="checkbox" name="is_anonymous" value="1" class="o_g2b_rvf_switch_input"
+                                       t-att-checked="'checked' if g2b_f.get('is_anonymous') or (g2b_review and g2b_review.is_anonymous) else None"/>
+                                <span class="o_g2b_rvf_switch_ui" aria-hidden="true"/>
+                                <span class="o_g2b_rvf_switch_text">
+                                    <span class="o_g2b_rvf_switch_label">Hide my name</span>
+                                    <span class="o_g2b_rvf_switch_hint">
+                                        <span class="o_g2b_rvf_switch_hint_label">Shown as</span>
+                                        <b class="o_g2b_rvf_mask" t-out="request.env['gif2box.review']._g2b_mask(g2b_f.get('author_name') or (g2b_review.author_name if g2b_review else g2b_default_name))"/>
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="o_g2b_rvf_submit_bar">
+                            <div class="o_g2b_rvf_error o_g2b_rvf_error_send" role="alert"/>
+                            <div class="o_g2b_rvf_msg d-none" data-g2b-msg="network">Your review could not be sent. Check your connection and try again.</div>
+                            <button type="submit" class="o_g2b_rvf_btn o_g2b_rvf_submit">
+                                <span class="o_g2b_rvf_submit_progress" aria-hidden="true"/>
+                                <span class="o_g2b_rvf_submit_label">
+                                    <span t-if="g2b_review" class="o_g2b_rvf_submit_idle">Save my review</span>
+                                    <span t-else="" class="o_g2b_rvf_submit_idle">Send my review</span>
+                                    <span class="o_g2b_rvf_submit_busy">Sending...</span>
+                                </span>
+                            </button>
+                        </div>
+                        <p class="o_g2b_rvf_fineprint">Your rating, words, name and photos will be shown on the product page.</p>
+                        <p t-if="g2b_note_allowed" class="o_g2b_rvf_fineprint o_g2b_rvf_fineprint_note">Your note to the giver stays private.</p>
+                    </form>
+
+                    <!-- Sent. Shown by the page after a plain post, by the script otherwise. -->
+                    <section t-attf-class="o_g2b_rvf_card o_g2b_rvf_success #{'is-shown' if g2b_submitted else ''}"
+                             tabindex="-1" aria-live="polite">
+                        <div class="o_g2b_rvf_burst" aria-hidden="true">
+                            <span/><span/><span/><span/><span/><span/><span/><span/><span/><span/><span/><span/>
+                        </div>
+                        <div class="o_g2b_rvf_success_heart" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.4C.9 7.9 3.3 4 7 4c2.1 0 3.6 1.1 5 3 1.4-1.9 2.9-3 5-3 3.7 0 6.1 3.9 4.6 7.6C19.5 16.4 12 21 12 21z"/></svg>
+                        </div>
+                        <h2 class="o_g2b_rvf_success_title">Thank you so much!</h2>
+                        <p t-if="g2b_recipient_page" class="o_g2b_rvf_success_text">Your review means a lot to the whole Gif2box team. We hope your gift brings you joy every day.</p>
+                        <p t-else="" class="o_g2b_rvf_success_text">Your review helps others choose a gift for someone they love. Thank you for gifting with Gif2box.</p>
+                        <p t-if="g2b_note_allowed"
+                           t-attf-class="o_g2b_rvf_success_note #{'d-none' if not (g2b_review and g2b_review.thanks_note) else ''}"
+                           t-out="g2b_text['note_sent']"/>
+                        <p t-if="g2b_moderated" class="o_g2b_rvf_muted">It will show on the website once the shop has read it.</p>
+                        <div class="o_g2b_rvf_actions">
+                            <t t-if="g2b_recipient_page">
+                                <a href="/shop" class="o_g2b_rvf_btn">Send a gift to someone too</a>
+                            </t>
+                            <t t-else="">
+                                <a t-att-href="g2b_order.get_portal_url()" class="o_g2b_rvf_btn o_g2b_rvf_btn_ghost">Back to my order</a>
+                                <a href="/shop" class="o_g2b_rvf_btn">Keep shopping</a>
+                            </t>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- A card code that leads nowhere, or too many wrong ones in a row. -->
+    <template id="gift_not_found" name="Gift review: not found">
+        <t t-call="website.layout">
+            <t t-set="head"><meta name="robots" content="noindex, nofollow"/></t>
+            <div id="wrap" class="o_g2b_rvf">
+                <div class="o_g2b_rvf_shell">
+                    <section class="o_g2b_rvf_card o_g2b_rvf_lost">
+                        <div class="o_g2b_rvf_hero_art" aria-hidden="true">
+                            <t t-call="gif2box_review.gift_art"/>
+                        </div>
+                        <t t-if="g2b_wait">
+                            <h1 class="o_g2b_rvf_title">Please wait a few minutes</h1>
+                            <p class="o_g2b_rvf_lead">There have been too many tries from this device. Try again in a few minutes.</p>
+                        </t>
+                        <t t-else="">
+                            <h1 class="o_g2b_rvf_title">We could not find this gift</h1>
+                            <p class="o_g2b_rvf_lead">Scan the QR code on the card again, or check the address you typed: it is printed under the code.</p>
+                        </t>
+                        <div class="o_g2b_rvf_actions">
+                            <a href="/contactus" class="o_g2b_rvf_btn o_g2b_rvf_btn_ghost">Contact us</a>
+                            <a href="/" class="o_g2b_rvf_btn">Go to Gif2box</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

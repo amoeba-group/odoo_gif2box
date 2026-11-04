@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The reviews on the product page.
+
+        Under the title: the stars, the average and the count, linking down
+        to the reviews, when there are any.
+
+        Below the description: the summary (average, the bars per star,
+        which also filter, and the two kinds of reviewer side by side), the
+        latest photos, filters, then the reviews, five at a time. The first
+        five come with the page, for visitors and search engines alike; the
+        filters and "Show more" fetch the next (`product_reviews.js`).
+
+        `aggregateRating` and each `review` are marked up for search
+        engines, inside the page's own schema.org Product.
+    -->
+    <template id="product_rating_inline" inherit_id="website_sale.product" name="Product rating under the title">
+        <xpath expr="//h1[@itemprop='name']" position="after">
+            <a t-if="product.g2b_rating_count" href="#o_g2b_reviews" class="o_g2b_rv_inline">
+                <t t-call="gif2box_review.stars">
+                    <t t-set="g2b_value" t-value="product.g2b_rating_avg"/>
+                </t>
+                <span class="o_g2b_rv_inline_avg" t-out="'%.1f' % product.g2b_rating_avg"/>
+                <span class="o_g2b_rv_inline_count" t-out="product._g2b_count_label()"/>
+            </a>
+        </xpath>
+    </template>
+
+    <template id="product_reviews" inherit_id="website_sale.product" name="Product reviews">
+        <xpath expr="//div[@id='o_g2b_product_desc']" position="after">
+            <t t-call="gif2box_review.product_reviews_section"/>
+        </xpath>
+    </template>
+
+    <template id="product_reviews_section" name="Product reviews: section">
+        <t t-set="g2b_sum" t-value="product._g2b_review_summary()"/>
+        <section id="o_g2b_reviews" class="o_g2b_rvs container o_not_editable"
+                 t-att-data-product-id="product.id" aria-labelledby="o_g2b_rvs_title">
+            <div t-if="g2b_sum['count']" class="d-none" itemprop="aggregateRating"
+                 itemscope="itemscope" itemtype="https://schema.org/AggregateRating">
+                <meta itemprop="ratingValue" t-att-content="g2b_sum['avg']"/>
+                <meta itemprop="reviewCount" t-att-content="g2b_sum['count']"/>
+                <meta itemprop="bestRating" content="5"/>
+                <meta itemprop="worstRating" content="1"/>
+            </div>
+
+            <header class="o_g2b_rvs_head">
+                <h2 id="o_g2b_rvs_title" class="o_g2b_rvs_title">Reviews</h2>
+                <p class="o_g2b_rvs_sub">From the people who gave this gift, and the people who received it.</p>
+            </header>
+
+            <div t-if="g2b_sum['count']" class="o_g2b_rvs_layout">
+                <aside class="o_g2b_rvs_summary">
+                    <div class="o_g2b_rvs_score">
+                        <div class="o_g2b_rvs_avg" t-out="'%.1f' % g2b_sum['avg']"/>
+                        <div class="o_g2b_rvs_score_side">
+                            <t t-call="gif2box_review.stars">
+                                <t t-set="g2b_value" t-value="g2b_sum['avg']"/>
+                                <t t-set="g2b_stars_class" t-value="'o_g2b_stars_md'"/>
+                            </t>
+                            <div class="o_g2b_rvs_count" t-out="g2b_sum['count_label']"/>
+                        </div>
+                    </div>
+
+                    <ul class="o_g2b_rvs_bars">
+                        <li t-foreach="g2b_sum['stars']" t-as="g2b_row">
+                            <button type="button" class="o_g2b_rvs_bar o_g2b_rvs_filter"
+                                    t-att-data-kind="g2b_row[0]" t-att-disabled="None if g2b_row[1] else 'disabled'">
+                                <span class="o_g2b_rvs_bar_label" t-out="g2b_row[0]"/>
+                                <span class="o_g2b_rvs_bar_star" aria-hidden="true">★</span>
+                                <span class="o_g2b_rvs_bar_track">
+                                    <span class="o_g2b_rvs_bar_fill" t-attf-style="width: #{g2b_row[2]}%;"/>
+                                </span>
+                                <span class="o_g2b_rvs_bar_n" t-out="g2b_row[1]"/>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="o_g2b_rvs_split">
+                        <div t-attf-class="o_g2b_rvs_split_item o_g2b_rvs_split_buyer #{'is-empty' if not g2b_sum['buyer'][1] else ''}">
+                            <div class="o_g2b_rvs_split_icon" aria-hidden="true">🎁</div>
+                            <div class="o_g2b_rvs_split_label">Gift givers</div>
+                            <div class="o_g2b_rvs_split_value">
+                                <t t-if="g2b_sum['buyer'][1]">
+                                    <span class="o_g2b_rvs_split_avg" t-out="'%.1f' % g2b_sum['buyer'][0]"/>
+                                    <span class="o_g2b_rvs_split_star" aria-hidden="true">★</span>
+                                    <span class="o_g2b_rvs_split_n" t-out="'(%s)' % g2b_sum['buyer'][1]"/>
+                                </t>
+                                <span t-else="" class="o_g2b_rvs_split_n">–</span>
+                            </div>
+                        </div>
+                        <div t-attf-class="o_g2b_rvs_split_item o_g2b_rvs_split_recipient #{'is-empty' if not g2b_sum['recipient'][1] else ''}">
+                            <div class="o_g2b_rvs_split_icon" aria-hidden="true">💝</div>
+                            <div class="o_g2b_rvs_split_label">Gift recipients</div>
+                            <div class="o_g2b_rvs_split_value">
+                                <t t-if="g2b_sum['recipient'][1]">
+                                    <span class="o_g2b_rvs_split_avg" t-out="'%.1f' % g2b_sum['recipient'][0]"/>
+                                    <span class="o_g2b_rvs_split_star" aria-hidden="true">★</span>
+                                    <span class="o_g2b_rvs_split_n" t-out="'(%s)' % g2b_sum['recipient'][1]"/>
+                                </t>
+                                <span t-else="" class="o_g2b_rvs_split_n">–</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="o_g2b_rvs_trust">
+                        <span class="o_g2b_rvs_trust_icon" aria-hidden="true">✓</span>
+                        <div>Every review comes from a real order: its buyer, or the recipient who scanned the card in the box.</div>
+                    </div>
+                </aside>
+
+                <div class="o_g2b_rvs_main">
+                    <t t-set="g2b_photos" t-value="product._g2b_review_photos()"/>
+                    <div t-if="g2b_photos" class="o_g2b_rvs_photos" data-g2b-gallery="all">
+                        <t t-foreach="g2b_photos" t-as="g2b_photo">
+                            <button type="button" class="o_g2b_rv_photo o_g2b_rvs_photo"
+                                    t-att-data-g2b-full="g2b_photo[1]" aria-label="View photo">
+                                <img t-att-src="g2b_photo[0]" alt="" loading="lazy" decoding="async" width="88" height="88"/>
+                            </button>
+                        </t>
+                    </div>
+
+                    <div class="o_g2b_rvs_filters" role="group" aria-label="Filter reviews">
+                        <button type="button" class="o_g2b_rvs_chip o_g2b_rvs_filter is-on" data-kind="all" aria-pressed="true">
+                            <span>All</span>
+                            <span class="o_g2b_rvs_chip_n" t-out="g2b_sum['count']"/>
+                        </button>
+                        <button t-if="g2b_sum['buyer'][1]" type="button" class="o_g2b_rvs_chip o_g2b_rvs_filter"
+                                data-kind="buyer" aria-pressed="false">
+                            <span>Gift givers</span>
+                            <span class="o_g2b_rvs_chip_n" t-out="g2b_sum['buyer'][1]"/>
+                        </button>
+                        <button t-if="g2b_sum['recipient'][1]" type="button" class="o_g2b_rvs_chip o_g2b_rvs_filter"
+                                data-kind="recipient" aria-pressed="false">
+                            <span>Gift recipients</span>
+                            <span class="o_g2b_rvs_chip_n" t-out="g2b_sum['recipient'][1]"/>
+                        </button>
+                        <button t-if="g2b_sum['with_photos']" type="button" class="o_g2b_rvs_chip o_g2b_rvs_filter"
+                                data-kind="photos" aria-pressed="false">
+                            <span>With photos</span>
+                            <span class="o_g2b_rvs_chip_n" t-out="g2b_sum['with_photos']"/>
+                        </button>
+                    </div>
+
+                    <div class="o_g2b_rvs_list" aria-live="polite" aria-busy="false">
+                        <t t-set="g2b_first" t-value="product._g2b_reviews_page('all', 0, 5)"/>
+                        <t t-call="gif2box_review.product_review_items">
+                            <t t-set="g2b_reviews" t-value="g2b_first[0]"/>
+                            <t t-set="g2b_more" t-value="g2b_first[1]"/>
+                            <t t-set="g2b_next" t-value="len(g2b_first[0])"/>
+                            <t t-set="g2b_kind" t-value="'all'"/>
+                            <t t-set="g2b_empty" t-value="False"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <div t-else="" class="o_g2b_rvs_empty">
+                <div class="o_g2b_rvs_empty_art" aria-hidden="true">
+                    <t t-call="gif2box_review.gift_art"/>
+                </div>
+                <div>
+                    <div class="o_g2b_rvs_empty_title">No reviews yet</div>
+                    <p class="o_g2b_rvs_empty_text">Reviews here come from real orders only: from the people who gave this gift, and from the people who received it, by scanning the QR code on the thank-you card in the box.</p>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.gif2box.review</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="wishlist_option_setting" position="after">
+                <setting id="g2b_review_setting" string="Customer reviews"
+                         help="From gift givers (their orders) and from recipients (the QR code of the thank-you card)">
+                    <field name="g2b_review_moderate"/>
+                    <div class="text-muted">
+                        Off: reviews show as soon as they are written, and you can hide one at any time.
+                        On: each waits for you to publish it.
+                    </div>
+                    <div class="mt8">
+                        <button name="%(gif2box_review.action_reviews)d" type="action" string="Reviews"
+                                icon="oi-arrow-right" class="btn-link"/>
+                        <button name="%(gif2box_review.action_review_tags)d" type="action" string="Highlights"
+                                icon="oi-arrow-right" class="btn-link"/>
+                    </div>
+                </setting>
+            </setting>
+        </field>
+    </record>
+
+</odoo>

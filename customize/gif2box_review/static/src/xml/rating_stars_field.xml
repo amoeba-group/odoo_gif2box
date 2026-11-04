@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="gif2box_review.RatingStarsField">
+        <div class="o_g2b_rating_stars" t-att-class="{'o_g2b_rating_stars_edit': !props.readonly}"
+             role="img" t-att-aria-label="label" t-att-title="label">
+            <t t-foreach="stars" t-as="star" t-key="star">
+                <button t-if="!props.readonly" type="button" class="btn btn-link p-0 o_g2b_rating_star"
+                        t-att-class="{'o_g2b_rating_star_on': star &lt;= value}"
+                        t-on-click="() => this.onClick(star)">
+                    <i t-attf-class="fa #{star &lt;= value ? 'fa-star' : 'fa-star-o'}"/>
+                </button>
+                <i t-else="" t-attf-class="fa o_g2b_rating_star #{star &lt;= value ? 'fa-star o_g2b_rating_star_on' : 'fa-star-o'}"/>
+            </t>
+        </div>
+    </t>
+
+</templates>

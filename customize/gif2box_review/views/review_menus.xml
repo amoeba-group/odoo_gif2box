@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Website > eCommerce > Reviews, and Sales > Orders > Reviews. -->
+    <menuitem id="menu_reviews_root" name="Reviews" parent="website_sale.menu_ecommerce" sequence="4">
+        <menuitem id="menu_reviews" name="Reviews" action="action_reviews" sequence="1"/>
+        <menuitem id="menu_review_tags" name="Highlights" action="action_review_tags" sequence="2"/>
+    </menuitem>
+
+    <menuitem id="menu_sale_reviews" name="Reviews" parent="sale.sale_order_menu"
+              action="action_reviews" sequence="40"/>
+
+</odoo>

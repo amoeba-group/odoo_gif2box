@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.gif2box.review</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_g2b_view_reviews" type="object" class="oe_stat_button" icon="fa-star">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="g2b_rating_avg" invisible="not g2b_rating_count"/>
+                            <span invisible="g2b_rating_count">0</span>
+                            <span class="fw-normal" invisible="not g2b_rating_count"> ★</span>
+                        </span>
+                        <span class="o_stat_text">
+                            <field name="g2b_review_count" class="d-inline"/> Reviews
+                        </span>
+                    </div>
+                </button>
+                <field name="g2b_rating_count" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
