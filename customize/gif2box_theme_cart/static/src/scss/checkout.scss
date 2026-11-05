@@ -241,7 +241,7 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline;
+                color: darken($g2b-coral-dark, 10%) !important;
             }
         }
 
@@ -639,7 +639,7 @@ $g2b-selected-bg: rgba($g2b-coral, .07);
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline;
+                color: darken($g2b-coral-dark, 10%) !important;
             }
         }
     }

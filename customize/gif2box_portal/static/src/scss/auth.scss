@@ -191,7 +191,7 @@ $g2b-muted: #6F7B7B !default;
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline;
+                color: darken($g-coral-dark, 10%);
             }
         }
     }
@@ -357,7 +357,7 @@ $g2b-muted: #6F7B7B !default;
         text-decoration: none;
 
         &:hover {
-            text-decoration: underline;
+            color: darken($g-coral-dark, 10%);
         }
     }
 }

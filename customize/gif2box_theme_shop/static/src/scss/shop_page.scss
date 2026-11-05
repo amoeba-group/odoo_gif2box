@@ -177,7 +177,7 @@ $g2b-shop-gutter: calc(var(--bs-gutter-x, 1.5rem) * .5);
         }
 
         &:hover {
-            text-decoration: underline;
+            color: darken($g-coral-dark, 10%);
         }
 
         &:focus-visible {

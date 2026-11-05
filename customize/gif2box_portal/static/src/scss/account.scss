@@ -208,14 +208,18 @@ $g2b-acc-shadow-hover: 0 .6rem 1.8rem rgba(120, 70, 40, .13);
     color: $g-coral-dark;
     text-decoration: none;
 
-    &:hover {
-        color: $g-coral-dark;
-        text-decoration: underline;
-    }
-
     .o_g2b_icon {
         width: 1rem;
         height: 1rem;
+        transition: transform .15s ease;
+    }
+
+    &:hover {
+        color: darken($g-coral-dark, 10%);
+
+        .o_g2b_icon {
+            transform: translateX(2px);
+        }
     }
 }
 

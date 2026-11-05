@@ -305,8 +305,7 @@
 
         &:hover,
         &:focus-visible {
-            color: $g-coral-dark;
-            text-decoration: underline;
+            color: darken($g-coral-dark, 10%);
         }
     }
 
@@ -769,8 +768,7 @@
 
             &:hover,
             &:focus {
-                color: $g-coral-dark;
-                text-decoration: underline;
+                color: darken($g-coral-dark, 10%);
             }
         }
 

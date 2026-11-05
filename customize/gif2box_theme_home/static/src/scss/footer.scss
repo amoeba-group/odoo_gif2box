@@ -219,10 +219,14 @@ footer#bottom.o_footer {
             color: $white !important;
         }
 
-        a:hover,
-        a:focus {
-            color: $white !important;
-            text-decoration: underline;
+        // The links fade a little on hover. The language menu is left out:
+        // its toggle has a hover of its own, and its items sit on white.
+        a:not(.dropdown-toggle):not(.dropdown-item) {
+            &:hover,
+            &:focus {
+                color: $white !important;
+                opacity: .8;
+            }
         }
 
         .js_language_selector .dropdown-toggle {
@@ -244,8 +248,6 @@ footer#bottom.o_footer {
         .dropdown-menu {
             .dropdown-item {
                 color: $g-coral !important;
-                // Beats the underline the copyright links take on hover.
-                text-decoration: none !important;
 
                 span {
                     color: inherit !important;
