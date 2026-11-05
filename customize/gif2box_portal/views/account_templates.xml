@@ -80,7 +80,7 @@
         <t t-set="g2b_me" t-value="request.env.user.partner_id"/>
         <!-- From the path: Odoo's pages do not all set `page_name`. -->
         <t t-set="g2b_path" t-value="request.httprequest.path.rstrip('/')"/>
-        <t t-set="g2b_tab" t-value="'orders' if ('/my/orders' in g2b_path or '/my/quotes' in g2b_path) else 'profile' if ('/my/account' in g2b_path or '/my/security' in g2b_path) else 'home' if (g2b_path.endswith('/my') or g2b_path.endswith('/my/home')) else ''"/>
+        <t t-set="g2b_tab" t-value="'wishlist' if g2b_path.endswith('/shop/wishlist') else 'orders' if ('/my/orders' in g2b_path or '/my/quotes' in g2b_path) else 'profile' if ('/my/account' in g2b_path or '/my/security' in g2b_path) else 'home' if (g2b_path.endswith('/my') or g2b_path.endswith('/my/home')) else ''"/>
         <header class="o_g2b_acc_head">
             <div class="o_g2b_acc_avatar" aria-hidden="true"
                  t-out="((g2b_me.name or '?').split() or ['?'])[-1][:1].upper()"/>
@@ -104,7 +104,8 @@
                 <t t-call="gif2box_portal.icon"><t t-set="g2b_icon" t-value="'package'"/></t>
                 <span>My orders</span>
             </a>
-            <a href="/shop/wishlist" class="o_g2b_acc_tab">
+            <a href="/shop/wishlist" t-attf-class="o_g2b_acc_tab #{'is-active' if g2b_tab == 'wishlist' else ''}"
+               t-att-aria-current="'page' if g2b_tab == 'wishlist' else None">
                 <t t-call="gif2box_portal.icon"><t t-set="g2b_icon" t-value="'heart'"/></t>
                 <span>Wishlist</span>
             </a>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        The wishlist is one of the account's tabs. A signed-in customer
+        therefore finds it inside the account's frame: their name, the tabs
+        with this one lit, and the page's title styled like the other tabs'.
+
+        A guest's wishlist, kept for the visit, stays the shop page it was.
+
+        Only the wrappers and the title change. `wishlist_page` in
+        gif2box_theme_home restyles the list, and the stock script walks
+        its rows.
+    -->
+    <template id="wishlist_frame" inherit_id="website_sale_wishlist.product_wishlist"
+              name="Gif2box wishlist: account frame" priority="50">
+        <xpath expr="//div[@id='wrap']" position="before">
+            <t t-set="g2b_signed_in" t-value="not request.env.user._is_public()"/>
+        </xpath>
+        <xpath expr="//div[@id='wrap']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">js_sale #{'o_g2b_acc o_g2b_acc_page_wishlist' if g2b_signed_in else ''}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('oe_website_sale')]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">container oe_website_sale #{'o_g2b_acc_container' if g2b_signed_in else 'pt-3'}</attribute>
+        </xpath>
+        <xpath expr="//section[hasclass('wishlist-section')]" position="before">
+            <t t-if="g2b_signed_in" t-call="gif2box_portal.account_header"/>
+        </xpath>
+        <xpath expr="//section[hasclass('wishlist-section')]/h3" position="replace">
+            <header t-if="g2b_signed_in" class="o_g2b_acc_page_head">
+                <h1 class="o_g2b_acc_h1">My Wishlist</h1>
+                <a href="/shop" class="o_g2b_acc_btn o_g2b_acc_btn_ghost o_g2b_acc_btn_sm">
+                    <t t-call="gif2box_portal.icon"><t t-set="g2b_icon" t-value="'bag'"/></t>
+                    <span>Keep shopping</span>
+                </a>
+            </header>
+            <h3 t-else="">My Wishlist</h3>
+        </xpath>
+    </template>
+
+</odoo>

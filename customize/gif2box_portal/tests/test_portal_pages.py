@@ -102,3 +102,37 @@ class TestPortalPages(HttpCase):
         self.assertIn('oe_website_sale_tx_status', page.text)
         self.assertIn('data-order-tracking-info', page.text)
         self.assertIn('/order/track/%s?access_token=' % order.id, page.text)
+
+    def test_wishlist_in_frame(self):
+        self._sign_in()
+        tab = r'<a href="/shop/wishlist" class="o_g2b_acc_tab is-active"[^>]*aria-current="page"'
+        # Nothing saved: the tab shows the page, empty, rather than the shop.
+        page = self.url_open('/shop/wishlist', allow_redirects=False)
+        self.assertEqual(page.status_code, 200)
+        self.assertIn('o_g2b_acc_nav', page.text)
+        self.assertRegex(page.text, tab)
+        self.assertIn('o_g2b_wish_empty', page.text)
+
+        # Something saved: its row, in the same frame.
+        website = self.env['website'].get_current_website()
+        product = self.env['product.product'].search([
+            ('website_published', '=', True), ('sale_ok', '=', True),
+            ('website_id', 'in', (False, website.id)),
+        ], limit=1)
+        wish = self.env['product.wishlist'].create({
+            'partner_id': self.user.partner_id.id,
+            'product_id': product.id,
+            'website_id': website.id,
+            'pricelist_id': website.pricelist_id.id,
+            'currency_id': website.currency_id.id,
+            'price': product.list_price,
+        })
+        page = self.url_open('/shop/wishlist')
+        self.assertIn('data-wish-id="%s"' % wish.id, page.text)
+        self.assertRegex(page.text, tab)
+        self.assertIn('o_g2b_acc_page_head', page.text)
+
+        # A guest's empty wishlist still leads to the shop.
+        self.authenticate(None, None)
+        response = self.url_open('/shop/wishlist', allow_redirects=False)
+        self.assertEqual(response.status_code, 303)

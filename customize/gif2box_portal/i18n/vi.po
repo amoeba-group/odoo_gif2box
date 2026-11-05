@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0-20260817\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-04 09:23+0000\n"
-"PO-Revision-Date: 2026-11-04 09:23+0000\n"
+"POT-Creation-Date: 2026-11-05 03:16+0000\n"
+"PO-Revision-Date: 2026-11-05 03:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +115,7 @@ msgstr "<span>Sửa</span>"
 
 #. module: gif2box_portal
 #: model_terms:ir.ui.view,arch_db:gif2box_portal.account_orders
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.wishlist_frame
 msgid "<span>Keep shopping</span>"
 msgstr "<span>Tiếp tục mua sắm</span>"
 
@@ -344,6 +345,11 @@ msgstr "Đã sao chép link!"
 #: model_terms:ir.ui.view,arch_db:gif2box_portal.login_layout
 msgid "Little boxes, big smiles"
 msgstr "Hộp quà nhỏ, nụ cười lớn"
+
+#. module: gif2box_portal
+#: model_terms:ir.ui.view,arch_db:gif2box_portal.wishlist_frame
+msgid "My Wishlist"
+msgstr "Danh sách yêu thích"
 
 #. module: gif2box_portal
 #: model_terms:ir.ui.view,arch_db:gif2box_portal.account_header

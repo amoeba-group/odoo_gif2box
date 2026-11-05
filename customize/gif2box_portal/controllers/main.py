@@ -4,6 +4,7 @@ from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 from odoo.addons.sale.controllers.portal import CustomerPortal
+from odoo.addons.website_sale_wishlist.controllers.main import WebsiteSaleWishlist
 
 ORDERS_PER_PAGE = 10
 
@@ -127,3 +128,16 @@ class Gif2boxCustomerPortal(CustomerPortal):
         return super().portal_order_page(
             order_id, report_type=report_type, access_token=access_token, message=message,
             download=download, downpayment=downpayment, **kw)
+
+
+class Gif2boxWishlist(WebsiteSaleWishlist):
+    """The wishlist is a tab of the account. A signed-in customer who opens
+    it with nothing saved sees it empty, with the way to the shop, instead of
+    being sent to the shop. A guest still is sent there, as before."""
+
+    @http.route()
+    def get_wishlist(self, count=False, **kw):
+        if count or request.env.user._is_public():
+            return super().get_wishlist(count=count, **kw)
+        wishes = request.env['product.wishlist'].with_context(display_default_code=False).current()
+        return request.render('website_sale_wishlist.product_wishlist', {'wishes': wishes})

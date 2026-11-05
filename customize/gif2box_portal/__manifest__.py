@@ -18,6 +18,8 @@ The customer's side of the shop, redesigned
   order's tracking page, which is also where the order's own portal page
   (/my/orders/<id>) now leads, from the emails as from anywhere else.
 * One frame for every account page: the customer's name and tabs.
+  The wishlist, one of the tabs, wears it too once signed in, and is
+  shown empty rather than sent on to the shop.
 * **Sign in, sign up, forgotten password**: one card on a warm page, the
   brand beside it on a computer.
 * **Thank you** (/shop/confirmation): what was ordered, where it goes,
@@ -33,6 +35,7 @@ The customer's side of the shop, redesigned
         'views/account_templates.xml',
         'views/auth_templates.xml',
         'views/confirmation_templates.xml',
+        'views/wishlist_templates.xml',
     ],
     'assets': {
         'web.assets_frontend': [

@@ -993,3 +993,19 @@ $g2b-acc-shadow-hover: 0 .6rem 1.8rem rgba(120, 70, 40, .13);
         display: none !important;
     }
 }
+
+// --- The wishlist, in the frame ---------------------------------------------------
+// `views/wishlist_templates.xml`. The stock page nests a second `.container`
+// around its list, which would set the list in from the tabs' edges.
+.o_g2b_acc_page_wishlist {
+    .wishlist-section {
+        max-width: none;
+        padding: 0;
+    }
+
+    // Once the last item is removed, the empty state offers the way to the
+    // shop itself (see `wishlist.scss` in gif2box_theme_home).
+    .wishlist-section:not(:has(tr[data-wish-id]:not([style*="display"]))) .o_g2b_acc_page_head .o_g2b_acc_btn {
+        display: none;
+    }
+}
