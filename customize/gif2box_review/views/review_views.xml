@@ -21,8 +21,9 @@
                 <field name="image_count" string="Photos" optional="show"/>
                 <field name="order_id" optional="show"/>
                 <field name="source" optional="hide"/>
-                <field name="reply" string="Replied" widget="boolean" optional="show"
-                       invisible="not reply"/>
+                <!-- Not `reply` as a checkbox: a text field crashes the
+                     boolean widget when Owl checks its props (debug mode). -->
+                <field name="reply_date" string="Replied" widget="date" optional="show"/>
                 <field name="is_published" widget="boolean_toggle"/>
             </list>
         </field>
