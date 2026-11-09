@@ -1,0 +1,357 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_social_login
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 08:39+0000\n"
+"PO-Revision-Date: 2026-11-09 08:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"%s did not share your email address with us, and we need it to send you news"
+" of your orders. Try again and allow it, or sign up with your email below."
+msgstr ""
+"%sからメールアドレスが共有されませんでした。ご注文のお知らせをお送りするために必要です。もう一度お試しのうえ共有を許可するか、下のフォームからメールアドレスで登録してください。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "1234567890-abc123.apps.googleusercontent.com"
+msgstr "1234567890-abc123.apps.googleusercontent.com"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "<i class=\"oi oi-fw oi-arrow-right\"/> Google Cloud Console"
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/> Google Cloud Console"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "<i class=\"oi oi-fw oi-arrow-right\"/> Meta for Developers"
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/> Meta for Developers"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "<span>Continue with Facebook</span>"
+msgstr "<span>Facebookで続ける</span>"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "<span>Continue with Google</span>"
+msgstr "<span>Googleで続ける</span>"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"<strong>Facebook</strong>: Settings &amp; privacy › Settings › Apps and websites,\n"
+"                                then remove Gif2box."
+msgstr ""
+"<strong>Facebook</strong>：設定とプライバシー › 設定 › アプリとウェブサイト で、Gif2boxを削除します。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"<strong>Google</strong>: myaccount.google.com › Security › Your connections to\n"
+"                                third-party apps &amp; services › Gif2box, then delete the connection."
+msgstr ""
+"<strong>Google</strong>：myaccount.google.com › セキュリティ › "
+"サードパーティ製のアプリとサービスとの接続 › Gif2box で、接続を削除します。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "A “Continue with Facebook” button on the sign-in and sign-up pages"
+msgstr "ログイン・登録ページに「Facebookで続ける」ボタンを表示"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "A “Continue with Google” button on the sign-in and sign-up pages"
+msgstr "ログイン・登録ページに「Googleで続ける」ボタンを表示"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "App ID"
+msgstr "アプリID"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "App secret"
+msgstr "app secret"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Client ID"
+msgstr "クライアントID"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_client_secret
+msgid "Client Secret"
+msgstr "クライアントシークレット"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Client secret"
+msgstr "クライアントシークレット"
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid "Customers sign in with their Google or Facebook account"
+msgstr "お客様がGoogleまたはFacebookアカウントでログイン"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Delete your account and its data"
+msgstr "アカウントとデータの削除"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Deleting your sign-in data"
+msgstr "ログインデータの削除"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields.selection,name:gif2box_social_login.selection__auth_oauth_provider__g2b_kind__facebook
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Facebook"
+msgstr "Facebook"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_client_id
+msgid "Facebook App ID"
+msgstr "FacebookアプリID"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_client_secret
+msgid "Facebook App Secret"
+msgstr "Facebook app secret"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_facebook
+msgid "Facebook Redirect URI"
+msgstr "FacebookリダイレクトURI"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_facebook_alt
+msgid "Facebook Redirect URI (other host)"
+msgstr "FacebookリダイレクトURI（別ホスト）"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "GOCSPX-..."
+msgstr "GOCSPX-..."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_kind
+msgid "Gif2box Sign-in"
+msgstr "Gif2boxログイン"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields.selection,name:gif2box_social_login.selection__auth_oauth_provider__g2b_kind__google
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Google"
+msgstr "Google"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid "Google & Facebook"
+msgstr "Google・Facebook"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_google_client_secret
+msgid "Google Client Secret"
+msgstr "Googleクライアントシークレット"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_google
+msgid "Google Redirect URI"
+msgstr "GoogleリダイレクトURI"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_google_alt
+msgid "Google Redirect URI (other host)"
+msgstr "GoogleリダイレクトURI（別ホスト）"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid ""
+"Google does not allow signing in from inside this app: open the page in\n"
+"                            your browser (Chrome, Safari) with the ⋯ menu, “Open in browser”."
+msgstr ""
+"Googleはこのアプリ内からのログインを許可していません。⋯メニューの「ブラウザで開く」から、ブラウザ（Chrome、Safari）でこのページを開いてください。"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_client_secret
+msgid ""
+"Google: the client secret of the OAuth client. Facebook: the App secret."
+msgstr "Google：OAuthクライアントのクライアントシークレット。Facebook：app secret。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid ""
+"In Google Cloud Console, an OAuth client of type “Web application”, with\n"
+"                                these Authorized redirect URIs:"
+msgstr ""
+"Google Cloud Consoleで、種類「ウェブ アプリケーション」のOAuthクライアントに次の承認済みのリダイレクトURIを登録:"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid ""
+"In Meta for Developers, Facebook Login &gt; Settings, these Valid OAuth\n"
+"                                Redirect URIs:"
+msgstr "Meta for Developersの Facebookログイン &gt; 設定 で、次の有効なOAuthリダイレクトURIを登録:"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid "New accounts are by invitation only for now: no account was created."
+msgstr "現在、新規アカウントは招待制です。アカウントは作成されませんでした。"
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_auth_oauth_provider
+msgid "OAuth2 provider"
+msgstr ""
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid ""
+"Set up in Website &gt; Configuration &gt; Settings, “Sign in with Google &amp; Facebook”.\n"
+"                        Keep “OAuth Authentication” ticked: unticked, the sign-in buttons are uninstalled."
+msgstr ""
+"ウェブサイト &gt; 設定 &gt; 設定 "
+"の「Google・Facebookでログイン」で設定します。「OAuth認証」はオンのままにしてください。オフにするとログインボタンがアンインストールされます。"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_kind
+msgid ""
+"Set: customers sign in with this provider through the server (/social-"
+"login), with the client secret below. Odoo's own way in (/auth_oauth/signin)"
+" is then closed to it."
+msgstr ""
+"設定すると、このプロバイダーでのログインはサーバー経由（/social-"
+"login）で、下のクライアントシークレットを使って行われます。Odoo標準のログイン経路（/auth_oauth/signin）はこのプロバイダーでは使えなくなります。"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_enabled
+msgid "Sign in with Facebook"
+msgstr "Facebookでログイン"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Sign in with Google & Facebook"
+msgstr "Google・Facebookでログイン"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Stop sharing them"
+msgstr "共有を停止する"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"The account with this email has been closed. Contact us if you would like it"
+" back."
+msgstr "このメールアドレスのアカウントは閉鎖されています。再開をご希望の場合はお問い合わせください。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "The button shows once both are filled in."
+msgstr "両方を入力するとボタンが表示されます。"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"This email belongs to a Gif2box staff account: please sign in with its "
+"password."
+msgstr "このメールアドレスはGif2boxのスタッフアカウントです。パスワードでログインしてください。"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"This sign-in took too long, or was finished in another browser. Please try "
+"again."
+msgstr "ログインに時間がかかりすぎたか、別のブラウザで完了しました。もう一度お試しください。"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_token_endpoint
+msgid "Token URL"
+msgstr "トークンURL"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "Try again with Facebook"
+msgstr "Facebookでもう一度試す"
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"We could not sign you in with %s. Please try again, or use your email below."
+msgstr "%sでログインできませんでした。もう一度お試しいただくか、下のメールアドレスをご利用ください。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"We delete your account and the data received from Google or Facebook, and confirm it\n"
+"                            to you by email. Only what the law requires us to keep, such as invoices, is kept, for\n"
+"                            as long as it requires."
+msgstr ""
+"アカウントとGoogleまたはFacebookから受け取ったデータを削除し、メールでお知らせします。請求書など法律で保存が義務付けられているものだけを、定められた期間保存します。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"When you sign in to Gif2box with Google or Facebook, we receive your name, your\n"
+"                            email address and the number of your account with them. We use them only to sign\n"
+"                            you in and to send you news of your orders."
+msgstr ""
+"GoogleまたはFacebookでGif2boxにログインすると、お名前、メールアドレス、各サービスのアカウント番号を受け取ります。これらはログインとご注文のお知らせにのみ使用します。"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_token_endpoint
+msgid "Where the server trades the one-time code for an access token."
+msgstr "サーバーがワンタイムコードをアクセストークンに交換する先。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"Write to us from the email address of your account, asking us to delete it."
+msgstr "アカウントのメールアドレスから、削除のご依頼をお送りください。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "You can then still sign in to Gif2box with your email."
+msgstr "その後もメールアドレスでGif2boxにログインできます。"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"Your %s email address is not verified yet. Verify it with them, or sign up "
+"with your email below."
+msgstr "%sのメールアドレスはまだ確認されていません。確認を済ませるか、下のフォームからメールアドレスで登録してください。"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "or with your email"
+msgstr "またはメールアドレスで"

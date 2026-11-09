@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        "Continue with Google", "Continue with Facebook": above the form of
+        the sign-in and sign-up pages, then "or with your email". `providers`
+        are the controller's (`list_providers`): ready, linking to
+        /social-login/<kind>. Why a sign-in failed shows here too.
+    -->
+    <template id="social_buttons" name="Gif2box: sign in with Google or Facebook">
+        <div t-if="providers or g2b_social_error" class="o_g2b_social">
+            <div t-if="g2b_social_error" class="alert alert-danger o_g2b_social_error" role="alert">
+                <t t-out="g2b_social_error"/>
+                <a t-if="g2b_social_retry" t-att-href="g2b_social_retry" class="alert-link d-block mt-1">Try again with Facebook</a>
+            </div>
+            <div t-if="providers" class="o_g2b_social_buttons">
+                <t t-foreach="providers" t-as="p">
+                    <t t-if="p['kind'] == 'google' and g2b_social_in_app">
+                        <!-- Google turns sign-ins from inside these apps away. -->
+                        <div class="o_g2b_social_btn o_g2b_social_btn_google is-blocked" aria-disabled="true">
+                            <t t-call="gif2box_social_login.icon_google"/>
+                            <span>Continue with Google</span>
+                        </div>
+                        <p class="o_g2b_social_hint">
+                            Google does not allow signing in from inside this app: open the page in
+                            your browser (Chrome, Safari) with the ⋯ menu, “Open in browser”.
+                        </p>
+                    </t>
+                    <a t-elif="p['kind'] == 'google'" t-att-href="p['auth_link']"
+                       class="o_g2b_social_btn o_g2b_social_btn_google" rel="nofollow">
+                        <t t-call="gif2box_social_login.icon_google"/>
+                        <span>Continue with Google</span>
+                    </a>
+                    <a t-elif="p['kind'] == 'facebook'" t-att-href="p['auth_link']"
+                       class="o_g2b_social_btn o_g2b_social_btn_facebook" rel="nofollow">
+                        <t t-call="gif2box_social_login.icon_facebook"/>
+                        <span>Continue with Facebook</span>
+                    </a>
+                </t>
+            </div>
+            <div t-if="providers" class="o_g2b_auth_or">or with your email</div>
+        </div>
+    </template>
+
+    <template id="icon_google" name="Gif2box: Google logo">
+        <svg class="o_g2b_social_icon" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+    </template>
+
+    <template id="icon_facebook" name="Gif2box: Facebook logo">
+        <svg class="o_g2b_social_icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#FFFFFF"/>
+            <path fill="#1877F2" d="M16.67 15.47 17.2 12h-3.33V9.75c0-.95.47-1.87 1.96-1.87h1.51V4.92s-1.37-.23-2.68-.23c-2.74 0-4.53 1.66-4.53 4.66V12H7.08v3.47h3.05v8.39a12.1 12.1 0 0 0 3.75 0v-8.39h2.79z"/>
+        </svg>
+    </template>
+
+    <!-- Odoo's own list of providers, at the foot of the forms: not shown. -->
+    <template id="oauth_providers" inherit_id="auth_oauth.providers" name="Gif2box: no Odoo provider list">
+        <xpath expr="//div[hasclass('o_auth_oauth_providers')]/.." position="replace"/>
+    </template>
+
+    <!-- Sign in -->
+    <template id="login" inherit_id="web.login" name="Gif2box: sign in with Google or Facebook" priority="40">
+        <xpath expr="//form[contains(@t-attf-class, 'oe_login_form')]" position="before">
+            <t t-call="gif2box_social_login.social_buttons"/>
+        </xpath>
+    </template>
+
+    <!-- Sign up: not when choosing the password of an invitation. -->
+    <template id="signup" inherit_id="auth_signup.signup" name="Gif2box: sign up with Google or Facebook" priority="40">
+        <xpath expr="//form[hasclass('oe_signup_form')]" position="before">
+            <t t-if="not token" t-call="gif2box_social_login.social_buttons"/>
+        </xpath>
+    </template>
+
+</odoo>

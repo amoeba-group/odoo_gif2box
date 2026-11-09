@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Odoo's Google and Facebook providers, set up for sign-in through the
+         server; Odoo.com's switched off. A provider set up already is left
+         as it is, so this may run at every update. -->
+    <function model="auth.oauth.provider" name="_g2b_setup_providers"/>
+</odoo>

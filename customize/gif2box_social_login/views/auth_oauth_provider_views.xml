@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Settings > Users > OAuth Providers (debug mode): the secret and the
+         token URL of the providers signed in through the server. -->
+    <record id="view_oauth_provider_form" model="ir.ui.view">
+        <field name="name">auth.oauth.provider.form.gif2box</field>
+        <field name="model">auth.oauth.provider</field>
+        <field name="inherit_id" ref="auth_oauth.view_oauth_provider_form"/>
+        <field name="arch" type="xml">
+            <field name="client_id" position="after">
+                <field name="g2b_client_secret" password="True" invisible="not g2b_kind"/>
+                <field name="g2b_kind"/>
+            </field>
+            <field name="validation_endpoint" position="before">
+                <field name="g2b_token_endpoint" invisible="not g2b_kind"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_oauth_provider_tree" model="ir.ui.view">
+        <field name="name">auth.oauth.provider.list.gif2box</field>
+        <field name="model">auth.oauth.provider</field>
+        <field name="inherit_id" ref="auth_oauth.view_oauth_provider_tree"/>
+        <field name="arch" type="xml">
+            <field name="client_id" position="after">
+                <field name="g2b_kind" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

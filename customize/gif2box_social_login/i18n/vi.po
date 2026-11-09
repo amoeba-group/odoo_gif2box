@@ -1,0 +1,384 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gif2box_social_login
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-09 08:39+0000\n"
+"PO-Revision-Date: 2026-11-09 08:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"%s did not share your email address with us, and we need it to send you news"
+" of your orders. Try again and allow it, or sign up with your email below."
+msgstr ""
+"%s chưa chia sẻ địa chỉ email của bạn, mà Gif2box cần email để gửi thông tin"
+" đơn hàng cho bạn. Hãy thử lại và cho phép chia sẻ email, hoặc đăng ký bằng "
+"email ở bên dưới."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "1234567890-abc123.apps.googleusercontent.com"
+msgstr "1234567890-abc123.apps.googleusercontent.com"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "<i class=\"oi oi-fw oi-arrow-right\"/> Google Cloud Console"
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/> Google Cloud Console"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "<i class=\"oi oi-fw oi-arrow-right\"/> Meta for Developers"
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/> Meta for Developers"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "<span>Continue with Facebook</span>"
+msgstr "<span>Tiếp tục với Facebook</span>"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "<span>Continue with Google</span>"
+msgstr "<span>Tiếp tục với Google</span>"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"<strong>Facebook</strong>: Settings &amp; privacy › Settings › Apps and websites,\n"
+"                                then remove Gif2box."
+msgstr ""
+"<strong>Facebook</strong>: Cài đặt &amp; quyền riêng tư › Cài đặt › Ứng dụng"
+" và trang web, rồi gỡ Gif2box."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"<strong>Google</strong>: myaccount.google.com › Security › Your connections to\n"
+"                                third-party apps &amp; services › Gif2box, then delete the connection."
+msgstr ""
+"<strong>Google</strong>: myaccount.google.com › Bảo mật › Các kết nối của "
+"bạn với ứng dụng và dịch vụ bên thứ ba › Gif2box, rồi xóa kết nối."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "A “Continue with Facebook” button on the sign-in and sign-up pages"
+msgstr "Nút “Tiếp tục với Facebook” trên trang đăng nhập và đăng ký"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "A “Continue with Google” button on the sign-in and sign-up pages"
+msgstr "Nút “Tiếp tục với Google” trên trang đăng nhập và đăng ký"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "App ID"
+msgstr "App ID"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "App secret"
+msgstr "App secret"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Client ID"
+msgstr "Client ID"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_client_secret
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Client secret"
+msgstr "Client secret"
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid "Customers sign in with their Google or Facebook account"
+msgstr "Khách hàng đăng nhập bằng tài khoản Google hoặc Facebook"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Delete your account and its data"
+msgstr "Xóa tài khoản và dữ liệu"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Deleting your sign-in data"
+msgstr "Xóa dữ liệu đăng nhập của bạn"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields.selection,name:gif2box_social_login.selection__auth_oauth_provider__g2b_kind__facebook
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Facebook"
+msgstr "Facebook"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_client_id
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_client_secret
+msgid "Facebook App Secret"
+msgstr "Facebook App Secret"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_facebook
+msgid "Facebook Redirect URI"
+msgstr "Facebook Redirect URI"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_facebook_alt
+msgid "Facebook Redirect URI (other host)"
+msgstr "Facebook Redirect URI (tên miền còn lại)"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "GOCSPX-..."
+msgstr "GOCSPX-..."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_kind
+msgid "Gif2box Sign-in"
+msgstr "Đăng nhập Gif2box"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields.selection,name:gif2box_social_login.selection__auth_oauth_provider__g2b_kind__google
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Google"
+msgstr "Google"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid "Google & Facebook"
+msgstr "Google & Facebook"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_google_client_secret
+msgid "Google Client Secret"
+msgstr "Google Client Secret"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_google
+msgid "Google Redirect URI"
+msgstr "Google Redirect URI"
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_social_uri_google_alt
+msgid "Google Redirect URI (other host)"
+msgstr "Google Redirect URI (tên miền còn lại)"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid ""
+"Google does not allow signing in from inside this app: open the page in\n"
+"                            your browser (Chrome, Safari) with the ⋯ menu, “Open in browser”."
+msgstr ""
+"Google không cho đăng nhập ngay trong ứng dụng này: hãy mở trang bằng trình "
+"duyệt (Chrome, Safari) qua menu ⋯, chọn “Mở bằng trình duyệt”."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_client_secret
+msgid ""
+"Google: the client secret of the OAuth client. Facebook: the App secret."
+msgstr "Google: client secret của OAuth client. Facebook: App secret."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid ""
+"In Google Cloud Console, an OAuth client of type “Web application”, with\n"
+"                                these Authorized redirect URIs:"
+msgstr ""
+"Trong Google Cloud Console: tạo OAuth client loại “Web application”, với các"
+" Authorized redirect URIs sau:"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid ""
+"In Meta for Developers, Facebook Login &gt; Settings, these Valid OAuth\n"
+"                                Redirect URIs:"
+msgstr ""
+"Trong Meta for Developers, mục Facebook Login &gt; Settings, điền các Valid "
+"OAuth Redirect URIs sau:"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid "New accounts are by invitation only for now: no account was created."
+msgstr ""
+"Hiện tài khoản mới chỉ được tạo theo lời mời: chưa có tài khoản nào được "
+"tạo."
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_auth_oauth_provider
+msgid "OAuth2 provider"
+msgstr ""
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form_general
+msgid ""
+"Set up in Website &gt; Configuration &gt; Settings, “Sign in with Google &amp; Facebook”.\n"
+"                        Keep “OAuth Authentication” ticked: unticked, the sign-in buttons are uninstalled."
+msgstr ""
+"Cài đặt tại Trang web &gt; Cấu hình &gt; Cài đặt, mục “Đăng nhập bằng Google"
+" &amp; Facebook”. Luôn giữ “Xác thực OAuth” được chọn: nếu bỏ chọn, các nút "
+"đăng nhập sẽ bị gỡ cài đặt."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_kind
+msgid ""
+"Set: customers sign in with this provider through the server (/social-"
+"login), with the client secret below. Odoo's own way in (/auth_oauth/signin)"
+" is then closed to it."
+msgstr ""
+"Khi đặt: khách đăng nhập với nhà cung cấp này qua máy chủ (/social-login), "
+"bằng client secret bên dưới. Lối đăng nhập mặc định của Odoo "
+"(/auth_oauth/signin) khi đó bị đóng với nhà cung cấp này."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_res_config_settings__g2b_facebook_enabled
+msgid "Sign in with Facebook"
+msgstr "Đăng nhập bằng Facebook"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "Sign in with Google & Facebook"
+msgstr "Đăng nhập bằng Google & Facebook"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "Stop sharing them"
+msgstr "Ngừng chia sẻ"
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"The account with this email has been closed. Contact us if you would like it"
+" back."
+msgstr ""
+"Tài khoản dùng email này đã bị đóng. Hãy liên hệ với chúng tôi nếu bạn muốn "
+"mở lại."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.res_config_settings_view_form
+msgid "The button shows once both are filled in."
+msgstr "Nút chỉ hiện khi đã điền đủ cả hai."
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"This email belongs to a Gif2box staff account: please sign in with its "
+"password."
+msgstr ""
+"Email này thuộc tài khoản nhân viên Gif2box: vui lòng đăng nhập bằng mật "
+"khẩu."
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"This sign-in took too long, or was finished in another browser. Please try "
+"again."
+msgstr ""
+"Lượt đăng nhập này đã quá lâu, hoặc được hoàn tất trên một trình duyệt khác."
+" Bạn vui lòng thử lại."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,field_description:gif2box_social_login.field_auth_oauth_provider__g2b_token_endpoint
+msgid "Token URL"
+msgstr "URL lấy token"
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "Try again with Facebook"
+msgstr "Thử lại với Facebook"
+
+#. module: gif2box_social_login
+#: model:ir.model,name:gif2box_social_login.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"We could not sign you in with %s. Please try again, or use your email below."
+msgstr ""
+"Chưa đăng nhập được bằng %s. Bạn vui lòng thử lại, hoặc dùng email ở bên "
+"dưới."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"We delete your account and the data received from Google or Facebook, and confirm it\n"
+"                            to you by email. Only what the law requires us to keep, such as invoices, is kept, for\n"
+"                            as long as it requires."
+msgstr ""
+"Chúng tôi sẽ xóa tài khoản cùng dữ liệu nhận từ Google hoặc Facebook, và xác"
+" nhận lại với bạn qua email. Chỉ những gì pháp luật yêu cầu lưu giữ, như hóa"
+" đơn, được giữ lại trong thời hạn luật định."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"When you sign in to Gif2box with Google or Facebook, we receive your name, your\n"
+"                            email address and the number of your account with them. We use them only to sign\n"
+"                            you in and to send you news of your orders."
+msgstr ""
+"Khi bạn đăng nhập Gif2box bằng Google hoặc Facebook, chúng tôi nhận được "
+"tên, địa chỉ email và mã số tài khoản của bạn bên đó. Chúng tôi chỉ dùng các"
+" thông tin này để đăng nhập cho bạn và gửi thông tin đơn hàng."
+
+#. module: gif2box_social_login
+#: model:ir.model.fields,help:gif2box_social_login.field_auth_oauth_provider__g2b_token_endpoint
+msgid "Where the server trades the one-time code for an access token."
+msgstr "Nơi máy chủ đổi mã dùng một lần lấy access token."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid ""
+"Write to us from the email address of your account, asking us to delete it."
+msgstr ""
+"Hãy gửi yêu cầu xóa tài khoản cho chúng tôi từ địa chỉ email của tài khoản "
+"đó."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.data_deletion_page
+msgid "You can then still sign in to Gif2box with your email."
+msgstr "Sau đó bạn vẫn có thể đăng nhập Gif2box bằng email."
+
+#. module: gif2box_social_login
+#. odoo-python
+#: code:addons/gif2box_social_login/controllers/main.py:0
+msgid ""
+"Your %s email address is not verified yet. Verify it with them, or sign up "
+"with your email below."
+msgstr ""
+"Email của tài khoản %s chưa được xác minh. Hãy xác minh email đó, hoặc đăng "
+"ký bằng email ở bên dưới."
+
+#. module: gif2box_social_login
+#: model_terms:ir.ui.view,arch_db:gif2box_social_login.social_buttons
+msgid "or with your email"
+msgstr "hoặc dùng email"

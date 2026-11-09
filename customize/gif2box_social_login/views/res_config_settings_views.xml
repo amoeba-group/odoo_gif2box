@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Website > Configuration > Settings: the keys of each provider, and
+         the addresses to give it. A button shows once its keys are in. -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.gif2box.social.login</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='website_login_documents']/.." position="after">
+                <block title="Sign in with Google &amp; Facebook" id="g2b_social_login_settings">
+                    <setting id="g2b_social_google" string="Google"
+                             help="A “Continue with Google” button on the sign-in and sign-up pages">
+                        <field name="auth_oauth_google_enabled"/>
+                        <div class="content-group" invisible="not auth_oauth_google_enabled">
+                            <div class="row mt16">
+                                <label for="auth_oauth_google_client_id" string="Client ID" class="col-lg-4 o_light_label"/>
+                                <field name="auth_oauth_google_client_id" class="col-lg-8"
+                                       placeholder="1234567890-abc123.apps.googleusercontent.com"/>
+                            </div>
+                            <div class="row">
+                                <label for="g2b_google_client_secret" string="Client secret" class="col-lg-4 o_light_label"/>
+                                <field name="g2b_google_client_secret" class="col-lg-8" password="True"
+                                       placeholder="GOCSPX-..."/>
+                            </div>
+                            <div class="text-warning mt8"
+                                 invisible="auth_oauth_google_client_id and g2b_google_client_secret">
+                                The button shows once both are filled in.
+                            </div>
+                            <div class="mt16 text-muted">
+                                In Google Cloud Console, an OAuth client of type “Web application”, with
+                                these Authorized redirect URIs:
+                            </div>
+                            <div class="mt4">
+                                <field name="g2b_social_uri_google" widget="CopyClipboardChar" class="w-100"/>
+                            </div>
+                            <div class="mt4" invisible="not g2b_social_uri_google_alt">
+                                <field name="g2b_social_uri_google_alt" widget="CopyClipboardChar" class="w-100"/>
+                            </div>
+                            <div>
+                                <a href="https://console.cloud.google.com/apis/credentials" target="_blank"><i class="oi oi-fw oi-arrow-right"/> Google Cloud Console</a>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="g2b_social_facebook" string="Facebook"
+                             help="A “Continue with Facebook” button on the sign-in and sign-up pages">
+                        <field name="g2b_facebook_enabled"/>
+                        <div class="content-group" invisible="not g2b_facebook_enabled">
+                            <div class="row mt16">
+                                <label for="g2b_facebook_client_id" string="App ID" class="col-lg-4 o_light_label"/>
+                                <field name="g2b_facebook_client_id" class="col-lg-8" placeholder="123456789012345"/>
+                            </div>
+                            <div class="row">
+                                <label for="g2b_facebook_client_secret" string="App secret" class="col-lg-4 o_light_label"/>
+                                <field name="g2b_facebook_client_secret" class="col-lg-8" password="True"/>
+                            </div>
+                            <div class="text-warning mt8"
+                                 invisible="g2b_facebook_client_id and g2b_facebook_client_secret">
+                                The button shows once both are filled in.
+                            </div>
+                            <div class="mt16 text-muted">
+                                In Meta for Developers, Facebook Login > Settings, these Valid OAuth
+                                Redirect URIs:
+                            </div>
+                            <div class="mt4">
+                                <field name="g2b_social_uri_facebook" widget="CopyClipboardChar" class="w-100"/>
+                            </div>
+                            <div class="mt4" invisible="not g2b_social_uri_facebook_alt">
+                                <field name="g2b_social_uri_facebook_alt" widget="CopyClipboardChar" class="w-100"/>
+                            </div>
+                            <div>
+                                <a href="https://developers.facebook.com/apps/" target="_blank"><i class="oi oi-fw oi-arrow-right"/> Meta for Developers</a>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- General Settings: Odoo's own Google block, now kept with Facebook's
+         in the website's settings. -->
+    <record id="res_config_settings_view_form_general" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.gif2box.social.login.general</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="auth_oauth.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="signin_google_setting" position="replace">
+                <setting id="signin_google_setting" string="Google &amp; Facebook"
+                         help="Customers sign in with their Google or Facebook account"
+                         invisible="not module_auth_oauth">
+                    <div class="text-muted">
+                        Set up in Website > Configuration > Settings, “Sign in with Google &amp; Facebook”.
+                        Keep “OAuth Authentication” ticked: unticked, the sign-in buttons are uninstalled.
+                    </div>
+                </setting>
+            </setting>
+        </field>
+    </record>
+
+</odoo>

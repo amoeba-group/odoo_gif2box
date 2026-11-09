@@ -1,0 +1,157 @@
+///
+/// "Continue with Google / Facebook" (`views/auth_templates.xml`), above the
+/// form of the sign-in and sign-up cards (gif2box_portal's `auth.scss`, whose
+/// "or" line closes the block). Each button in its brand's colours.
+///
+
+$g2b-social-ink: #2E3A3A !default;
+$g2b-social-muted: #6F7B7B !default;
+$g2b-social-facebook: #1877F2;
+$g2b-social-facebook-dark: #0F63D6;
+
+.o_g2b_social {
+    margin-bottom: .35rem;
+
+    .o_g2b_auth_or {
+        margin: 1.35rem 0 1.1rem;
+    }
+}
+
+.o_g2b_social_error {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.o_g2b_social_buttons {
+    display: grid;
+    gap: .7rem;
+}
+
+.o_g2b_social_btn {
+    position: relative;
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.1rem;
+    padding: .55rem 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2rem;
+    transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+
+    // The logo at the left edge, the label centred whatever its length.
+    .o_g2b_social_icon {
+        position: absolute;
+        top: 50%;
+        left: 1.1rem;
+        width: 1.35rem;
+        height: 1.35rem;
+        transform: translateY(-50%);
+    }
+
+    &:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 .25rem rgba(#FD7352, .25);
+    }
+}
+
+.o_g2b_social_btn_google {
+    color: $g2b-social-ink;
+    background: #FFFFFF;
+    border: 1.5px solid #DADCE0;
+
+    &:hover,
+    &:focus-visible {
+        color: $g2b-social-ink;
+        background: #F8F9FA;
+        border-color: #C6CACF;
+    }
+
+    &.is-blocked {
+        cursor: not-allowed;
+        opacity: .55;
+    }
+}
+
+.o_g2b_social_btn_facebook {
+    color: #FFFFFF;
+    background: $g2b-social-facebook;
+    border: 1.5px solid $g2b-social-facebook;
+
+    &:hover,
+    &:focus-visible {
+        color: #FFFFFF;
+        background: $g2b-social-facebook-dark;
+        border-color: $g2b-social-facebook-dark;
+    }
+}
+
+.o_g2b_social_hint {
+    margin: -.25rem .5rem .15rem;
+    font-size: .85rem;
+    line-height: 1.45;
+    color: $g2b-social-muted;
+    text-align: center;
+}
+
+// /social-login/data-deletion ----------------------------------------------------------
+.o_g2b_social_page {
+    padding: 2rem 0 4rem;
+    background: #FFF9F5;
+}
+
+.o_g2b_social_page_card {
+    max-width: 46rem;
+    padding: 2rem 1.4rem;
+    margin: 0 auto;
+    line-height: 1.65;
+    color: $g2b-social-ink;
+    background: #FFFFFF;
+    border-radius: 1.5rem;
+    box-shadow: 0 1rem 3rem rgba(120, 70, 40, .1);
+
+    @include media-breakpoint-up(md) {
+        padding: 2.75rem 3rem;
+    }
+
+    h1 {
+        margin-bottom: .75rem;
+        font-family: 'G2B Baloo', $font-family-base;
+        font-size: 1.85rem;
+        font-weight: 700;
+        color: #004444;
+    }
+
+    h2 {
+        margin: 1.75rem 0 .6rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #004444;
+    }
+
+    a {
+        font-weight: 600;
+        color: #E85A38;
+    }
+}
+
+.o_g2b_social_page_contact {
+    padding: 0;
+    list-style: none;
+
+    li {
+        padding: .2rem 0;
+    }
+
+    .fa {
+        color: #E85A38;
+    }
+}
+
+.o_g2b_social_page_lead {
+    color: $g2b-social-muted;
+}

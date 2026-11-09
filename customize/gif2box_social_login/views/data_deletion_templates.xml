@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- /social-login/data-deletion: how to delete what Google or Facebook
+         shared. Facebook wants such a page (App settings > Basic, "User data
+         deletion") before the app goes live. -->
+    <template id="data_deletion_page" name="Gif2box: deleting sign-in data">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Deleting your sign-in data</t>
+            <div id="wrap" class="o_g2b_social_page">
+                <div class="container">
+                    <article class="o_g2b_social_page_card">
+                        <h1>Deleting your sign-in data</h1>
+                        <p class="o_g2b_social_page_lead">
+                            When you sign in to Gif2box with Google or Facebook, we receive your name, your
+                            email address and the number of your account with them. We use them only to sign
+                            you in and to send you news of your orders.
+                        </p>
+
+                        <h2>Stop sharing them</h2>
+                        <ul>
+                            <li><strong>Facebook</strong>: Settings &amp; privacy › Settings › Apps and websites,
+                                then remove Gif2box.</li>
+                            <li><strong>Google</strong>: myaccount.google.com › Security › Your connections to
+                                third-party apps &amp; services › Gif2box, then delete the connection.</li>
+                        </ul>
+                        <p>You can then still sign in to Gif2box with your email.</p>
+
+                        <h2>Delete your account and its data</h2>
+                        <p>Write to us from the email address of your account, asking us to delete it.</p>
+                        <ul class="o_g2b_social_page_contact">
+                            <li t-if="g2b_email">
+                                <i class="fa fa-envelope-o fa-fw" aria-hidden="true"/>
+                                <a t-att-href="'mailto:%s' % g2b_email" t-out="g2b_email"/>
+                            </li>
+                            <li t-if="g2b_phone">
+                                <i class="fa fa-phone fa-fw" aria-hidden="true"/>
+                                <a t-att-href="'tel:%s' % g2b_phone.replace(' ', '')" t-out="g2b_phone"/>
+                            </li>
+                        </ul>
+                        <p>
+                            We delete your account and the data received from Google or Facebook, and confirm it
+                            to you by email. Only what the law requires us to keep, such as invoices, is kept, for
+                            as long as it requires.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
